@@ -1,13 +1,22 @@
 package com.craigstockton.uinavigator;
 
+import com.craigstockton.uinavigator.validators.BooleanValidator;
+import com.craigstockton.uinavigator.validators.ClassValidator;
+import com.craigstockton.uinavigator.validators.IntegerValidator;
+import com.craigstockton.uinavigator.validators.StringValidator;
 import com.craigstockton.validator4test.Validator;
+import javafx.scene.control.TableColumnBase;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
+import javax.swing.text.TableView;
+
 @Test
-public class BrowserHostTest {
+public class BrowserHostTest extends TestBase {
+
+    private static final String uri = "http://www.google.com";
 
     @Test
     public void getInstance() {
@@ -38,7 +47,7 @@ public class BrowserHostTest {
     public void findUiElements() {
         Integer expected = 6;
         final BrowserHost browser = BrowserHost.getInstance();
-        browser.load("http://www.google.com");
+        browser.load(uri);
         Integer actual = browser.findUiElements(By.className("_Gs")).size();
         confirm(IntegerValidator.getInstance(expected, actual).validate());
     }
@@ -46,17 +55,8 @@ public class BrowserHostTest {
     @Test
     public void waitUntilVisible() {
         BrowserHost browser = BrowserHost.getInstance();
-        browser.load("http://www.google.com");
+        browser.load(uri);
         Boolean actual = browser.waitUntilVisible(By.id("gsri_ok0"));
         confirm(BooleanValidator.getInstance(true, actual).validate());
-    }
-
-    private void confirm(String result) {
-        Assert.assertTrue(result.equals(Validator.PASS), result);
-    }
-
-    @AfterMethod
-    private void terminate() {
-        BrowserHost.quitInstance();
     }
 }

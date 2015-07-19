@@ -1,4 +1,4 @@
-package com.craigstockton.uinavigator;
+package com.craigstockton.uinavigator.validators;
 
 import com.craigstockton.validator4test.Validator;
 
@@ -20,7 +20,7 @@ public class StringValidator extends Validator {
 
     @Override
     protected void executeVerifications() {
-        verify("Uri contains expected value", actual.contains(expected), true);
+        verify("String contains expected value", actual.contains(expected), true);
     }
 
     @Override
