@@ -3,12 +3,25 @@ version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 
-sourceCompatibility = 1.5
+sourceCompatibility = 1.8
+version = '1.0'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile 'org.apache.logging.log4j:log4j-api:2.3'
+    compile 'org.apache.logging.log4j:log4j-core:2.3'
+    testCompile group: 'org.testng', name: 'testng', version: '6.9.4'
+    compile 'org.seleniumhq.selenium:selenium-java:2.45.0'
+    compile files('./src/test/libs/validator4test-1.0.jar')
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
+
+test {
+    useTestNG()
 }
