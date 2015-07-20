@@ -23,6 +23,10 @@ public class BrowserHost {
         instantiateUiDriver();
     }
 
+    /**
+     *
+     * @return BrowserHost singleton instance
+     */
     public static BrowserHost getInstance() {
         if (uiHost == null) {
             uiHost = new BrowserHost();
@@ -30,6 +34,9 @@ public class BrowserHost {
         return uiHost;
     }
 
+    /**
+     * Quits the singleton instance of BrowserHost and replaces it with null.
+     */
     public static void quitInstance() {
         if (uiHost == null) {
             return;
@@ -38,11 +45,20 @@ public class BrowserHost {
         uiHost = null;
     }
 
+    /**
+     * Navigate browser to the provided URI.
+     * @param uri String URI
+     */
     public void load(String uri) {
         getLogger().info(String.format("Navigate browser to %s", uri));
         getDriver().get(uri);
     }
 
+    /**
+     *
+     * @param locator A Selenium.By WebElement locator
+     * @return WebElement within the current web page
+     */
     public WebElement findUiElement(By locator) {
         List<WebElement> elements = findUiElements(locator);
         if (elements.size() > 0) {
@@ -53,6 +69,11 @@ public class BrowserHost {
         return null;
     }
 
+    /**
+     *
+     * @param locator A Selenium.By WebElement locator
+     * @return A List of WebElements within the current web page
+     */
     public List<WebElement> findUiElements(By locator) {
         List<WebElement> elements;
         try {
@@ -64,6 +85,11 @@ public class BrowserHost {
         return elements;
     }
 
+    /**
+     *
+     * @param locator A Selenium.By WebElement
+     * @return boolean Indicates whether the WebElement described by the By locator was visible within a defiend timeout period
+     */
     public boolean waitUntilVisible(By locator) {
         try {
             new WebDriverWait(getDriver(), waitLimit).until(ExpectedConditions.visibilityOfElementLocated(locator));
@@ -75,6 +101,10 @@ public class BrowserHost {
         return true;
     }
 
+    /**
+     *
+     * @return String which is the current URI of the browser
+     */
     public String getUri() {
         return getDriver().getCurrentUrl();
     }
