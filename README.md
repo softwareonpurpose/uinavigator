@@ -3,4 +3,4 @@ Intent of UI Navigator is to encapsulate the driver for any UI host.  Currently 
 
 <b>BrowserHost</b> - Encapsulates Selenium WebDriver, exposing minimal functionality
 
-<b>HtmlElement</b> - Encapsulates Selenium WebElement functionality.  Lazy loading of locators used to find WebElements in 
+<b>HtmlElement</b> - Encapsulates Selenium WebElement functionality.  Lazy loading of locators used to find WebElements in narrowly scoped parent WebElements mitigates virtually all Stale Element and Element Not Found exceptions.
