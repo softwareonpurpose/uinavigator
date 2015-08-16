@@ -3,9 +3,6 @@ package com.craigstockton.uinavigator;
 import com.craigstockton.uinavigator.validators.ClassValidator;
 import com.craigstockton.uinavigator.validators.StringValidator;
 import org.testng.annotations.Test;
-import org.w3c.dom.events.UIEvent;
-
-import java.util.concurrent.TimeoutException;
 
 @Test
 public class HtmlElementTest extends TestBase {
@@ -59,7 +56,7 @@ public class HtmlElementTest extends TestBase {
         confirm(StringValidator.getInstance(expected, actual).validate());
     }
 
-    @Test
+    @Test(enabled = false) //  element is now hidden on Google.com
     public void getChildAttributeHref() {
         String expected = "https://mail.google.com/mail/?tab=wm";
         BrowserHost.getInstance().load("http://www.google.com");
@@ -70,7 +67,7 @@ public class HtmlElementTest extends TestBase {
         confirm(StringValidator.getInstance(expected, actual).validate());
     }
 
-    @Test
+    @Test(enabled = false) //  element is now hidden on Google.com
     public void getChildAttributeTip() {
         String expected = "Google Apps";
         BrowserHost.getInstance().load("http://www.google.com");

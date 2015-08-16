@@ -15,7 +15,7 @@ dependencies {
     compile 'org.apache.logging.log4j:log4j-core:2.3'
     testCompile group: 'org.testng', name: 'testng', version: '6.9.4'
     compile 'org.seleniumhq.selenium:selenium-java:2.45.0'
-    compile files('./src/test/libs/validator4test-1.0.jar')
+    compile files('./src/test/resources/validator4test-1.0.jar')
 }
 
 task wrapper(type: Wrapper) {

@@ -1,19 +1,19 @@
 /**
  * Copyright 2015 Craig A. Stockton
- * <p>
+ * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
+ * <p/>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ * <p/>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- package com.craigstockton.uinavigator;
+package com.craigstockton.uinavigator;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -54,7 +54,7 @@ public class HtmlElement {
     }
 
     private HtmlElement(String description, String locatorType, String locatorValue, String attribute, String attributeValue,
-            Integer ordinal, HtmlElement parent) {
+                        Integer ordinal, HtmlElement parent) {
         this.description = description;
         locator = createLocator(locatorType, locatorValue);
         this.parent = parent;
@@ -94,7 +94,7 @@ public class HtmlElement {
      * @return HtmlElement instantiated with the defined locator and description
      */
     public static HtmlElement getInstance(String description, String locatorType, String locatorValue, int ordinal,
-            HtmlElement parent) {
+                                          HtmlElement parent) {
         return new HtmlElement(description, locatorType, locatorValue, null, null, ordinal, parent);
     }
 
@@ -108,7 +108,7 @@ public class HtmlElement {
      * @return HtmlElement instantiated with the defined locator and description
      */
     public static HtmlElement getInstance(String description, String locatorType, String locatorValue, String attribute,
-            String attributeValue, HtmlElement parent) {
+                                          String attributeValue, HtmlElement parent) {
         return new HtmlElement(description, locatorType, locatorValue, attribute, attributeValue, null, parent);
     }
 
@@ -120,8 +120,9 @@ public class HtmlElement {
      * @return List of HtmlElements instantiated with the defined locator and description
      */
     public static List<HtmlElement> getList(String description, String locatorType, String locatorValue, HtmlElement parent) {
-        List<HtmlElement> htmlElements = new ArrayList<>();
-        List<WebElement> webElements = parent.getElement().findElements(createLocator(locatorType, locatorValue));
+        List<HtmlElement> htmlElements = new ArrayList<HtmlElement>();
+        WebElement parentElement = parent.getElement();
+        List<WebElement> webElements = parentElement != null ? parentElement.findElements(createLocator(locatorType, locatorValue)) : new ArrayList<WebElement>();
         for (int elementOrdinal = 1; elementOrdinal <= webElements.size(); elementOrdinal++) {
             htmlElements.add(HtmlElement.getInstance(description, locatorType, locatorValue, elementOrdinal, parent));
         }
@@ -213,7 +214,8 @@ public class HtmlElement {
      * @return boolean indicating whether the element is selected
      */
     public boolean isSelected() {
-        return selectedClass == null ? getElement().isSelected() : classContains(selectedClass);
+        WebElement element = getElement();
+        return element == null ? false : selectedClass == null ? element.isSelected() : classContains(selectedClass);
     }
 
     /**
@@ -267,19 +269,14 @@ public class HtmlElement {
 
     private static By createLocator(String locatorType, String locatorValue) {
         By locator = null;
-        switch (locatorType) {
-            case LocatorType.CLASS:
-                locator = By.className(locatorValue);
-                break;
-            case LocatorType.ID:
-                locator = By.id(locatorValue);
-                break;
-            case LocatorType.NAME:
-                locator = By.name(locatorValue);
-                break;
-            case LocatorType.TAG:
-                locator = By.tagName(locatorValue);
-                break;
+        if (locatorType.equals(LocatorType.CLASS)) {
+            locator = By.className(locatorValue);
+        } else if (locatorType.equals(LocatorType.ID)) {
+            locator = By.id(locatorValue);
+        } else if (locatorType.equals(LocatorType.NAME)) {
+            locator = By.name(locatorValue);
+        } else if (locatorType.equals(LocatorType.TAG)) {
+            locator = By.tagName(locatorValue);
         }
         return locator;
     }
@@ -369,7 +366,7 @@ public class HtmlElement {
             int elementIndex = ordinal - 1;
             try {
                 final WebElement parentElement = parent.getElement();
-                elements = parentElement == null ? new ArrayList<>() : parentElement.findElements(locator);
+                elements = parentElement == null ? new ArrayList<WebElement>() : parentElement.findElements(locator);
             } catch (WebDriverException e) {
                 getLogger().warn(String.format(message_unableToFind, getElementDescription()));
                 return null;
@@ -389,12 +386,11 @@ public class HtmlElement {
     protected class GetElement_attribute implements GetElementBehavior {
 
         public WebElement execute() {
-            List<WebElement> elements;
-            elements = new ArrayList<>();
+            List<WebElement> elements = new ArrayList<WebElement>();
             int elementIndex = ordinal - 1;
             try {
                 final WebElement parentElement = parent.getElement();
-                List<WebElement> candidates = parentElement == null ? new ArrayList<>() : parentElement.findElements(locator);
+                List<WebElement> candidates = parentElement == null ? new ArrayList<WebElement>() : parentElement.findElements(locator);
                 for (WebElement candidate : candidates) {
                     final String candidateAttributeValue = candidate.getAttribute(attribute);
                     if (candidateAttributeValue != null && candidateAttributeValue.contains(attributeValue))
