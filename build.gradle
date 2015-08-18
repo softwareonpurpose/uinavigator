@@ -3,7 +3,7 @@ version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 1.6
 version = '1.0'
 
 repositories {
@@ -24,4 +24,15 @@ task wrapper(type: Wrapper) {
 
 test {
     useTestNG()
+}
+
+task debug(type: Test) {
+    def groupsToInclude = []
+    def groupsToExclude = []
+
+    groupsToInclude.add('under_development')
+    useTestNG() {
+        groupsToInclude.each { String group -> includeGroups group }
+        groupsToExclude.each { String group -> excludeGroups group }
+    }
 }

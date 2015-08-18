@@ -1,12 +1,12 @@
 /**
  * Copyright 2015 Craig A. Stockton
- * <p/>
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p/>
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p/>
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -54,7 +54,7 @@ public class HtmlElement {
     }
 
     private HtmlElement(String description, String locatorType, String locatorValue, String attribute, String attributeValue,
-                        Integer ordinal, HtmlElement parent) {
+            Integer ordinal, HtmlElement parent) {
         this.description = description;
         locator = createLocator(locatorType, locatorValue);
         this.parent = parent;
@@ -94,7 +94,7 @@ public class HtmlElement {
      * @return HtmlElement instantiated with the defined locator and description
      */
     public static HtmlElement getInstance(String description, String locatorType, String locatorValue, int ordinal,
-                                          HtmlElement parent) {
+            HtmlElement parent) {
         return new HtmlElement(description, locatorType, locatorValue, null, null, ordinal, parent);
     }
 
@@ -108,7 +108,7 @@ public class HtmlElement {
      * @return HtmlElement instantiated with the defined locator and description
      */
     public static HtmlElement getInstance(String description, String locatorType, String locatorValue, String attribute,
-                                          String attributeValue, HtmlElement parent) {
+            String attributeValue, HtmlElement parent) {
         return new HtmlElement(description, locatorType, locatorValue, attribute, attributeValue, null, parent);
     }
 
@@ -122,7 +122,9 @@ public class HtmlElement {
     public static List<HtmlElement> getList(String description, String locatorType, String locatorValue, HtmlElement parent) {
         List<HtmlElement> htmlElements = new ArrayList<HtmlElement>();
         WebElement parentElement = parent.getElement();
-        List<WebElement> webElements = parentElement != null ? parentElement.findElements(createLocator(locatorType, locatorValue)) : new ArrayList<WebElement>();
+        List<WebElement> webElements = parentElement != null ?
+                parentElement.findElements(createLocator(locatorType, locatorValue)) :
+                new ArrayList<WebElement>();
         for (int elementOrdinal = 1; elementOrdinal <= webElements.size(); elementOrdinal++) {
             htmlElements.add(HtmlElement.getInstance(description, locatorType, locatorValue, elementOrdinal, parent));
         }
@@ -390,7 +392,9 @@ public class HtmlElement {
             int elementIndex = ordinal - 1;
             try {
                 final WebElement parentElement = parent.getElement();
-                List<WebElement> candidates = parentElement == null ? new ArrayList<WebElement>() : parentElement.findElements(locator);
+                List<WebElement> candidates = parentElement == null ?
+                        new ArrayList<WebElement>() :
+                        parentElement.findElements(locator);
                 for (WebElement candidate : candidates) {
                     final String candidateAttributeValue = candidate.getAttribute(attribute);
                     if (candidateAttributeValue != null && candidateAttributeValue.contains(attributeValue))

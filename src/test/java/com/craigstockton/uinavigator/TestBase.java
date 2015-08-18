@@ -10,7 +10,7 @@ public abstract class TestBase {
         Assert.assertTrue(result.equals(Validator.PASS), result);
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     protected void terminate() {
         BrowserHost.quitInstance();
     }

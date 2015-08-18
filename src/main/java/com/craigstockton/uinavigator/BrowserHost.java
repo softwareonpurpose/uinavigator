@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- package com.craigstockton.uinavigator;
+package com.craigstockton.uinavigator;
 
+import com.craigstockton.uinavigator.driverinstantiation.WebDriverInstantiationBehavior;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
@@ -30,38 +31,48 @@ import java.util.List;
 public class BrowserHost {
 
     private static BrowserHost uiHost;
+    private final WebDriverInstantiationBehavior driverInstantiation;
     private WebDriver driver;
     private static final int waitLimit = 13;
     private final static String chromeDriverPath = "src/test/resources/chromedriver.exe";
 
-    private BrowserHost() {
+    private BrowserHost(WebDriverInstantiationBehavior driverInstantiation) {
+
+        this.driverInstantiation = driverInstantiation;
         instantiateUiDriver();
     }
 
     /**
-     *
-     * @return BrowserHost singleton instance
+     * @return BrowserHost singleton instance with default WebDriver
      */
     public static BrowserHost getInstance() {
         if (uiHost == null) {
-            uiHost = new BrowserHost();
+            uiHost = new BrowserHost(DefaultDriverInstantiation.getInstance());
         }
         return uiHost;
     }
 
     /**
-     * Quits the singleton instance of BrowserHost and replaces it with null.
+     * @param driverInstantiation WebDriverInstiationBehavior
+     * @return Selenium WebDriver
      */
-    public static void quitInstance() {
+    public static BrowserHost getInstance(WebDriverInstantiationBehavior driverInstantiation) {
         if (uiHost == null) {
-            return;
+            uiHost = new BrowserHost(driverInstantiation);
         }
-        uiHost.quit();
-        uiHost = null;
+        return uiHost;
+    }
+
+    public static void quitInstance() {
+        if (uiHost != null) {
+            uiHost.quit();
+            uiHost = null;
+        }
     }
 
     /**
      * Navigate browser to the provided URI.
+     *
      * @param uri String URI
      */
     public void load(String uri) {
@@ -70,7 +81,6 @@ public class BrowserHost {
     }
 
     /**
-     *
      * @param locator A Selenium.By WebElement locator
      * @return WebElement within the current web page
      */
@@ -85,7 +95,6 @@ public class BrowserHost {
     }
 
     /**
-     *
      * @param locator A Selenium.By WebElement locator
      * @return A List of WebElements within the current web page
      */
@@ -101,7 +110,6 @@ public class BrowserHost {
     }
 
     /**
-     *
      * @param locator A Selenium.By WebElement
      * @return boolean Indicates whether the WebElement described by the By locator was visible within a defiend timeout period
      */
@@ -117,7 +125,6 @@ public class BrowserHost {
     }
 
     /**
-     *
      * @return String which is the current URI of the browser
      */
     public String getUri() {
@@ -136,10 +143,7 @@ public class BrowserHost {
     private void instantiateUiDriver() {
         if (driver == null) {
             if (new File(chromeDriverPath).exists()) {
-                System.setProperty("webdriver.chrome.driver", chromeDriverPath);
-                DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-                capabilities.setCapability(CapabilityType.ForSeleniumServer.ENSURING_CLEAN_SESSION, true);
-                driver = new ChromeDriver(capabilities);
+                driver = driverInstantiation.execute();
                 driver.manage().deleteAllCookies();
                 driver.manage().window().setPosition(new Point(0, 0));
                 driver.manage().window().setSize(new Dimension(1235, 1000));
@@ -151,5 +155,24 @@ public class BrowserHost {
 
     private Logger getLogger() {
         return LogManager.getLogger(this.getClass());
+    }
+
+    public String getDriverName() {
+        return driver.getClass().getName();
+    }
+
+    private static class DefaultDriverInstantiation implements WebDriverInstantiationBehavior {
+
+        public static DefaultDriverInstantiation getInstance() {
+            return new DefaultDriverInstantiation();
+        }
+
+        @Override
+        public WebDriver execute() {
+            System.setProperty("webdriver.chrome.driver", chromeDriverPath);
+            DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+            capabilities.setCapability(CapabilityType.ForSeleniumServer.ENSURING_CLEAN_SESSION, true);
+            return new ChromeDriver(capabilities);
+        }
     }
 }

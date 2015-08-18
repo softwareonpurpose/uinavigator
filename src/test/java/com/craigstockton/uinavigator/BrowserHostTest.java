@@ -1,17 +1,13 @@
 package com.craigstockton.uinavigator;
 
+import com.craigstockton.uinavigator.driverinstantiation.FirefoxInstantiation;
+import com.craigstockton.uinavigator.driverinstantiation.WebDriverInstantiationBehavior;
 import com.craigstockton.uinavigator.validators.BooleanValidator;
 import com.craigstockton.uinavigator.validators.ClassValidator;
 import com.craigstockton.uinavigator.validators.IntegerValidator;
 import com.craigstockton.uinavigator.validators.StringValidator;
-import com.craigstockton.validator4test.Validator;
-import javafx.scene.control.TableColumnBase;
 import org.openqa.selenium.By;
-import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
-
-import javax.swing.text.TableView;
 
 @Test
 public class BrowserHostTest extends TestBase {
@@ -19,7 +15,7 @@ public class BrowserHostTest extends TestBase {
     private static final String uri = "http://www.google.com";
 
     @Test
-    public void getInstance() {
+    public void getDefaultInstance() {
         Class expected = BrowserHost.class;
         Class actual = BrowserHost.getInstance().getClass();
         confirm(ClassValidator.getInstance(expected, actual).validate());
@@ -52,11 +48,21 @@ public class BrowserHostTest extends TestBase {
         confirm(IntegerValidator.getInstance(expected, actual).validate());
     }
 
-    @Test
+    @Test( /*
+            groups = "under_development"//*/)
     public void waitUntilVisible() {
         BrowserHost browser = BrowserHost.getInstance();
         browser.load(uri);
         Boolean actual = browser.waitUntilVisible(By.id("gsri_ok0"));
         confirm(BooleanValidator.getInstance(true, actual).validate());
+    }
+
+    @Test( /*
+            groups = "under_development"//*/)
+    public void getSpecifWebDriverInstance() {
+        String expected = "Firefox";
+        WebDriverInstantiationBehavior driverInstantiation = FirefoxInstantiation.getInstance();
+        String actual = BrowserHost.getInstance(driverInstantiation).getDriverName();
+        confirm(StringValidator.getInstance(expected, actual).validate());
     }
 }
