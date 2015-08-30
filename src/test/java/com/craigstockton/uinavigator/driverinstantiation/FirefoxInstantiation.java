@@ -1,5 +1,6 @@
 package com.craigstockton.uinavigator.driverinstantiation;
 
+import com.craigstockton.uinavigator.WebDriverInstantiationBehavior;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 

@@ -1,7 +1,6 @@
 package com.craigstockton.uinavigator;
 
 import com.craigstockton.uinavigator.driverinstantiation.FirefoxInstantiation;
-import com.craigstockton.uinavigator.driverinstantiation.WebDriverInstantiationBehavior;
 import com.craigstockton.uinavigator.validators.BooleanValidator;
 import com.craigstockton.uinavigator.validators.ClassValidator;
 import com.craigstockton.uinavigator.validators.IntegerValidator;
@@ -53,7 +52,7 @@ public class BrowserHostTest extends TestBase {
     public void waitUntilVisible() {
         BrowserHost browser = BrowserHost.getInstance();
         browser.load(uri);
-        Boolean actual = browser.waitUntilVisible(By.id("gsri_ok0"));
+        Boolean actual = browser.waitUntilVisible(By.name("btnK"));
         confirm(BooleanValidator.getInstance(true, actual).validate());
     }
 

@@ -15,17 +15,15 @@
  */
 package com.craigstockton.uinavigator;
 
-import com.craigstockton.uinavigator.driverinstantiation.WebDriverInstantiationBehavior;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.File;
 import java.util.List;
 
 public class BrowserHost {
@@ -33,13 +31,12 @@ public class BrowserHost {
     private static BrowserHost uiHost;
     private final WebDriverInstantiationBehavior driverInstantiation;
     private WebDriver driver;
-    private static final int waitLimit = 13;
-    private final static String chromeDriverPath = "src/test/resources/chromedriver.exe";
+    private BrowserHostConfiguration config;
 
     private BrowserHost(WebDriverInstantiationBehavior driverInstantiation) {
-
         this.driverInstantiation = driverInstantiation;
         instantiateUiDriver();
+        config = config == null ? BrowserHostConfiguration.getInstance() : config;
     }
 
     /**
@@ -53,7 +50,7 @@ public class BrowserHost {
     }
 
     /**
-     * @param driverInstantiation WebDriverInstiationBehavior
+     * @param driverInstantiation WebDriverInstantiationBehavior
      * @return Selenium WebDriver
      */
     public static BrowserHost getInstance(WebDriverInstantiationBehavior driverInstantiation) {
@@ -111,14 +108,14 @@ public class BrowserHost {
 
     /**
      * @param locator A Selenium.By WebElement
-     * @return boolean Indicates whether the WebElement described by the By locator was visible within a defiend timeout period
+     * @return boolean Indicates whether the WebElement described by the By locator was visible within a defined timeout period
      */
     public boolean waitUntilVisible(By locator) {
         try {
-            new WebDriverWait(getDriver(), waitLimit).until(ExpectedConditions.visibilityOfElementLocated(locator));
+            new WebDriverWait(getDriver(), config.timeout).until(ExpectedConditions.visibilityOfElementLocated(locator));
         } catch (WebDriverException e) {
-            getLogger().warn(String
-                    .format("WARNING: Element '%s' failed to be displayed within %d seconds", locator.toString(), waitLimit));
+            getLogger().warn(String.format("WARNING: Element '%s' failed to be displayed within %d seconds", locator.toString(),
+                    config.timeout));
             return false;
         }
         return true;
@@ -131,6 +128,10 @@ public class BrowserHost {
         return getDriver().getCurrentUrl();
     }
 
+    public String getDriverName() {
+        return driver.getClass().getName();
+    }
+
     private void quit() {
         driver.quit();
         driver = null;
@@ -141,24 +142,14 @@ public class BrowserHost {
     }
 
     private void instantiateUiDriver() {
-        if (driver == null) {
-            if (new File(chromeDriverPath).exists()) {
-                driver = driverInstantiation.execute();
-                driver.manage().deleteAllCookies();
-                driver.manage().window().setPosition(new Point(0, 0));
-                driver.manage().window().setSize(new Dimension(1235, 1000));
-            } else {
-                getLogger().error("BLOCKED: WebDriver executable not found at " + chromeDriverPath);
-            }
-        }
+        driver = driverInstantiation.execute();
+        driver.manage().deleteAllCookies();
+        driver.manage().window().setPosition(new Point(0, 0));
+        driver.manage().window().setSize(new Dimension(1235, 1000));
     }
 
     private Logger getLogger() {
         return LogManager.getLogger(this.getClass());
-    }
-
-    public String getDriverName() {
-        return driver.getClass().getName();
     }
 
     private static class DefaultDriverInstantiation implements WebDriverInstantiationBehavior {
@@ -169,10 +160,9 @@ public class BrowserHost {
 
         @Override
         public WebDriver execute() {
-            System.setProperty("webdriver.chrome.driver", chromeDriverPath);
-            DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+            DesiredCapabilities capabilities = DesiredCapabilities.firefox();
             capabilities.setCapability(CapabilityType.ForSeleniumServer.ENSURING_CLEAN_SESSION, true);
-            return new ChromeDriver(capabilities);
+            return new FirefoxDriver(capabilities);
         }
     }
 }

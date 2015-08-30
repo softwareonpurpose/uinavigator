@@ -1,4 +1,4 @@
-package com.craigstockton.uinavigator.driverinstantiation;
+package com.craigstockton.uinavigator;
 
 import org.openqa.selenium.WebDriver;
 

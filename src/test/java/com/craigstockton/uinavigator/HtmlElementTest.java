@@ -79,15 +79,6 @@ public class HtmlElementTest extends TestBase {
     }
 
     @Test
-    public void getTip() {
-        String expected = "Search by voice";
-        BrowserHost.getInstance().load("http://www.google.com");
-        HtmlElement element = HtmlElement.getInstance("Element", HtmlElement.LocatorType.CLASS, "gsst_a");
-        String actual = element.setTipAttribute("aria-label").getTip();
-        confirm(StringValidator.getInstance(expected, actual).validate());
-    }
-
-    @Test
     public void set() {
         String setText = "Search phrase";
         BrowserHost.getInstance().load("http://www.google.com");
