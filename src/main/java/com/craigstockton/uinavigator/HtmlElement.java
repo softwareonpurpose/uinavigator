@@ -306,7 +306,7 @@ public class HtmlElement {
     }
 
     private void initializeGetElementBehavior() {
-        if (parent == null && attribute == null)
+        if (parent == null && attribute == null && ordinal == 1)
             getElementBehavior = new GetView();
         else if (parent == null)
             getElementBehavior = new GetView_attribute();
