@@ -12,7 +12,7 @@ public abstract class TestBase {
 
     @AfterMethod(alwaysRun = true)
     protected void terminate() {
-        BrowserHost.quitInstance();
+        Host.quitInstance();
     }
 
 }

@@ -24,10 +24,10 @@ import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HtmlElement {
+public class Element {
 
     private static String message_unableToFind = "WARNING: Unable to locate %s";
-    private final HtmlElement parent;
+    private final Element parent;
     private final String description;
     private final String attribute;
     private final String attributeValue;
@@ -53,8 +53,8 @@ public class HtmlElement {
         private static final String SRC = "src";
     }
 
-    private HtmlElement(String description, String locatorType, String locatorValue, String attribute, String attributeValue,
-            Integer ordinal, HtmlElement parent) {
+    private Element(String description, String locatorType, String locatorValue, String attribute, String attributeValue,
+            Integer ordinal, Element parent) {
         this.description = description;
         locator = createLocator(locatorType, locatorValue);
         this.parent = parent;
@@ -66,69 +66,68 @@ public class HtmlElement {
 
     /**
      * @param description  String description of the element used for logging
-     * @param locatorType  String (HtmlElement.LocatorType) defining Selenium locator type
+     * @param locatorType  String (Element.LocatorType) defining Selenium locator type
      * @param locatorValue String value of locator
-     * @return HtmlElement instantiated with the defined locator and description
+     * @return Element instantiated with the defined locator and description
      */
-    public static HtmlElement getInstance(String description, String locatorType, String locatorValue) {
-        return new HtmlElement(description, locatorType, locatorValue, null, null, null, null);
+    public static Element getInstance(String description, String locatorType, String locatorValue) {
+        return new Element(description, locatorType, locatorValue, null, null, null, null);
     }
 
     /**
      * @param description  String description of the element used for logging
-     * @param locatorType  String (HtmlElement.LocatorType) defining Selenium locator type
+     * @param locatorType  String (Element.LocatorType) defining Selenium locator type
      * @param locatorValue String value of locator
-     * @param parent       HtmlElement representing a parent of the requested element
-     * @return HtmlElement instantiated with the defined locator and description
+     * @param parent       Element representing a parent of the requested element
+     * @return Element instantiated with the defined locator and description
      */
-    public static HtmlElement getInstance(String description, String locatorType, String locatorValue, HtmlElement parent) {
-        return new HtmlElement(description, locatorType, locatorValue, null, null, null, parent);
+    public static Element getInstance(String description, String locatorType, String locatorValue, Element parent) {
+        return new Element(description, locatorType, locatorValue, null, null, null, parent);
     }
 
     /**
      * @param description  String description of the element used for logging
-     * @param locatorType  String (HtmlElement.LocatorType) defining Selenium locator type
+     * @param locatorType  String (Element.LocatorType) defining Selenium locator type
      * @param locatorValue String value of locator
-     * @param ordinal      Int specifying the Nth element within the HtmlElement parent
-     * @param parent       HtmlElement representing a parent of the requested element
-     * @return HtmlElement instantiated with the defined locator and description
+     * @param ordinal      Int specifying the Nth element within the Element parent
+     * @param parent       Element representing a parent of the requested element
+     * @return Element instantiated with the defined locator and description
      */
-    public static HtmlElement getInstance(String description, String locatorType, String locatorValue, int ordinal,
-            HtmlElement parent) {
-        return new HtmlElement(description, locatorType, locatorValue, null, null, ordinal, parent);
+    public static Element getInstance(String description, String locatorType, String locatorValue, int ordinal,
+            Element parent) {
+        return new Element(description, locatorType, locatorValue, null, null, ordinal, parent);
     }
 
     /**
      * @param description    String description of the element used for logging
-     * @param locatorType    String (HtmlElement.LocatorType) defining Selenium locator type
+     * @param locatorType    String (Element.LocatorType) defining Selenium locator type
      * @param locatorValue   String value of locator
      * @param attribute      String defining the attribute of the requested WebElement
      * @param attributeValue String defining the value of the attribute
-     * @param parent         HtmlElement representing a parent of the requested element
-     * @return HtmlElement instantiated with the defined locator and description
+     * @param parent         Element representing a parent of the requested element
+     * @return Element instantiated with the defined locator and description
      */
-    public static HtmlElement getInstance(String description, String locatorType, String locatorValue, String attribute,
-            String attributeValue, HtmlElement parent) {
-        return new HtmlElement(description, locatorType, locatorValue, attribute, attributeValue, null, parent);
+    public static Element getInstance(String description, String locatorType, String locatorValue, String attribute,
+            String attributeValue, Element parent) {
+        return new Element(description, locatorType, locatorValue, attribute, attributeValue, null, parent);
     }
 
     /**
      * @param description  String description of the elements used for logging
-     * @param locatorType  String (HtmlElement.LocatorType) defining Selenium locator type
+     * @param locatorType  String (Element.LocatorType) defining Selenium locator type
      * @param locatorValue String value of locator
-     * @param parent       HtmlElement representing a parent of the requested elements
+     * @param parent       Element representing a parent of the requested elements
      * @return List of HtmlElements instantiated with the defined locator and description
      */
-    public static List<HtmlElement> getList(String description, String locatorType, String locatorValue, HtmlElement parent) {
-        List<HtmlElement> htmlElements = new ArrayList<HtmlElement>();
+    public static List<Element> getList(String description, String locatorType, String locatorValue, Element parent) {
+        List<Element> elements = new ArrayList<>();
         WebElement parentElement = parent.getElement();
         List<WebElement> webElements = parentElement != null ?
-                parentElement.findElements(createLocator(locatorType, locatorValue)) :
-                new ArrayList<WebElement>();
+                parentElement.findElements(createLocator(locatorType, locatorValue)) : new ArrayList<>();
         for (int elementOrdinal = 1; elementOrdinal <= webElements.size(); elementOrdinal++) {
-            htmlElements.add(HtmlElement.getInstance(description, locatorType, locatorValue, elementOrdinal, parent));
+            elements.add(Element.getInstance(description, locatorType, locatorValue, elementOrdinal, parent));
         }
-        return htmlElements;
+        return elements;
     }
 
     /**
@@ -159,7 +158,7 @@ public class HtmlElement {
      * @param attribute String name of an attribute of the element
      * @return String value of the requested attribute
      */
-    public HtmlElement setTipAttribute(String attribute) {
+    public Element setTipAttribute(String attribute) {
         this.tipAttribute = attribute;
         return this;
     }
@@ -217,7 +216,7 @@ public class HtmlElement {
      */
     public boolean isSelected() {
         WebElement element = getElement();
-        return element == null ? false : selectedClass == null ? element.isSelected() : classContains(selectedClass);
+        return element != null && (selectedClass == null ? element.isSelected() : classContains(selectedClass));
     }
 
     /**
@@ -231,9 +230,9 @@ public class HtmlElement {
      * Sets the 'class' value used to indicate that the element is selected
      *
      * @param selectedClassValue String value used to indicate that the element is selected
-     * @return This instance of HtmlElement
+     * @return This instance of Element
      */
-    public HtmlElement setSelectedClass(String selectedClassValue) {
+    public Element setSelectedClass(String selectedClassValue) {
         this.selectedClass = selectedClassValue;
         return this;
     }
@@ -242,9 +241,9 @@ public class HtmlElement {
      * Sets the 'active' value used to indicate that the element is active
      *
      * @param activeClass String value used to indicate that the element is acdtive
-     * @return This instance of HtmlElement
+     * @return This instance of Element
      */
-    public HtmlElement setActiveClass(String activeClass) {
+    public Element setActiveClass(String activeClass) {
         this.activeClass = activeClass;
         return this;
     }
@@ -254,7 +253,7 @@ public class HtmlElement {
      */
     public boolean waitUntilVisible() {
         getLogger().info(String.format("Expect %s", getElementDescription()));
-        return BrowserHost.getInstance().waitUntilVisible(locator);
+        return Host.getInstance().waitUntilVisible(locator);
     }
 
     /**
@@ -271,14 +270,19 @@ public class HtmlElement {
 
     private static By createLocator(String locatorType, String locatorValue) {
         By locator = null;
-        if (locatorType.equals(LocatorType.CLASS)) {
-            locator = By.className(locatorValue);
-        } else if (locatorType.equals(LocatorType.ID)) {
-            locator = By.id(locatorValue);
-        } else if (locatorType.equals(LocatorType.NAME)) {
-            locator = By.name(locatorValue);
-        } else if (locatorType.equals(LocatorType.TAG)) {
-            locator = By.tagName(locatorValue);
+        switch (locatorType) {
+            case LocatorType.CLASS:
+                locator = By.className(locatorValue);
+                break;
+            case LocatorType.ID:
+                locator = By.id(locatorValue);
+                break;
+            case LocatorType.NAME:
+                locator = By.name(locatorValue);
+                break;
+            case LocatorType.TAG:
+                locator = By.tagName(locatorValue);
+                break;
         }
         return locator;
     }
@@ -344,14 +348,14 @@ public class HtmlElement {
     protected class GetView implements GetElementBehavior {
 
         public WebElement execute() {
-            return BrowserHost.getInstance().findUiElement(locator);
+            return Host.getInstance().findUiElement(locator);
         }
     }
 
     protected class GetView_attribute implements GetElementBehavior {
 
         public WebElement execute() {
-            List<WebElement> candidates = BrowserHost.getInstance().findUiElements(locator);
+            List<WebElement> candidates = Host.getInstance().findUiElements(locator);
             for (WebElement candidate : candidates) {
                 final String candidateAttributeValue = candidate.getAttribute(attribute);
                 if (candidateAttributeValue != null && candidateAttributeValue.contains(attributeValue))
@@ -368,7 +372,7 @@ public class HtmlElement {
             int elementIndex = ordinal - 1;
             try {
                 final WebElement parentElement = parent.getElement();
-                elements = parentElement == null ? new ArrayList<WebElement>() : parentElement.findElements(locator);
+                elements = parentElement == null ? new ArrayList<>() : parentElement.findElements(locator);
             } catch (WebDriverException e) {
                 getLogger().warn(String.format(message_unableToFind, getElementDescription()));
                 return null;
@@ -388,12 +392,11 @@ public class HtmlElement {
     protected class GetElement_attribute implements GetElementBehavior {
 
         public WebElement execute() {
-            List<WebElement> elements = new ArrayList<WebElement>();
+            List<WebElement> elements = new ArrayList<>();
             int elementIndex = ordinal - 1;
             try {
                 final WebElement parentElement = parent.getElement();
-                List<WebElement> candidates = parentElement == null ?
-                        new ArrayList<WebElement>() :
+                List<WebElement> candidates = parentElement == null ? new ArrayList<>() :
                         parentElement.findElements(locator);
                 for (WebElement candidate : candidates) {
                     final String candidateAttributeValue = candidate.getAttribute(attribute);

@@ -2,17 +2,21 @@ package com.craigstockton.uinavigator;
 
 public abstract class View {
 
-    protected final HtmlElement viewElement;
+    private final Element viewElement;
     private final String viewUri;
 
-    protected View(String viewUri, HtmlElement viewElement) {
+    protected View(String viewUri, Element viewElement) {
         this.viewUri = viewUri;
         this.viewElement = viewElement;
     }
 
     protected abstract boolean confirmElementStates();
 
-    protected void navTo() {
-        BrowserHost.getInstance().load(viewUri);
+    protected void load() {
+        Host.getInstance().load(viewUri);
+    }
+
+    protected Element getViewElement() {
+        return viewElement;
     }
 }

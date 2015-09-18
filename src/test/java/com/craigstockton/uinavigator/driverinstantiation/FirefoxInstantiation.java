@@ -1,10 +1,10 @@
 package com.craigstockton.uinavigator.driverinstantiation;
 
-import com.craigstockton.uinavigator.WebDriverInstantiationBehavior;
+import com.craigstockton.uinavigator.DriverInstantiation;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class FirefoxInstantiation implements WebDriverInstantiationBehavior {
+public class FirefoxInstantiation implements DriverInstantiation {
 
     private FirefoxInstantiation() {
     }

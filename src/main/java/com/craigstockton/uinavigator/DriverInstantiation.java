@@ -2,7 +2,7 @@ package com.craigstockton.uinavigator;
 
 import org.openqa.selenium.WebDriver;
 
-public interface WebDriverInstantiationBehavior {
+public interface DriverInstantiation {
 
     WebDriver execute();
 

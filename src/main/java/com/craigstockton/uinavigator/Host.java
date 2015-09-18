@@ -1,12 +1,12 @@
 /**
  * Copyright 2015 Craig A. Stockton
- * <p/>
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p/>
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p/>
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,43 +19,41 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-public class BrowserHost {
+public class Host {
 
-    private static BrowserHost uiHost;
-    private final WebDriverInstantiationBehavior driverInstantiation;
+    private static Host uiHost;
+    private final DriverInstantiation driverInstantiation;
     private WebDriver driver;
-    private BrowserHostConfiguration config;
+    private Configuration config;
 
-    private BrowserHost(WebDriverInstantiationBehavior driverInstantiation) {
+    private Host(DriverInstantiation driverInstantiation) {
         this.driverInstantiation = driverInstantiation;
         instantiateUiDriver();
-        config = config == null ? BrowserHostConfiguration.getInstance() : config;
+        config = config == null ? Configuration.getInstance() : config;
     }
 
     /**
-     * @return BrowserHost singleton instance with default WebDriver
+     * @return Host singleton instance with default WebDriver
      */
-    public static BrowserHost getInstance() {
+    static Host getInstance() {
         if (uiHost == null) {
-            uiHost = new BrowserHost(DefaultDriverInstantiation.getInstance());
+            uiHost = new Host(DefaultDriverInstantiation.getInstance());
         }
         return uiHost;
     }
 
     /**
-     * @param driverInstantiation WebDriverInstantiationBehavior
+     * @param driverInstantiation DriverInstantiation
      * @return Selenium WebDriver
      */
-    public static BrowserHost getInstance(WebDriverInstantiationBehavior driverInstantiation) {
+    static Host getInstance(DriverInstantiation driverInstantiation) {
         if (uiHost == null) {
-            uiHost = new BrowserHost(driverInstantiation);
+            uiHost = new Host(driverInstantiation);
         }
         return uiHost;
     }
@@ -72,7 +70,7 @@ public class BrowserHost {
      *
      * @param uri String URI
      */
-    public void load(String uri) {
+    void load(String uri) {
         getLogger().info(String.format("Navigate browser to %s", uri));
         getDriver().get(uri);
     }
@@ -81,12 +79,12 @@ public class BrowserHost {
      * @param locator A Selenium.By WebElement locator
      * @return WebElement within the current web page
      */
-    public WebElement findUiElement(By locator) {
+    WebElement findUiElement(By locator) {
         List<WebElement> elements = findUiElements(locator);
         if (elements.size() > 0) {
             return elements.get(0);
         } else {
-            getLogger().warn(String.format("WARNING: Unable to locate element '%s'", locator.toString()));
+            getLogger().warn(String.format("WARNING: Unable to find any element using locator '%s'", locator.toString()));
         }
         return null;
     }
@@ -95,12 +93,12 @@ public class BrowserHost {
      * @param locator A Selenium.By WebElement locator
      * @return A List of WebElements within the current web page
      */
-    public List<WebElement> findUiElements(By locator) {
+    List<WebElement> findUiElements(By locator) {
         List<WebElement> elements;
         try {
             elements = getDriver().findElements(locator);
         } catch (WebDriverException e) {
-            getLogger().warn(String.format("Unable to find element using locator '%s'", locator.toString()));
+            getLogger().warn(String.format("WARNING: Unable to find any element using locator '%s'", locator.toString()));
             return null;
         }
         return elements;
@@ -110,7 +108,7 @@ public class BrowserHost {
      * @param locator A Selenium.By WebElement
      * @return boolean Indicates whether the WebElement described by the By locator was visible within a defined timeout period
      */
-    public boolean waitUntilVisible(By locator) {
+    boolean waitUntilVisible(By locator) {
         try {
             new WebDriverWait(getDriver(), config.timeout).until(ExpectedConditions.visibilityOfElementLocated(locator));
         } catch (WebDriverException e) {
@@ -152,7 +150,7 @@ public class BrowserHost {
         return LogManager.getLogger(this.getClass());
     }
 
-    private static class DefaultDriverInstantiation implements WebDriverInstantiationBehavior {
+    private static class DefaultDriverInstantiation implements DriverInstantiation {
 
         public static DefaultDriverInstantiation getInstance() {
             return new DefaultDriverInstantiation();

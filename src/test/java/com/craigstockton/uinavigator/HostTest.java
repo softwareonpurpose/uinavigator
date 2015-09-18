@@ -9,14 +9,14 @@ import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
 @Test
-public class BrowserHostTest extends TestBase {
+public class HostTest extends TestBase {
 
     private static final String uri = "http://www.google.com";
 
     @Test
     public void getDefaultInstance() {
-        Class expected = BrowserHost.class;
-        Class actual = BrowserHost.getInstance().getClass();
+        Class expected = Host.class;
+        Class actual = Host.getInstance().getClass();
         confirm(ClassValidator.getInstance(expected, actual).validate());
     }
 
@@ -24,15 +24,15 @@ public class BrowserHostTest extends TestBase {
     public void load() {
         String domain = "www.google.com";
         String expected = String.format("https://%s", domain);
-        BrowserHost.getInstance().load(String.format("http://%s", domain));
-        String actual = BrowserHost.getInstance().getUri();
+        Host.getInstance().load(String.format("http://%s", domain));
+        String actual = Host.getInstance().getUri();
         confirm(StringValidator.getInstance(expected, actual).validate());
     }
 
     @Test
     public void findUiElement() {
         String expected = "ctr-p";
-        final BrowserHost browser = BrowserHost.getInstance();
+        final Host browser = Host.getInstance();
         browser.load("http://www.google.com");
         String actual = browser.findUiElement(By.id("viewport")).getAttribute("class");
         confirm(StringValidator.getInstance(expected, actual).validate());
@@ -41,7 +41,7 @@ public class BrowserHostTest extends TestBase {
     @Test
     public void findUiElements() {
         Integer expected = 6;
-        final BrowserHost browser = BrowserHost.getInstance();
+        final Host browser = Host.getInstance();
         browser.load(uri);
         Integer actual = browser.findUiElements(By.className("_Gs")).size();
         confirm(IntegerValidator.getInstance(expected, actual).validate());
@@ -50,7 +50,7 @@ public class BrowserHostTest extends TestBase {
     @Test( /*
             groups = "under_development"//*/)
     public void waitUntilVisible() {
-        BrowserHost browser = BrowserHost.getInstance();
+        Host browser = Host.getInstance();
         browser.load(uri);
         Boolean actual = browser.waitUntilVisible(By.name("btnK"));
         confirm(BooleanValidator.getInstance(true, actual).validate());
@@ -60,8 +60,8 @@ public class BrowserHostTest extends TestBase {
             groups = "under_development"//*/)
     public void getSpecifWebDriverInstance() {
         String expected = "Firefox";
-        WebDriverInstantiationBehavior driverInstantiation = FirefoxInstantiation.getInstance();
-        String actual = BrowserHost.getInstance(driverInstantiation).getDriverName();
+        DriverInstantiation driverInstantiation = FirefoxInstantiation.getInstance();
+        String actual = Host.getInstance(driverInstantiation).getDriverName();
         confirm(StringValidator.getInstance(expected, actual).validate());
     }
 }

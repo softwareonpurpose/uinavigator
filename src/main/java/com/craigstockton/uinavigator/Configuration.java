@@ -4,16 +4,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class BrowserHostConfiguration {
+public class Configuration {
 
     final int timeout;
-    private static BrowserHostConfiguration config;
+    private static Configuration config;
 
-    private BrowserHostConfiguration() {
+    private Configuration() {
         InputStream inputStream;
 
         Properties prop = new Properties();
-        String propFileName = "browserhost.properties";
+        String propFileName = "uinavigator.properties";
 
         inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
         Integer configurationTimeout = null;
@@ -34,9 +34,9 @@ public class BrowserHostConfiguration {
         this.timeout = configurationTimeout == null ? 3 : configurationTimeout;
     }
 
-    public static BrowserHostConfiguration getInstance() {
+    public static Configuration getInstance() {
         if (config == null)
-            config = new BrowserHostConfiguration();
+            config = new Configuration();
         return config;
     }
 }
