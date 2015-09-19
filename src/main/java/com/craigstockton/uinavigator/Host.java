@@ -40,7 +40,7 @@ public class Host {
     /**
      * @return Host singleton instance with default WebDriver
      */
-    static Host getInstance() {
+    public static Host getInstance() {
         if (uiHost == null) {
             uiHost = new Host(DefaultDriverInstantiation.getInstance());
         }
@@ -51,7 +51,7 @@ public class Host {
      * @param driverInstantiation DriverInstantiation
      * @return Selenium WebDriver
      */
-    static Host getInstance(DriverInstantiation driverInstantiation) {
+    public static Host getInstance(DriverInstantiation driverInstantiation) {
         if (uiHost == null) {
             uiHost = new Host(driverInstantiation);
         }
@@ -70,7 +70,7 @@ public class Host {
      *
      * @param uri String URI
      */
-    void load(String uri) {
+    public void load(String uri) {
         getLogger().info(String.format("Navigate browser to %s", uri));
         getDriver().get(uri);
     }
