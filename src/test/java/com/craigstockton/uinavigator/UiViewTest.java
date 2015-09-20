@@ -5,7 +5,7 @@ import com.craigstockton.uinavigator.view.GoogleLandingViewExpected;
 import org.testng.annotations.Test;
 
 @Test
-public class ViewTest extends TestBase {
+public class UiViewTest extends TestBase {
 
     @Test( //*//
             groups = "under_development"

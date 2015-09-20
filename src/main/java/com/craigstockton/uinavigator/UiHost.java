@@ -24,25 +24,25 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-public class Host {
+public class UiHost {
 
-    private static Host uiHost;
+    private static UiHost uiHost;
     private final DriverInstantiation driverInstantiation;
     private WebDriver driver;
     private Configuration config;
 
-    private Host(DriverInstantiation driverInstantiation) {
+    private UiHost(DriverInstantiation driverInstantiation) {
         this.driverInstantiation = driverInstantiation;
         instantiateUiDriver();
         config = config == null ? Configuration.getInstance() : config;
     }
 
     /**
-     * @return Host singleton instance with default WebDriver
+     * @return UiHost singleton instance with default WebDriver
      */
-    public static Host getInstance() {
+    public static UiHost getInstance() {
         if (uiHost == null) {
-            uiHost = new Host(DefaultDriverInstantiation.getInstance());
+            uiHost = new UiHost(DefaultDriverInstantiation.getInstance());
         }
         return uiHost;
     }
@@ -51,9 +51,9 @@ public class Host {
      * @param driverInstantiation DriverInstantiation
      * @return Selenium WebDriver
      */
-    public static Host getInstance(DriverInstantiation driverInstantiation) {
+    public static UiHost getInstance(DriverInstantiation driverInstantiation) {
         if (uiHost == null) {
-            uiHost = new Host(driverInstantiation);
+            uiHost = new UiHost(driverInstantiation);
         }
         return uiHost;
     }
@@ -112,7 +112,7 @@ public class Host {
         try {
             new WebDriverWait(getDriver(), config.timeout).until(ExpectedConditions.visibilityOfElementLocated(locator));
         } catch (WebDriverException e) {
-            getLogger().warn(String.format("WARNING: Element '%s' failed to be displayed within %d seconds", locator.toString(),
+            getLogger().warn(String.format("WARNING: UiElement '%s' failed to be displayed within %d seconds", locator.toString(),
                     config.timeout));
             return false;
         }

@@ -1,11 +1,11 @@
 package com.craigstockton.uinavigator;
 
-public abstract class View {
+public abstract class UiView {
 
-    private final Element viewElement;
+    private final UiElement viewElement;
     private final String viewUri;
 
-    protected View(String viewUri, Element viewElement) {
+    protected UiView(String viewUri, UiElement viewElement) {
         this.viewUri = viewUri;
         this.viewElement = viewElement;
     }
@@ -13,10 +13,10 @@ public abstract class View {
     protected abstract boolean confirmElementStates();
 
     protected void load() {
-        Host.getInstance().load(viewUri);
+        UiHost.getInstance().load(viewUri);
     }
 
-    protected Element getViewElement() {
+    protected UiElement getElement() {
         return viewElement;
     }
 }
