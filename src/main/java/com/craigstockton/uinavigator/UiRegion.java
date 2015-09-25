@@ -1,12 +1,13 @@
 package com.craigstockton.uinavigator;
 
+import org.apache.logging.log4j.LogManager;
+
 public abstract class UiRegion {
 
-    private final String description;
     private final UiElement regionElement;
 
     protected UiRegion(String description, UiElement regionElement) {
-        this.description = description;
+        LogManager.getLogger(this.getClass()).info(String.format("In %s...", description));
         this.regionElement = regionElement;
     }
 
