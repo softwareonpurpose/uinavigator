@@ -133,6 +133,12 @@ public class UiHost {
         return driver.getClass().getName();
     }
 
+    public void execute(String script) {
+        if (getDriver() instanceof JavascriptExecutor) {
+            ((JavascriptExecutor) getDriver()).executeScript(script);
+        }
+    }
+
     private void quit() {
         driver.quit();
         driver = null;
