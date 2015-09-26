@@ -70,7 +70,7 @@ public class UiElement {
      * @param locatorValue String value of locator
      * @return UiElement instantiated with the defined locator and description
      */
-    static UiElement getInstance(String description, String locatorType, String locatorValue) {
+    public static UiElement getInstance(String description, String locatorType, String locatorValue) {
         return new UiElement(description, locatorType, locatorValue, null, null, null, null);
     }
 
@@ -81,7 +81,7 @@ public class UiElement {
      * @param parent       UiElement representing a parent of the requested element
      * @return UiElement instantiated with the defined locator and description
      */
-    static UiElement getInstance(String description, String locatorType, String locatorValue, UiElement parent) {
+    public static UiElement getInstance(String description, String locatorType, String locatorValue, UiElement parent) {
         return new UiElement(description, locatorType, locatorValue, null, null, null, parent);
     }
 
@@ -93,7 +93,8 @@ public class UiElement {
      * @param parent       UiElement representing a parent of the requested element
      * @return UiElement instantiated with the defined locator and description
      */
-    static UiElement getInstance(String description, String locatorType, String locatorValue, int ordinal, UiElement parent) {
+    public static UiElement getInstance(String description, String locatorType, String locatorValue, int ordinal,
+            UiElement parent) {
         return new UiElement(description, locatorType, locatorValue, null, null, ordinal, parent);
     }
 
@@ -106,7 +107,7 @@ public class UiElement {
      * @param parent         UiElement representing a parent of the requested element
      * @return UiElement instantiated with the defined locator and description
      */
-    static UiElement getInstance(String description, String locatorType, String locatorValue, String attribute,
+    public static UiElement getInstance(String description, String locatorType, String locatorValue, String attribute,
             String attributeValue, UiElement parent) {
         return new UiElement(description, locatorType, locatorValue, attribute, attributeValue, null, parent);
     }
@@ -118,7 +119,7 @@ public class UiElement {
      * @param parent       UiElement representing a parent of the requested elements
      * @return List of HtmlElements instantiated with the defined locator and description
      */
-    static List<UiElement> getList(String description, String locatorType, String locatorValue, UiElement parent) {
+    public static List<UiElement> getList(String description, String locatorType, String locatorValue, UiElement parent) {
         List<UiElement> elements = new ArrayList<>();
         WebElement parentElement = parent.getElement();
         List<WebElement> webElements = parentElement != null ?
@@ -133,7 +134,7 @@ public class UiElement {
     /**
      * @return The text of the defined WebElement
      */
-    String getText() {
+    public String getText() {
         final WebElement element = getElement();
         return element == null ? null : element.getTagName().equals("input") ? element.getAttribute("value") : element.getText();
     }
@@ -141,7 +142,7 @@ public class UiElement {
     /**
      * @return The href of the defined WebElement
      */
-    String getHref() {
+    public String getHref() {
         final WebElement element = getElement();
         return element == null ? null : element.getAttribute(Attribute.HREF);
     }
@@ -149,7 +150,7 @@ public class UiElement {
     /**
      * @return String tooltip of the defined WebElement  (e.g. 'title' attribute)
      */
-    String getTip() {
+    public String getTip() {
         final WebElement element = getElement();
         return element == null ? null : tipAttribute == null ? null : element.getAttribute(tipAttribute);
     }
@@ -158,7 +159,7 @@ public class UiElement {
      * @param attribute String name of an attribute of the element
      * @return String value of the requested attribute
      */
-    UiElement setTipAttribute(String attribute) {
+    public UiElement setTipAttribute(String attribute) {
         this.tipAttribute = attribute;
         return this;
     }
@@ -168,7 +169,7 @@ public class UiElement {
      *
      * @param value String value
      */
-    void set(String value) {
+    public void set(String value) {
         value = value == null ? "" : value;
         WebElement element = getElement();
         getLogger().info(String.format(getIndentation() + "Set %s to \"%s\"", getDescription(), value));
@@ -189,7 +190,7 @@ public class UiElement {
     /**
      * Executes a mouse-click event
      */
-    void click() {
+    public void click() {
         getLogger().info(String.format(getIndentation() + "Click %s", getDescription()));
         WebElement element = getElement();
         final String errorMessage = String.format("BLOCKED: Unable to click %s", getElementDescription());
@@ -207,14 +208,14 @@ public class UiElement {
     /**
      * @return boolean indicating whether the element is active
      */
-    boolean isActive() {
+    public boolean isActive() {
         return classContains(activeClass);
     }
 
     /**
      * @return boolean indicating whether the element is selected
      */
-    boolean isSelected() {
+    public boolean isSelected() {
         WebElement element = getElement();
         return element != null && (selectedClass == null ? element.isSelected() : classContains(selectedClass));
     }
@@ -222,7 +223,7 @@ public class UiElement {
     /**
      * @return boolean indicating whether the element is displayed
      */
-    boolean isDisplayed() {
+    public boolean isDisplayed() {
         return getElement() != null;
     }
 
@@ -232,7 +233,7 @@ public class UiElement {
      * @param selectedClassValue String value used to indicate that the element is selected
      * @return This instance of UiElement
      */
-    UiElement setSelectedClass(String selectedClassValue) {
+    public UiElement setSelectedClass(String selectedClassValue) {
         this.selectedClass = selectedClassValue;
         return this;
     }
@@ -243,7 +244,7 @@ public class UiElement {
      * @param activeClass String value used to indicate that the element is acdtive
      * @return This instance of UiElement
      */
-    UiElement setActiveClass(String activeClass) {
+    public UiElement setActiveClass(String activeClass) {
         this.activeClass = activeClass;
         return this;
     }
@@ -251,24 +252,24 @@ public class UiElement {
     /**
      * @return boolean indicating whether the element was visible within the defined timeout period
      */
-    boolean waitUntilVisible() {
+    public boolean waitUntilVisible() {
         return UiHost.getInstance().waitUntilVisible(locator);
     }
 
     /**
      * @return String value of the elements 'src' attribute
      */
-    String getSrc() {
+    public String getSrc() {
         final WebElement element = getElement();
         return element == null ? null : element.getAttribute(Attribute.SRC);
     }
 
-    protected Logger getLogger() {
-        return LogManager.getLogger(getClass());
-    }
-
     String getDescription() {
         return description;
+    }
+
+    protected Logger getLogger() {
+        return LogManager.getLogger(getClass());
     }
 
     private static By createLocator(String locatorType, String locatorValue) {

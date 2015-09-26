@@ -82,6 +82,13 @@ public class UiHost {
     }
 
     /**
+     * @return String which is the current URI of the browser
+     */
+    public String getUri() {
+        return getDriver().getCurrentUrl();
+    }
+
+    /**
      * @param locator A Selenium.By WebElement locator
      * @return WebElement within the current web page
      */
@@ -123,13 +130,6 @@ public class UiHost {
             return false;
         }
         return true;
-    }
-
-    /**
-     * @return String which is the current URI of the browser
-     */
-    String getUri() {
-        return getDriver().getCurrentUrl();
     }
 
     /**

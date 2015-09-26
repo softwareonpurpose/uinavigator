@@ -8,6 +8,7 @@ public abstract class UiRegion {
 
     protected UiRegion(UiElement regionElement) {
         this.regionElement = regionElement;
+        LogManager.getLogger(this.getClass()).info(String.format("In %s...", getDescription()));
     }
 
     boolean isVisible() {
