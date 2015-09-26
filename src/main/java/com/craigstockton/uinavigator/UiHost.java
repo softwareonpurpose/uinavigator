@@ -75,6 +75,12 @@ public class UiHost {
         getDriver().get(uri);
     }
 
+    public void execute(String script) {
+        if (getDriver() instanceof JavascriptExecutor) {
+            ((JavascriptExecutor) getDriver()).executeScript(script);
+        }
+    }
+
     /**
      * @param locator A Selenium.By WebElement locator
      * @return WebElement within the current web page
@@ -122,21 +128,15 @@ public class UiHost {
     /**
      * @return String which is the current URI of the browser
      */
-    public String getUri() {
+    String getUri() {
         return getDriver().getCurrentUrl();
     }
 
     /**
      * @return String which is the name of the current WebDriver
      */
-    public String getDriverName() {
+    String getDriverName() {
         return driver.getClass().getName();
-    }
-
-    public void execute(String script) {
-        if (getDriver() instanceof JavascriptExecutor) {
-            ((JavascriptExecutor) getDriver()).executeScript(script);
-        }
     }
 
     private void quit() {

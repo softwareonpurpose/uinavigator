@@ -10,11 +10,15 @@ public abstract class UiRegion {
         this.regionElement = regionElement;
     }
 
-    public boolean isVisible() {
+    boolean isVisible() {
         return regionElement.waitUntilVisible();
     }
 
     protected UiElement getElement() {
         return regionElement;
+    }
+
+    protected String getDescription() {
+        return getElement().getDescription();
     }
 }
