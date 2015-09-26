@@ -5,15 +5,20 @@ import org.apache.logging.log4j.LogManager;
 public abstract class UiRegion {
 
     private final UiElement regionElement;
+    private boolean suppressLogging;
 
-    protected UiRegion(UiElement regionElement, boolean suppressLogging) {
+    protected UiRegion(UiElement regionElement) {
         this.regionElement = regionElement;
         if (!suppressLogging)
             LogManager.getLogger(this.getClass()).info(String.format("In %s...", getDescription()));
     }
 
-    boolean isVisible() {
+    public boolean isVisible() {
         return regionElement.waitUntilVisible();
+    }
+
+    public void logging(boolean suppress) {
+        suppressLogging = suppress;
     }
 
     protected UiElement getElement() {
