@@ -38,7 +38,7 @@ public class UiElement {
     private By locator;
     private GetElementBehavior getElementBehavior;
 
-    class LocatorType {
+    public class LocatorType {
 
         public static final String CLASS = "class";
         public static final String ID = "id";
@@ -46,7 +46,7 @@ public class UiElement {
         public static final String TAG = "tag";
     }
 
-    class Attribute {
+    public class Attribute {
 
         public static final String STYLE = "style";
         private static final String HREF = "href";
