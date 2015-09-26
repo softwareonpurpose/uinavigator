@@ -6,9 +6,10 @@ public abstract class UiRegion {
 
     private final UiElement regionElement;
 
-    protected UiRegion(UiElement regionElement) {
+    protected UiRegion(UiElement regionElement, boolean suppressLogging) {
         this.regionElement = regionElement;
-        LogManager.getLogger(this.getClass()).info(String.format("In %s...", getDescription()));
+        if (!suppressLogging)
+            LogManager.getLogger(this.getClass()).info(String.format("In %s...", getDescription()));
     }
 
     boolean isVisible() {
