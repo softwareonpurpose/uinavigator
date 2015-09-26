@@ -64,13 +64,4 @@ public class UiHostTest extends TestBase {
         String actual = UiHost.getInstance(driverInstantiation).getDriverName();
         confirm(StringValidator.getInstance(expected, actual).validate());
     }
-
-    @Test( //*
-            groups = "under_development"//*/
-    )
-    public void execute() {
-        UiHost browser = UiHost.getInstance();
-        browser.execute("alert('hello world');");
-        confirm("failure");
-    }
 }

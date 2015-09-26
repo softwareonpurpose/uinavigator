@@ -6,8 +6,7 @@ public abstract class UiRegion {
 
     private final UiElement regionElement;
 
-    protected UiRegion(String description, UiElement regionElement) {
-        LogManager.getLogger(this.getClass()).info(String.format("In %s...", description));
+    protected UiRegion(UiElement regionElement) {
         this.regionElement = regionElement;
     }
 
