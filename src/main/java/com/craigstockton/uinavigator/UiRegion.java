@@ -5,7 +5,7 @@ import org.apache.logging.log4j.LogManager;
 public abstract class UiRegion {
 
     private final UiElement regionElement;
-    private boolean suppressLogging;
+    private static boolean suppressLogging;
 
     protected UiRegion(UiElement regionElement) {
         this.regionElement = regionElement;
@@ -17,7 +17,7 @@ public abstract class UiRegion {
         return regionElement.waitUntilVisible();
     }
 
-    public void logging(boolean suppress) {
+    public static void logging(boolean suppress) {
         suppressLogging = suppress;
     }
 
