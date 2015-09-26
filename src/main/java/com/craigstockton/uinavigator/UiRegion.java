@@ -17,7 +17,7 @@ public abstract class UiRegion {
         return regionElement.waitUntilVisible();
     }
 
-    public static void logging(boolean suppress) {
+    public static void instantiationLogging(boolean suppress) {
         suppressLogging = suppress;
     }
 
