@@ -5,6 +5,10 @@ public abstract class UiView {
     private final UiElement viewElement;
     private final String viewUri;
 
+    public String getUri() {
+        return viewUri;
+    }
+
     protected UiView(String viewUri, UiElement viewElement) {
         this.viewUri = viewUri;
         this.viewElement = viewElement;
@@ -13,7 +17,7 @@ public abstract class UiView {
     protected abstract boolean confirmElementStates();
 
     protected void load() {
-        UiHost.getInstance().load(viewUri);
+        UiHost.getInstance().load(getUri());
     }
 
     protected UiElement getElement() {
