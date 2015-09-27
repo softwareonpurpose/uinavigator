@@ -5,9 +5,7 @@ public abstract class UiView {
     private final UiElement viewElement;
     private final String viewUri;
 
-    public String getUri() {
-        return viewUri;
-    }
+    public abstract String getRelativeUri();
 
     protected UiView(String viewUri, UiElement viewElement) {
         this.viewUri = viewUri;
@@ -17,7 +15,7 @@ public abstract class UiView {
     protected abstract boolean confirmElementStates();
 
     protected void load() {
-        UiHost.getInstance().load(getUri());
+        UiHost.getInstance().load(viewUri);
     }
 
     protected UiElement getElement() {
