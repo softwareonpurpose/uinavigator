@@ -34,6 +34,7 @@ public class UiElement {
     private final int ordinal;
     private String activeClass;
     private String selectedClass;
+    private String selectedStyle;
     private String tipAttribute = "title";
     private By locator;
     private GetElementBehavior getElementBehavior;
@@ -51,6 +52,7 @@ public class UiElement {
         public static final String STYLE = "style";
         private static final String HREF = "href";
         private static final String SRC = "src";
+        public static final String CLASS = "class";
     }
 
     private UiElement(String description, String locatorType, String locatorValue, String attribute, String attributeValue,
@@ -217,7 +219,9 @@ public class UiElement {
      */
     public boolean isSelected() {
         WebElement element = getElement();
-        return element != null && (selectedClass == null ? element.isSelected() : classContains(selectedClass));
+        return element != null && ((selectedClass == null && selectedStyle == null) ?
+                element.isSelected() :
+                (classContains(selectedClass) || styleContains(selectedStyle)));
     }
 
     /**
@@ -235,6 +239,17 @@ public class UiElement {
      */
     public UiElement setSelectedClass(String selectedClassValue) {
         this.selectedClass = selectedClassValue;
+        return this;
+    }
+
+    /**
+     * Sets the 'style' value used to indicate that the element is selected
+     *
+     * @param selectedStyleValue String value used to indicate that the element is selected
+     * @return This instance of UiElement
+     */
+    public UiElement setSelectedStyle(String selectedStyleValue) {
+        this.selectedStyle = selectedStyleValue;
         return this;
     }
 
@@ -305,8 +320,20 @@ public class UiElement {
         return className != null && className.contains(state);
     }
 
+    private boolean styleContains(String state) {
+        state = state == null ? "" : state;
+        String style = getStyle();
+        return style != null && style.contains(state);
+    }
+
+    private String getStyle() {
+        WebElement element = getElement();
+        return element == null ? null : element.getAttribute(Attribute.STYLE);
+    }
+
     private String getClassName() {
-        return getElement() == null ? null : getElement().getAttribute(LocatorType.CLASS);
+        WebElement element = getElement();
+        return element == null ? null : element.getAttribute(Attribute.CLASS);
     }
 
     private void initializeGetElementBehavior() {
