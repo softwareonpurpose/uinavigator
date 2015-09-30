@@ -218,10 +218,7 @@ public class UiElement {
      * @return boolean indicating whether the element is selected
      */
     public boolean isSelected() {
-        WebElement element = getElement();
-        return element != null && ((selectedClass == null && selectedStyle == null) ?
-                element.isSelected() :
-                (classContains(selectedClass) || styleContains(selectedStyle)));
+        return (classContains(selectedClass) || styleContains(selectedStyle));
     }
 
     /**
@@ -315,15 +312,17 @@ public class UiElement {
     }
 
     private boolean classContains(String state) {
-        state = state == null ? "" : state;
         String className = getClassName();
-        return className != null && className.contains(state);
+        if (className == null || state == null)
+            return false;
+        return className.contains(state);
     }
 
     private boolean styleContains(String state) {
-        state = state == null ? "" : state;
         String style = getStyle();
-        return style != null && style.contains(state);
+        if (style == null || state == null)
+            return false;
+        return style.contains(state);
     }
 
     private String getStyle() {
