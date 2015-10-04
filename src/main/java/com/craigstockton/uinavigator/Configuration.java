@@ -6,7 +6,7 @@ import java.util.Properties;
 
 public class Configuration {
 
-    final int timeout;
+    final long timeout;
     private static Configuration config;
 
     private Configuration() {

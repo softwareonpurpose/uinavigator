@@ -23,18 +23,18 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class UiHost {
 
     private static UiHost uiHost;
+    private static Configuration config;
     private final DriverInstantiation driverInstantiation;
     private WebDriver driver;
-    private Configuration config;
 
     private UiHost(DriverInstantiation driverInstantiation) {
         this.driverInstantiation = driverInstantiation;
         instantiateUiDriver();
-        config = config == null ? Configuration.getInstance() : config;
     }
 
     /**
@@ -56,6 +56,13 @@ public class UiHost {
             uiHost = new UiHost(driverInstantiation);
         }
         return uiHost;
+    }
+
+    public static Configuration getConfig() {
+        if (config == null) {
+            config = Configuration.getInstance();
+        }
+        return config;
     }
 
     public static void quitInstance() {
@@ -123,10 +130,10 @@ public class UiHost {
      */
     boolean waitUntilVisible(By locator) {
         try {
-            new WebDriverWait(getDriver(), config.timeout).until(ExpectedConditions.visibilityOfElementLocated(locator));
+            new WebDriverWait(getDriver(), getConfig().timeout).until(ExpectedConditions.visibilityOfElementLocated(locator));
         } catch (WebDriverException e) {
             getLogger().warn(String.format("WARNING: UiElement '%s' failed to be displayed within %d seconds", locator.toString(),
-                    config.timeout));
+                    getConfig().timeout));
             return false;
         }
         return true;
@@ -164,7 +171,9 @@ public class UiHost {
 
         @Override
         public WebDriver execute() {
-            return new FirefoxDriver();
+            FirefoxDriver driver = new FirefoxDriver();
+            driver.manage().timeouts().implicitlyWait(getConfig().timeout, TimeUnit.SECONDS);
+            return driver;
         }
     }
 }
