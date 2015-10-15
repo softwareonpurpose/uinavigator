@@ -38,25 +38,10 @@ public class UiElement {
     private String tipAttribute = "title";
     private By locator;
     private GetElementBehavior getElementBehavior;
-
-    public class LocatorType {
-
-        public static final String CLASS = "class";
-        public static final String ID = "id";
-        public static final String NAME = "name";
-        public static final String TAG = "tag";
-    }
-
-    public class Attribute {
-
-        public static final String STYLE = "style";
-        private static final String HREF = "href";
-        private static final String SRC = "src";
-        public static final String CLASS = "class";
-    }
+    private WebElement element;
 
     private UiElement(String description, String locatorType, String locatorValue, String attribute, String attributeValue,
-            Integer ordinal, UiElement parent) {
+                      Integer ordinal, UiElement parent) {
         this.description = description;
         locator = createLocator(locatorType, locatorValue);
         this.parent = parent;
@@ -96,7 +81,7 @@ public class UiElement {
      * @return UiElement instantiated with the defined locator and description
      */
     public static UiElement getInstance(String description, String locatorType, String locatorValue, int ordinal,
-            UiElement parent) {
+                                        UiElement parent) {
         return new UiElement(description, locatorType, locatorValue, null, null, ordinal, parent);
     }
 
@@ -110,7 +95,7 @@ public class UiElement {
      * @return UiElement instantiated with the defined locator and description
      */
     public static UiElement getInstance(String description, String locatorType, String locatorValue, String attribute,
-            String attributeValue, UiElement parent) {
+                                        String attributeValue, UiElement parent) {
         return new UiElement(description, locatorType, locatorValue, attribute, attributeValue, null, parent);
     }
 
@@ -131,6 +116,25 @@ public class UiElement {
             elements.add(UiElement.getInstance(description, locatorType, locatorValue, elementOrdinal, parent));
         }
         return elements;
+    }
+
+    private static By createLocator(String locatorType, String locatorValue) {
+        By locator = null;
+        switch (locatorType) {
+            case LocatorType.CLASS:
+                locator = By.className(locatorValue);
+                break;
+            case LocatorType.ID:
+                locator = By.id(locatorValue);
+                break;
+            case LocatorType.NAME:
+                locator = By.name(locatorValue);
+                break;
+            case LocatorType.TAG:
+                locator = By.tagName(locatorValue);
+                break;
+        }
+        return locator;
     }
 
     /**
@@ -284,27 +288,10 @@ public class UiElement {
         return LogManager.getLogger(getClass());
     }
 
-    private static By createLocator(String locatorType, String locatorValue) {
-        By locator = null;
-        switch (locatorType) {
-            case LocatorType.CLASS:
-                locator = By.className(locatorValue);
-                break;
-            case LocatorType.ID:
-                locator = By.id(locatorValue);
-                break;
-            case LocatorType.NAME:
-                locator = By.name(locatorValue);
-                break;
-            case LocatorType.TAG:
-                locator = By.tagName(locatorValue);
-                break;
-        }
-        return locator;
-    }
-
     private WebElement getElement() {
-        return getElementBehavior.execute();
+        if (element == null)
+            element = getElementBehavior.execute();
+        return element;
     }
 
     private String getIndentation() {
@@ -356,16 +343,32 @@ public class UiElement {
         return ordinal == 1 ? "" : String.format("#%d", ordinal);
     }
 
-    private interface GetElementBehavior {
-
-        WebElement execute();
-    }
-
     private String getElementDescription() {
         String elementDescription = "%s element with locator %s %s";
         String attributeDescription = "and '%s' attribute containing \"%s\"";
         return String.format(elementDescription, description, locator.toString(),
                 attribute != null ? String.format(attributeDescription, attribute, attributeValue) : "");
+    }
+
+    private interface GetElementBehavior {
+
+        WebElement execute();
+    }
+
+    public class LocatorType {
+
+        public static final String CLASS = "class";
+        public static final String ID = "id";
+        public static final String NAME = "name";
+        public static final String TAG = "tag";
+    }
+
+    public class Attribute {
+
+        public static final String STYLE = "style";
+        public static final String CLASS = "class";
+        private static final String HREF = "href";
+        private static final String SRC = "src";
     }
 
     /**
