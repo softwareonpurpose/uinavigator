@@ -1,4 +1,4 @@
-package com.craigstockton.uinavigator;
+package com.softwareonpurpose.uinavigator;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,4 +1,4 @@
-package com.craigstockton.uinavigator.validators;
+package com.softwareonpurpose.uinavigator.validators;
 
 import com.craigstockton.validator4test.Validator;
 import org.openqa.selenium.WebElement;

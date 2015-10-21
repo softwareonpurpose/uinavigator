@@ -1,10 +1,10 @@
-package com.craigstockton.uinavigator;
+package com.softwareonpurpose.uinavigator;
 
-import com.craigstockton.uinavigator.driverinstantiation.FirefoxInstantiation;
-import com.craigstockton.uinavigator.validators.BooleanValidator;
-import com.craigstockton.uinavigator.validators.ClassValidator;
-import com.craigstockton.uinavigator.validators.IntegerValidator;
-import com.craigstockton.uinavigator.validators.StringValidator;
+import com.softwareonpurpose.uinavigator.driverinstantiation.FirefoxInstantiation;
+import com.softwareonpurpose.uinavigator.validators.BooleanValidator;
+import com.softwareonpurpose.uinavigator.validators.ClassValidator;
+import com.softwareonpurpose.uinavigator.validators.IntegerValidator;
+import com.softwareonpurpose.uinavigator.validators.StringValidator;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 

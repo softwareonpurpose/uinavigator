@@ -1,4 +1,4 @@
-package com.craigstockton.uinavigator;
+package com.softwareonpurpose.uinavigator;
 
 import com.craigstockton.validator4test.Validator;
 import org.testng.Assert;

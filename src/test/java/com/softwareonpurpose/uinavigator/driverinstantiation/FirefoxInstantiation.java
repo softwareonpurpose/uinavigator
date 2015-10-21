@@ -1,6 +1,6 @@
-package com.craigstockton.uinavigator.driverinstantiation;
+package com.softwareonpurpose.uinavigator.driverinstantiation;
 
-import com.craigstockton.uinavigator.DriverInstantiation;
+import com.softwareonpurpose.uinavigator.DriverInstantiation;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 

@@ -1,7 +1,7 @@
-package com.craigstockton.uinavigator;
+package com.softwareonpurpose.uinavigator;
 
-import com.craigstockton.uinavigator.validators.ClassValidator;
-import com.craigstockton.uinavigator.validators.StringValidator;
+import com.softwareonpurpose.uinavigator.validators.ClassValidator;
+import com.softwareonpurpose.uinavigator.validators.StringValidator;
 import org.testng.annotations.Test;
 
 @Test

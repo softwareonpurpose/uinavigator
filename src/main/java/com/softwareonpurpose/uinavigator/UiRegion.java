@@ -1,4 +1,4 @@
-package com.craigstockton.uinavigator;
+package com.softwareonpurpose.uinavigator;
 
 import org.apache.logging.log4j.LogManager;
 
