@@ -64,4 +64,31 @@ public class UiHostTest extends TestBase {
         String actual = UiHost.getInstance(driverInstantiation).getDriverName();
         confirm(StringValidator.getInstance(expected, actual).validate());
     }
+
+    @Test(/*
+            groups = "under_development"//*/
+    )
+    public void selectFrame() {
+        String expected = "Log In";
+        UiHost host = UiHost.getInstance();
+        host.load("http:espn.go.com");
+        UiElement.getInstance("'Login' link", UiElement.LocatorType.TAG, "a", UiElement.getInstance("'User' region", UiElement.LocatorType.CLASS, "user")).click();
+        host.selectFrame("disneyid-iframe");
+        String actual = UiElement.getInstance("'Login' button", UiElement.LocatorType.CLASS, "btn-group").getText();
+        confirm(StringValidator.getInstance(expected, actual).validate());
+    }
+
+    @Test(/*
+            groups = "under_development"//*/
+    )
+    public void selectWindow() {
+        String expected = null;
+        UiHost host = UiHost.getInstance();
+        host.load("http:espn.go.com");
+        UiElement.getInstance("'Login' link", UiElement.LocatorType.TAG, "a", UiElement.getInstance("'User' region", UiElement.LocatorType.CLASS, "user")).click();
+        host.selectFrame("disneyid-iframe");
+        host.selectWindow();
+        String actual = UiElement.getInstance("'Login' button", UiElement.LocatorType.CLASS, "btn-group").getText();
+        confirm(StringValidator.getInstance(expected, actual).validate());
+    }
 }
