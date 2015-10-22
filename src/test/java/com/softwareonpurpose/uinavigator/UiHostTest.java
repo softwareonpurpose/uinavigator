@@ -65,7 +65,7 @@ public class UiHostTest extends TestBase {
         confirm(StringValidator.getInstance(expected, actual).validate());
     }
 
-    @Test(/*
+    @Test(//*
             groups = "under_development"//*/
     )
     public void selectFrame() {
@@ -74,7 +74,7 @@ public class UiHostTest extends TestBase {
         host.load("http:espn.go.com");
         UiElement.getInstance("'Login' link", UiElement.LocatorType.TAG, "a", UiElement.getInstance("'User' region", UiElement.LocatorType.CLASS, "user")).click();
         host.selectFrame("disneyid-iframe");
-        String actual = UiElement.getInstance("'Login' button", UiElement.LocatorType.CLASS, "btn-group").getText();
+        String actual = UiHost.getInstance().findUiElement(By.className("btn-group")).getText();
         confirm(StringValidator.getInstance(expected, actual).validate());
     }
 

@@ -1,12 +1,12 @@
 /**
  * Copyright 2015 Craig A. Stockton
- * <p>
+ * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
+ * <p/>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ * <p/>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,6 +32,7 @@ public class UiElement {
     private final String attribute;
     private final String attributeValue;
     private final int ordinal;
+    private final String frameId;
     private String activeClass;
     private String selectedClass;
     private String selectedStyle;
@@ -43,6 +44,7 @@ public class UiElement {
     private UiElement(String description, String locatorType, String locatorValue, String attribute, String attributeValue,
                       Integer ordinal, UiElement parent) {
         this.description = description;
+        frameId = locatorType.equals(LocatorType.FRAME) ? locatorValue : null;
         locator = createLocator(locatorType, locatorValue);
         this.parent = parent;
         this.attribute = attribute;
@@ -111,7 +113,7 @@ public class UiElement {
         WebElement parentElement = parent.getElement();
         List<WebElement> webElements = parentElement != null ?
                 parentElement.findElements(createLocator(locatorType, locatorValue)) :
-                new ArrayList<>();
+                new ArrayList<WebElement>();
         for (int elementOrdinal = 1; elementOrdinal <= webElements.size(); elementOrdinal++) {
             elements.add(UiElement.getInstance(description, locatorType, locatorValue, elementOrdinal, parent));
         }
@@ -133,6 +135,8 @@ public class UiElement {
             case LocatorType.TAG:
                 locator = By.tagName(locatorValue);
                 break;
+            case LocatorType.FRAME:
+                locator = By.tagName("body");
         }
         return locator;
     }
@@ -289,7 +293,7 @@ public class UiElement {
     }
 
     private WebElement getElement() {
-        if (element == null)
+        if (element == null || frameId != null)
             element = getElementBehavior.execute();
         return element;
     }
@@ -323,7 +327,9 @@ public class UiElement {
     }
 
     private void initializeGetElementBehavior() {
-        if (parent == null && attribute == null && ordinal == 1)
+        if (frameId != null)
+            getElementBehavior = new GetFrame();
+        else if (parent == null && attribute == null && ordinal == 1)
             getElementBehavior = new GetView();
         else if (parent == null)
             getElementBehavior = new GetView_attribute();
@@ -361,6 +367,7 @@ public class UiElement {
         public static final String ID = "id";
         public static final String NAME = "name";
         public static final String TAG = "tag";
+        public static final String FRAME = "frame";
     }
 
     public class Attribute {
@@ -372,19 +379,33 @@ public class UiElement {
     }
 
     /**
-     * ** GET ELEMENT BEHAVIOR ****
+     * ** GET ELEMENT BEHAVIORS ****
      */
     protected class GetView implements GetElementBehavior {
 
         public WebElement execute() {
-            return UiHost.getInstance().findUiElement(locator);
+            UiHost host = UiHost.getInstance();
+            host.selectWindow();
+            return host.findUiElement(locator);
+        }
+    }
+
+    protected class GetFrame implements GetElementBehavior {
+
+        @Override
+        public WebElement execute() {
+            UiHost host = UiHost.getInstance();
+            host.selectFrame(frameId);
+            return host.findUiElement(locator);
         }
     }
 
     protected class GetView_attribute implements GetElementBehavior {
 
         public WebElement execute() {
-            List<WebElement> candidates = UiHost.getInstance().findUiElements(locator);
+            UiHost host = UiHost.getInstance();
+            host.selectWindow();
+            List<WebElement> candidates = host.findUiElements(locator);
             for (WebElement candidate : candidates) {
                 final String candidateAttributeValue = candidate.getAttribute(attribute);
                 if (candidateAttributeValue != null && candidateAttributeValue.contains(attributeValue))
@@ -401,7 +422,7 @@ public class UiElement {
             int elementIndex = ordinal - 1;
             try {
                 final WebElement parentElement = parent.getElement();
-                elements = parentElement == null ? new ArrayList<>() : parentElement.findElements(locator);
+                elements = parentElement == null ? new ArrayList<WebElement>() : parentElement.findElements(locator);
             } catch (WebDriverException e) {
                 getLogger().warn(String.format(message_unableToFind, getElementDescription()));
                 return null;
@@ -425,7 +446,7 @@ public class UiElement {
             int elementIndex = ordinal - 1;
             try {
                 final WebElement parentElement = parent.getElement();
-                List<WebElement> candidates = parentElement == null ? new ArrayList<>() : parentElement.findElements(locator);
+                List<WebElement> candidates = parentElement == null ? new ArrayList<WebElement>() : parentElement.findElements(locator);
                 for (WebElement candidate : candidates) {
                     final String candidateAttributeValue = candidate.getAttribute(attribute);
                     if (candidateAttributeValue != null && candidateAttributeValue.contains(attributeValue))

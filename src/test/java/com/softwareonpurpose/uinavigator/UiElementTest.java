@@ -80,11 +80,10 @@ public class UiElementTest extends TestBase {
 
     @Test
     public void set() {
-        String setText = "Search phrase";
+        String expected = "Search phrase";
         UiHost.getInstance().load("http://www.google.com");
-        String expected = setText;
         final UiElement searchTextbox = UiElement.getInstance("Search Box", UiElement.LocatorType.NAME, "q");
-        searchTextbox.set(setText);
+        searchTextbox.set(expected);
         String actual = searchTextbox.getText();
         confirm(StringValidator.getInstance(expected, actual).validate());
     }
@@ -96,8 +95,17 @@ public class UiElementTest extends TestBase {
         UiElement parent = UiElement.getInstance("'Images' link", UiElement.LocatorType.CLASS, "gb_Lc");
         UiElement.getInstance("'Images' link", UiElement.LocatorType.CLASS, "gb_ua", 3, parent).click();
         parent = UiElement.getInstance("'Images' link", UiElement.LocatorType.CLASS, "gb_Lc");
-        UiElement actualElement = UiElement.getInstance("'Images' link", UiElement.LocatorType.CLASS, "gb_ua", 3, parent);
-        String actual = actualElement == null ? null : actualElement.getText();
+        String actual = UiElement.getInstance("'Images' link", UiElement.LocatorType.CLASS, "gb_ua", 3, parent).getText();
+        confirm(StringValidator.getInstance(expected, actual).validate());
+    }
+
+    @Test(//groups = "under_development"
+    )
+    public void getFramedElement() {
+        String expected = "Log In";
+        UiHost.getInstance().load("http://espn.go.com");
+        UiElement.getInstance("'Login' link", UiElement.LocatorType.TAG, "a", UiElement.getInstance("'User' region", UiElement.LocatorType.CLASS, "user")).click();
+        String actual = UiElement.getInstance("'Login' button", UiElement.LocatorType.CLASS, "btn", UiElement.getInstance("'Login' frame", UiElement.LocatorType.FRAME, "disneyid-iframe")).getText();
         confirm(StringValidator.getInstance(expected, actual).validate());
     }
 }
