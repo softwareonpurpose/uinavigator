@@ -293,7 +293,7 @@ public class UiElement {
     }
 
     private WebElement getElement() {
-        if (parent != null) UiHost.getInstance().selectWindow();
+        if (parent == null) UiHost.getInstance().selectWindow();
         else if (frameId != null) {
             UiHost.getInstance().selectFrame(frameId);
             element = getElementBehavior.execute();
@@ -332,7 +332,8 @@ public class UiElement {
     }
 
     private void initializeGetElementBehavior() {
-        if (parent == null && attribute == null && ordinal == 1)
+        if (frameId != null) getElementBehavior = new GetFrame();
+        else if (parent == null && attribute == null && ordinal == 1)
             getElementBehavior = new GetView();
         else if (parent == null)
             getElementBehavior = new GetView_attribute();
@@ -403,6 +404,15 @@ public class UiElement {
                     return candidate;
             }
             return null;
+        }
+    }
+
+    protected class GetFrame implements GetElementBehavior {
+
+        @Override
+        public WebElement execute() {
+            UiHost.getInstance().selectFrame(frameId);
+            return UiHost.getInstance().findUiElement(locator);
         }
     }
 

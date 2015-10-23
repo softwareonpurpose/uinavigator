@@ -23,6 +23,7 @@ task wrapper(type: Wrapper) {
 }
 
 test {
+    maxParallelForks = 4
     useTestNG()
 }
 
