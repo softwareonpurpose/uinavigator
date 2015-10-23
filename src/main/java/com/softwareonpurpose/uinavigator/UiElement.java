@@ -293,7 +293,12 @@ public class UiElement {
     }
 
     private WebElement getElement() {
-        if (element == null || frameId != null)
+        if (parent != null) UiHost.getInstance().selectWindow();
+        else if (frameId != null) {
+            UiHost.getInstance().selectFrame(frameId);
+            element = getElementBehavior.execute();
+        }
+        if (element == null)
             element = getElementBehavior.execute();
         return element;
     }
@@ -327,9 +332,7 @@ public class UiElement {
     }
 
     private void initializeGetElementBehavior() {
-        if (frameId != null)
-            getElementBehavior = new GetFrame();
-        else if (parent == null && attribute == null && ordinal == 1)
+        if (parent == null && attribute == null && ordinal == 1)
             getElementBehavior = new GetView();
         else if (parent == null)
             getElementBehavior = new GetView_attribute();
@@ -385,18 +388,7 @@ public class UiElement {
 
         public WebElement execute() {
             UiHost host = UiHost.getInstance();
-            host.selectWindow();
             return host.findUiElement(locator);
-        }
-    }
-
-    protected class GetFrame implements GetElementBehavior {
-
-        @Override
-        public WebElement execute() {
-            final WebElement parentElement = parent.getElement();
-            UiHost.getInstance().selectFrame(frameId);
-            return parentElement.findElement(locator);
         }
     }
 
@@ -404,7 +396,6 @@ public class UiElement {
 
         public WebElement execute() {
             UiHost host = UiHost.getInstance();
-            host.selectWindow();
             List<WebElement> candidates = host.findUiElements(locator);
             for (WebElement candidate : candidates) {
                 final String candidateAttributeValue = candidate.getAttribute(attribute);

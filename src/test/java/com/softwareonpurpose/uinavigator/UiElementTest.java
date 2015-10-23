@@ -99,7 +99,8 @@ public class UiElementTest extends TestBase {
         confirm(StringValidator.getInstance(expected, actual).validate());
     }
 
-    @Test(//groups = "under_development"
+    @Test(//*//
+            groups = "under_development" //*/
     )
     public void getFramedElement() {
         String expected = "Log In";

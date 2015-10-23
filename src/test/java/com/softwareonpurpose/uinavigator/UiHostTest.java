@@ -65,7 +65,7 @@ public class UiHostTest extends TestBase {
         confirm(StringValidator.getInstance(expected, actual).validate());
     }
 
-    @Test(//*
+    @Test(/*
             groups = "under_development"//*/
     )
     public void selectFrame() {

@@ -29,6 +29,7 @@ test {
 task debug(type: Test) {
     def groupsToInclude = []
     def groupsToExclude = []
+    maxParallelForks = 4
 
     groupsToInclude.add('under_development')
     useTestNG() {
