@@ -295,7 +295,6 @@ public class UiElement {
     private WebElement getElement() {
         if (parent == null) UiHost.getInstance().selectWindow();
         else if (frameId != null) {
-            UiHost.getInstance().selectFrame(frameId);
             element = getElementBehavior.execute();
         }
         if (element == null)
