@@ -394,9 +394,9 @@ public class UiElement {
 
         @Override
         public WebElement execute() {
-            UiHost host = UiHost.getInstance();
-            host.selectFrame(frameId);
-            return host.findUiElement(locator);
+            final WebElement parentElement = parent.getElement();
+            UiHost.getInstance().selectFrame(frameId);
+            return parentElement.findElement(locator);
         }
     }
 
