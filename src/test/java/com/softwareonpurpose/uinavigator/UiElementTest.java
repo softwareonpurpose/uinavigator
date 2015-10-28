@@ -78,7 +78,9 @@ public class UiElementTest extends TestBase {
         confirm(StringValidator.getInstance(expected, actual).validate());
     }
 
-    @Test
+    @Test(/*//
+            groups = "under_development" //*/
+    )
     public void set() {
         String expected = "Search phrase";
         UiHost.getInstance().load("http://www.google.com");
@@ -99,7 +101,7 @@ public class UiElementTest extends TestBase {
         confirm(StringValidator.getInstance(expected, actual).validate());
     }
 
-    @Test(//*//
+    @Test(/*//
             groups = "under_development" //*/
     )
     public void getFramedElement() {

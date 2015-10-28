@@ -20,6 +20,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,7 @@ public class UiElement {
     private String tipAttribute = "title";
     private By locator;
     private GetElementBehavior getElementBehavior;
+    private ElementBehavior elementBehavior;
     private WebElement element;
 
     private UiElement(String description, String locatorType, String locatorValue, String attribute, String attributeValue,
@@ -145,8 +147,15 @@ public class UiElement {
      * @return The text of the defined WebElement
      */
     public String getText() {
-        final WebElement element = getElement();
-        return element == null ? null : element.getTagName().equals("input") ? element.getAttribute("value") : element.getText();
+        return getElementBehavior().getText();
+    }
+
+    private ElementBehavior getElementBehavior() {
+        if (elementBehavior == null)
+            if (getElement() != null && getElement().getTagName() != null && getElement().getTagName().equals("select"))
+                elementBehavior = new SelectElementBehavior();
+            else elementBehavior = new DefaultElementBehavior();
+        return elementBehavior;
     }
 
     /**
@@ -186,8 +195,7 @@ public class UiElement {
         String message_unableToSet = "BLOCKED: Unable to set %s element to \"%s\"";
         if (element != null) {
             try {
-                element.clear();
-                getElement().sendKeys(value);
+                getElementBehavior().set(value);
             } catch (WebDriverException e) {
                 final String errorMessage = String.format(message_unableToSet, locator.toString(), value);
                 reportException(e, errorMessage);
@@ -294,9 +302,8 @@ public class UiElement {
 
     private WebElement getElement() {
         if (parent == null) UiHost.getInstance().selectWindow();
-        else if (frameId != null) {
+        if (frameId != null)
             element = getElementBehavior.execute();
-        }
         if (element == null)
             element = getElementBehavior.execute();
         return element;
@@ -360,8 +367,13 @@ public class UiElement {
     }
 
     private interface GetElementBehavior {
-
         WebElement execute();
+    }
+
+    private interface ElementBehavior {
+        void set(String text);
+
+        String getText();
     }
 
     public class LocatorType {
@@ -465,6 +477,36 @@ public class UiElement {
                 getLogger().warn(String.format(message_unableToFind, getElementDescription()));
             }
             return null;
+        }
+    }
+
+    /**
+     * ** SET ELEMENT BEHAVIORS ****
+     */
+    private class SelectElementBehavior implements ElementBehavior {
+
+        @Override
+        public void set(String text) {
+            new Select(getElement()).selectByVisibleText(text);
+        }
+
+        @Override
+        public String getText() {
+            return new Select(getElement()).getFirstSelectedOption().getText();
+        }
+    }
+
+    private class DefaultElementBehavior implements ElementBehavior {
+        @Override
+        public void set(String text) {
+            getElement().clear();
+            getElement().sendKeys(text);
+        }
+
+        @Override
+        public String getText() {
+            final WebElement element = getElement();
+            return element == null ? null : element.getTagName().equals("input") ? element.getAttribute("value") : element.getText();
         }
     }
 }
