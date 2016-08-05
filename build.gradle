@@ -14,7 +14,7 @@ dependencies {
     compile 'org.apache.logging.log4j:log4j-api:2.3'
     compile 'org.apache.logging.log4j:log4j-core:2.3'
     testCompile group: 'org.testng', name: 'testng', version: '6.9.4'
-    compile 'org.seleniumhq.selenium:selenium-java:2.45.0'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '2.53.1'
     compile files('./src/test/resources/validator4test-1.0.jar')
 }
 
@@ -23,11 +23,13 @@ task wrapper(type: Wrapper) {
 }
 
 test {
+    systemProperties['webdriver.chrome.driver'] = System.properties["/src/test/resources/chromedriver.exe"]
     maxParallelForks = 4
     useTestNG()
 }
 
 task debug(type: Test) {
+    systemProperties['env'] = System.properties["env"]
     def groupsToInclude = []
     def groupsToExclude = []
     maxParallelForks = 4

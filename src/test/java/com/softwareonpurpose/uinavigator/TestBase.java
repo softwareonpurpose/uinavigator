@@ -6,7 +6,7 @@ import org.testng.annotations.AfterMethod;
 
 public abstract class TestBase {
 
-    protected void confirm(String result) {
+    void confirm(String result) {
         Assert.assertTrue(result.equals(Validator.PASS), result);
     }
 

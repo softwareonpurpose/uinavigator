@@ -18,6 +18,8 @@ package com.softwareonpurpose.uinavigator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -179,7 +181,8 @@ public class UiHost {
 
         @Override
         public WebDriver execute() {
-            FirefoxDriver driver = new FirefoxDriver();
+            System.setProperty("webdriver.chrome.driver", "./src/test/resources/chromedriver.exe");
+            ChromeDriver driver = new ChromeDriver();
             driver.manage().timeouts().implicitlyWait(getConfig().timeout, TimeUnit.SECONDS);
             return driver;
         }

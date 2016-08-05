@@ -20,7 +20,7 @@ public class UiHostTest extends TestBase {
         confirm(ClassValidator.getInstance(expected, actual).validate());
     }
 
-    @Test
+    @Test(dependsOnMethods = "getDefaultInstance")
     public void load() {
         String domain = "www.google.com";
         String expected = String.format("https://%s", domain);
@@ -29,7 +29,7 @@ public class UiHostTest extends TestBase {
         confirm(StringValidator.getInstance(expected, actual).validate());
     }
 
-    @Test
+    @Test(dependsOnMethods = "getDefaultInstance")
     public void findUiElement() {
         String expected = "ctr-p";
         final UiHost browser = UiHost.getInstance();
@@ -38,7 +38,7 @@ public class UiHostTest extends TestBase {
         confirm(StringValidator.getInstance(expected, actual).validate());
     }
 
-    @Test
+    @Test(dependsOnMethods = "getDefaultInstance")
     public void findUiElements() {
         Integer expected = 6;
         final UiHost browser = UiHost.getInstance();
@@ -47,8 +47,7 @@ public class UiHostTest extends TestBase {
         confirm(IntegerValidator.getInstance(expected, actual).validate());
     }
 
-    @Test( /*
-            groups = "under_development"//*/)
+    @Test(dependsOnMethods = "getDefaultInstance")
     public void waitUntilVisible() {
         UiHost browser = UiHost.getInstance();
         browser.load(uri);
@@ -56,8 +55,7 @@ public class UiHostTest extends TestBase {
         confirm(BooleanValidator.getInstance(true, actual).validate());
     }
 
-    @Test( /*
-            groups = "under_development"//*/)
+    @Test(enabled = false, dependsOnMethods = "getDefaultInstance")
     public void getSpecifWebDriverInstance() {
         String expected = "Firefox";
         DriverInstantiation driverInstantiation = FirefoxInstantiation.getInstance();
@@ -65,9 +63,7 @@ public class UiHostTest extends TestBase {
         confirm(StringValidator.getInstance(expected, actual).validate());
     }
 
-    @Test(/*
-            groups = "under_development"//*/
-    )
+    @Test(dependsOnMethods = "getDefaultInstance")
     public void selectFrame() {
         String expected = "Log In";
         UiHost host = UiHost.getInstance();
@@ -78,9 +74,7 @@ public class UiHostTest extends TestBase {
         confirm(StringValidator.getInstance(expected, actual).validate());
     }
 
-    @Test(/*
-            groups = "under_development"//*/
-    )
+    @Test(dependsOnMethods = "getDefaultInstance")
     public void selectWindow() {
         String expected = null;
         UiHost host = UiHost.getInstance();

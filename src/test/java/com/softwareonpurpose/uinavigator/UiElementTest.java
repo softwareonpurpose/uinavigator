@@ -15,7 +15,7 @@ public class UiElementTest extends TestBase {
         confirm(ClassValidator.getInstance(expected, actual).validate());
     }
 
-    @Test
+    @Test (dependsOnMethods = "getRootInstance")
     public void getChildInstance() {
         Class expected = UiElement.class;
         UiHost.getInstance().load("http://www.google.com");
@@ -25,7 +25,7 @@ public class UiElementTest extends TestBase {
         confirm(ClassValidator.getInstance(expected, actual).validate());
     }
 
-    @Test
+    @Test (dependsOnMethods = "getRootInstance")
     public void getChildOrdinalInstance() {
         Class expected = UiElement.class;
         UiHost.getInstance().load("http://www.google.com");
@@ -35,7 +35,7 @@ public class UiElementTest extends TestBase {
         confirm(ClassValidator.getInstance(expected, actual).validate());
     }
 
-    @Test
+    @Test (dependsOnMethods = "getRootInstance")
     public void getChildAttributeInstance() {
         Class expected = UiElement.class;
         UiHost.getInstance().load("http://www.google.com");
@@ -46,7 +46,7 @@ public class UiElementTest extends TestBase {
         confirm(ClassValidator.getInstance(expected, actual).validate());
     }
 
-    @Test
+    @Test (dependsOnMethods = "getRootInstance")
     public void getChildOrdinalGetText() {
         String expected = "Settings";
         UiHost.getInstance().load("http://www.google.com");
@@ -78,9 +78,7 @@ public class UiElementTest extends TestBase {
         confirm(StringValidator.getInstance(expected, actual).validate());
     }
 
-    @Test(/*//
-            groups = "under_development" //*/
-    )
+    @Test (dependsOnMethods = "getRootInstance")
     public void set() {
         String expected = "Search phrase";
         UiHost.getInstance().load("http://www.google.com");
@@ -90,7 +88,7 @@ public class UiElementTest extends TestBase {
         confirm(StringValidator.getInstance(expected, actual).validate());
     }
 
-    @Test
+    @Test (dependsOnMethods = "getRootInstance")
     public void click() {
         String expected = null;
         UiHost.getInstance().load("http://www.google.com");
@@ -101,9 +99,7 @@ public class UiElementTest extends TestBase {
         confirm(StringValidator.getInstance(expected, actual).validate());
     }
 
-    @Test(/*//
-            groups = "under_development" //*/
-    )
+    @Test (dependsOnMethods = "getRootInstance")
     public void getFramedElement() {
         String expected = "Log In";
         UiHost.getInstance().load("http://espn.go.com");
