@@ -234,7 +234,7 @@ public class UiElement {
      * @return boolean indicating whether the element is selected
      */
     public boolean isSelected() {
-        return (classContains(selectedClass) || styleContains(selectedStyle));
+        return (classContains(selectedClass) || styleContains(selectedStyle) || getElement().isSelected());
     }
 
     /**
