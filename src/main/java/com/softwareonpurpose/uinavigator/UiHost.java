@@ -19,8 +19,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -31,11 +29,13 @@ public class UiHost {
 
     private static UiHost uiHost;
     private static Configuration config;
-    private final DriverInstantiation driverInstantiation;
+    private static DriverInstantiation driverInstantiation;
     private WebDriver driver;
 
-    private UiHost(DriverInstantiation driverInstantiation) {
-        this.driverInstantiation = driverInstantiation;
+    private UiHost() {
+        if (driverInstantiation == null) {
+            setDriverInstantiation(DefaultDriverInstantiation.getInstance());
+        }
         instantiateUiDriver();
     }
 
@@ -44,7 +44,7 @@ public class UiHost {
      */
     public static UiHost getInstance() {
         if (uiHost == null) {
-            uiHost = new UiHost(DefaultDriverInstantiation.getInstance());
+            uiHost = new UiHost();
         }
         return uiHost;
     }
@@ -54,9 +54,9 @@ public class UiHost {
      * @return Selenium WebDriver
      */
     public static UiHost getInstance(DriverInstantiation driverInstantiation) {
-        if (uiHost == null) {
-            uiHost = new UiHost(driverInstantiation);
-        }
+        setDriverInstantiation(driverInstantiation);
+        quitInstance();
+        uiHost = new UiHost();
         return uiHost;
     }
 
@@ -72,6 +72,10 @@ public class UiHost {
             uiHost.quit();
             uiHost = null;
         }
+    }
+
+    public static void setDriverInstantiation(DriverInstantiation driverInstantiation) {
+        UiHost.driverInstantiation = driverInstantiation;
     }
 
     /**
