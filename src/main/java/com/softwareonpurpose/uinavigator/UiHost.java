@@ -34,6 +34,7 @@ public class UiHost {
 
     private UiHost() {
         if (driverInstantiation == null) {
+            this.getLogger().warn("Driver instantiation UNSPECIFIED; setting to default.");
             setDriverInstantiation(DefaultDriverInstantiation.getInstance());
         }
         instantiateUiDriver();
@@ -185,7 +186,7 @@ public class UiHost {
 
         @Override
         public WebDriver execute() {
-            System.setProperty("webdriver.chrome.driver", "./src/test/resources/chromedriver.exe");
+            System.setProperty("webdriver.chrome.driver", "./src/main/resources/chromedriver.exe");
             ChromeDriver driver = new ChromeDriver();
             driver.manage().timeouts().implicitlyWait(getConfig().timeout, TimeUnit.SECONDS);
             return driver;
