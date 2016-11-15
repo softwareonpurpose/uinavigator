@@ -34,6 +34,8 @@ public class UiElement {
     private final String attributeValue;
     private final int ordinal;
     private final String frameId;
+    private final String locatorType;
+    private final String locatorValue;
     private String activeClass;
     private String selectedClass;
     private String selectedStyle;
@@ -47,8 +49,10 @@ public class UiElement {
     private UiElement(String description, String locatorType, String locatorValue, String attribute, String attributeValue,
                       Integer ordinal, UiElement parent) {
         this.description = description;
+        this.locatorType = locatorType;
+        this.locatorValue = locatorValue;
         frameId = locatorType.equals(LocatorType.FRAME) ? locatorValue : null;
-        initializeLocator(locatorType, locatorValue);
+        initializeLocator();
         this.parent = parent;
         this.attribute = attribute;
         this.attributeValue = attributeValue;
@@ -111,11 +115,11 @@ public class UiElement {
      * @param parent       UiElement representing a parent of the requested elements
      * @return List of HtmlElements instantiated with the defined locator and description
      */
-    public List<UiElement> getList(String description, String locatorType, String locatorValue, UiElement parent) {
+    public static List<UiElement> getList(String description, String locatorType, String locatorValue, UiElement parent) {
         List<UiElement> elements = new ArrayList<>();
         WebElement parentElement = parent.getElement();
         List<WebElement> webElements = parentElement != null ?
-                parentElement.findElements(initializeLocator(locatorType, locatorValue)) :
+                parentElement.findElements(constructLocator(locatorType, locatorValue)) :
                 new ArrayList<>();
         for (int elementOrdinal = 1; elementOrdinal <= webElements.size(); elementOrdinal++) {
             elements.add(UiElement.getInstance(description, locatorType, locatorValue, elementOrdinal, parent));
@@ -123,26 +127,36 @@ public class UiElement {
         return elements;
     }
 
-    private By initializeLocator(String locatorType, String locatorValue) {
+    private static By constructLocator(String locatorType, String locatorValue) {
         switch (locatorType) {
             case LocatorType.CLASS:
-                locator = By.className(locatorValue);
+                return By.className(locatorValue);
+            case LocatorType.ID:
+                return By.id(locatorValue);
+            case LocatorType.NAME:
+                return By.name(locatorValue);
+            case LocatorType.TAG:
+                return By.tagName(locatorValue);
+            case LocatorType.FRAME:
+                return By.tagName("body");
+        }
+        return null;
+    }
+
+    private By initializeLocator() {
+        locator = constructLocator(locatorType, locatorValue);
+        switch (locatorType) {
+            case LocatorType.CLASS:
                 isClickableBehavior = new ClassLocatedIsClickableBehavior(locatorValue);
                 break;
             case LocatorType.ID:
-                locator = By.id(locatorValue);
                 isClickableBehavior = new IdLocatedIsClickableBehavior(locatorValue);
                 break;
             case LocatorType.NAME:
-                locator = By.name(locatorValue);
                 isClickableBehavior = new NameLocatedIsClickableBehavior(locatorValue);
                 break;
             case LocatorType.TAG:
-                locator = By.tagName(locatorValue);
                 isClickableBehavior = new TagLocatedIsClickableBehavior(locatorValue);
-                break;
-            case LocatorType.FRAME:
-                locator = By.tagName("body");
         }
         return locator;
     }
