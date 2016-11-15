@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-class Configuration {
+public class Configuration {
 
     private static Configuration config;
     private final long timeout;
@@ -40,7 +40,7 @@ class Configuration {
         return config;
     }
 
-    long getTimeout() {
+    public long getTimeout() {
         return timeout;
     }
 }
