@@ -145,10 +145,10 @@ public class UiHost {
      */
     boolean waitUntilVisible(By locator) {
         try {
-            new WebDriverWait(getDriver(), getConfig().timeout).until(ExpectedConditions.visibilityOfElementLocated(locator));
+            new WebDriverWait(getDriver(), getConfig().getTimeout()).until(ExpectedConditions.visibilityOfElementLocated(locator));
         } catch (WebDriverException e) {
             getLogger().warn(String.format("WARNING: UiElement '%s' failed to be displayed within %d seconds", locator.toString(),
-                    getConfig().timeout));
+                    getConfig().getTimeout()));
             return false;
         }
         return true;
@@ -188,7 +188,12 @@ public class UiHost {
         public WebDriver execute() {
             System.setProperty("webdriver.chrome.driver", "./src/main/resources/chromedriver.exe");
             ChromeDriver driver = new ChromeDriver();
-            driver.manage().timeouts().implicitlyWait(getConfig().timeout, TimeUnit.SECONDS);
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            driver.manage().timeouts().implicitlyWait(getConfig().getTimeout(), TimeUnit.SECONDS);
             return driver;
         }
     }

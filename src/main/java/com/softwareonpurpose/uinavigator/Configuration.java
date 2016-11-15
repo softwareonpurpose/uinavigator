@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class Configuration {
+class Configuration {
 
-    final long timeout;
     private static Configuration config;
+    private final long timeout;
 
     private Configuration() {
         InputStream inputStream;
@@ -38,5 +38,9 @@ public class Configuration {
         if (config == null)
             config = new Configuration();
         return config;
+    }
+
+    long getTimeout() {
+        return timeout;
     }
 }

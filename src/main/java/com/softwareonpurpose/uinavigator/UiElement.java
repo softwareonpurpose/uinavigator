@@ -42,12 +42,13 @@ public class UiElement {
     private GetElementBehavior getElementBehavior;
     private ElementBehavior elementBehavior;
     private WebElement element;
+    private IsClickableBehavior isClickableBehavior;
 
     private UiElement(String description, String locatorType, String locatorValue, String attribute, String attributeValue,
                       Integer ordinal, UiElement parent) {
         this.description = description;
         frameId = locatorType.equals(LocatorType.FRAME) ? locatorValue : null;
-        locator = createLocator(locatorType, locatorValue);
+        initializeLocator(locatorType, locatorValue);
         this.parent = parent;
         this.attribute = attribute;
         this.attributeValue = attributeValue;
@@ -110,32 +111,35 @@ public class UiElement {
      * @param parent       UiElement representing a parent of the requested elements
      * @return List of HtmlElements instantiated with the defined locator and description
      */
-    public static List<UiElement> getList(String description, String locatorType, String locatorValue, UiElement parent) {
+    public List<UiElement> getList(String description, String locatorType, String locatorValue, UiElement parent) {
         List<UiElement> elements = new ArrayList<>();
         WebElement parentElement = parent.getElement();
         List<WebElement> webElements = parentElement != null ?
-                parentElement.findElements(createLocator(locatorType, locatorValue)) :
-                new ArrayList<WebElement>();
+                parentElement.findElements(initializeLocator(locatorType, locatorValue)) :
+                new ArrayList<>();
         for (int elementOrdinal = 1; elementOrdinal <= webElements.size(); elementOrdinal++) {
             elements.add(UiElement.getInstance(description, locatorType, locatorValue, elementOrdinal, parent));
         }
         return elements;
     }
 
-    private static By createLocator(String locatorType, String locatorValue) {
-        By locator = null;
+    private By initializeLocator(String locatorType, String locatorValue) {
         switch (locatorType) {
             case LocatorType.CLASS:
                 locator = By.className(locatorValue);
+                isClickableBehavior = new ClassLocatedIsClickableBehavior(locatorValue);
                 break;
             case LocatorType.ID:
                 locator = By.id(locatorValue);
+                isClickableBehavior = new IdLocatedIsClickableBehavior(locatorValue);
                 break;
             case LocatorType.NAME:
                 locator = By.name(locatorValue);
+                isClickableBehavior = new NameLocatedIsClickableBehavior(locatorValue);
                 break;
             case LocatorType.TAG:
                 locator = By.tagName(locatorValue);
+                isClickableBehavior = new TagLocatedIsClickableBehavior(locatorValue);
                 break;
             case LocatorType.FRAME:
                 locator = By.tagName("body");
@@ -212,7 +216,7 @@ public class UiElement {
         getLogger().info(String.format(getIndentation() + "Click %s", getDescription()));
         WebElement element = getElement();
         final String errorMessage = String.format("BLOCKED: Unable to click %s", getElementDescription());
-        if (element != null) {
+        if (element != null && isClickable()) {
             try {
                 element.click();
             } catch (WebDriverException e) {
@@ -221,6 +225,10 @@ public class UiElement {
         } else {
             getLogger().error(errorMessage);
         }
+    }
+
+    private boolean isClickable() {
+        return isClickableBehavior.execute();
     }
 
     /**
@@ -376,6 +384,13 @@ public class UiElement {
         String getText();
     }
 
+    /**
+     * ** IS CLICKABLE BEHAVIORS ****
+     */
+    private interface IsClickableBehavior {
+        boolean execute();
+    }
+
     public class LocatorType {
 
         public static final String CLASS = "class";
@@ -507,6 +522,58 @@ public class UiElement {
         public String getText() {
             final WebElement element = getElement();
             return element == null ? null : element.getTagName().equals("input") ? element.getAttribute("value") : element.getText();
+        }
+    }
+
+    private class ClassLocatedIsClickableBehavior implements IsClickableBehavior {
+        private final String locatorValue;
+
+        private ClassLocatedIsClickableBehavior(String locatorValue) {
+            this.locatorValue = locatorValue;
+        }
+
+        @Override
+        public boolean execute() {
+            return getElement().getAttribute("class").contains(locatorValue);
+        }
+    }
+
+    private class IdLocatedIsClickableBehavior implements IsClickableBehavior {
+        private final String locatorValue;
+
+        private IdLocatedIsClickableBehavior(String locatorValue) {
+            this.locatorValue = locatorValue;
+        }
+
+        @Override
+        public boolean execute() {
+            return getElement().getAttribute("id").contains(locatorValue);
+        }
+    }
+
+    private class NameLocatedIsClickableBehavior implements IsClickableBehavior {
+        private final String locatorValue;
+
+        private NameLocatedIsClickableBehavior(String locatorValue) {
+            this.locatorValue = locatorValue;
+        }
+
+        @Override
+        public boolean execute() {
+            return getElement().getAttribute("name").contains(locatorValue);
+        }
+    }
+
+    private class TagLocatedIsClickableBehavior implements IsClickableBehavior {
+        private final String locatorValue;
+
+        private TagLocatedIsClickableBehavior(String locatorValue) {
+            this.locatorValue = locatorValue;
+        }
+
+        @Override
+        public boolean execute() {
+            return getElement().getTagName().contains(locatorValue);
         }
     }
 }

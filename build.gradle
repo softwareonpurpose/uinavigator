@@ -14,7 +14,7 @@ dependencies {
     compile 'org.apache.logging.log4j:log4j-api:2.3'
     compile 'org.apache.logging.log4j:log4j-core:2.3'
     testCompile group: 'org.testng', name: 'testng', version: '6.9.4'
-    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '2.53.1'
+    compile 'org.seleniumhq.selenium:selenium-java:3.0.1'
     compile files('./src/test/resources/validator4test-1.0.jar')
 }
 
