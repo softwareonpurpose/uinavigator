@@ -264,8 +264,7 @@ public class UiElement {
      * @return boolean indicating whether the element is displayed
      */
     public boolean isDisplayed() {
-        WebElement element = getElement();
-        return element != null && element.isDisplayed();
+        return this.waitUntilVisible();
     }
 
     /**
