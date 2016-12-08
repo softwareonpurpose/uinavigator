@@ -256,14 +256,16 @@ public class UiElement {
      * @return boolean indicating whether the element is selected
      */
     public boolean isSelected() {
-        return (classContains(selectedClass) || styleContains(selectedStyle) || getElement().isSelected());
+        WebElement element = getElement();
+        return classContains(selectedClass) || styleContains(selectedStyle) || (element != null && element.isSelected());
     }
 
     /**
      * @return boolean indicating whether the element is displayed
      */
     public boolean isDisplayed() {
-        return getElement() != null;
+        WebElement element = getElement();
+        return element != null && element.isDisplayed();
     }
 
     /**
@@ -463,11 +465,8 @@ public class UiElement {
             int elementIndex = ordinal - 1;
             try {
                 final WebElement parentElement = parent.getElement();
-                elements = parentElement == null ? new ArrayList<WebElement>() : parentElement.findElements(locator);
-            } catch (WebDriverException e) {
-                getLogger().warn(String.format(message_unableToFind, getElementDescription()));
-                return null;
-            } catch (NullPointerException e) {
+                elements = parentElement == null ? new ArrayList<>() : parentElement.findElements(locator);
+            } catch (WebDriverException | NullPointerException e) {
                 getLogger().warn(String.format(message_unableToFind, getElementDescription()));
                 return null;
             }
@@ -487,7 +486,8 @@ public class UiElement {
             int elementIndex = ordinal - 1;
             try {
                 final WebElement parentElement = parent.getElement();
-                List<WebElement> candidates = parentElement == null ? new ArrayList<WebElement>() : parentElement.findElements(locator);
+                List<WebElement> candidates = parentElement == null ? new ArrayList<WebElement>() : parentElement
+                        .findElements(locator);
                 for (WebElement candidate : candidates) {
                     final String candidateAttributeValue = candidate.getAttribute(attribute);
                     if (candidateAttributeValue != null && candidateAttributeValue.contains(attributeValue))
@@ -535,7 +535,8 @@ public class UiElement {
         @Override
         public String getText() {
             final WebElement element = getElement();
-            return element == null ? null : element.getTagName().equals("input") ? element.getAttribute("value") : element.getText();
+            return element == null ? null : element.getTagName().equals("input") ? element.getAttribute("value") : element
+                    .getText();
         }
     }
 
