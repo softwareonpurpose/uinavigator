@@ -311,7 +311,7 @@ public class UiElement {
         return element == null ? null : element.getAttribute(Attribute.SRC);
     }
 
-    void setAttribute(String attributeName, String value) {
+    public void setAttribute(String attributeName, String value) {
         UiHost.getInstance().execute(getElement(), attributeName, value);
     }
 
@@ -381,7 +381,7 @@ public class UiElement {
                 .format(attributeDescription, attribute, attributeValue) : "");
     }
 
-    String getAttribute(String attributeName) {
+    public String getAttribute(String attributeName) {
         return getElement().getAttribute(attributeName);
     }
 
