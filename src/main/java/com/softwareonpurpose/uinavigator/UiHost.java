@@ -95,6 +95,13 @@ public class UiHost {
         }
     }
 
+    void execute(WebElement element, String attribute, String value) {
+        if (getDriver() instanceof JavascriptExecutor) {
+            ((JavascriptExecutor) getDriver())
+                    .executeScript("arguments[0].setAttribute(arguments[1], arguments[2]);", element, attribute, value);
+        }
+    }
+
     /**
      * @return String which is the current URI of the browser
      */
@@ -145,10 +152,12 @@ public class UiHost {
      */
     boolean waitUntilVisible(By locator) {
         try {
-            new WebDriverWait(getDriver(), getConfig().getTimeout()).until(ExpectedConditions.visibilityOfElementLocated(locator));
+            new WebDriverWait(getDriver(), getConfig().getTimeout())
+                    .until(ExpectedConditions.visibilityOfElementLocated(locator));
         } catch (WebDriverException e) {
-            getLogger().warn(String.format("WARNING: UiElement '%s' failed to be displayed within %d seconds", locator.toString(),
-                    getConfig().getTimeout()));
+            getLogger().warn(String
+                    .format("WARNING: UiElement '%s' failed to be displayed within %d seconds", locator.toString(), getConfig()
+                            .getTimeout()));
             return false;
         }
         return true;

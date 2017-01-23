@@ -46,8 +46,7 @@ public class UiElement {
     private WebElement element;
     private IsClickableBehavior isClickableBehavior;
 
-    private UiElement(String description, String locatorType, String locatorValue, String attribute, String attributeValue,
-                      Integer ordinal, UiElement parent) {
+    private UiElement(String description, String locatorType, String locatorValue, String attribute, String attributeValue, Integer ordinal, UiElement parent) {
         this.description = description;
         this.locatorType = locatorType;
         this.locatorValue = locatorValue;
@@ -89,8 +88,7 @@ public class UiElement {
      * @param parent       UiElement representing a parent of the requested element
      * @return UiElement instantiated with the defined locator and description
      */
-    public static UiElement getInstance(String description, String locatorType, String locatorValue, int ordinal,
-                                        UiElement parent) {
+    public static UiElement getInstance(String description, String locatorType, String locatorValue, int ordinal, UiElement parent) {
         return new UiElement(description, locatorType, locatorValue, null, null, ordinal, parent);
     }
 
@@ -103,8 +101,7 @@ public class UiElement {
      * @param parent         UiElement representing a parent of the requested element
      * @return UiElement instantiated with the defined locator and description
      */
-    public static UiElement getInstance(String description, String locatorType, String locatorValue, String attribute,
-                                        String attributeValue, UiElement parent) {
+    public static UiElement getInstance(String description, String locatorType, String locatorValue, String attribute, String attributeValue, UiElement parent) {
         return new UiElement(description, locatorType, locatorValue, attribute, attributeValue, null, parent);
     }
 
@@ -118,9 +115,8 @@ public class UiElement {
     public static List<UiElement> getList(String description, String locatorType, String locatorValue, UiElement parent) {
         List<UiElement> elements = new ArrayList<>();
         WebElement parentElement = parent.getElement();
-        List<WebElement> webElements = parentElement != null ?
-                parentElement.findElements(constructLocator(locatorType, locatorValue)) :
-                new ArrayList<>();
+        List<WebElement> webElements = parentElement != null ? parentElement
+                .findElements(constructLocator(locatorType, locatorValue)) : new ArrayList<>();
         for (int elementOrdinal = 1; elementOrdinal <= webElements.size(); elementOrdinal++) {
             elements.add(UiElement.getInstance(description, locatorType, locatorValue, elementOrdinal, parent));
         }
@@ -315,6 +311,10 @@ public class UiElement {
         return element == null ? null : element.getAttribute(Attribute.SRC);
     }
 
+    void setAttribute(String attributeName, String value) {
+        UiHost.getInstance().execute(getElement(), attributeName, value);
+    }
+
     String getDescription() {
         return description;
     }
@@ -325,10 +325,8 @@ public class UiElement {
 
     private WebElement getElement() {
         if (parent == null) UiHost.getInstance().selectWindow();
-        if (frameId != null)
-            element = getElementBehavior.execute();
-        if (element == null)
-            element = getElementBehavior.execute();
+        if (frameId != null) element = getElementBehavior.execute();
+        if (element == null) element = getElementBehavior.execute();
         return element;
     }
 
@@ -338,15 +336,13 @@ public class UiElement {
 
     private boolean classContains(String state) {
         String className = getClassName();
-        if (className == null || state == null)
-            return false;
+        if (className == null || state == null) return false;
         return className.contains(state);
     }
 
     private boolean styleContains(String state) {
         String style = getStyle();
-        if (style == null || state == null)
-            return false;
+        if (style == null || state == null) return false;
         return style.contains(state);
     }
 
@@ -362,14 +358,10 @@ public class UiElement {
 
     private void initializeGetElementBehavior() {
         if (frameId != null) getElementBehavior = new GetFrame();
-        else if (parent == null && attribute == null && ordinal == 1)
-            getElementBehavior = new GetView();
-        else if (parent == null)
-            getElementBehavior = new GetView_attribute();
-        else if (attribute != null)
-            getElementBehavior = new GetElement_attribute();
-        else
-            getElementBehavior = new GetElement();
+        else if (parent == null && attribute == null && ordinal == 1) getElementBehavior = new GetView();
+        else if (parent == null) getElementBehavior = new GetView_attribute();
+        else if (attribute != null) getElementBehavior = new GetElement_attribute();
+        else getElementBehavior = new GetElement();
     }
 
     private void reportException(WebDriverException e, String errorMessage) {
@@ -385,8 +377,12 @@ public class UiElement {
     private String getElementDescription() {
         String elementDescription = "%s element with locator %s %s";
         String attributeDescription = "and '%s' attribute containing \"%s\"";
-        return String.format(elementDescription, description, locator.toString(),
-                attribute != null ? String.format(attributeDescription, attribute, attributeValue) : "");
+        return String.format(elementDescription, description, locator.toString(), attribute != null ? String
+                .format(attributeDescription, attribute, attributeValue) : "");
+    }
+
+    String getAttribute(String attributeName) {
+        return getElement().getAttribute(attributeName);
     }
 
     private interface GetElementBehavior {
@@ -441,8 +437,7 @@ public class UiElement {
             List<WebElement> candidates = host.findUiElements(locator);
             for (WebElement candidate : candidates) {
                 final String candidateAttributeValue = candidate.getAttribute(attribute);
-                if (candidateAttributeValue != null && candidateAttributeValue.contains(attributeValue))
-                    return candidate;
+                if (candidateAttributeValue != null && candidateAttributeValue.contains(attributeValue)) return candidate;
             }
             return null;
         }
@@ -520,7 +515,8 @@ public class UiElement {
 
         @Override
         public String getText() {
-            return new Select(getElement()).getFirstSelectedOption().getText();
+            Select select = new Select(getElement());
+            return select.getOptions().size() == 0 ? null : select.getFirstSelectedOption().getText();
         }
     }
 

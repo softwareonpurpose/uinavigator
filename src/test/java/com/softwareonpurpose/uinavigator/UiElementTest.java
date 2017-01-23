@@ -107,4 +107,14 @@ public class UiElementTest extends TestBase {
         String actual = UiElement.getInstance("'Login' button", UiElement.LocatorType.CLASS, "btn", UiElement.getInstance("'Login' frame", UiElement.LocatorType.FRAME, "disneyid-iframe")).getText();
         confirm(StringValidator.getInstance(expected, actual).validate());
     }
+
+    @Test (dependsOnMethods = "getRootInstance")
+    public void setAttribute() {
+        String expected = "Bogus Alt Text";
+        UiHost.getInstance().load("http://www.google.com");
+        UiElement element = UiElement.getInstance("Logo", UiElement.LocatorType.ID, "hplogo");
+        element.setAttribute("alt", expected);
+        String actual = element.getAttribute("alt");
+        confirm(StringValidator.getInstance(expected, actual).validate());
+    }
 }
