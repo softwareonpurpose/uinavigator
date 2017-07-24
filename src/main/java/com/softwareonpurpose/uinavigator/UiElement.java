@@ -28,6 +28,7 @@ import java.util.List;
 public class UiElement {
 
     private static String message_unableToFind = "WARNING: Unable to locate %s";
+    private static boolean suppressLogging;
     private final UiElement parent;
     private final String description;
     private final String attribute;
@@ -103,6 +104,10 @@ public class UiElement {
      */
     public static UiElement getInstance(String description, String locatorType, String locatorValue, String attribute, String attributeValue, UiElement parent) {
         return new UiElement(description, locatorType, locatorValue, attribute, attributeValue, null, parent);
+    }
+
+    public static void suppressLogging(boolean suppress) {
+        suppressLogging = suppress;
     }
 
     /**
@@ -206,7 +211,9 @@ public class UiElement {
     public void set(String value) {
         value = value == null ? "" : value;
         WebElement element = getElement();
-        getLogger().info(String.format(getIndentation() + "Set %s to \"%s\"", getDescription(), value));
+        if (!suppressLogging) {
+            getLogger().info(String.format(getIndentation() + "Set %s to \"%s\"", getDescription(), value));
+        }
         String message_unableToSet = "BLOCKED: Unable to set %s element to \"%s\"";
         if (element != null) {
             try {
@@ -216,7 +223,9 @@ public class UiElement {
                 reportException(e, errorMessage);
             }
         } else {
-            getLogger().error(String.format(message_unableToSet, locator.toString(), value));
+            if (!suppressLogging) {
+                getLogger().error(String.format(message_unableToSet, locator.toString(), value));
+            }
         }
     }
 
@@ -224,7 +233,9 @@ public class UiElement {
      * Executes a mouse-click event
      */
     public void click() {
-        getLogger().info(String.format(getIndentation() + "Click %s", getDescription()));
+        if (!suppressLogging) {
+            getLogger().info(String.format(getIndentation() + "Click %s", getDescription()));
+        }
         WebElement element = getElement();
         final String errorMessage = String.format("BLOCKED: Unable to click %s", getElementDescription());
         if (element != null && isClickable()) {
@@ -234,7 +245,9 @@ public class UiElement {
                 reportException(e, errorMessage);
             }
         } else {
-            getLogger().error(errorMessage);
+            if (!suppressLogging) {
+                getLogger().error(errorMessage);
+            }
         }
     }
 
