@@ -118,7 +118,8 @@ public class UiElement {
         List<WebElement> webElements = parentElement != null ? parentElement
                 .findElements(constructLocator(locatorType, locatorValue)) : new ArrayList<>();
         for (int elementOrdinal = 1; elementOrdinal <= webElements.size(); elementOrdinal++) {
-            elements.add(UiElement.getInstance(description, locatorType, locatorValue, elementOrdinal, parent));
+            String elementDescription = String.format("%s #%d", description, elementOrdinal);
+            elements.add(UiElement.getInstance(elementDescription, locatorType, locatorValue, elementOrdinal, parent));
         }
         return elements;
     }
@@ -437,7 +438,8 @@ public class UiElement {
             List<WebElement> candidates = host.findUiElements(locator);
             for (WebElement candidate : candidates) {
                 final String candidateAttributeValue = candidate.getAttribute(attribute);
-                if (candidateAttributeValue != null && candidateAttributeValue.contains(attributeValue)) return candidate;
+                if (candidateAttributeValue != null && candidateAttributeValue.contains(attributeValue))
+                    return candidate;
             }
             return null;
         }
