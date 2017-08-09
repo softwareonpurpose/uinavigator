@@ -28,6 +28,7 @@ import java.util.List;
 public class UiElement {
 
     private static String message_unableToFind = "WARNING: Unable to locate %s";
+    private static boolean suppressLogging;
     private final UiElement parent;
     private final String description;
     private final String attribute;
@@ -105,6 +106,10 @@ public class UiElement {
         return new UiElement(description, locatorType, locatorValue, attribute, attributeValue, null, parent);
     }
 
+    public static void suppressLogging(boolean suppress) {
+        suppressLogging = suppress;
+    }
+
     /**
      * @param description  String description of the elements used for logging
      * @param locatorType  String (UiElement.LocatorType) defining Selenium locator type
@@ -118,7 +123,8 @@ public class UiElement {
         List<WebElement> webElements = parentElement != null ? parentElement
                 .findElements(constructLocator(locatorType, locatorValue)) : new ArrayList<>();
         for (int elementOrdinal = 1; elementOrdinal <= webElements.size(); elementOrdinal++) {
-            elements.add(UiElement.getInstance(description, locatorType, locatorValue, elementOrdinal, parent));
+            String elementDescription = String.format("%s #%d", description, elementOrdinal);
+            elements.add(UiElement.getInstance(elementDescription, locatorType, locatorValue, elementOrdinal, parent));
         }
         return elements;
     }
@@ -205,7 +211,9 @@ public class UiElement {
     public void set(String value) {
         value = value == null ? "" : value;
         WebElement element = getElement();
-        getLogger().info(String.format(getIndentation() + "Set %s to \"%s\"", getDescription(), value));
+        if (!suppressLogging) {
+            getLogger().info(String.format(getIndentation() + "Set %s to \"%s\"", getDescription(), value));
+        }
         String message_unableToSet = "BLOCKED: Unable to set %s element to \"%s\"";
         if (element != null) {
             try {
@@ -215,7 +223,9 @@ public class UiElement {
                 reportException(e, errorMessage);
             }
         } else {
-            getLogger().error(String.format(message_unableToSet, locator.toString(), value));
+            if (!suppressLogging) {
+                getLogger().error(String.format(message_unableToSet, locator.toString(), value));
+            }
         }
     }
 
@@ -223,7 +233,9 @@ public class UiElement {
      * Executes a mouse-click event
      */
     public void click() {
-        getLogger().info(String.format(getIndentation() + "Click %s", getDescription()));
+        if (!suppressLogging) {
+            getLogger().info(String.format(getIndentation() + "Click %s", getDescription()));
+        }
         WebElement element = getElement();
         final String errorMessage = String.format("BLOCKED: Unable to click %s", getElementDescription());
         if (element != null && isClickable()) {
@@ -233,7 +245,9 @@ public class UiElement {
                 reportException(e, errorMessage);
             }
         } else {
-            getLogger().error(errorMessage);
+            if (!suppressLogging) {
+                getLogger().error(errorMessage);
+            }
         }
     }
 
@@ -437,7 +451,8 @@ public class UiElement {
             List<WebElement> candidates = host.findUiElements(locator);
             for (WebElement candidate : candidates) {
                 final String candidateAttributeValue = candidate.getAttribute(attribute);
-                if (candidateAttributeValue != null && candidateAttributeValue.contains(attributeValue)) return candidate;
+                if (candidateAttributeValue != null && candidateAttributeValue.contains(attributeValue))
+                    return candidate;
             }
             return null;
         }
