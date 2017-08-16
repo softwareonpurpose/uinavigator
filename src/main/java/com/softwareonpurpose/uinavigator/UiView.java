@@ -20,7 +20,7 @@ public abstract class UiView {
     private final UiElement viewElement;
     private final String viewUri;
 
-    protected UiView(String viewUri, UiElement viewElement) {
+    protected UiView(String viewUri, UiElement viewElement, Class viewClass) {
         this.viewUri = viewUri;
         this.viewElement = viewElement;
     }
@@ -40,6 +40,4 @@ public abstract class UiView {
     protected UiElement getElement() {
         return viewElement;
     }
-
-    protected abstract <T> T expect();
 }
