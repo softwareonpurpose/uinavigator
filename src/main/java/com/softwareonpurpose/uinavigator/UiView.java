@@ -20,7 +20,7 @@ public abstract class UiView {
     private final UiElement viewElement;
     private final String viewUri;
 
-    protected UiView(String viewUri, UiElement viewElement, Class viewClass) {
+    protected UiView(String viewUri, UiElement viewElement) {
         this.viewUri = viewUri;
         this.viewElement = viewElement;
     }
