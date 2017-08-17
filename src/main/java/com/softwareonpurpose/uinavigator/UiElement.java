@@ -15,12 +15,12 @@
  */
 package com.softwareonpurpose.uinavigator;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -334,7 +334,7 @@ public class UiElement {
     }
 
     protected Logger getLogger() {
-        return LogManager.getLogger(getClass());
+        return LoggerFactory.getLogger(getClass());
     }
 
     private WebElement getElement() {

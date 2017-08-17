@@ -15,12 +15,12 @@
  */
 package com.softwareonpurpose.uinavigator;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -184,7 +184,7 @@ public class UiHost {
     }
 
     private Logger getLogger() {
-        return LogManager.getLogger(this.getClass());
+        return LoggerFactory.getLogger(this.getClass());
     }
 
     private static class DefaultDriverInstantiation implements DriverInstantiation {

@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator;
 
-import org.apache.logging.log4j.LogManager;
+import org.slf4j.LoggerFactory;
 
 public abstract class UiRegion {
 
@@ -10,7 +10,7 @@ public abstract class UiRegion {
     protected UiRegion(UiElement regionElement) {
         this.regionElement = regionElement;
         if (!suppressLogging)
-            LogManager.getLogger(this.getClass()).info(String.format("In %s...", getDescription()));
+            LoggerFactory.getLogger(this.getClass()).info(String.format("In %s...", getDescription()));
     }
 
     public boolean isVisible() {
