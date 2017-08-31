@@ -35,7 +35,7 @@ public class UiHostTest extends TestBase {
         String expected = String.format("https://%s", domain);
         UiHost.getInstance().load(String.format("http://%s", domain));
         String actual = UiHost.getInstance().getUri();
-        confirm(StringValidator.getInstance(expected, actual).validate());
+        confirm(StringValidator.getInstance("Uri", expected, actual).validate());
     }
 
     @Test(dependsOnMethods = "getDefaultInstance")
@@ -44,7 +44,7 @@ public class UiHostTest extends TestBase {
         final UiHost browser = UiHost.getInstance();
         browser.load("http://www.google.com");
         String actual = browser.findUiElement(By.id("viewport")).getAttribute("class");
-        confirm(StringValidator.getInstance(expected, actual).validate());
+        confirm(StringValidator.getInstance("Element class", expected, actual).validate());
     }
 
     @Test(dependsOnMethods = "getDefaultInstance")
@@ -67,7 +67,7 @@ public class UiHostTest extends TestBase {
     @Test(groups = "under_development", dataProvider = "drivers")
     public void getSpecifWebDriverInstance(DriverInstantiation driverInstantiation, String expected) {
         String actual = UiHost.getInstance(driverInstantiation).getDriverName();
-        confirm(StringValidator.getInstance(expected, actual).validate());
+        confirm(StringValidator.getInstance("UI Host driver name", expected, actual).validate());
     }
 
     @Test(dependsOnMethods = "getDefaultInstance")
@@ -78,7 +78,7 @@ public class UiHostTest extends TestBase {
         UiElement.getInstance("'Login' link", UiElement.LocatorType.TAG, "a", UiElement.getInstance("'User' region", UiElement.LocatorType.CLASS, "user")).click();
         host.selectFrame("disneyid-iframe");
         String actual = UiHost.getInstance().findUiElement(By.className("btn-group")).getText();
-        confirm(StringValidator.getInstance(expected, actual).validate());
+        confirm(StringValidator.getInstance("Text of frame element", expected, actual).validate());
     }
 
     @Test(dependsOnMethods = "getDefaultInstance")
@@ -90,6 +90,6 @@ public class UiHostTest extends TestBase {
         host.selectFrame("disneyid-iframe");
         host.selectWindow();
         String actual = UiElement.getInstance("'Login' button", UiElement.LocatorType.CLASS, "btn-group").getText();
-        confirm(StringValidator.getInstance(expected, actual).validate());
+        confirm(StringValidator.getInstance("Text of element in specific window", expected, actual).validate());
     }
 }
