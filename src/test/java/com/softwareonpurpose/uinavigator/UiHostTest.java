@@ -18,7 +18,8 @@ public class UiHostTest extends TestBase {
     @DataProvider
     public static Object[][] drivers() {
         return new Object[][]{{
-                DefaultFirefoxInstantiation.getInstance(), "Firefox"}, {DefaultIeInstantiation.getInstance(), "InternetExplorer"}};
+                DefaultFirefoxInstantiation.getInstance(), "Firefox"}
+                , {DefaultIeInstantiation.getInstance(), "InternetExplorer"}};
     }
 
     @Test
@@ -73,7 +74,7 @@ public class UiHostTest extends TestBase {
     public void selectFrame() {
         String expected = "Log In";
         UiHost host = UiHost.getInstance();
-        host.load("http:espn.go.com");
+        host.load("http://espn.go.com");
         UiElement.getInstance("'Login' link", UiElement.LocatorType.TAG, "a", UiElement.getInstance("'User' region", UiElement.LocatorType.CLASS, "user")).click();
         host.selectFrame("disneyid-iframe");
         String actual = UiHost.getInstance().findUiElement(By.className("btn-group")).getText();
@@ -84,7 +85,7 @@ public class UiHostTest extends TestBase {
     public void selectWindow() {
         String expected = null;
         UiHost host = UiHost.getInstance();
-        host.load("http:espn.go.com");
+        host.load("http://espn.go.com");
         UiElement.getInstance("'Login' link", UiElement.LocatorType.TAG, "a", UiElement.getInstance("'User' region", UiElement.LocatorType.CLASS, "user")).click();
         host.selectFrame("disneyid-iframe");
         host.selectWindow();
