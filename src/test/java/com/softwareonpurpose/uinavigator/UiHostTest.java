@@ -6,12 +6,19 @@ import com.softwareonpurpose.uinavigator.validators.ClassValidator;
 import com.softwareonpurpose.uinavigator.validators.IntegerValidator;
 import com.softwareonpurpose.uinavigator.validators.StringValidator;
 import org.openqa.selenium.By;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 @Test
 public class UiHostTest extends TestBase {
 
     private static final String uri = "http://www.google.com";
+
+    @DataProvider
+    public static Object[][] drivers() {
+        return new Object[][]{{
+                DefaultFirefoxInstantiation.getInstance(), "Firefox"}};
+    }
 
     @Test
     public void getDefaultInstance() {
@@ -55,10 +62,8 @@ public class UiHostTest extends TestBase {
         confirm(BooleanValidator.getInstance(true, actual).validate());
     }
 
-    @Test(enabled = false, dependsOnMethods = "getDefaultInstance")
-    public void getSpecifWebDriverInstance() {
-        String expected = "Firefox";
-        DriverInstantiation driverInstantiation = DefaultFirefoxInstantiation.getInstance();
+    @Test(groups = "under_development", dataProvider = "drivers")
+    public void getSpecifWebDriverInstance(DriverInstantiation driverInstantiation, String expected) {
         String actual = UiHost.getInstance(driverInstantiation).getDriverName();
         confirm(StringValidator.getInstance(expected, actual).validate());
     }
