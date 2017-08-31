@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.validators;
 
-import com.craigstockton.validator4test.Validator;
+import com.softwareonpurpose.validator4test.Validator;
 
 public class StringValidator extends Validator {
 
@@ -9,7 +9,7 @@ public class StringValidator extends Validator {
     private final String expected;
 
     private StringValidator(String expected, String actual) {
-        super(description);
+        super(description, expected, actual);
         this.actual = actual;
         this.expected = expected;
     }

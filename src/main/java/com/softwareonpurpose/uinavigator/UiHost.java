@@ -15,15 +15,14 @@
  */
 package com.softwareonpurpose.uinavigator;
 
+import com.softwareonpurpose.uinavigator.driver.DefaultChromeInstantiation;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class UiHost {
 
@@ -35,7 +34,7 @@ public class UiHost {
     private UiHost() {
         if (driverInstantiation == null) {
             this.getLogger().warn("Driver instantiation UNSPECIFIED; setting to default.");
-            setDriverInstantiation(DefaultDriverInstantiation.getInstance());
+            setDriverInstantiation(DefaultChromeInstantiation.getInstance());
         }
         instantiateUiDriver();
     }
@@ -185,25 +184,5 @@ public class UiHost {
 
     private Logger getLogger() {
         return LoggerFactory.getLogger(this.getClass());
-    }
-
-    private static class DefaultDriverInstantiation implements DriverInstantiation {
-
-        public static DefaultDriverInstantiation getInstance() {
-            return new DefaultDriverInstantiation();
-        }
-
-        @Override
-        public WebDriver execute() {
-            System.setProperty("webdriver.chrome.driver", "./src/main/resources/chromedriver.exe");
-            ChromeDriver driver = new ChromeDriver();
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            driver.manage().timeouts().implicitlyWait(getConfig().getTimeout(), TimeUnit.SECONDS);
-            return driver;
-        }
     }
 }

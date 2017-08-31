@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator;
 
-import com.craigstockton.validator4test.Validator;
+import com.softwareonpurpose.validator4test.Validator;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 

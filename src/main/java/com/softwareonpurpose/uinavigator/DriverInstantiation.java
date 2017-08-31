@@ -17,8 +17,15 @@ package com.softwareonpurpose.uinavigator;
 
 import org.openqa.selenium.WebDriver;
 
-public interface DriverInstantiation {
+public abstract class DriverInstantiation {
+    private static Configuration config;
 
-    WebDriver execute();
+    protected static Configuration getConfig() {
+        if (config == null) {
+            config = Configuration.getInstance();
+        }
+        return config;
+    }
 
+    protected abstract WebDriver execute();
 }

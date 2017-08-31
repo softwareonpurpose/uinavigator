@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.validators;
 
-import com.craigstockton.validator4test.Validator;
+import com.softwareonpurpose.validator4test.Validator;
 import org.openqa.selenium.WebElement;
 
 public class WebElementValidator extends Validator {
@@ -10,7 +10,7 @@ public class WebElementValidator extends Validator {
     private final WebElement expected;
 
     private WebElementValidator(WebElement expected, WebElement actual) {
-        super(description);
+        super(description, expected, actual);
         this.actual = actual;
         this.expected = expected;
     }

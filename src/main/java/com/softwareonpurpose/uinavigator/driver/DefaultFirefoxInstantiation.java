@@ -1,16 +1,16 @@
-package com.softwareonpurpose.uinavigator.driverinstantiation;
+package com.softwareonpurpose.uinavigator.driver;
 
 import com.softwareonpurpose.uinavigator.DriverInstantiation;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class FirefoxInstantiation implements DriverInstantiation {
+public class DefaultFirefoxInstantiation extends DriverInstantiation {
 
-    private FirefoxInstantiation() {
+    private DefaultFirefoxInstantiation() {
     }
 
-    public static FirefoxInstantiation getInstance() {
-        return new FirefoxInstantiation();
+    public static DefaultFirefoxInstantiation getInstance() {
+        return new DefaultFirefoxInstantiation();
     }
 
     @Override

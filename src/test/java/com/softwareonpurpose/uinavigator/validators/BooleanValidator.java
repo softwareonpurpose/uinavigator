@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.validators;
 
-import com.craigstockton.validator4test.Validator;
+import com.softwareonpurpose.validator4test.Validator;
 
 public class BooleanValidator extends Validator {
 
@@ -9,7 +9,7 @@ public class BooleanValidator extends Validator {
     private final Boolean actual;
 
     private BooleanValidator(Boolean expected, Boolean actual) {
-        super(description);
+        super(description, expected, actual);
         this.expected = expected;
         this.actual = actual;
     }

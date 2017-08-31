@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator;
 
-import com.softwareonpurpose.uinavigator.driverinstantiation.FirefoxInstantiation;
+import com.softwareonpurpose.uinavigator.driver.DefaultFirefoxInstantiation;
 import com.softwareonpurpose.uinavigator.validators.BooleanValidator;
 import com.softwareonpurpose.uinavigator.validators.ClassValidator;
 import com.softwareonpurpose.uinavigator.validators.IntegerValidator;
@@ -58,7 +58,7 @@ public class UiHostTest extends TestBase {
     @Test(enabled = false, dependsOnMethods = "getDefaultInstance")
     public void getSpecifWebDriverInstance() {
         String expected = "Firefox";
-        DriverInstantiation driverInstantiation = FirefoxInstantiation.getInstance();
+        DriverInstantiation driverInstantiation = DefaultFirefoxInstantiation.getInstance();
         String actual = UiHost.getInstance(driverInstantiation).getDriverName();
         confirm(StringValidator.getInstance(expected, actual).validate());
     }
