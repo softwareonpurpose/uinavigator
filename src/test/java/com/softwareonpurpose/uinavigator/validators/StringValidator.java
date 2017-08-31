@@ -20,7 +20,7 @@ public class StringValidator extends Validator {
 
     @Override
     protected void executeVerifications() {
-        verify("String contains expected value", actual.contains(expected), true);
+        verify(String.format("UI Driver %s contains %s", actual, expected), actual.contains(expected), true);
     }
 
     @Override
