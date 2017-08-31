@@ -4,6 +4,8 @@ import com.softwareonpurpose.uinavigator.DriverInstantiation;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.util.concurrent.TimeUnit;
+
 public class DefaultFirefoxInstantiation extends DriverInstantiation {
 
     private DefaultFirefoxInstantiation() {
@@ -14,7 +16,14 @@ public class DefaultFirefoxInstantiation extends DriverInstantiation {
     }
 
     @Override
-    public WebDriver execute() {
+    protected WebDriver instantiateDriver() {
+        System.setProperty("webdriver.gecko.driver", "./src/main/resources/geckodriver.exe");
         return new FirefoxDriver();
+    }
+
+    @Override
+    protected void configureDriver(WebDriver driver) {
+        provideTimeForDriverToLoad();
+        driver.manage().timeouts().implicitlyWait(getConfig().getTimeout(), TimeUnit.SECONDS);
     }
 }

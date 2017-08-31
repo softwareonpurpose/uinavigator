@@ -7,20 +7,19 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.concurrent.TimeUnit;
 
 public class DefaultChromeInstantiation extends DriverInstantiation {
-    @Override
-    public WebDriver execute() {
-        System.setProperty("webdriver.chrome.driver", "./src/main/resources/chromedriver.exe");
-        ChromeDriver driver = new ChromeDriver();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        driver.manage().timeouts().implicitlyWait(getConfig().getTimeout(), TimeUnit.SECONDS);
-        return driver;
-    }
 
     public static DriverInstantiation getInstance() {
         return new DefaultChromeInstantiation();
+    }
+
+    @Override
+    protected ChromeDriver instantiateDriver() {
+        System.setProperty("webdriver.chrome.driver", "./src/main/resources/chromedriver.exe");
+        return new ChromeDriver();
+    }
+
+    @Override
+    protected void configureDriver(WebDriver driver) {
+        driver.manage().timeouts().implicitlyWait(getConfig().getTimeout(), TimeUnit.SECONDS);
     }
 }

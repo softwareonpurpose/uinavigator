@@ -27,5 +27,22 @@ public abstract class DriverInstantiation {
         return config;
     }
 
-    protected abstract WebDriver execute();
+    WebDriver execute() {
+        WebDriver driver = instantiateDriver();
+        provideTimeForDriverToLoad();
+        configureDriver(driver);
+        return driver;
+    }
+
+    protected void provideTimeForDriverToLoad() {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected abstract WebDriver instantiateDriver();
+
+    protected abstract void configureDriver(WebDriver driver);
 }
