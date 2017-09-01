@@ -23,7 +23,6 @@ public class DefaultFirefoxInstantiation extends DriverInstantiation {
 
     @Override
     protected void configureDriver(WebDriver driver) {
-        provideTimeForDriverToLoad();
         driver.manage().timeouts().implicitlyWait(getConfig().getTimeout(), TimeUnit.SECONDS);
     }
 }
