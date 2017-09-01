@@ -1,6 +1,7 @@
 package com.softwareonpurpose.uinavigator;
 
 import com.softwareonpurpose.uinavigator.driver.DefaultFirefoxInstantiation;
+import com.softwareonpurpose.uinavigator.driver.DefaultHtmlUnitInstantiation;
 import com.softwareonpurpose.uinavigator.driver.DefaultIeInstantiation;
 import com.softwareonpurpose.uinavigator.validators.BooleanValidator;
 import com.softwareonpurpose.uinavigator.validators.ClassValidator;
@@ -17,8 +18,8 @@ public class UiHostTest extends TestBase {
 
     @DataProvider
     public static Object[][] drivers() {
-        return new Object[][]{{
-                DefaultFirefoxInstantiation.getInstance(), "Firefox"}
+        return new Object[][]{{DefaultHtmlUnitInstantiation.getInstance(), "HtmlUnit"}
+                , {DefaultFirefoxInstantiation.getInstance(), "Firefox"}
                 , {DefaultIeInstantiation.getInstance(), "InternetExplorer"}};
     }
 
