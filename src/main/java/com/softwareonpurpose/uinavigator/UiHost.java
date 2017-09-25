@@ -33,7 +33,7 @@ public class UiHost {
 
     private UiHost() {
         if (driverInstantiation == null) {
-            this.getLogger().warn("Driver instantiation UNSPECIFIED; setting to default.");
+            this.getLogger().warn("Driver UNSPECIFIED; defaulting to Chrome browser.");
             setDriverInstantiation(DefaultChromeInstantiation.getInstance());
         }
         instantiateUiDriver();
@@ -183,6 +183,6 @@ public class UiHost {
     }
 
     private Logger getLogger() {
-        return LoggerFactory.getLogger(this.getClass());
+        return LoggerFactory.getLogger("");
     }
 }

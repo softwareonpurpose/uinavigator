@@ -249,6 +249,15 @@ public class UiElement {
                 getLogger().error(errorMessage);
             }
         }
+        waitForPotentialStateTransitionToBegin();
+    }
+
+    private void waitForPotentialStateTransitionToBegin() {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private boolean isClickable() {
@@ -334,7 +343,7 @@ public class UiElement {
     }
 
     protected Logger getLogger() {
-        return LoggerFactory.getLogger(getClass());
+        return LoggerFactory.getLogger("");
     }
 
     private WebElement getElement() {

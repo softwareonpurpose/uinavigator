@@ -19,21 +19,21 @@ import org.slf4j.LoggerFactory;
 
 public abstract class UiRegion {
 
-    private final UiElement regionElement;
     private static boolean suppressLogging;
+    private final UiElement regionElement;
 
     protected UiRegion(UiElement regionElement) {
         this.regionElement = regionElement;
         if (!suppressLogging)
-            LoggerFactory.getLogger(this.getClass()).info(String.format("In %s...", getDescription()));
-    }
-
-    public boolean isVisible() {
-        return regionElement.waitUntilVisible();
+            LoggerFactory.getLogger("").info(String.format("In %s...", getDescription()));
     }
 
     public static void suppressConstructionLogging(boolean suppress) {
         suppressLogging = suppress;
+    }
+
+    public boolean isVisible() {
+        return regionElement.waitUntilVisible();
     }
 
     @SuppressWarnings("WeakerAccess")
