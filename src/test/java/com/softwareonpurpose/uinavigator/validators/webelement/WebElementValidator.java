@@ -1,32 +1,29 @@
-package com.softwareonpurpose.uinavigator.validators;
+package com.softwareonpurpose.uinavigator.validators.webelement;
 
 import com.softwareonpurpose.validator4test.Validator;
 import org.openqa.selenium.WebElement;
 
-public class WebElementValidator extends Validator {
+public class   WebElementValidator extends Validator {
 
     private final static String description = "WebElement";
     private final WebElement actual;
-    private final WebElement expected;
+    private final WebElementExpected expected;
 
-    private WebElementValidator(WebElement expected, WebElement actual) {
+    private WebElementValidator(WebElementExpected expected, WebElement actual) {
         super(description, expected, actual);
         this.actual = actual;
         this.expected = expected;
     }
 
+    public static WebElementValidator getInstance(WebElementExpected expected, WebElement actual) {
+        return new WebElementValidator(expected, actual);
+    }
+
     @Override
     protected void executeVerifications() {
-        verify("", expected.getAttribute("class"), actual.getAttribute("class"));
-    }
-
-    @Override
-    protected boolean actualExists() {
-        return actual != null;
-    }
-
-    @Override
-    protected boolean expectedExists() {
-        return expected != null;
+        verify("Id", expected.getId(), actual.getAttribute("id"));
+        verify("Class", expected.getClasses(), actual.getAttribute("class"));
+        verify("Tag", expected.getTag(), actual.getTagName());
+        verify("Href", expected.getHref(), actual.getAttribute("href"));
     }
 }
