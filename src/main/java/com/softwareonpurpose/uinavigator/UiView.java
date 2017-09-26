@@ -15,6 +15,8 @@
  */
 package com.softwareonpurpose.uinavigator;
 
+import org.slf4j.LoggerFactory;
+
 public abstract class UiView {
 
     private final UiElement viewElement;
@@ -24,6 +26,25 @@ public abstract class UiView {
         this.viewUri = viewUri;
         this.viewElement = viewElement;
     }
+
+    public static <T extends UiView> T expect(Class<T> viewClass) {
+        T view = instantiateView(viewClass);
+        view.confirmElementStates();
+        return instantiateView(viewClass);
+    }
+
+    protected static <T extends UiView> T instantiateView(Class<T> viewClass) {
+        T view = null;
+        try {
+            view = viewClass.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            LoggerFactory.getLogger(viewClass).error("Unable to access View constructor; ensure it has 'public' scope");
+            e.printStackTrace();
+        }
+        return view;
+    }
+
+    ;
 
     protected abstract boolean confirmElementStates();
 
