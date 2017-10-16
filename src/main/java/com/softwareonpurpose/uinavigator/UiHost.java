@@ -33,7 +33,6 @@ public class UiHost {
 
     private UiHost() {
         if (driverInstantiation == null) {
-            this.getLogger().warn("Driver UNSPECIFIED; defaulting to Chrome browser.");
             setDriverInstantiation(DefaultChromeInstantiation.getInstance());
         }
         instantiateUiDriver();
@@ -179,6 +178,7 @@ public class UiHost {
     }
 
     private void instantiateUiDriver() {
+        getLogger().info("Launch browser");
         driver = driverInstantiation.execute();
     }
 

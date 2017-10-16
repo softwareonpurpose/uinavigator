@@ -15,6 +15,7 @@
  */
 package com.softwareonpurpose.uinavigator;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract class UiView {
@@ -28,6 +29,14 @@ public abstract class UiView {
     }
 
     public static <T extends UiView> T expect(Class<T> viewClass) {
+        LoggerFactory.getLogger("").info(String.format("Expect '%s'", viewClass.getSimpleName().replaceAll(
+                String.format("%s|%s|%s",
+                        "(?<=[A-Z])(?=[A-Z][a-z])",
+                        "(?<=[^A-Z])(?=[A-Z])",
+                        "(?<=[A-Za-z])(?=[^A-Za-z])"
+                ),
+                " "
+        )));
         T view = instantiateView(viewClass);
         view.confirmElementStates();
         return instantiateView(viewClass);
@@ -44,7 +53,9 @@ public abstract class UiView {
         return view;
     }
 
-    ;
+    private static <T extends UiView> Logger getLogger(Class<T> viewClass) {
+        return LoggerFactory.getLogger(viewClass);
+    }
 
     protected abstract boolean confirmElementStates();
 
