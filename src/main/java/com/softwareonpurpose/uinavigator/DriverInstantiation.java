@@ -45,4 +45,7 @@ public abstract class DriverInstantiation {
     protected abstract WebDriver instantiateDriver();
 
     protected abstract void configureDriver(WebDriver driver);
+
+    @SuppressWarnings("unused")
+    public abstract String getName();
 }
