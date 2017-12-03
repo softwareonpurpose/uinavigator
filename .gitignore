@@ -17,7 +17,9 @@ hs_err_pid*
 
 # Idea Files #
 .idea
-*.iml
 
 # Git #
 .git
+
+# Executable Files #
+*.exe
