@@ -18,6 +18,9 @@ package com.softwareonpurpose.uinavigator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 public abstract class UiView {
 
     private final UiElement viewElement;
@@ -29,14 +32,9 @@ public abstract class UiView {
     }
 
     public static <T extends UiView> T expect(Class<T> viewClass) {
-        LoggerFactory.getLogger("").info(String.format("Expect '%s'", viewClass.getSimpleName().replaceAll(
-                String.format("%s|%s|%s",
-                        "(?<=[A-Z])(?=[A-Z][a-z])",
-                        "(?<=[^A-Z])(?=[A-Z])",
-                        "(?<=[A-Za-z])(?=[^A-Za-z])"
-                ),
-                " "
-        )));
+        LoggerFactory.getLogger("").info(String.format("Expect '%s'", viewClass.getSimpleName().replaceAll(String
+                .format("%s|%s|%s", "(?<=[A-Z])(?=[A-Z][a-z])", "(?<=[^A-Z])(?=[A-Z])", "(?<=[A-Za-z])(?=[^A-Za-z])")
+                , " ")));
         T view = instantiateView(viewClass);
         view.confirmElementStates();
         return instantiateView(viewClass);
@@ -45,6 +43,13 @@ public abstract class UiView {
     protected static <T extends UiView> T instantiateView(Class<T> viewClass) {
         T view = null;
         try {
+            Constructor<T> constructor = null;
+            try {
+                constructor = viewClass.getConstructor();
+                view = constructor.newInstance();
+            } catch (NoSuchMethodException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
             view = viewClass.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
             LoggerFactory.getLogger(viewClass).error("Unable to access View constructor; ensure it has 'public' scope");
