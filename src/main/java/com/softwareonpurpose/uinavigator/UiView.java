@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
+@SuppressWarnings("unused")
 public abstract class UiView {
 
     private final UiElement viewElement;
@@ -40,6 +41,7 @@ public abstract class UiView {
         return instantiateView(viewClass);
     }
 
+    @SuppressWarnings("WeakerAccess")
     protected static <T extends UiView> T instantiateView(Class<T> viewClass) {
         T view = null;
         try {
@@ -50,7 +52,6 @@ public abstract class UiView {
             } catch (NoSuchMethodException | InvocationTargetException e) {
                 e.printStackTrace();
             }
-            view = viewClass.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
             LoggerFactory.getLogger(viewClass).error("Unable to access View constructor; ensure it has 'public' scope");
             e.printStackTrace();
@@ -62,6 +63,7 @@ public abstract class UiView {
         return LoggerFactory.getLogger(viewClass);
     }
 
+    @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
     protected abstract boolean confirmElementStates();
 
     protected void load() {

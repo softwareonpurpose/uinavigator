@@ -23,6 +23,8 @@ import java.util.concurrent.TimeUnit;
 
 public class DefaultFirefoxInstantiation extends DriverInstantiation {
 
+    private static final String HOST_NAME = "firefox";
+
     private DefaultFirefoxInstantiation() {
     }
 
@@ -32,6 +34,7 @@ public class DefaultFirefoxInstantiation extends DriverInstantiation {
 
     @Override
     protected WebDriver instantiateDriver() {
+        //noinspection SpellCheckingInspection
         System.setProperty("webdriver.gecko.driver", "./src/main/resources/geckodriver.exe");
         return new FirefoxDriver();
     }
@@ -39,5 +42,10 @@ public class DefaultFirefoxInstantiation extends DriverInstantiation {
     @Override
     protected void configureDriver(WebDriver driver) {
         driver.manage().timeouts().implicitlyWait(getConfig().getTimeout(), TimeUnit.SECONDS);
+    }
+
+    @Override
+    public String getHostName() {
+        return HOST_NAME;
     }
 }

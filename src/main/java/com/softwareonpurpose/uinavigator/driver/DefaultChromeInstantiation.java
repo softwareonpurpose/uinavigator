@@ -23,6 +23,8 @@ import java.util.concurrent.TimeUnit;
 
 public class DefaultChromeInstantiation extends DriverInstantiation {
 
+    private static final String HOST_NAME = "chrome";
+
     public static DriverInstantiation getInstance() {
         return new DefaultChromeInstantiation();
     }
@@ -36,5 +38,10 @@ public class DefaultChromeInstantiation extends DriverInstantiation {
     @Override
     protected void configureDriver(WebDriver driver) {
         driver.manage().timeouts().implicitlyWait(getConfig().getTimeout(), TimeUnit.SECONDS);
+    }
+
+    @Override
+    public String getHostName() {
+        return HOST_NAME;
     }
 }

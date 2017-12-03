@@ -1,8 +1,5 @@
 package com.softwareonpurpose.uinavigator;
 
-import com.softwareonpurpose.uinavigator.driver.DefaultFirefoxInstantiation;
-import com.softwareonpurpose.uinavigator.driver.DefaultHtmlUnitInstantiation;
-import com.softwareonpurpose.uinavigator.driver.DefaultIeInstantiation;
 import com.softwareonpurpose.uinavigator.validators.BooleanValidator;
 import com.softwareonpurpose.uinavigator.validators.StringValidator;
 import com.softwareonpurpose.uinavigator.validators.webelement.WebElementExpected;
@@ -11,7 +8,6 @@ import com.softwareonpurpose.uinavigator.validators.webelements.WebElementsValid
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -22,13 +18,6 @@ public class UiHostTest extends TestBase {
     private final static String ANCHOR = "a";
 
     private static final String uri = "http://the-internet.herokuapp.com";
-
-    @DataProvider
-    public static Object[][] drivers() {
-        return new Object[][]{{DefaultHtmlUnitInstantiation.getInstance(), "HtmlUnit"}
-                , {DefaultFirefoxInstantiation.getInstance(), "Firefox"}
-                , {DefaultIeInstantiation.getInstance(), "InternetExplorer"}};
-    }
 
     @Test
     public void getInstance() {
@@ -75,7 +64,8 @@ public class UiHostTest extends TestBase {
         String expected = "Log In";
         UiHost host = UiHost.getInstance();
         host.load("http://espn.go.com");
-        UiElement.getInstance("'Login' link", UiElement.LocatorType.TAG, "a", UiElement.getInstance("'User' region", UiElement.LocatorType.CLASS, "user")).click();
+        UiElement.getInstance("'Login' link", UiElement.LocatorType.TAG, "a", UiElement.getInstance("'User' region",
+                UiElement.LocatorType.CLASS, "user")).click();
         host.selectFrame("disneyid-iframe");
         String actual = UiHost.getInstance().findUiElement(By.className("btn-group")).getText();
         confirm(StringValidator.getInstance("Text of frame element", expected, actual).validate());
@@ -86,7 +76,8 @@ public class UiHostTest extends TestBase {
         String expected = null;
         UiHost host = UiHost.getInstance();
         host.load("http://espn.go.com");
-        UiElement.getInstance("'Login' link", UiElement.LocatorType.TAG, "a", UiElement.getInstance("'User' region", UiElement.LocatorType.CLASS, "user")).click();
+        UiElement.getInstance("'Login' link", UiElement.LocatorType.TAG, "a", UiElement.getInstance("'User' region",
+                UiElement.LocatorType.CLASS, "user")).click();
         host.selectFrame("disneyid-iframe");
         host.selectWindow();
         String actual = UiElement.getInstance("'Login' button", UiElement.LocatorType.CLASS, "btn-group").getText();
@@ -108,7 +99,8 @@ public class UiHostTest extends TestBase {
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "challenging_dom"), "Challenging DOM"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "checkboxes"), "Checkboxes"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "context_menu"), "Context Menu"));
-        expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "disappearing_elements"), "Disappearing Elements"));
+        expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "disappearing_elements"), "Disappearing " +
+                "Elements"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "drag_and_drop"), "Drag and Drop"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "dropdown"), "Dropdown"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "dynamic_content"), "Dynamic Content"));
@@ -127,12 +119,14 @@ public class UiHostTest extends TestBase {
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "infinite_scroll"), "Infinite Scroll"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "jqueryui/menu"), "JQuery UI Menus"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "javascript_alerts"), "JavaScript Alerts"));
-        expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "javascript_error"), "JavaScript onload event error"));
+        expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "javascript_error"), "JavaScript onload event " +
+                "" + "error"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "key_presses"), "Key Presses"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "large"), "Large & Deep DOM"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "windows"), "Multiple Windows"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "nested_frames"), "Nested Frames"));
-        expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "notification_message"), "Notification Messages"));
+        expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "notification_message"), "Notification " +
+                "Messages"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "redirector"), "Redirect Link"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "download_secure"), "Secure File Download"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "shifting_content"), "Shifting Content"));

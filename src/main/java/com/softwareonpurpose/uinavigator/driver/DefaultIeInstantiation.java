@@ -22,6 +22,8 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import java.util.concurrent.TimeUnit;
 
 public class DefaultIeInstantiation extends DriverInstantiation {
+    private static final String HOST_NAME = "ie";
+
     public static DefaultIeInstantiation getInstance() {
         return new DefaultIeInstantiation();
     }
@@ -36,5 +38,10 @@ public class DefaultIeInstantiation extends DriverInstantiation {
     protected void configureDriver(WebDriver driver) {
         provideTimeForDriverToLoad();
         driver.manage().timeouts().implicitlyWait(getConfig().getTimeout(), TimeUnit.SECONDS);
+    }
+
+    @Override
+    public String getHostName() {
+        return HOST_NAME;
     }
 }

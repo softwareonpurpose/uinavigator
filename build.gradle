@@ -1,5 +1,5 @@
 group 'com.softwareonpurpose'
-version = '1.0.1'
+version = '1.0.2'
 
 apply plugin: 'java'
 
@@ -13,8 +13,8 @@ dependencies {
     compile 'ch.qos.logback:logback-core:1.2.3'
     compile 'ch.qos.logback:logback-classic:1.2.3'
     compile 'org.slf4j:slf4j-api:1.7.25'
-    testCompile group: 'org.testng', name: 'testng', version: '6.9.4'
-    compile 'org.seleniumhq.selenium:selenium-java:3.5.3'
+    testCompile group: 'org.testng', name: 'testng', version: '6.13.1'
+    compile 'org.seleniumhq.selenium:selenium-java:3.8.1'
     compile files('./src/test/resources/validator4test-0.0.1.jar')
     compile files('./src/main/resources/sandbox-0.0.1-SNAPSHOT.jar')
 }

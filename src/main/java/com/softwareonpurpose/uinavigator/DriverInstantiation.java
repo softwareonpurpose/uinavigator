@@ -47,5 +47,5 @@ public abstract class DriverInstantiation {
     protected abstract void configureDriver(WebDriver driver);
 
     @SuppressWarnings("unused")
-    public abstract String getName();
+    public abstract String getHostName();
 }
