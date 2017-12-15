@@ -145,7 +145,7 @@ public class UiElement {
         return null;
     }
 
-    private By initializeLocator() {
+    private void initializeLocator() {
         locator = constructLocator(locatorType, locatorValue);
         switch (locatorType) {
             case LocatorType.CLASS:
@@ -160,7 +160,6 @@ public class UiElement {
             case LocatorType.TAG:
                 isClickableBehavior = new TagLocatedIsClickableBehavior(locatorValue);
         }
-        return locator;
     }
 
     /**
@@ -342,7 +341,7 @@ public class UiElement {
         return description;
     }
 
-    protected Logger getLogger() {
+    private Logger getLogger() {
         return LoggerFactory.getLogger("");
     }
 
@@ -405,7 +404,8 @@ public class UiElement {
     }
 
     public String getAttribute(String attributeName) {
-        return getElement().getAttribute(attributeName);
+        WebElement element = getElement();
+        return element == null ? null : element.getAttribute(attributeName);
     }
 
     private interface GetElementBehavior {
@@ -504,17 +504,14 @@ public class UiElement {
             int elementIndex = ordinal - 1;
             try {
                 final WebElement parentElement = parent.getElement();
-                List<WebElement> candidates = parentElement == null ? new ArrayList<WebElement>() : parentElement
+                List<WebElement> candidates = parentElement == null ? new ArrayList<>() : parentElement
                         .findElements(locator);
                 for (WebElement candidate : candidates) {
                     final String candidateAttributeValue = candidate.getAttribute(attribute);
                     if (candidateAttributeValue != null && candidateAttributeValue.contains(attributeValue))
                         elements.add(candidate);
                 }
-            } catch (WebDriverException e) {
-                getLogger().warn(String.format(message_unableToFind, getElementDescription()));
-                return null;
-            } catch (NullPointerException e) {
+            } catch (WebDriverException | NullPointerException e) {
                 getLogger().warn(String.format(message_unableToFind, getElementDescription()));
                 return null;
             }
