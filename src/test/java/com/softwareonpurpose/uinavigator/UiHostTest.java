@@ -60,18 +60,6 @@ public class UiHostTest extends TestBase {
     }
 
     @Test(dependsOnMethods = "getInstance")
-    public void selectFrame() {
-        String expected = "Log In";
-        UiHost host = UiHost.getInstance();
-        host.load("http://espn.go.com");
-        UiElement.getInstance("'Login' link", UiElement.LocatorType.TAG, "a", UiElement.getInstance("'User' region",
-                UiElement.LocatorType.CLASS, "user")).click();
-        host.selectFrame("disneyid-iframe");
-        String actual = UiHost.getInstance().findUiElement(By.className("btn-group")).getText();
-        confirm(StringValidator.getInstance("Text of frame element", expected, actual).validate());
-    }
-
-    @Test(dependsOnMethods = "getInstance")
     public void selectWindow() {
         String expected = null;
         UiHost host = UiHost.getInstance();
@@ -84,7 +72,7 @@ public class UiHostTest extends TestBase {
         confirm(StringValidator.getInstance("Text of element in specific window", expected, actual).validate());
     }
 
-    @Test(enabled = false, groups = "under_development", dataProvider = "drivers")
+    @Test(enabled = false, dataProvider = "drivers")
     public void getSpecifWebDriverInstance(DriverInstantiation driverInstantiation, String expected) {
         String actual = UiHost.getInstance(driverInstantiation).getDriverName();
         confirm(StringValidator.getInstance("UI Host driver name", expected, actual).validate());
