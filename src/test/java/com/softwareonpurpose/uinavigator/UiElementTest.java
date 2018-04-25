@@ -51,7 +51,7 @@ public class UiElementTest extends TestBase {
         String expected = "Settings";
         UiHost.getInstance().load("http://www.google.com");
         UiElement parent = UiElement.getInstance("Parent UiElement", UiElement.LocatorType.ID, "gsr");
-        final UiElement child = UiElement.getInstance("Child UiElement", UiElement.LocatorType.CLASS, "_Gs", 3, parent);
+        final UiElement child = UiElement.getInstance("Child UiElement", UiElement.LocatorType.CLASS, "ctr-p", 3, parent);
         String actual = child.getText();
         confirm(StringValidator.getInstance("Text of child by ordinal", expected, actual).validate());
     }
@@ -98,16 +98,6 @@ public class UiElementTest extends TestBase {
         String actual = UiElement.getInstance("'Images' link", UiElement.LocatorType.CLASS, "gb_ua", 3, parent).getText();
         //noinspection ConstantConditions
         confirm(StringValidator.getInstance("Value after click", expected, actual).validate());
-    }
-
-    @Test(dependsOnMethods = "getRootInstance")
-    public void getFramedElement() {
-        String expected = "Log In";
-        UiHost.getInstance().load("http://espn.go.com");
-        UiElement.getInstance("'Login' link", UiElement.LocatorType.TAG, "a", UiElement.getInstance("'User' region", UiElement.LocatorType.CLASS, "user")).click();
-        UiElement frame = UiElement.getInstance("'Login' frame", UiElement.LocatorType.FRAME, "disneyid-iframe");
-        String actual = UiElement.getInstance("'Login' button", UiElement.LocatorType.CLASS, "btn", 2, frame).getText();
-        confirm(StringValidator.getInstance("Text of framed element", expected, actual).validate());
     }
 
     @Test(dependsOnMethods = "getRootInstance")
