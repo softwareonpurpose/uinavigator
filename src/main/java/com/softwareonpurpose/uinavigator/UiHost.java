@@ -29,6 +29,7 @@ public class UiHost {
     private static UiHost uiHost;
     private static Configuration config;
     private static DriverInstantiation driverInstantiation;
+    private final Logger logger = LoggerFactory.getLogger("");
     private WebDriver driver;
 
     private UiHost() {
@@ -83,7 +84,7 @@ public class UiHost {
      * @param uri String URI
      */
     public void load(String uri) {
-        getLogger().info(String.format("Navigate browser to %s", uri));
+        logger.info(String.format("Navigate browser to %s", uri));
         getDriver().get(uri);
     }
 
@@ -116,7 +117,7 @@ public class UiHost {
         if (elements.size() > 0) {
             return elements.get(0);
         } else {
-            getLogger().warn(String.format("WARNING: Unable to find any element using locator '%s'", locator.toString()));
+            logger.warn(String.format("WARNING: Unable to find any element using locator '%s'", locator.toString()));
         }
         return null;
     }
@@ -138,24 +139,23 @@ public class UiHost {
         try {
             elements = getDriver().findElements(locator);
         } catch (WebDriverException e) {
-            getLogger().warn(String.format("WARNING: Unable to find any element using locator '%s'", locator.toString()));
+            logger.warn(String.format("WARNING: Unable to find any element using locator '%s'", locator.toString()));
             return null;
         }
         return elements;
     }
 
     /**
-     * @param locator A Selenium.By WebElement
-     * @return boolean Indicates whether the WebElement described by the By locator was visible within a defined timeout period
+     * @param element A Selenium WebElement
+     * @return boolean Indicates whether the WebElement was visible within a defined timeout period
      */
-    boolean waitUntilVisible(By locator) {
+    boolean waitUntilVisible(WebElement element) {
         try {
             new WebDriverWait(getDriver(), getConfig().getTimeout())
-                    .until(ExpectedConditions.visibilityOfElementLocated(locator));
+                    .until(ExpectedConditions.visibilityOf(element));
         } catch (WebDriverException e) {
-            getLogger().warn(String
-                    .format("WARNING: UiElement '%s' failed to be displayed within %d seconds", locator.toString(), getConfig()
-                            .getTimeout()));
+            String warningMessageFormat = "WARNING: UiElement '%s' failed to be displayed within %d seconds";
+            logger.warn(String.format(warningMessageFormat, element.toString(), getConfig().getTimeout()));
             return false;
         }
         return true;
@@ -178,11 +178,7 @@ public class UiHost {
     }
 
     private void instantiateUiDriver() {
-        getLogger().info("Launch browser");
+        logger.info("Launch browser");
         driver = driverInstantiation.execute();
-    }
-
-    private Logger getLogger() {
-        return LoggerFactory.getLogger("");
     }
 }

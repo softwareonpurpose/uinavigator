@@ -322,7 +322,7 @@ public class UiElement {
      * @return boolean indicating whether the element was visible within the defined timeout period
      */
     public boolean waitUntilVisible() {
-        return UiHost.getInstance().waitUntilVisible(locator);
+        return UiHost.getInstance().waitUntilVisible(getElement());
     }
 
     /**

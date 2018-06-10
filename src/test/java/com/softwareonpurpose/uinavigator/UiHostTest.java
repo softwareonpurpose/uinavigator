@@ -52,14 +52,6 @@ public class UiHostTest extends TestBase {
     }
 
     @Test(dependsOnMethods = "construct")
-    public void waitUntilVisible() {
-        UiHost browser = UiHost.getInstance();
-        browser.load(uri);
-        Boolean actual = browser.waitUntilVisible(By.id("page-footer"));
-        confirm(BooleanCalibrator.construct(true, actual).validate());
-    }
-
-    @Test(dependsOnMethods = "construct")
     public void selectWindow() {
         String expected = null;
         UiHost host = UiHost.getInstance();
