@@ -5,14 +5,12 @@ public class WebElementExpected {
     private final String tag;
     private final String id;
     private final String classes;
-    private final String text;
 
     private WebElementExpected(String tag, String id, String classes, String href, String text) {
         this.tag = tag;
         this.id = id;
         this.classes = classes;
         this.href = href;
-        this.text = text;
     }
 
     public static WebElementExpected construct(String tag, String id, String classes, String href, String text) {
