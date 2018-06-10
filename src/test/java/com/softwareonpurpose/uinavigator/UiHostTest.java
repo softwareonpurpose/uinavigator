@@ -20,13 +20,13 @@ public class UiHostTest extends TestBase {
     private static final String uri = "http://the-internet.herokuapp.com";
 
     @Test
-    public void getInstance() {
+    public void construct() {
         Class expected = UiHost.class;
         Class actual = UiHost.getInstance().getClass();
         Assert.assertEquals(actual, expected, "The creation method construct returns an instantiated UiHost object");
     }
 
-    @Test(dependsOnMethods = "getInstance")
+    @Test(dependsOnMethods = "construct")
     public void load() {
         String domain = "www.google.com";
         String expected = String.format("https://%s", domain);
@@ -35,7 +35,7 @@ public class UiHostTest extends TestBase {
         Assert.assertTrue(actual.contains(expected), "The requested URL is loaded successfully in the UI host");
     }
 
-    @Test(dependsOnMethods = "getInstance")
+    @Test(dependsOnMethods = "construct")
     public void findUiElement() {
         WebElementExpected expected = WebElementExpected.construct("div", "content", "large-12 columns", null, null);
         UiHost.getInstance().load(uri);
@@ -43,7 +43,7 @@ public class UiHostTest extends TestBase {
         confirm(WebElementCalibrator.construct(expected, actual).validate());
     }
 
-    @Test(dependsOnMethods = "getInstance")
+    @Test(dependsOnMethods = "construct")
     public void findUiElements() {
         List<WebElementExpected> expected = composeExpectedWebElements();
         UiHost.getInstance().load(uri);
@@ -51,7 +51,7 @@ public class UiHostTest extends TestBase {
         confirm(WebElementsCalibrator.construct(expected, actual).validate());
     }
 
-    @Test(dependsOnMethods = "getInstance")
+    @Test(dependsOnMethods = "construct")
     public void waitUntilVisible() {
         UiHost browser = UiHost.getInstance();
         browser.load(uri);
@@ -59,7 +59,7 @@ public class UiHostTest extends TestBase {
         confirm(BooleanCalibrator.construct(true, actual).validate());
     }
 
-    @Test(dependsOnMethods = "getInstance")
+    @Test(dependsOnMethods = "construct")
     public void selectWindow() {
         String expected = null;
         UiHost host = UiHost.getInstance();
