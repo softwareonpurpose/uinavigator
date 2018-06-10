@@ -22,6 +22,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UiHost {
@@ -60,6 +61,7 @@ public class UiHost {
         return uiHost;
     }
 
+
     public static Configuration getConfig() {
         if (config == null) {
             config = Configuration.getInstance();
@@ -67,6 +69,9 @@ public class UiHost {
         return config;
     }
 
+    /***
+     * Quit the Singleton instance of UiHost
+     */
     public static void quitInstance() {
         if (uiHost != null) {
             uiHost.quit();
@@ -74,12 +79,16 @@ public class UiHost {
         }
     }
 
+    /***
+     * Details for instantiating a UiHost
+     * @param driverInstantiation Instantiated DriverInstantiation containing details for UiHost instantiation
+     */
     public static void setDriverInstantiation(DriverInstantiation driverInstantiation) {
         UiHost.driverInstantiation = driverInstantiation;
     }
 
     /**
-     * Navigate browser to the provided URI.
+     * Navigate UiHost (browser) to the provided URI.
      *
      * @param uri String URI
      */
@@ -88,13 +97,25 @@ public class UiHost {
         driver.get(uri);
     }
 
-    public void execute(String script) {
+    /***
+     * Execute the provided JavaScript in the UiHost
+     * @param javaScript Script to be executed
+     */
+    public void execute(String javaScript) {
         if (driver instanceof JavascriptExecutor) {
-            ((JavascriptExecutor) driver).executeScript(script);
+            ((JavascriptExecutor) driver).executeScript(javaScript);
         }
     }
 
-    void execute(WebElement element, String attribute, String value) {
+    /***
+     * Set the value of the identified attribute to the identified UiElement
+     * @param locatorType One of the UiElement.LocatorTypes
+     * @param locatorValue The appropriate value of the locator type for the desired element
+     * @param attribute An attribute of the UiElement
+     * @param value A value to which the attribute is to be set
+     */
+    void setAttribute(String locatorType, String locatorValue, String attribute, String value) {
+        WebElement element = findUiElement(constructLocator(locatorType, locatorValue));
         if (driver instanceof JavascriptExecutor) {
             ((JavascriptExecutor) driver)
                     .executeScript("arguments[0].setAttribute(arguments[1], arguments[2]);", element, attribute, value);
@@ -102,6 +123,8 @@ public class UiHost {
     }
 
     /**
+     * The current url of the UiHost
+     *
      * @return String which is the current URI of the browser
      */
     public String getUri() {
@@ -109,12 +132,20 @@ public class UiHost {
     }
 
     /**
-     * @param locator A Selenium.By WebElement locator
-     * @return WebElement within the current web page
+     * Find the element located using the provided UiElement.LocatorType and value
+     *
+     * @param locatorType  One of the UiElement.LocatorType values
+     * @param locatorValue the appropriate value for the identified element
+     * @return A List of WebElements within the current web page
      */
-    WebElement findUiElement(By locator) {
+    Object findUiElement(String locatorType, String locatorValue) {
+        By locator = constructLocator(locatorType, locatorValue);
+        return findUiElement(locator);
+    }
+
+    private WebElement findUiElement(By locator) {
         List<WebElement> elements = findUiElements(locator);
-        if (elements.size() > 0) {
+        if (elements != null && elements.size() > 0) {
             return elements.get(0);
         } else {
             logger.warn(String.format("WARNING: Unable to find any element using locator '%s'", locator.toString()));
@@ -122,19 +153,34 @@ public class UiHost {
         return null;
     }
 
+    /***
+     * Select frame within UiHost
+     * @param frameId
+     */
     public void selectFrame(String frameId) {
         driver.switchTo().frame(frameId);
     }
 
+    /***
+     * Select UiHost window
+     */
     public void selectWindow() {
         driver.switchTo().defaultContent();
     }
 
     /**
-     * @param locator A Selenium.By WebElement locator
+     * Find all elements located using the provided UiElement.LocatorType and value
+     *
+     * @param locatorType  One of the UiElement.LocatorType values
+     * @param locatorValue The appropriate value for the identified element
      * @return A List of WebElements within the current web page
      */
-    List<WebElement> findUiElements(By locator) {
+    List<Object> findUiElements(String locatorType, String locatorValue) {
+        By locator = constructLocator(locatorType, locatorValue);
+        return new ArrayList<>(findUiElements(locator));
+    }
+
+    private List<WebElement> findUiElements(By locator) {
         List<WebElement> elements;
         try {
             elements = driver.findElements(locator);

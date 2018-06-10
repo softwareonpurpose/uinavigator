@@ -4,7 +4,6 @@ import com.softwareonpurpose.uinavigator.validators.StringCalibrator;
 import com.softwareonpurpose.uinavigator.validators.webelement.WebElementCalibrator;
 import com.softwareonpurpose.uinavigator.validators.webelement.WebElementExpected;
 import com.softwareonpurpose.uinavigator.validators.webelements.WebElementsCalibrator;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -38,7 +37,7 @@ public class UiHostTest extends TestBase {
     public void findUiElement() {
         WebElementExpected expected = WebElementExpected.construct("div", "content", "large-12 columns", null, null);
         UiHost.getInstance().load(uri);
-        WebElement actual = UiHost.getInstance().findUiElement(By.id("content"));
+        WebElement actual = (WebElement) UiHost.getInstance().findUiElement("id", "content");
         confirm(WebElementCalibrator.construct(expected, actual).validate());
     }
 
@@ -46,7 +45,10 @@ public class UiHostTest extends TestBase {
     public void findUiElements() {
         List<WebElementExpected> expected = composeExpectedWebElements();
         UiHost.getInstance().load(uri);
-        List<WebElement> actual = UiHost.getInstance().findUiElements(By.tagName("a"));
+        List<WebElement> actual = new ArrayList<>();
+        for (Object element : UiHost.getInstance().findUiElements("tag", "a")) {
+            actual.add((WebElement) element);
+        }
         confirm(WebElementsCalibrator.construct(expected, actual).validate());
     }
 

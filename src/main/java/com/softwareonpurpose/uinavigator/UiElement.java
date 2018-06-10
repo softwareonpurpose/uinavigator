@@ -334,7 +334,7 @@ public class UiElement {
     }
 
     public void setAttribute(String attributeName, String value) {
-        UiHost.getInstance().execute(getElement(), attributeName, value);
+        UiHost.getInstance().setAttribute(locatorType, locatorValue, attributeName, value);
     }
 
     String getDescription() {
@@ -449,7 +449,7 @@ public class UiElement {
 
         public WebElement execute() {
             UiHost host = UiHost.getInstance();
-            return host.findUiElement(locator);
+            return (WebElement) host.findUiElement(locatorType, locatorValue);
         }
     }
 
@@ -457,11 +457,11 @@ public class UiElement {
 
         public WebElement execute() {
             UiHost host = UiHost.getInstance();
-            List<WebElement> candidates = host.findUiElements(locator);
-            for (WebElement candidate : candidates) {
-                final String candidateAttributeValue = candidate.getAttribute(attribute);
+            for (Object candidate : host.findUiElements(locatorType, locatorValue)) {
+                WebElement candidateElement = (WebElement) candidate;
+                final String candidateAttributeValue = candidateElement.getAttribute(attribute);
                 if (candidateAttributeValue != null && candidateAttributeValue.contains(attributeValue))
-                    return candidate;
+                    return candidateElement;
             }
             return null;
         }
@@ -472,7 +472,7 @@ public class UiElement {
         @Override
         public WebElement execute() {
             UiHost.getInstance().selectFrame(frameId);
-            return UiHost.getInstance().findUiElement(locator);
+            return (WebElement) UiHost.getInstance().findUiElement(locatorType, locatorValue);
         }
     }
 
