@@ -1,8 +1,8 @@
 package com.softwareonpurpose.uinavigator.validators;
 
-import com.softwareonpurpose.validator4test.Validator;
+import com.softwareonpurpose.calibrator4test.Calibrator;
 
-public class BooleanValidator extends Validator {
+public class BooleanValidator extends Calibrator {
 
     private static final String description = "Boolean";
     private final Boolean expected;

@@ -1,8 +1,8 @@
 package com.softwareonpurpose.uinavigator.validators;
 
-import com.softwareonpurpose.validator4test.Validator;
+import com.softwareonpurpose.calibrator4test.Calibrator;
 
-public class IntegerValidator extends Validator {
+public class IntegerValidator extends Calibrator {
 
     private static final String description = "Integer";
     private final Integer expected;

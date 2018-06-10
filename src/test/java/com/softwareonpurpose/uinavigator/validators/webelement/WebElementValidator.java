@@ -1,9 +1,9 @@
 package com.softwareonpurpose.uinavigator.validators.webelement;
 
-import com.softwareonpurpose.validator4test.Validator;
+import com.softwareonpurpose.calibrator4test.Calibrator;
 import org.openqa.selenium.WebElement;
 
-public class   WebElementValidator extends Validator {
+public class   WebElementValidator extends Calibrator {
 
     private final static String description = "WebElement";
     private final WebElement actual;

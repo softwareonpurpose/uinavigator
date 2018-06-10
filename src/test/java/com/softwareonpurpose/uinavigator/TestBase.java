@@ -1,12 +1,12 @@
 package com.softwareonpurpose.uinavigator;
 
-import com.softwareonpurpose.validator4test.Validator;
+import com.softwareonpurpose.calibrator4test.Calibrator;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 
 public abstract class TestBase {
     void confirm(String result) {
-        Assert.assertTrue(result.equals(Validator.PASS), result);
+        Assert.assertEquals(result, Calibrator.PASS, result);
     }
 
     @AfterMethod(alwaysRun = true)

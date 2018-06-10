@@ -1,5 +1,5 @@
 group 'com.softwareonpurpose'
-version = '1.0.4'
+version = '1.0.5'
 
 apply plugin: 'java'
 
@@ -15,8 +15,8 @@ dependencies {
     compile 'org.slf4j:slf4j-api:1.7.25'
     compile 'org.seleniumhq.selenium:selenium-java:3.11.0'
     testCompile 'org.testng:testng:6.14.3'
-    compile files('./src/test/resources/indentmanager-1.0.0.jar')
-    compile files('./src/test/resources/validator4test-1.0.0.jar')
+    compile files('./src/test/resources/indentmanager-1.0.1.jar')
+    compile files('./src/test/resources/calibrator4test-1.0.2.jar')
 }
 
 task wrapper(type: Wrapper) {

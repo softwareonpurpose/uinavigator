@@ -1,8 +1,8 @@
 package com.softwareonpurpose.uinavigator.validators;
 
-import com.softwareonpurpose.validator4test.Validator;
+import com.softwareonpurpose.calibrator4test.Calibrator;
 
-public class ClassValidator extends Validator {
+public class ClassValidator extends Calibrator {
 
     private static final String description = "Class";
     private final Class actual;
