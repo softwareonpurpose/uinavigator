@@ -3,20 +3,20 @@ package com.softwareonpurpose.uinavigator.validators.webelement;
 import com.softwareonpurpose.calibrator4test.Calibrator;
 import org.openqa.selenium.WebElement;
 
-public class   WebElementValidator extends Calibrator {
+public class WebElementCalibrator extends Calibrator {
 
     private final static String description = "WebElement";
     private final WebElement actual;
     private final WebElementExpected expected;
 
-    private WebElementValidator(WebElementExpected expected, WebElement actual) {
+    private WebElementCalibrator(WebElementExpected expected, WebElement actual) {
         super(description, expected, actual);
         this.actual = actual;
         this.expected = expected;
     }
 
-    public static WebElementValidator getInstance(WebElementExpected expected, WebElement actual) {
-        return new WebElementValidator(expected, actual);
+    public static WebElementCalibrator getInstance(WebElementExpected expected, WebElement actual) {
+        return new WebElementCalibrator(expected, actual);
     }
 
     @Override

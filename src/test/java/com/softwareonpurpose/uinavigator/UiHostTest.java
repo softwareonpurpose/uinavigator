@@ -1,10 +1,10 @@
 package com.softwareonpurpose.uinavigator;
 
-import com.softwareonpurpose.uinavigator.validators.BooleanValidator;
-import com.softwareonpurpose.uinavigator.validators.StringValidator;
+import com.softwareonpurpose.uinavigator.validators.BooleanCalibrator;
+import com.softwareonpurpose.uinavigator.validators.StringCalibrator;
 import com.softwareonpurpose.uinavigator.validators.webelement.WebElementExpected;
-import com.softwareonpurpose.uinavigator.validators.webelement.WebElementValidator;
-import com.softwareonpurpose.uinavigator.validators.webelements.WebElementsValidator;
+import com.softwareonpurpose.uinavigator.validators.webelement.WebElementCalibrator;
+import com.softwareonpurpose.uinavigator.validators.webelements.WebElementsCalibrator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -40,7 +40,7 @@ public class UiHostTest extends TestBase {
         WebElementExpected expected = WebElementExpected.getInstance("div", "content", "large-12 columns", null, null);
         UiHost.getInstance().load(uri);
         WebElement actual = UiHost.getInstance().findUiElement(By.id("content"));
-        confirm(WebElementValidator.getInstance(expected, actual).validate());
+        confirm(WebElementCalibrator.getInstance(expected, actual).validate());
     }
 
     @Test(dependsOnMethods = "getInstance")
@@ -48,7 +48,7 @@ public class UiHostTest extends TestBase {
         List<WebElementExpected> expected = composeExpectedWebElements();
         UiHost.getInstance().load(uri);
         List<WebElement> actual = UiHost.getInstance().findUiElements(By.tagName("a"));
-        confirm(WebElementsValidator.getInstance(expected, actual).validate());
+        confirm(WebElementsCalibrator.getInstance(expected, actual).validate());
     }
 
     @Test(dependsOnMethods = "getInstance")
@@ -56,7 +56,7 @@ public class UiHostTest extends TestBase {
         UiHost browser = UiHost.getInstance();
         browser.load(uri);
         Boolean actual = browser.waitUntilVisible(By.id("page-footer"));
-        confirm(BooleanValidator.getInstance(true, actual).validate());
+        confirm(BooleanCalibrator.getInstance(true, actual).validate());
     }
 
     @Test(dependsOnMethods = "getInstance")
@@ -69,13 +69,13 @@ public class UiHostTest extends TestBase {
         host.selectFrame("disneyid-iframe");
         host.selectWindow();
         String actual = UiElement.getInstance("'Login' button", UiElement.LocatorType.CLASS, "btn-group").getText();
-        confirm(StringValidator.getInstance("Text of element in specific window", expected, actual).validate());
+        confirm(StringCalibrator.getInstance("Text of element in specific window", expected, actual).validate());
     }
 
     @Test(enabled = false, dataProvider = "drivers")
     public void getSpecifWebDriverInstance(DriverInstantiation driverInstantiation, String expected) {
         String actual = UiHost.getInstance(driverInstantiation).getDriverName();
-        confirm(StringValidator.getInstance("UI Host driver name", expected, actual).validate());
+        confirm(StringCalibrator.getInstance("UI Host driver name", expected, actual).validate());
     }
 
     private List<WebElementExpected> composeExpectedWebElements() {
