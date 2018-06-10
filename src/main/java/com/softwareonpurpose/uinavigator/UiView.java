@@ -1,5 +1,5 @@
 /**
- * Copyright 2017 Craig A. Stockton
+ * Copyright 2018 Craig A. Stockton
  * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,18 +34,18 @@ public abstract class UiView {
 
     public static <T extends UiView> T expect(Class<T> viewClass) {
         LoggerFactory.getLogger("").info(String.format("Expect '%s'", viewClass.getSimpleName().replaceAll(String
-                .format("%s|%s|%s", "(?<=[A-Z])(?=[A-Z][a-z])", "(?<=[^A-Z])(?=[A-Z])", "(?<=[A-Za-z])(?=[^A-Za-z])")
+                        .format("%s|%s|%s", "(?<=[A-Z])(?=[A-Z][a-z])", "(?<=[^A-Z])(?=[A-Z])", "(?<=[A-Za-z])(?=[^A-Za-z])")
                 , " ")));
-        T view = instantiateView(viewClass);
+        T view = construct(viewClass);
         view.confirmElementStates();
-        return instantiateView(viewClass);
+        return construct(viewClass);
     }
 
     @SuppressWarnings("WeakerAccess")
-    protected static <T extends UiView> T instantiateView(Class<T> viewClass) {
+    protected static <T extends UiView> T construct(Class<T> viewClass) {
         T view = null;
         try {
-            Constructor<T> constructor = null;
+            Constructor<T> constructor;
             try {
                 constructor = viewClass.getConstructor();
                 view = constructor.newInstance();
