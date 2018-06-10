@@ -1,5 +1,5 @@
 /**
- * Copyright 2017 Craig A. Stockton
+ * Copyright 2018 Craig A. Stockton
  * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class UiHost {
 
@@ -41,7 +42,9 @@ public class UiHost {
     }
 
     /**
-     * @return UiHost singleton instance with default WebDriver
+     * Get the current Singleton instance of UiHost
+     *
+     * @return UiHost singleton instance constructed using current DriverInstantiation and Configuration
      */
     public static UiHost getInstance() {
         if (uiHost == null) {
@@ -50,9 +53,11 @@ public class UiHost {
         return uiHost;
     }
 
-    /**
-     * @param driverInstantiation DriverInstantiation
-     * @return Selenium WebDriver
+    /***
+     * Construct a new UiHost instance using the provided DriverInstantiation.
+     * The current Singleton UiHost will be stopped and replaced.
+     * @param driverInstantiation DriverInstantiation with construction and configuration details
+     * @return UiHost
      */
     public static UiHost getInstance(DriverInstantiation driverInstantiation) {
         setDriverInstantiation(driverInstantiation);
@@ -61,7 +66,10 @@ public class UiHost {
         return uiHost;
     }
 
-
+    /***
+     * Configuration current configuration for UiHost instance
+     * @return Configuration
+     */
     public static Configuration getConfig() {
         if (config == null) {
             config = Configuration.getInstance();
@@ -177,7 +185,7 @@ public class UiHost {
      */
     List<Object> findUiElements(String locatorType, String locatorValue) {
         By locator = constructLocator(locatorType, locatorValue);
-        return new ArrayList<>(findUiElements(locator));
+        return new ArrayList<>(Objects.requireNonNull(findUiElements(locator)));
     }
 
     private List<WebElement> findUiElements(By locator) {
