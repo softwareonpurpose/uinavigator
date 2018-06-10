@@ -15,7 +15,7 @@ public class WebElementCalibrator extends Calibrator {
         this.expected = expected;
     }
 
-    public static WebElementCalibrator getInstance(WebElementExpected expected, WebElement actual) {
+    public static WebElementCalibrator construct(WebElementExpected expected, WebElement actual) {
         return new WebElementCalibrator(expected, actual);
     }
 

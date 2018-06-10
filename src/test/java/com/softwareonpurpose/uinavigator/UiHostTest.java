@@ -37,10 +37,10 @@ public class UiHostTest extends TestBase {
 
     @Test(dependsOnMethods = "getInstance")
     public void findUiElement() {
-        WebElementExpected expected = WebElementExpected.getInstance("div", "content", "large-12 columns", null, null);
+        WebElementExpected expected = WebElementExpected.construct("div", "content", "large-12 columns", null, null);
         UiHost.getInstance().load(uri);
         WebElement actual = UiHost.getInstance().findUiElement(By.id("content"));
-        confirm(WebElementCalibrator.getInstance(expected, actual).validate());
+        confirm(WebElementCalibrator.construct(expected, actual).validate());
     }
 
     @Test(dependsOnMethods = "getInstance")
@@ -48,7 +48,7 @@ public class UiHostTest extends TestBase {
         List<WebElementExpected> expected = composeExpectedWebElements();
         UiHost.getInstance().load(uri);
         List<WebElement> actual = UiHost.getInstance().findUiElements(By.tagName("a"));
-        confirm(WebElementsCalibrator.getInstance(expected, actual).validate());
+        confirm(WebElementsCalibrator.construct(expected, actual).validate());
     }
 
     @Test(dependsOnMethods = "getInstance")
@@ -56,7 +56,7 @@ public class UiHostTest extends TestBase {
         UiHost browser = UiHost.getInstance();
         browser.load(uri);
         Boolean actual = browser.waitUntilVisible(By.id("page-footer"));
-        confirm(BooleanCalibrator.getInstance(true, actual).validate());
+        confirm(BooleanCalibrator.construct(true, actual).validate());
     }
 
     @Test(dependsOnMethods = "getInstance")
@@ -69,13 +69,13 @@ public class UiHostTest extends TestBase {
         host.selectFrame("disneyid-iframe");
         host.selectWindow();
         String actual = UiElement.getInstance("'Login' button", UiElement.LocatorType.CLASS, "btn-group").getText();
-        confirm(StringCalibrator.getInstance("Text of element in specific window", expected, actual).validate());
+        confirm(StringCalibrator.construct("Text of element in specific window", expected, actual).validate());
     }
 
     @Test(enabled = false, dataProvider = "drivers")
     public void getSpecifWebDriverInstance(DriverInstantiation driverInstantiation, String expected) {
         String actual = UiHost.getInstance(driverInstantiation).getDriverName();
-        confirm(StringCalibrator.getInstance("UI Host driver name", expected, actual).validate());
+        confirm(StringCalibrator.construct("UI Host driver name", expected, actual).validate());
     }
 
     private List<WebElementExpected> composeExpectedWebElements() {
@@ -128,6 +128,6 @@ public class UiHostTest extends TestBase {
     }
 
     private WebElementExpected composeExpectedAnchor(String href, String text) {
-        return WebElementExpected.getInstance(ANCHOR, null, null, href, text);
+        return WebElementExpected.construct(ANCHOR, null, null, href, text);
     }
 }

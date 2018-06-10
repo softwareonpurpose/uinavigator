@@ -14,7 +14,7 @@ public class BooleanCalibrator extends Calibrator {
         this.actual = actual;
     }
 
-    public static BooleanCalibrator getInstance(Boolean expected, Boolean actual) {
+    public static BooleanCalibrator construct(Boolean expected, Boolean actual) {
         return new BooleanCalibrator(expected, actual);
     }
 

@@ -12,7 +12,7 @@ public class UiElementTest extends TestBase {
         final Class expected = UiElement.class;
         UiHost.getInstance().load("http://www.google.com");
         final Class actual = UiElement.getInstance("UiElement", UiElement.LocatorType.ID, "viewport").getClass();
-        confirm(ClassCalibrator.getInstance(expected, actual).validate());
+        confirm(ClassCalibrator.construct(expected, actual).validate());
     }
 
     @Test(dependsOnMethods = "getRootInstance")
@@ -22,7 +22,7 @@ public class UiElementTest extends TestBase {
         UiElement parent = UiElement.getInstance("Parent UiElement", UiElement.LocatorType.ID, "gsr");
         UiElement child = UiElement.getInstance("Child UiElement", UiElement.LocatorType.ID, "viewport", parent);
         Class actual = child.getClass();
-        confirm(ClassCalibrator.getInstance(expected, actual).validate());
+        confirm(ClassCalibrator.construct(expected, actual).validate());
     }
 
     @Test(dependsOnMethods = "getRootInstance")
@@ -32,7 +32,7 @@ public class UiElementTest extends TestBase {
         UiElement parent = UiElement.getInstance("Parent UiElement", UiElement.LocatorType.ID, "gsr");
         UiElement child = UiElement.getInstance("Child UiElement", UiElement.LocatorType.CLASS, "_Gs", 3, parent);
         Class actual = child.getClass();
-        confirm(ClassCalibrator.getInstance(expected, actual).validate());
+        confirm(ClassCalibrator.construct(expected, actual).validate());
     }
 
     @Test(dependsOnMethods = "getRootInstance")
@@ -43,7 +43,7 @@ public class UiElementTest extends TestBase {
         UiElement child = UiElement
                 .getInstance("Child UiElement", UiElement.LocatorType.CLASS, "gb_ua", "data-ved", "0CBQQwi4oAA", parent);
         Class actual = child.getClass();
-        confirm(ClassCalibrator.getInstance(expected, actual).validate());
+        confirm(ClassCalibrator.construct(expected, actual).validate());
     }
 
     @Test(dependsOnMethods = "getRootInstance")
@@ -53,7 +53,7 @@ public class UiElementTest extends TestBase {
         UiElement parent = UiElement.getInstance("Parent UiElement", UiElement.LocatorType.ID, "gsr");
         final UiElement child = UiElement.getInstance("Child UiElement", UiElement.LocatorType.CLASS, "ctr-p", 3, parent);
         String actual = child.getText();
-        confirm(StringCalibrator.getInstance("Text of child by ordinal", expected, actual).validate());
+        confirm(StringCalibrator.construct("Text of child by ordinal", expected, actual).validate());
     }
 
     @Test(enabled = false) //  element is now hidden on Google.com
@@ -64,7 +64,7 @@ public class UiElementTest extends TestBase {
         UiElement child = UiElement
                 .getInstance("Child UiElement", UiElement.LocatorType.CLASS, "gb_ua", "data-ved", "0CBQQwi4oAA", parent);
         String actual = child.getHref();
-        confirm(StringCalibrator.getInstance("Text of child by attribute 'href'", expected, actual).validate());
+        confirm(StringCalibrator.construct("Text of child by attribute 'href'", expected, actual).validate());
     }
 
     @Test(enabled = false) //  element is now hidden on Google.com
@@ -75,7 +75,7 @@ public class UiElementTest extends TestBase {
         UiElement child = UiElement
                 .getInstance("Child UiElement", UiElement.LocatorType.CLASS, "gb_pa", "data-ved", "0CBYQvSc", parent);
         String actual = child.getTip();
-        confirm(StringCalibrator.getInstance("Text of child by attribute 'tip'", expected, actual).validate());
+        confirm(StringCalibrator.construct("Text of child by attribute 'tip'", expected, actual).validate());
     }
 
     @Test(dependsOnMethods = "getRootInstance")
@@ -85,7 +85,7 @@ public class UiElementTest extends TestBase {
         final UiElement searchTextbox = UiElement.getInstance("Search Box", UiElement.LocatorType.NAME, "q");
         searchTextbox.set(expected);
         String actual = searchTextbox.getText();
-        confirm(StringCalibrator.getInstance("Searchbox value", expected, actual).validate());
+        confirm(StringCalibrator.construct("Searchbox value", expected, actual).validate());
     }
 
     @Test(dependsOnMethods = "getRootInstance")
@@ -97,7 +97,7 @@ public class UiElementTest extends TestBase {
         parent = UiElement.getInstance("'Images' link", UiElement.LocatorType.CLASS, "gb_Lc");
         String actual = UiElement.getInstance("'Images' link", UiElement.LocatorType.CLASS, "gb_ua", 3, parent).getText();
         //noinspection ConstantConditions
-        confirm(StringCalibrator.getInstance("Value after click", expected, actual).validate());
+        confirm(StringCalibrator.construct("Value after click", expected, actual).validate());
     }
 
     @Test(dependsOnMethods = "getRootInstance")
@@ -107,6 +107,6 @@ public class UiElementTest extends TestBase {
         UiElement element = UiElement.getInstance("Logo", UiElement.LocatorType.ID, "hplogo");
         element.setAttribute("alt", expected);
         String actual = element.getAttribute("alt");
-        confirm(StringCalibrator.getInstance("Attribute value", expected, actual).validate());
+        confirm(StringCalibrator.construct("Attribute value", expected, actual).validate());
     }
 }

@@ -15,7 +15,7 @@ public class WebElementExpected {
         this.text = text;
     }
 
-    public static WebElementExpected getInstance(String tag, String id, String classes, String href, String text) {
+    public static WebElementExpected construct(String tag, String id, String classes, String href, String text) {
         return new WebElementExpected(tag, id, classes, href, text);
     }
 

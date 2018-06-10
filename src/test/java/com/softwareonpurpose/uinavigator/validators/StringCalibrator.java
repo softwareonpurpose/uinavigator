@@ -16,7 +16,7 @@ public class StringCalibrator extends Calibrator {
         this.expected = expected;
     }
 
-    public static StringCalibrator getInstance(String description, String expected, String actual) {
+    public static StringCalibrator construct(String description, String expected, String actual) {
         return new StringCalibrator(description, expected, actual);
     }
 
