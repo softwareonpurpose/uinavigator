@@ -85,18 +85,18 @@ public class UiHost {
      */
     public void load(String uri) {
         logger.info(String.format("Navigate browser to %s", uri));
-        getDriver().get(uri);
+        driver.get(uri);
     }
 
     public void execute(String script) {
-        if (getDriver() instanceof JavascriptExecutor) {
-            ((JavascriptExecutor) getDriver()).executeScript(script);
+        if (driver instanceof JavascriptExecutor) {
+            ((JavascriptExecutor) driver).executeScript(script);
         }
     }
 
     void execute(WebElement element, String attribute, String value) {
-        if (getDriver() instanceof JavascriptExecutor) {
-            ((JavascriptExecutor) getDriver())
+        if (driver instanceof JavascriptExecutor) {
+            ((JavascriptExecutor) driver)
                     .executeScript("arguments[0].setAttribute(arguments[1], arguments[2]);", element, attribute, value);
         }
     }
@@ -105,7 +105,7 @@ public class UiHost {
      * @return String which is the current URI of the browser
      */
     public String getUri() {
-        return getDriver().getCurrentUrl();
+        return driver.getCurrentUrl();
     }
 
     /**
@@ -123,11 +123,11 @@ public class UiHost {
     }
 
     public void selectFrame(String frameId) {
-        getDriver().switchTo().frame(frameId);
+        driver.switchTo().frame(frameId);
     }
 
     public void selectWindow() {
-        getDriver().switchTo().defaultContent();
+        driver.switchTo().defaultContent();
     }
 
     /**
@@ -137,7 +137,7 @@ public class UiHost {
     List<WebElement> findUiElements(By locator) {
         List<WebElement> elements;
         try {
-            elements = getDriver().findElements(locator);
+            elements = driver.findElements(locator);
         } catch (WebDriverException e) {
             logger.warn(String.format("WARNING: Unable to find any element using locator '%s'", locator.toString()));
             return null;
@@ -151,7 +151,7 @@ public class UiHost {
      */
     boolean waitUntilVisible(WebElement element) {
         try {
-            new WebDriverWait(getDriver(), getConfig().getTimeout())
+            new WebDriverWait(driver, getConfig().getTimeout())
                     .until(ExpectedConditions.visibilityOf(element));
         } catch (WebDriverException e) {
             String warningMessageFormat = "WARNING: UiElement '%s' failed to be displayed within %d seconds";
@@ -171,10 +171,6 @@ public class UiHost {
     private void quit() {
         driver.quit();
         driver = null;
-    }
-
-    private WebDriver getDriver() {
-        return driver;
     }
 
     private void instantiateUiDriver() {
