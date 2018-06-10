@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator;
 
-import com.softwareonpurpose.uinavigator.validators.ClassValidator;
+import com.softwareonpurpose.uinavigator.validators.ClassCalibrator;
 import com.softwareonpurpose.uinavigator.validators.StringCalibrator;
 import org.testng.annotations.Test;
 
@@ -12,7 +12,7 @@ public class UiElementTest extends TestBase {
         final Class expected = UiElement.class;
         UiHost.getInstance().load("http://www.google.com");
         final Class actual = UiElement.getInstance("UiElement", UiElement.LocatorType.ID, "viewport").getClass();
-        confirm(ClassValidator.getInstance(expected, actual).validate());
+        confirm(ClassCalibrator.getInstance(expected, actual).validate());
     }
 
     @Test(dependsOnMethods = "getRootInstance")
@@ -22,7 +22,7 @@ public class UiElementTest extends TestBase {
         UiElement parent = UiElement.getInstance("Parent UiElement", UiElement.LocatorType.ID, "gsr");
         UiElement child = UiElement.getInstance("Child UiElement", UiElement.LocatorType.ID, "viewport", parent);
         Class actual = child.getClass();
-        confirm(ClassValidator.getInstance(expected, actual).validate());
+        confirm(ClassCalibrator.getInstance(expected, actual).validate());
     }
 
     @Test(dependsOnMethods = "getRootInstance")
@@ -32,7 +32,7 @@ public class UiElementTest extends TestBase {
         UiElement parent = UiElement.getInstance("Parent UiElement", UiElement.LocatorType.ID, "gsr");
         UiElement child = UiElement.getInstance("Child UiElement", UiElement.LocatorType.CLASS, "_Gs", 3, parent);
         Class actual = child.getClass();
-        confirm(ClassValidator.getInstance(expected, actual).validate());
+        confirm(ClassCalibrator.getInstance(expected, actual).validate());
     }
 
     @Test(dependsOnMethods = "getRootInstance")
@@ -43,7 +43,7 @@ public class UiElementTest extends TestBase {
         UiElement child = UiElement
                 .getInstance("Child UiElement", UiElement.LocatorType.CLASS, "gb_ua", "data-ved", "0CBQQwi4oAA", parent);
         Class actual = child.getClass();
-        confirm(ClassValidator.getInstance(expected, actual).validate());
+        confirm(ClassCalibrator.getInstance(expected, actual).validate());
     }
 
     @Test(dependsOnMethods = "getRootInstance")
