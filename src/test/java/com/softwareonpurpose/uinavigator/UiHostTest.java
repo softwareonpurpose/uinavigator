@@ -1,9 +1,8 @@
 package com.softwareonpurpose.uinavigator;
 
-import com.softwareonpurpose.uinavigator.validators.BooleanCalibrator;
 import com.softwareonpurpose.uinavigator.validators.StringCalibrator;
-import com.softwareonpurpose.uinavigator.validators.webelement.WebElementExpected;
 import com.softwareonpurpose.uinavigator.validators.webelement.WebElementCalibrator;
+import com.softwareonpurpose.uinavigator.validators.webelement.WebElementExpected;
 import com.softwareonpurpose.uinavigator.validators.webelements.WebElementsCalibrator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -53,7 +52,6 @@ public class UiHostTest extends TestBase {
 
     @Test(dependsOnMethods = "construct")
     public void selectWindow() {
-        String expected = null;
         UiHost host = UiHost.getInstance();
         host.load("http://espn.go.com");
         UiElement.getInstance("'Login' link", UiElement.LocatorType.TAG, "a", UiElement.getInstance("'User' region",
@@ -61,7 +59,7 @@ public class UiHostTest extends TestBase {
         host.selectFrame("disneyid-iframe");
         host.selectWindow();
         String actual = UiElement.getInstance("'Login' button", UiElement.LocatorType.CLASS, "btn-group").getText();
-        confirm(StringCalibrator.construct("Text of element in specific window", expected, actual).validate());
+        confirm(StringCalibrator.construct("Text of element in specific window", null, actual).validate());
     }
 
     @Test(enabled = false, dataProvider = "drivers")
