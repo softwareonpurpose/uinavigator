@@ -145,24 +145,49 @@ public class UiHost {
         return elements;
     }
 
-    /**
-     * @param element A Selenium WebElement
-     * @return boolean Indicates whether the WebElement was visible within a defined timeout period
+    /***
+     * Wait until the identified element is visible
+     * @param locatorType One of the values in UiElement.LocatorType
+     * @param locatorValue The appropriate value for the identified element
+     * @return boolean Indicates whether the element was found
      */
-    boolean waitUntilVisible(WebElement element) {
+    boolean waitUntilVisible(String locatorType, String locatorValue) {
+        By locator = constructLocator(locatorType, locatorValue);
         try {
             new WebDriverWait(driver, getConfig().getTimeout())
-                    .until(ExpectedConditions.visibilityOf(element));
+                    .until(ExpectedConditions.visibilityOfElementLocated(locator));
         } catch (WebDriverException e) {
             String warningMessageFormat = "WARNING: UiElement '%s' failed to be displayed within %d seconds";
-            logger.warn(String.format(warningMessageFormat, element.toString(), getConfig().getTimeout()));
+            logger.warn(String.format(warningMessageFormat, locator.toString(), getConfig().getTimeout()));
             return false;
         }
         return true;
     }
 
+    private By constructLocator(String locatorType, String locatorValue) {
+        By locator;
+        switch (locatorType) {
+            case UiElement.LocatorType.ID:
+                locator = By.id(locatorValue);
+                break;
+            case UiElement.LocatorType.NAME:
+                locator = By.name(locatorValue);
+                break;
+            case UiElement.LocatorType.CLASS:
+                locator = By.className(locatorValue);
+                break;
+            case UiElement.LocatorType.TAG:
+                locator = By.tagName(locatorValue);
+                break;
+            default:
+                locator = By.className(locatorValue);
+                break;
+        }
+        return locator;
+    }
+
     /**
-     * @return String which is the name of the current WebDriver
+     * @return String The name of the current UiHost driver
      */
     String getDriverName() {
         return driver.getClass().getName();
