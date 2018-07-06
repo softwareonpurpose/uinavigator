@@ -245,7 +245,7 @@ public class UiElement {
             getLogger().info(String.format(getIndentation() + "Click %s", getDescription()));
         }
         WebElement element = getElement();
-        final String errorMessage = String.format("BLOCKED: Unable to click %s", getElementDescription());
+        final String errorMessage = String.format("BLOCKED: Unable to click %s", this.toString());
         if (element != null && isClickable()) {
             try {
                 element.click();
@@ -410,13 +410,6 @@ public class UiElement {
         throw new WebDriverException(errorMessage);
     }
 
-    private String getElementDescription() {
-        String elementDescription = "%s element with locator %s %s";
-        String attributeDescription = "and '%s' attribute containing \"%s\"";
-        return String.format(elementDescription, description, locator.toString(), attribute != null ? String
-                .format(attributeDescription, attribute, attributeValue) : "");
-    }
-
     @SuppressWarnings("WeakerAccess")
     public String getAttribute(String attributeName) {
         WebElement element = getElement();
@@ -508,13 +501,13 @@ public class UiElement {
                 final WebElement parentElement = parent.getElement();
                 elements = parentElement == null ? new ArrayList<>() : parentElement.findElements(locator);
             } catch (WebDriverException | NullPointerException e) {
-                getLogger().warn(String.format(message_unableToFind, getElementDescription()));
+                getLogger().warn(String.format(message_unableToFind, this.toString()));
                 return null;
             }
             if (elements.size() > elementIndex) {
                 return elements.get(elementIndex);
             } else {
-                getLogger().warn(String.format(message_unableToFind, getElementDescription()));
+                getLogger().warn(String.format(message_unableToFind, this.toString()));
             }
             return null;
         }
@@ -535,13 +528,13 @@ public class UiElement {
                         elements.add(candidate);
                 }
             } catch (WebDriverException | NullPointerException e) {
-                getLogger().warn(String.format(message_unableToFind, getElementDescription()));
+                getLogger().warn(String.format(message_unableToFind, this.toString()));
                 return null;
             }
             if (elements.size() > elementIndex) {
                 return elements.get(elementIndex);
             } else {
-                getLogger().warn(String.format(message_unableToFind, getElementDescription()));
+                getLogger().warn(String.format(message_unableToFind, this.toString()));
             }
             return null;
         }
