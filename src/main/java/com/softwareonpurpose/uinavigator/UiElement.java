@@ -1,5 +1,5 @@
 /**
- * Copyright 2017 Craig A. Stockton
+ * Copyright 2018 Craig A. Stockton
  * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 package com.softwareonpurpose.uinavigator;
 
+import com.google.gson.Gson;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
@@ -27,25 +28,25 @@ import java.util.List;
 
 public class UiElement {
 
-    private static String message_unableToFind = "WARNING: Unable to locate %s";
-    private static boolean suppressLogging;
-    private final UiElement parent;
+    private transient static String message_unableToFind = "WARNING: Unable to locate %s";
+    private transient static boolean suppressLogging;
     private final String description;
-    private final String attribute;
-    private final String attributeValue;
-    private final int ordinal;
-    private final String frameId;
     private final String locatorType;
     private final String locatorValue;
-    private String activeClass;
-    private String selectedClass;
-    private String selectedStyle;
-    private String tipAttribute = "title";
-    private By locator;
-    private GetElementBehavior getElementBehavior;
-    private ElementBehavior elementBehavior;
-    private WebElement element;
-    private IsClickableBehavior isClickableBehavior;
+    private final String attribute;
+    private final String attributeValue;
+    private final Integer ordinal;
+    private final UiElement parent;
+    private transient final String frameId;
+    private transient String activeClass;
+    private transient String selectedClass;
+    private transient String selectedStyle;
+    private transient String tipAttribute = "title";
+    private transient By locator;
+    private transient GetElementBehavior getElementBehavior;
+    private transient ElementBehavior elementBehavior;
+    private transient WebElement element;
+    private transient IsClickableBehavior isClickableBehavior;
 
     private UiElement(String description, String locatorType, String locatorValue, String attribute, String attributeValue, Integer ordinal, UiElement parent) {
         this.description = description;
@@ -56,7 +57,7 @@ public class UiElement {
         this.parent = parent;
         this.attribute = attribute;
         this.attributeValue = attributeValue;
-        this.ordinal = ordinal == null ? 1 : ordinal;
+        this.ordinal = ordinal;
         initializeGetElementBehavior();
     }
 
@@ -106,6 +107,7 @@ public class UiElement {
         return new UiElement(description, locatorType, locatorValue, attribute, attributeValue, null, parent);
     }
 
+    @SuppressWarnings("unused")
     public static void suppressLogging(boolean suppress) {
         suppressLogging = suppress;
     }
@@ -117,6 +119,7 @@ public class UiElement {
      * @param parent       UiElement representing a parent of the requested elements
      * @return List of HtmlElements instantiated with the defined locator and description
      */
+    @SuppressWarnings("unused")
     public static List<UiElement> getList(String description, String locatorType, String locatorValue, UiElement parent) {
         List<UiElement> elements = new ArrayList<>();
         WebElement parentElement = parent.getElement();
@@ -165,6 +168,7 @@ public class UiElement {
     /**
      * @return The text of the defined WebElement
      */
+    @SuppressWarnings("WeakerAccess")
     public String getText() {
         return getElementBehavior().getText();
     }
@@ -180,6 +184,7 @@ public class UiElement {
     /**
      * @return The href of the defined WebElement
      */
+    @SuppressWarnings("WeakerAccess")
     public String getHref() {
         final WebElement element = getElement();
         return element == null ? null : element.getAttribute(Attribute.HREF);
@@ -188,6 +193,7 @@ public class UiElement {
     /**
      * @return String tooltip of the defined WebElement  (e.g. 'title' attribute)
      */
+    @SuppressWarnings("WeakerAccess")
     public String getTip() {
         final WebElement element = getElement();
         return element == null ? null : tipAttribute == null ? null : element.getAttribute(tipAttribute);
@@ -197,6 +203,7 @@ public class UiElement {
      * @param attribute String name of an attribute of the element
      * @return String value of the requested attribute
      */
+    @SuppressWarnings("unused")
     public UiElement setTipAttribute(String attribute) {
         this.tipAttribute = attribute;
         return this;
@@ -207,6 +214,7 @@ public class UiElement {
      *
      * @param value String value
      */
+    @SuppressWarnings("WeakerAccess")
     public void set(String value) {
         value = value == null ? "" : value;
         WebElement element = getElement();
@@ -231,6 +239,7 @@ public class UiElement {
     /**
      * Executes a mouse-click event
      */
+    @SuppressWarnings("WeakerAccess")
     public void click() {
         if (!suppressLogging) {
             getLogger().info(String.format(getIndentation() + "Click %s", getDescription()));
@@ -266,6 +275,7 @@ public class UiElement {
     /**
      * @return boolean indicating whether the element is active
      */
+    @SuppressWarnings("unused")
     public boolean isActive() {
         return classContains(activeClass);
     }
@@ -273,6 +283,7 @@ public class UiElement {
     /**
      * @return boolean indicating whether the element is selected
      */
+    @SuppressWarnings("unused")
     public boolean isSelected() {
         WebElement element = getElement();
         return classContains(selectedClass) || styleContains(selectedStyle) || (element != null && element.isSelected());
@@ -281,6 +292,7 @@ public class UiElement {
     /**
      * @return boolean indicating whether the element is displayed
      */
+    @SuppressWarnings("unused")
     public boolean isDisplayed() {
         return this.waitUntilVisible();
     }
@@ -291,6 +303,7 @@ public class UiElement {
      * @param selectedClassValue String value used to indicate that the element is selected
      * @return This instance of UiElement
      */
+    @SuppressWarnings("unused")
     public UiElement setSelectedClass(String selectedClassValue) {
         this.selectedClass = selectedClassValue;
         return this;
@@ -302,6 +315,7 @@ public class UiElement {
      * @param selectedStyleValue String value used to indicate that the element is selected
      * @return This instance of UiElement
      */
+    @SuppressWarnings("unused")
     public UiElement setSelectedStyle(String selectedStyleValue) {
         this.selectedStyle = selectedStyleValue;
         return this;
@@ -313,6 +327,7 @@ public class UiElement {
      * @param activeClass String value used to indicate that the element is acdtive
      * @return This instance of UiElement
      */
+    @SuppressWarnings("unused")
     public UiElement setActiveClass(String activeClass) {
         this.activeClass = activeClass;
         return this;
@@ -321,6 +336,7 @@ public class UiElement {
     /**
      * @return boolean indicating whether the element was visible within the defined timeout period
      */
+    @SuppressWarnings("WeakerAccess")
     public boolean waitUntilVisible() {
         return UiHost.getInstance().waitUntilVisible(locatorType, locatorValue);
     }
@@ -328,11 +344,13 @@ public class UiElement {
     /**
      * @return String value of the elements 'src' attribute
      */
+    @SuppressWarnings("unused")
     public String getSrc() {
         final WebElement element = getElement();
         return element == null ? null : element.getAttribute(Attribute.SRC);
     }
 
+    @SuppressWarnings("WeakerAccess")
     public void setAttribute(String attributeName, String value) {
         UiHost.getInstance().setAttribute(locatorType, locatorValue, attributeName, value);
     }
@@ -380,7 +398,7 @@ public class UiElement {
 
     private void initializeGetElementBehavior() {
         if (frameId != null) getElementBehavior = new GetFrame();
-        else if (parent == null && attribute == null && ordinal == 1) getElementBehavior = new GetView();
+        else if (parent == null && attribute == null && ordinal == null) getElementBehavior = new GetView();
         else if (parent == null) getElementBehavior = new GetView_attribute();
         else if (attribute != null) getElementBehavior = new GetElement_attribute();
         else getElementBehavior = new GetElement();
@@ -392,10 +410,6 @@ public class UiElement {
         throw new WebDriverException(errorMessage);
     }
 
-    private String getOrdinal() {
-        return ordinal == 1 ? "" : String.format("#%d", ordinal);
-    }
-
     private String getElementDescription() {
         String elementDescription = "%s element with locator %s %s";
         String attributeDescription = "and '%s' attribute containing \"%s\"";
@@ -403,9 +417,15 @@ public class UiElement {
                 .format(attributeDescription, attribute, attributeValue) : "");
     }
 
+    @SuppressWarnings("WeakerAccess")
     public String getAttribute(String attributeName) {
         WebElement element = getElement();
         return element == null ? null : element.getAttribute(attributeName);
+    }
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
     }
 
     private interface GetElementBehavior {
@@ -425,6 +445,7 @@ public class UiElement {
         boolean execute();
     }
 
+    @SuppressWarnings("WeakerAccess")
     public class LocatorType {
 
         public static final String CLASS = "class";
@@ -436,7 +457,9 @@ public class UiElement {
 
     public class Attribute {
 
+        @SuppressWarnings("WeakerAccess")
         public static final String STYLE = "style";
+        @SuppressWarnings("WeakerAccess")
         public static final String CLASS = "class";
         private static final String HREF = "href";
         private static final String SRC = "src";
@@ -480,7 +503,7 @@ public class UiElement {
 
         public WebElement execute() {
             List<WebElement> elements;
-            int elementIndex = ordinal - 1;
+            int elementIndex = (ordinal == null || ordinal == 0) ? 0 : ordinal - 1;
             try {
                 final WebElement parentElement = parent.getElement();
                 elements = parentElement == null ? new ArrayList<>() : parentElement.findElements(locator);
@@ -501,7 +524,7 @@ public class UiElement {
 
         public WebElement execute() {
             List<WebElement> elements = new ArrayList<>();
-            int elementIndex = ordinal - 1;
+            int elementIndex = (ordinal == null || ordinal == 0) ? 0 : ordinal - 1;
             try {
                 final WebElement parentElement = parent.getElement();
                 List<WebElement> candidates = parentElement == null ? new ArrayList<>() : parentElement
