@@ -14,7 +14,7 @@ public class ClassCalibrator extends Calibrator {
         this.expected = expected;
     }
 
-    public static ClassCalibrator construct(Class expected, Class actual) {
+    public static ClassCalibrator getInstance(Class expected, Class actual) {
         return new ClassCalibrator(expected, actual);
     }
 

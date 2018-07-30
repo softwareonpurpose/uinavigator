@@ -24,11 +24,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class UiElement {
 
-    private transient static String message_unableToFind = "WARNING: Unable to locate %s";
+    private transient static String message_unableToFind = "WARNING: Unable to locate element %s";
     private transient static boolean suppressLogging;
     private final String description;
     private final String locatorType;
@@ -41,12 +42,12 @@ public class UiElement {
     private transient String activeClass;
     private transient String selectedClass;
     private transient String selectedStyle;
-    private transient String tipAttribute = "title";
     private transient By locator;
     private transient GetElementBehavior getElementBehavior;
     private transient ElementBehavior elementBehavior;
     private transient WebElement element;
     private transient IsClickableBehavior isClickableBehavior;
+    private transient HashMap<String, String> attributes = new HashMap<>();
 
     private UiElement(String description, String locatorType, String locatorValue, String attribute, String attributeValue, Integer ordinal, UiElement parent) {
         this.description = description;
@@ -58,6 +59,7 @@ public class UiElement {
         this.attribute = attribute;
         this.attributeValue = attributeValue;
         this.ordinal = ordinal;
+        attributes.put("tip", "title");
         initializeGetElementBehavior();
     }
 
@@ -186,26 +188,23 @@ public class UiElement {
      */
     @SuppressWarnings("WeakerAccess")
     public String getHref() {
-        final WebElement element = getElement();
-        return element == null ? null : element.getAttribute(Attribute.HREF);
+        return getAttribute("href");
     }
 
-    /**
-     * @return String tooltip of the defined WebElement  (e.g. 'title' attribute)
-     */
-    @SuppressWarnings("WeakerAccess")
-    public String getTip() {
-        final WebElement element = getElement();
-        return element == null ? null : tipAttribute == null ? null : element.getAttribute(tipAttribute);
-    }
-
-    /**
-     * @param attribute String name of an attribute of the element
-     * @return String value of the requested attribute
+    /***
+     * Name a property of an element and the attribute which contains the property value.
+     *
+     * Example:
+     *          property = "tool_tip"
+     *          attribute = "title"
+     *
+     * @param property  The arbitrary name to give the property
+     * @param attribute The attribute of the element which contains the property value
+     * @return UiElement The element for which the property is being set
      */
     @SuppressWarnings("unused")
-    public UiElement setTipAttribute(String attribute) {
-        this.tipAttribute = attribute;
+    public UiElement setPropertyAttribute(String property, String attribute){
+        attributes.put(property, attribute);
         return this;
     }
 
@@ -221,17 +220,17 @@ public class UiElement {
         if (!suppressLogging) {
             getLogger().info(String.format(getIndentation() + "Set %s to \"%s\"", getDescription(), value));
         }
-        String message_unableToSet = "BLOCKED: Unable to set %s element to \"%s\"";
+        String message_unableToSet = "BLOCKED: Unable to set %s to \"%s\" using element hierarchy %s";
         if (element != null) {
             try {
                 getElementBehavior().set(value);
             } catch (WebDriverException e) {
-                final String errorMessage = String.format(message_unableToSet, locator.toString(), value);
+                final String errorMessage = String.format(message_unableToSet, getDescription(), value, this.toString());
                 reportException(e, errorMessage);
             }
         } else {
             if (!suppressLogging) {
-                getLogger().error(String.format(message_unableToSet, locator.toString(), value));
+                getLogger().error(String.format(message_unableToSet, locator.toString(), value, this.toString()));
             }
         }
     }
@@ -245,7 +244,7 @@ public class UiElement {
             getLogger().info(String.format(getIndentation() + "Click %s", getDescription()));
         }
         WebElement element = getElement();
-        final String errorMessage = String.format("BLOCKED: Unable to click %s", this.toString());
+        final String errorMessage = String.format("BLOCKED: Unable to click %s using hierarchy %s", getDescription(), this.toString());
         if (element != null && isClickable()) {
             try {
                 element.click();
@@ -392,8 +391,7 @@ public class UiElement {
     }
 
     private String getClassName() {
-        WebElement element = getElement();
-        return element == null ? null : element.getAttribute(Attribute.CLASS);
+        return getAttribute("class");
     }
 
     private void initializeGetElementBehavior() {
@@ -411,9 +409,9 @@ public class UiElement {
     }
 
     @SuppressWarnings("WeakerAccess")
-    public String getAttribute(String attributeName) {
+    public String getAttribute(String attribute) {
         WebElement element = getElement();
-        return element == null ? null : element.getAttribute(attributeName);
+        return element == null ? null : attribute == null ? null : element.getAttribute(attribute);
     }
 
     @Override
@@ -501,13 +499,13 @@ public class UiElement {
                 final WebElement parentElement = parent.getElement();
                 elements = parentElement == null ? new ArrayList<>() : parentElement.findElements(locator);
             } catch (WebDriverException | NullPointerException e) {
-                getLogger().warn(String.format(message_unableToFind, this.toString()));
+                getLogger().warn(String.format(message_unableToFind, locator.toString()));
                 return null;
             }
             if (elements.size() > elementIndex) {
                 return elements.get(elementIndex);
             } else {
-                getLogger().warn(String.format(message_unableToFind, this.toString()));
+                getLogger().warn(String.format(message_unableToFind, locator.toString()));
             }
             return null;
         }
@@ -528,13 +526,13 @@ public class UiElement {
                         elements.add(candidate);
                 }
             } catch (WebDriverException | NullPointerException e) {
-                getLogger().warn(String.format(message_unableToFind, this.toString()));
+                getLogger().warn(String.format(message_unableToFind, locator.toString()));
                 return null;
             }
             if (elements.size() > elementIndex) {
                 return elements.get(elementIndex);
             } else {
-                getLogger().warn(String.format(message_unableToFind, this.toString()));
+                getLogger().warn(String.format(message_unableToFind, locator.toString()));
             }
             return null;
         }

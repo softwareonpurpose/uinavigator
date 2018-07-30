@@ -156,7 +156,7 @@ public class UiHost {
         if (elements != null && elements.size() > 0) {
             return elements.get(0);
         } else {
-            logger.warn(String.format("WARNING: Unable to find any element using locator '%s'", locator.toString()));
+            logger.warn(String.format("WARNING: Unable to find any element %s", locator.toString()));
         }
         return null;
     }
@@ -193,7 +193,7 @@ public class UiHost {
         try {
             elements = driver.findElements(locator);
         } catch (WebDriverException e) {
-            logger.warn(String.format("WARNING: Unable to find any element using locator '%s'", locator.toString()));
+            logger.warn(String.format("WARNING: Unable to find any element %s", locator.toString()));
             return null;
         }
         return elements;

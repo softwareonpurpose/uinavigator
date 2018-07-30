@@ -21,7 +21,7 @@ public class UiHostTest extends TestBase {
     public void construct() {
         Class expected = UiHost.class;
         Class actual = UiHost.getInstance().getClass();
-        Assert.assertEquals(actual, expected, "The creation method construct returns an instantiated UiHost object");
+        Assert.assertEquals(actual, expected, "The creation method getInstance returns an instantiated UiHost object");
     }
 
     @Test(dependsOnMethods = "construct")
