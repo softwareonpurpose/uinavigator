@@ -23,6 +23,7 @@ import java.lang.reflect.InvocationTargetException;
 @SuppressWarnings("unused")
 public abstract class UiView {
 
+    private final static String ERROR_CONSTRUCTOR_SCOPE = "Unable to access View constructor; ensure it has 'public' scope";
     private final UiElement viewElement;
     private final String viewUri;
 
@@ -66,10 +67,11 @@ public abstract class UiView {
                 constructor = viewClass.getConstructor();
                 view = constructor.newInstance();
             } catch (NoSuchMethodException | InvocationTargetException e) {
+                LoggerFactory.getLogger(viewClass).error(ERROR_CONSTRUCTOR_SCOPE);
                 e.printStackTrace();
             }
         } catch (InstantiationException | IllegalAccessException e) {
-            LoggerFactory.getLogger(viewClass).error("Unable to access View constructor; ensure it has 'public' scope");
+            LoggerFactory.getLogger(viewClass).error(ERROR_CONSTRUCTOR_SCOPE);
             e.printStackTrace();
         }
         return view;
