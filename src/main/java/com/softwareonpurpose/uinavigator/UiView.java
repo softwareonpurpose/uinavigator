@@ -23,7 +23,7 @@ import java.lang.reflect.InvocationTargetException;
 @SuppressWarnings("unused")
 public abstract class UiView {
 
-    private final static String ERROR_CONSTRUCTOR_SCOPE = "Unable to access View constructor; ensure it has 'public' scope";
+    private final static String ERROR_CONSTRUCTOR_SCOPE = "Unable to access View constructor; ensure it is parameter-less and has 'public' scope";
     private final UiElement viewElement;
     private final String viewUri;
 
