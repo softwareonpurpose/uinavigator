@@ -74,6 +74,7 @@ public class UiHostTest extends TestBase {
         List<WebElementExpected> expected = new ArrayList<>();
         expected.add(composeExpectedAnchor("https://github.com/tourdedave/the-internet", null));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "abtest"), "A/B Testing"));
+        expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "add_remove_elements/"), "Add/Remove Elements"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "basic_auth"), "Basic Auth"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "broken_images"), "Broken Images"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "challenging_dom"), "Challenging DOM"));
@@ -86,6 +87,7 @@ public class UiHostTest extends TestBase {
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "dynamic_content"), "Dynamic Content"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "dynamic_controls"), "Dynamic Controls"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "dynamic_loading"), "Dynamic Loading"));
+        expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "entry_ad"), "Entry Ad"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "exit_intent"), "Exit Intent"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "download"), "File Download"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "upload"), "File Upload"));

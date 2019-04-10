@@ -6,7 +6,7 @@ import org.testng.annotations.AfterMethod;
 
 public abstract class TestBase {
     void confirm(String result) {
-        Assert.assertEquals(result, Calibrator.PASS, result);
+        Assert.assertEquals(Calibrator.PASS, result);
     }
 
     @AfterMethod(alwaysRun = true)
