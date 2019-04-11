@@ -26,9 +26,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Host for application UI
+ */
 @SuppressWarnings("WeakerAccess")
 public class UiHost {
-
     private static UiHost uiHost;
     private static Configuration config;
     private static DriverInstantiation driverInstantiation;
@@ -43,9 +45,9 @@ public class UiHost {
     }
 
     /**
-     * Get the current Singleton instance of UiHost
+     * Get instance of UiHost
      *
-     * @return UiHost singleton instance constructed using current DriverInstantiation and Configuration
+     * @return UiHost instance
      */
     public static UiHost getInstance() {
         if (uiHost == null) {
@@ -55,10 +57,10 @@ public class UiHost {
     }
 
     /***
-     * Construct a new UiHost instance using the provided DriverInstantiation.
-     * The current Singleton UiHost will be stopped and replaced.
-     * @param driverInstantiation DriverInstantiation with construction and configuration details
-     * @return UiHost
+     * Get UiHost instance
+     *
+     * @param driverInstantiation DriverInstantiation
+     * @return UiHost instance
      */
     public static UiHost getInstance(DriverInstantiation driverInstantiation) {
         setDriverInstantiation(driverInstantiation);
@@ -68,8 +70,9 @@ public class UiHost {
     }
 
     /***
-     * Configuration current configuration for UiHost instance
-     * @return Configuration
+     * Configuration of UiHost
+     *
+     * @return Configuration for instantiating UiHosts
      */
     public static Configuration getConfig() {
         if (config == null) {
@@ -79,7 +82,7 @@ public class UiHost {
     }
 
     /***
-     * Quit the Singleton instance of UiHost
+     * Quit UiHost
      */
     public static void quitInstance() {
         if (uiHost != null) {
@@ -89,15 +92,16 @@ public class UiHost {
     }
 
     /***
-     * Details for instantiating a UiHost
-     * @param driverInstantiation Instantiated DriverInstantiation containing details for UiHost instantiation
+     * Set UI host instantiation details
+     *
+     * @param driverInstantiation DriverInstantiation details
      */
     public static void setDriverInstantiation(DriverInstantiation driverInstantiation) {
         UiHost.driverInstantiation = driverInstantiation;
     }
 
     /**
-     * Navigate UiHost (browser) to the provided URI.
+     * Navigate UI host to URI
      *
      * @param uri String URI
      */
@@ -107,8 +111,9 @@ public class UiHost {
     }
 
     /***
-     * Execute the provided JavaScript in the UiHost
-     * @param javaScript Script to be executed
+     * Execute JavaScript
+     *
+     * @param javaScript String to execute
      */
     @SuppressWarnings("unused")
     public void execute(String javaScript) {
@@ -118,11 +123,12 @@ public class UiHost {
     }
 
     /***
-     * Set the value of the identified attribute to the identified UiElement
-     * @param locatorType One of the UiElement.LocatorTypes
-     * @param locatorValue The appropriate value of the locator type for the desired element
-     * @param attribute An attribute of the UiElement
-     * @param value A value to which the attribute is to be set
+     * Locate UI element and set attribute to value
+     *
+     * @param locatorType String UiElement.LocatorType
+     * @param locatorValue String value of locator type
+     * @param attribute String attribute
+     * @param value String attribute value
      */
     void setAttribute(String locatorType, String locatorValue, String attribute, String value) {
         WebElement element = findUiElement(constructLocator(locatorType, locatorValue));
@@ -133,22 +139,22 @@ public class UiHost {
     }
 
     /**
-     * The current url of the UiHost
+     * Current URI of UI host
      *
-     * @return String which is the current URI of the browser
+     * @return String URI
      */
     public String getUri() {
         return driver.getCurrentUrl();
     }
 
     /**
-     * Find the element located using the provided UiElement.LocatorType and value
+     * Find and return UI element by locator type and value
      *
-     * @param locatorType  One of the UiElement.LocatorType values
-     * @param locatorValue the appropriate value for the identified element
-     * @return A List of WebElements within the current web page
+     * @param locatorType  String UiElement.LocatorType
+     * @param locatorValue String value
+     * @return WebElement (Selenium)
      */
-    Object findUiElement(String locatorType, String locatorValue) {
+    WebElement findUiElement(String locatorType, String locatorValue) {
         By locator = constructLocator(locatorType, locatorValue);
         return findUiElement(locator);
     }
@@ -164,20 +170,20 @@ public class UiHost {
     }
 
     /***
-     * Select UiHost window
+     * Switch driver to default UI window
      */
-    public void selectWindow() {
+    void selectWindow() {
         driver.switchTo().defaultContent();
     }
 
     /**
-     * Find all elements located using the provided UiElement.LocatorType and value
+     * Find and return UI elements by locator type and value
      *
-     * @param locatorType  One of the UiElement.LocatorType values
-     * @param locatorValue The appropriate value for the identified element
-     * @return A List of WebElements within the current web page
+     * @param locatorType  String UiElement.LocatorType
+     * @param locatorValue String value
+     * @return WebElement collection (Selenium)
      */
-    List<Object> findUiElements(String locatorType, String locatorValue) {
+    List<WebElement> findUiElements(String locatorType, String locatorValue) {
         By locator = constructLocator(locatorType, locatorValue);
         return new ArrayList<>(Objects.requireNonNull(findUiElements(locator)));
     }
@@ -194,10 +200,11 @@ public class UiHost {
     }
 
     /***
-     * Wait until the identified element is visible
-     * @param locatorType One of the values in UiElement.LocatorType
-     * @param locatorValue The appropriate value for the identified element
-     * @return boolean Indicates whether the element was found
+     * 'Visible' state
+     *
+     * @param locatorType String UiElement.LocatorType
+     * @param locatorValue String value
+     * @return boolean is visible
      */
     boolean waitUntilVisible(String locatorType, String locatorValue) {
         By locator = constructLocator(locatorType, locatorValue);
@@ -235,7 +242,9 @@ public class UiHost {
     }
 
     /**
-     * @return String The name of the current UiHost driver
+     * Get name of UI host driver
+     *
+     * @return String name of driver
      */
     String getDriverName() {
         return driver.getClass().getName();

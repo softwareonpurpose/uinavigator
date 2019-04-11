@@ -26,8 +26,10 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Representation of any element of a UI (e.g. web page, Windows or Mac application, etc.)
+ */
 public class UiElement {
-
     private transient static String message_unableToFind = "WARNING: Unable to locate element %s";
     private transient static boolean suppressLogging;
     private final String description;
@@ -61,62 +63,77 @@ public class UiElement {
     }
 
     /**
-     * @param description  String description of the element used for logging
-     * @param locatorType  String (UiElement.LocatorType) defining Selenium locator type
+     * Get an UiElement instance
+     *
+     * @param description  String description of the element (used for logging)
+     * @param locatorType  String (UiElement.LocatorType) defining locator type
      * @param locatorValue String value of locator
-     * @return UiElement instantiated with the defined locator and description
+     * @return UiElement instantiated
      */
     public static UiElement getInstance(String description, String locatorType, String locatorValue) {
         return new UiElement(description, locatorType, locatorValue, null, null, null, null);
     }
 
     /**
-     * @param description  String description of the element used for logging
-     * @param locatorType  String (UiElement.LocatorType) defining Selenium locator type
+     * Get an UiElement instance
+     *
+     * @param description  String description of the element (used for logging)
+     * @param locatorType  String (UiElement.LocatorType) defining locator type
      * @param locatorValue String value of locator
-     * @param parent       UiElement representing a parent of the requested element
-     * @return UiElement instantiated with the defined locator and description
+     * @param parent       UiElement containing requested element
+     * @return UiElement instantiated
      */
     public static UiElement getInstance(String description, String locatorType, String locatorValue, UiElement parent) {
         return new UiElement(description, locatorType, locatorValue, null, null, null, parent);
     }
 
     /**
-     * @param description  String description of the element used for logging
-     * @param locatorType  String (UiElement.LocatorType) defining Selenium locator type
+     * Get an UiElement instance
+     *
+     * @param description  String description of the element (used for logging)
+     * @param locatorType  String (UiElement.LocatorType) defining locator type
      * @param locatorValue String value of locator
-     * @param ordinal      Int specifying the Nth element within the UiElement parent
-     * @param parent       UiElement representing a parent of the requested element
-     * @return UiElement instantiated with the defined locator and description
+     * @param ordinal      Int specifying Nth element within parent
+     * @param parent       UiElement containing requested element
+     * @return UiElement instantiated
      */
     public static UiElement getInstance(String description, String locatorType, String locatorValue, int ordinal, UiElement parent) {
         return new UiElement(description, locatorType, locatorValue, null, null, ordinal, parent);
     }
 
     /**
-     * @param description    String description of the element used for logging
-     * @param locatorType    String (UiElement.LocatorType) defining Selenium locator type
+     * Get an UiElement instance
+     *
+     * @param description    String description of the element (used for logging)
+     * @param locatorType    String (UiElement.LocatorType) defining locator type
      * @param locatorValue   String value of locator
-     * @param attribute      String defining the attribute of the requested WebElement
-     * @param attributeValue String defining the value of the attribute
-     * @param parent         UiElement representing a parent of the requested element
-     * @return UiElement instantiated with the defined locator and description
+     * @param attribute      String attribute of requested element
+     * @param attributeValue String value of attribute
+     * @param parent         UiElement containing requested element
+     * @return UiElement instantiated
      */
     public static UiElement getInstance(String description, String locatorType, String locatorValue, String attribute, String attributeValue, UiElement parent) {
         return new UiElement(description, locatorType, locatorValue, attribute, attributeValue, null, parent);
     }
 
+    /**
+     * Suppresses logging of interactions all UiElements
+     *
+     * @param suppress boolean logging preference
+     */
     @SuppressWarnings("unused")
     public static void suppressLogging(boolean suppress) {
         suppressLogging = suppress;
     }
 
     /**
-     * @param description  String description of the elements used for logging
-     * @param locatorType  String (UiElement.LocatorType) defining Selenium locator type
+     * List of UiElements matching parameters
+     *
+     * @param description  String description of the elements (used for logging)
+     * @param locatorType  String (UiElement.LocatorType) defining locator type
      * @param locatorValue String value of locator
-     * @param parent       UiElement representing a parent of the requested elements
-     * @return List of HtmlElements instantiated with the defined locator and description
+     * @param parent       UiElement containing requested elements
+     * @return List of UiElements
      */
     @SuppressWarnings("unused")
     public static List<UiElement> getList(String description, String locatorType, String locatorValue, UiElement parent) {
@@ -165,7 +182,9 @@ public class UiElement {
     }
 
     /**
-     * @return The text of the defined WebElement
+     * Text content of UiElement
+     *
+     * @return String content
      */
     @SuppressWarnings("WeakerAccess")
     public String getText() {
@@ -181,7 +200,9 @@ public class UiElement {
     }
 
     /**
-     * @return The href of the defined WebElement
+     * Href value
+     *
+     * @return String href of the defined UI element
      */
     @SuppressWarnings("WeakerAccess")
     public String getHref() {
@@ -189,7 +210,7 @@ public class UiElement {
     }
 
     /**
-     * Sets the value of the element (e.g. a textbox)
+     * Sets value of the UI element (i.e. an 'input' field)
      *
      * @param value String value
      */
@@ -216,7 +237,7 @@ public class UiElement {
     }
 
     /**
-     * Executes a mouse-click event
+     * Click the UI element
      */
     @SuppressWarnings("WeakerAccess")
     public void click() {
@@ -252,7 +273,9 @@ public class UiElement {
     }
 
     /**
-     * @return boolean indicating whether the element is active
+     * 'Active' state
+     *
+     * @return boolean 'active' state
      */
     @SuppressWarnings("unused")
     public boolean isActive() {
@@ -260,7 +283,9 @@ public class UiElement {
     }
 
     /**
-     * @return boolean indicating whether the element is selected
+     * 'Selected' state
+     *
+     * @return boolean 'selected' state
      */
     @SuppressWarnings("unused")
     public boolean isSelected() {
@@ -269,7 +294,9 @@ public class UiElement {
     }
 
     /**
-     * @return boolean indicating whether the element is displayed
+     * 'Displayed' state
+     *
+     * @return boolean 'displayed' state
      */
     @SuppressWarnings("unused")
     public boolean isDisplayed() {
@@ -277,42 +304,44 @@ public class UiElement {
     }
 
     /**
-     * Sets the 'class' value used to indicate that the element is selected
+     * Set 'class' value indicating the UI element is selected
      *
-     * @param selectedClassValue String value used to indicate that the element is selected
-     * @return This instance of UiElement
+     * @param elementClass String class value indicating the element is selected
+     * @return UiElement instance
      */
     @SuppressWarnings("unused")
-    public UiElement setSelectedClass(String selectedClassValue) {
-        this.selectedClass = selectedClassValue;
+    public UiElement setSelectedClass(String elementClass) {
+        this.selectedClass = elementClass;
         return this;
     }
 
     /**
-     * Sets the 'style' value used to indicate that the element is selected
+     * Set 'style' value indicating the UI element is selected
      *
-     * @param selectedStyleValue String value used to indicate that the element is selected
-     * @return This instance of UiElement
+     * @param elementStyle String style value indicating the element is selected
+     * @return UiElement instance
      */
     @SuppressWarnings("unused")
-    public UiElement setSelectedStyle(String selectedStyleValue) {
-        this.selectedStyle = selectedStyleValue;
+    public UiElement setSelectedStyle(String elementStyle) {
+        this.selectedStyle = elementStyle;
         return this;
     }
 
     /**
-     * Sets the 'active' value used to indicate that the element is active
+     * Set 'class' value indicating the UI element is active
      *
-     * @param activeClass String value used to indicate that the element is acdtive
-     * @return This instance of UiElement
+     * @param elementClass String class value indicating the element is active
+     * @return UiElement instance
      */
     @SuppressWarnings("unused")
-    public UiElement setActiveClass(String activeClass) {
-        this.activeClass = activeClass;
+    public UiElement setActiveClass(String elementClass) {
+        this.activeClass = elementClass;
         return this;
     }
 
     /**
+     * 'Visible' state
+     *
      * @return boolean indicating whether the element was visible within the defined timeout period
      */
     @SuppressWarnings("WeakerAccess")
@@ -321,7 +350,9 @@ public class UiElement {
     }
 
     /**
-     * @return String value of the elements 'src' attribute
+     * Src value
+     *
+     * @return String value of 'src' attribute
      */
     @SuppressWarnings("unused")
     public String getSrc() {
@@ -329,11 +360,22 @@ public class UiElement {
         return element == null ? null : element.getAttribute(Attribute.SRC);
     }
 
+    /**
+     * Set the attribute of a UI element to a given value
+     *
+     * @param attribute String attribute name
+     * @param value     String attribute value
+     */
     @SuppressWarnings("WeakerAccess")
-    public void setAttribute(String attributeName, String value) {
-        UiHost.getInstance().setAttribute(locatorType, locatorValue, attributeName, value);
+    public void setAttribute(String attribute, String value) {
+        UiHost.getInstance().setAttribute(locatorType, locatorValue, attribute, value);
     }
 
+    /**
+     * Description
+     *
+     * @return String description
+     */
     String getDescription() {
         return description;
     }
@@ -387,6 +429,12 @@ public class UiElement {
         throw new WebDriverException(errorMessage);
     }
 
+    /**
+     * Value of an attribute
+     *
+     * @param attribute String attribute name
+     * @return String attribute value
+     */
     @SuppressWarnings("WeakerAccess")
     public String getAttribute(String attribute) {
         WebElement element = getElement();
@@ -432,6 +480,58 @@ public class UiElement {
         public static final String CLASS = "class";
         private static final String HREF = "href";
         private static final String SRC = "src";
+    }
+
+    private class ClassLocatedIsClickableBehavior implements IsClickableBehavior {
+        private final String locatorValue;
+
+        private ClassLocatedIsClickableBehavior(String locatorValue) {
+            this.locatorValue = locatorValue;
+        }
+
+        @Override
+        public boolean execute() {
+            return getElement().getAttribute("class").contains(locatorValue);
+        }
+    }
+
+    private class IdLocatedIsClickableBehavior implements IsClickableBehavior {
+        private final String locatorValue;
+
+        private IdLocatedIsClickableBehavior(String locatorValue) {
+            this.locatorValue = locatorValue;
+        }
+
+        @Override
+        public boolean execute() {
+            return getElement().getAttribute("id").contains(locatorValue);
+        }
+    }
+
+    private class NameLocatedIsClickableBehavior implements IsClickableBehavior {
+        private final String locatorValue;
+
+        private NameLocatedIsClickableBehavior(String locatorValue) {
+            this.locatorValue = locatorValue;
+        }
+
+        @Override
+        public boolean execute() {
+            return getElement().getAttribute("name").contains(locatorValue);
+        }
+    }
+
+    private class TagLocatedIsClickableBehavior implements IsClickableBehavior {
+        private final String locatorValue;
+
+        private TagLocatedIsClickableBehavior(String locatorValue) {
+            this.locatorValue = locatorValue;
+        }
+
+        @Override
+        public boolean execute() {
+            return getElement().getTagName().contains(locatorValue);
+        }
     }
 
     /**
@@ -536,58 +636,6 @@ public class UiElement {
             final WebElement element = getElement();
             return element == null ? null : element.getTagName().equals("input") ? element.getAttribute("value") : element
                     .getText();
-        }
-    }
-
-    private class ClassLocatedIsClickableBehavior implements IsClickableBehavior {
-        private final String locatorValue;
-
-        private ClassLocatedIsClickableBehavior(String locatorValue) {
-            this.locatorValue = locatorValue;
-        }
-
-        @Override
-        public boolean execute() {
-            return getElement().getAttribute("class").contains(locatorValue);
-        }
-    }
-
-    private class IdLocatedIsClickableBehavior implements IsClickableBehavior {
-        private final String locatorValue;
-
-        private IdLocatedIsClickableBehavior(String locatorValue) {
-            this.locatorValue = locatorValue;
-        }
-
-        @Override
-        public boolean execute() {
-            return getElement().getAttribute("id").contains(locatorValue);
-        }
-    }
-
-    private class NameLocatedIsClickableBehavior implements IsClickableBehavior {
-        private final String locatorValue;
-
-        private NameLocatedIsClickableBehavior(String locatorValue) {
-            this.locatorValue = locatorValue;
-        }
-
-        @Override
-        public boolean execute() {
-            return getElement().getAttribute("name").contains(locatorValue);
-        }
-    }
-
-    private class TagLocatedIsClickableBehavior implements IsClickableBehavior {
-        private final String locatorValue;
-
-        private TagLocatedIsClickableBehavior(String locatorValue) {
-            this.locatorValue = locatorValue;
-        }
-
-        @Override
-        public boolean execute() {
-            return getElement().getTagName().contains(locatorValue);
         }
     }
 }

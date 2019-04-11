@@ -17,16 +17,14 @@ package com.softwareonpurpose.uinavigator;
 
 import org.slf4j.LoggerFactory;
 
+/**
+ * Region of a UI view
+ */
 @SuppressWarnings("unused")
 public abstract class UiRegion {
-
     private static boolean suppressLogging;
     private final UiElement regionElement;
 
-    /***
-     * Super constructor of UiRegion classes
-     * @param regionElement UiElement fully containing the region
-     */
     protected UiRegion(UiElement regionElement) {
         this.regionElement = regionElement;
         if (!suppressLogging)
@@ -34,15 +32,15 @@ public abstract class UiRegion {
     }
 
     /***
-     * Used to suppress construction logging when it would be out of context
-     * @param suppress boolean True = log construction of the region (i.e. "In [region]..."); False = suppress logging
+     * Suppress logging of construction
+     * @param suppress boolean log construction
      */
     public static void suppressConstructionLogging(boolean suppress) {
         suppressLogging = suppress;
     }
 
     /***
-     * Is the region visible within the parent UiElement
+     * 'Visible' state
      * @return boolean
      */
     public boolean isVisible() {
@@ -50,8 +48,8 @@ public abstract class UiRegion {
     }
 
     /***
-     * UiElement fully containing the defined region
-     * @return UiElement
+     * Get UI element defining UI region
+     * @return UiElement region
      */
     @SuppressWarnings("WeakerAccess")
     protected UiElement getElement() {
@@ -59,8 +57,8 @@ public abstract class UiRegion {
     }
 
     /***
-     * Description of the region
-     * @return String
+     * Description
+     * @return String description of UI region
      */
     @SuppressWarnings("WeakerAccess")
     protected String getDescription() {

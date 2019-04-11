@@ -20,28 +20,26 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
+/**
+ * UI View (e.g. page)
+ */
 @SuppressWarnings("unused")
 public abstract class UiView {
-
     private final static String ERROR_CONSTRUCTOR_SCOPE = "Unable to access View constructor; ensure it is parameter-less and has 'public' scope";
     private final UiElement viewElement;
     private final String viewUri;
 
-    /***
-     * Super constructor of UiView classes
-     * @param viewUri The full uri to the web page (view)
-     * @param viewElement The UiElement fully containing the displayed content of the web page (view)
-     */
     protected UiView(String viewUri, UiElement viewElement) {
         this.viewUri = viewUri;
         this.viewElement = viewElement;
     }
 
     /***
-     * Called from any 'action' method which is expected to result in this view being displayed
-     * @param viewClass The UiView class for the view expected to be displayed
-     * @param <T> Any class extending UiView
-     * @return An instantiated UiView object representing the view expected to be displayed
+     * Confirm existence of and return expected UI view
+     *
+     * @param viewClass Class of expected view
+     * @param <T> Class extending UiView
+     * @return UiView instance
      */
     public static <T extends UiView> T expect(Class<T> viewClass) {
         String invalidCharacters =
@@ -53,10 +51,11 @@ public abstract class UiView {
     }
 
     /***
-     * Construct a concrete UiView object
-     * @param viewClass The UiView class to be constructed
-     * @param <T> A class extending UiView
-     * @return An instantiated UiView object
+     * Construct a concrete instance of UiView
+     *
+     * @param viewClass Class extension of UI view
+     * @param <T> Class extending UiView
+     * @return UiView object
      */
     @SuppressWarnings("WeakerAccess")
     protected static <T extends UiView> T construct(Class<T> viewClass) {
@@ -78,22 +77,24 @@ public abstract class UiView {
     }
 
     /***
-     * Includes everything necessary to confirm a concrete UiView is actually displayed
-     * @return boolean
+     * View-specific logic confirming the state of key elements in a UI view
+     *
+     * @return boolean confirmation result
      */
     @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
     protected abstract boolean confirmElementStates();
 
     /***
-     * Navigate the UiHost (browser) to the uri for this concrete UiView
+     * Load UI view in UI host (e.g. browser)
      */
     protected void load() {
         UiHost.getInstance().load(viewUri);
     }
 
     /***
-     * Navigate the UiHost (browser) to the uri for this concrete UiView, with appended relative uri or query string
-     * @param relativeUri A relative uri to extend this UiView uri OR a query string
+     * Load UI view in UI host appending relative path to URI of view
+     *
+     * @param relativeUri String relative path OR query string beginning with "?"
      */
     protected void load(String relativeUri) {
         relativeUri = relativeUri.substring(0, 1).equals("?") ? relativeUri : String.format("/%s", relativeUri);
@@ -102,7 +103,7 @@ public abstract class UiView {
     }
 
     /**
-     * The element containing the displayed content of the view (web page)
+     * UI element defining UI view
      *
      * @return The UiElement that fully contains the displayed content of the view (web page)
      */

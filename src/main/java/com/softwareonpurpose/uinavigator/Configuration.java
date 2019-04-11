@@ -19,6 +19,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * UiNavigator Configuration details read from uinavigator.properties resource file
+ */
 public class Configuration {
 
     private static Configuration config;
@@ -49,12 +52,20 @@ public class Configuration {
         this.timeout = configurationTimeout == null ? 3 : configurationTimeout;
     }
 
+    /**
+     * Get Configuration instance
+     * @return Configuration details of UiNavigator
+     */
     public static Configuration getInstance() {
         if (config == null)
             config = new Configuration();
         return config;
     }
 
+    /**
+     * Get default 'timeout' value
+     * @return long timeout value
+     */
     public long getTimeout() {
         return timeout;
     }
