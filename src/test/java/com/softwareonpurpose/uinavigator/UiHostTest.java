@@ -38,7 +38,7 @@ public class UiHostTest extends TestBase {
         WebElementExpected expected = WebElementExpected.construct("div", "content", "large-12 columns", null, null);
         UiHost.getInstance().load(uri);
         WebElement actual = (WebElement) UiHost.getInstance().findUiElement("id", "content");
-        confirm(WebElementCalibrator.construct(expected, actual).validate());
+        confirm(WebElementCalibrator.construct(expected, actual).calibrate());
     }
 
     @Test(dependsOnMethods = "construct")
@@ -49,25 +49,13 @@ public class UiHostTest extends TestBase {
         for (Object element : UiHost.getInstance().findUiElements("tag", "a")) {
             actual.add((WebElement) element);
         }
-        confirm(WebElementsCalibrator.construct(expected, actual).validate());
-    }
-
-    @Test(dependsOnMethods = "construct")
-    public void selectWindow() {
-        UiHost host = UiHost.getInstance();
-        host.load("http://espn.go.com");
-        UiElement.getInstance("'Login' link", UiElement.LocatorType.TAG, "a", UiElement.getInstance("'User' region",
-                UiElement.LocatorType.CLASS, "user")).click();
-        host.selectFrame("disneyid-iframe");
-        host.selectWindow();
-        String actual = UiElement.getInstance("'Login' button", UiElement.LocatorType.CLASS, "btn-group").getText();
-        confirm(StringCalibrator.construct("Text of element in specific window", null, actual).validate());
+        confirm(WebElementsCalibrator.construct(expected, actual).calibrate());
     }
 
     @Test(enabled = false, dataProvider = "drivers")
     public void getSpecifWebDriverInstance(DriverInstantiation driverInstantiation, String expected) {
         String actual = UiHost.getInstance(driverInstantiation).getDriverName();
-        confirm(StringCalibrator.construct("UI Host driver name", expected, actual).validate());
+        confirm(StringCalibrator.construct("UI Host driver name", expected, actual).calibrate());
     }
 
     private List<WebElementExpected> composeExpectedWebElements() {

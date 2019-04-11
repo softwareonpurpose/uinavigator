@@ -24,14 +24,4 @@ public class StringCalibrator extends Calibrator {
     protected void executeVerifications() {
         verify(String.format("%s %s contains %s", stringDescription, actual, expected), actual.contains(expected), true);
     }
-
-    @Override
-    protected boolean actualExists() {
-        return actual != null;
-    }
-
-    @Override
-    protected boolean expectedExists() {
-        return expected != null;
-    }
 }

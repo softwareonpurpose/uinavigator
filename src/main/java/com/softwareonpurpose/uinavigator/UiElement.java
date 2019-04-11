@@ -1,17 +1,17 @@
-/**
- * Copyright 2018 Craig A. Stockton
- * <p/>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p/>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p/>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+/*
+  Copyright 2019 Craig A. Stockton
+  <p/>
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  <p/>
+  http://www.apache.org/licenses/LICENSE-2.0
+  <p/>
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
  */
 package com.softwareonpurpose.uinavigator;
 
@@ -24,7 +24,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class UiElement {
@@ -47,7 +46,6 @@ public class UiElement {
     private transient ElementBehavior elementBehavior;
     private transient WebElement element;
     private transient IsClickableBehavior isClickableBehavior;
-    private transient HashMap<String, String> attributes = new HashMap<>();
 
     private UiElement(String description, String locatorType, String locatorValue, String attribute, String attributeValue, Integer ordinal, UiElement parent) {
         this.description = description;
@@ -59,7 +57,6 @@ public class UiElement {
         this.attribute = attribute;
         this.attributeValue = attributeValue;
         this.ordinal = ordinal;
-        attributes.put("tip", "title");
         initializeGetElementBehavior();
     }
 
@@ -189,23 +186,6 @@ public class UiElement {
     @SuppressWarnings("WeakerAccess")
     public String getHref() {
         return getAttribute("href");
-    }
-
-    /***
-     * Name a property of an element and the attribute which contains the property value.
-     *
-     * Example:
-     *          property = "tool_tip"
-     *          attribute = "title"
-     *
-     * @param property  The arbitrary name to give the property
-     * @param attribute The attribute of the element which contains the property value
-     * @return UiElement The element for which the property is being set
-     */
-    @SuppressWarnings("unused")
-    public UiElement setPropertyAttribute(String property, String attribute){
-        attributes.put(property, attribute);
-        return this;
     }
 
     /**
@@ -395,8 +375,7 @@ public class UiElement {
     }
 
     private void initializeGetElementBehavior() {
-        if (frameId != null) getElementBehavior = new GetFrame();
-        else if (parent == null && attribute == null && ordinal == null) getElementBehavior = new GetView();
+        if (parent == null && attribute == null && ordinal == null) getElementBehavior = new GetView();
         else if (parent == null) getElementBehavior = new GetView_attribute();
         else if (attribute != null) getElementBehavior = new GetElement_attribute();
         else getElementBehavior = new GetElement();
@@ -450,7 +429,6 @@ public class UiElement {
 
         @SuppressWarnings("WeakerAccess")
         public static final String STYLE = "style";
-        @SuppressWarnings("WeakerAccess")
         public static final String CLASS = "class";
         private static final String HREF = "href";
         private static final String SRC = "src";
@@ -478,15 +456,6 @@ public class UiElement {
                     return candidateElement;
             }
             return null;
-        }
-    }
-
-    protected class GetFrame implements GetElementBehavior {
-
-        @Override
-        public WebElement execute() {
-            UiHost.getInstance().selectFrame(frameId);
-            return (WebElement) UiHost.getInstance().findUiElement(locatorType, locatorValue);
         }
     }
 

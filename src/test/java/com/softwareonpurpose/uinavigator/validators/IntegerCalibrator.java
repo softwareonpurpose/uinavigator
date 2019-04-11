@@ -22,14 +22,4 @@ public class IntegerCalibrator extends Calibrator {
     protected void executeVerifications() {
         verify("Integer", expected, actual);
     }
-
-    @Override
-    protected boolean actualExists() {
-        return actual != null;
-    }
-
-    @Override
-    protected boolean expectedExists() {
-        return expected != null;
-    }
 }

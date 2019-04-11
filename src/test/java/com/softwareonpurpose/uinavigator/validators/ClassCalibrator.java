@@ -22,14 +22,4 @@ public class ClassCalibrator extends Calibrator {
     protected void executeVerifications() {
         verify("Canonical Name", expected.getCanonicalName(), actual.getCanonicalName());
     }
-
-    @Override
-    protected boolean actualExists() {
-        return actual != null;
-    }
-
-    @Override
-    protected boolean expectedExists() {
-        return expected != null;
-    }
 }

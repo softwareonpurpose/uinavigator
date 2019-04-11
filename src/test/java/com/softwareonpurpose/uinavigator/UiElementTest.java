@@ -51,7 +51,7 @@ public class UiElementTest extends TestBase {
         final Class expected = UiElement.class;
         UiHost.getInstance().load("http://www.google.com");
         final Class actual = UiElement.getInstance("UiElement", UiElement.LocatorType.ID, "viewport").getClass();
-        confirm(ClassCalibrator.getInstance(expected, actual).validate());
+        confirm(ClassCalibrator.getInstance(expected, actual).calibrate());
     }
 
     @Test(dependsOnMethods = "getRootInstance")
@@ -61,7 +61,7 @@ public class UiElementTest extends TestBase {
         UiElement parent = UiElement.getInstance("Parent UiElement", UiElement.LocatorType.ID, "gsr");
         UiElement child = UiElement.getInstance("Child UiElement", UiElement.LocatorType.ID, "viewport", parent);
         Class actual = child.getClass();
-        confirm(ClassCalibrator.getInstance(expected, actual).validate());
+        confirm(ClassCalibrator.getInstance(expected, actual).calibrate());
     }
 
     @Test(dependsOnMethods = "getRootInstance")
@@ -71,7 +71,7 @@ public class UiElementTest extends TestBase {
         UiElement parent = UiElement.getInstance("Parent UiElement", UiElement.LocatorType.ID, "gsr");
         UiElement child = UiElement.getInstance("Child UiElement", UiElement.LocatorType.CLASS, "_Gs", 3, parent);
         Class actual = child.getClass();
-        confirm(ClassCalibrator.getInstance(expected, actual).validate());
+        confirm(ClassCalibrator.getInstance(expected, actual).calibrate());
     }
 
     @Test(dependsOnMethods = "getRootInstance")
@@ -82,7 +82,7 @@ public class UiElementTest extends TestBase {
         UiElement child = UiElement
                 .getInstance("Child UiElement", UiElement.LocatorType.CLASS, "gb_ua", "data-ved", "0CBQQwi4oAA", parent);
         Class actual = child.getClass();
-        confirm(ClassCalibrator.getInstance(expected, actual).validate());
+        confirm(ClassCalibrator.getInstance(expected, actual).calibrate());
     }
 
     @Test(dependsOnMethods = "getRootInstance")
@@ -92,7 +92,7 @@ public class UiElementTest extends TestBase {
         UiElement parent = UiElement.getInstance("Parent UiElement", UiElement.LocatorType.ID, "gsr");
         final UiElement child = UiElement.getInstance("Child UiElement", UiElement.LocatorType.CLASS, "ctr-p", 3, parent);
         String actual = child.getText();
-        confirm(StringCalibrator.construct("Text of child by ordinal", expected, actual).validate());
+        confirm(StringCalibrator.construct("Text of child by ordinal", expected, actual).calibrate());
     }
 
     @Test
@@ -101,7 +101,7 @@ public class UiElementTest extends TestBase {
         UiHost.getInstance().load("http://the-internet.herokuapp.com");
         UiElement element = UiElement.getInstance("UiElement", UiElement.LocatorType.TAG, "a");
         String actual = element.getHref();
-        confirm(StringCalibrator.construct("Text of element by attribute 'href'", expected, actual).validate());
+        confirm(StringCalibrator.construct("Text of element by attribute 'href'", expected, actual).calibrate());
     }
 
     @Test(dependsOnMethods = "getRootInstance")
@@ -111,7 +111,7 @@ public class UiElementTest extends TestBase {
         final UiElement searchTextBox = UiElement.getInstance("Search Box", UiElement.LocatorType.NAME, "q");
         searchTextBox.set(expected);
         String actual = searchTextBox.getText();
-        confirm(StringCalibrator.construct("Searchbox value", expected, actual).validate());
+        confirm(StringCalibrator.construct("Searchbox value", expected, actual).calibrate());
     }
 
     @Test(dependsOnMethods = "getRootInstance")
@@ -123,7 +123,7 @@ public class UiElementTest extends TestBase {
         parent = UiElement.getInstance("'Images' link", UiElement.LocatorType.CLASS, "gb_Lc");
         String actual = UiElement.getInstance("'Images' link", UiElement.LocatorType.CLASS, "gb_ua", 3, parent).getText();
         //noinspection ConstantConditions
-        confirm(StringCalibrator.construct("Value after click", expected, actual).validate());
+        confirm(StringCalibrator.construct("Value after click", expected, actual).calibrate());
     }
 
     @Test(dependsOnMethods = "getRootInstance")
@@ -133,7 +133,7 @@ public class UiElementTest extends TestBase {
         UiElement element = UiElement.getInstance("Logo", UiElement.LocatorType.ID, "hplogo");
         element.setAttribute("alt", expected);
         String actual = element.getAttribute("alt");
-        confirm(StringCalibrator.construct("Attribute value", expected, actual).validate());
+        confirm(StringCalibrator.construct("Attribute value", expected, actual).calibrate());
     }
 
     @Test(dataProvider = "toStringScenarios")
