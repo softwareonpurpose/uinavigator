@@ -39,7 +39,6 @@ public class UiElement {
     private final String attributeValue;
     private final Integer ordinal;
     private final UiElement parent;
-    private transient final String frameId;
     private transient String activeClass;
     private transient String selectedClass;
     private transient String selectedStyle;
@@ -53,7 +52,6 @@ public class UiElement {
         this.description = description;
         this.locatorType = locatorType;
         this.locatorValue = locatorValue;
-        frameId = locatorType.equals(LocatorType.FRAME) ? locatorValue : null;
         initializeLocator();
         this.parent = parent;
         this.attribute = attribute;
@@ -158,10 +156,9 @@ public class UiElement {
                 return By.name(locatorValue);
             case LocatorType.TAG:
                 return By.tagName(locatorValue);
-            case LocatorType.FRAME:
-                return By.tagName("body");
+            default:
+                return null;
         }
-        return null;
     }
 
     private void initializeLocator() {
@@ -386,7 +383,6 @@ public class UiElement {
 
     private WebElement getElement() {
         if (parent == null) UiHost.getInstance().selectWindow();
-        if (frameId != null) element = getElementBehavior.execute();
         if (element == null) element = getElementBehavior.execute();
         return element;
     }
@@ -395,16 +391,16 @@ public class UiElement {
         return new String(new char[4]).replace('\0', ' ');
     }
 
-    private boolean classContains(String state) {
+    private boolean classContains(String value) {
         String className = getClassName();
-        if (className == null || state == null) return false;
-        return className.contains(state);
+        if (className == null || value == null) return false;
+        return className.contains(value);
     }
 
-    private boolean styleContains(String state) {
+    private boolean styleContains(String value) {
         String style = getStyle();
-        if (style == null || state == null) return false;
-        return style.contains(state);
+        if (style == null || value == null) return false;
+        return style.contains(value);
     }
 
     private String getStyle() {
@@ -446,14 +442,20 @@ public class UiElement {
         return new Gson().toJson(this);
     }
 
-    private interface GetElementBehavior {
-        WebElement execute();
+    @SuppressWarnings("WeakerAccess")
+    public class LocatorType {
+        public static final String CLASS = "class";
+        public static final String ID = "id";
+        public static final String NAME = "name";
+        public static final String TAG = "tag";
     }
-
-    private interface ElementBehavior {
-        void set(String text);
-
-        String getText();
+    
+    @SuppressWarnings("WeakerAccess")
+    public class Attribute {
+        public static final String STYLE = "style";
+        public static final String CLASS = "class";
+        private static final String HREF = "href";
+        private static final String SRC = "src";
     }
 
     /**
@@ -461,25 +463,6 @@ public class UiElement {
      */
     private interface IsClickableBehavior {
         boolean execute();
-    }
-
-    @SuppressWarnings("WeakerAccess")
-    public class LocatorType {
-
-        public static final String CLASS = "class";
-        public static final String ID = "id";
-        public static final String NAME = "name";
-        public static final String TAG = "tag";
-        public static final String FRAME = "frame";
-    }
-
-    public class Attribute {
-
-        @SuppressWarnings("WeakerAccess")
-        public static final String STYLE = "style";
-        public static final String CLASS = "class";
-        private static final String HREF = "href";
-        private static final String SRC = "src";
     }
 
     private class ClassLocatedIsClickableBehavior implements IsClickableBehavior {
@@ -537,11 +520,16 @@ public class UiElement {
     /**
      * ** GET ELEMENT BEHAVIORS ****
      */
+
+    private interface GetElementBehavior {
+        WebElement execute();
+    }
+
     protected class GetView implements GetElementBehavior {
 
         public WebElement execute() {
             UiHost host = UiHost.getInstance();
-            return (WebElement) host.findUiElement(locatorType, locatorValue);
+            return host.findUiElement(locatorType, locatorValue);
         }
     }
 
@@ -549,11 +537,10 @@ public class UiElement {
 
         public WebElement execute() {
             UiHost host = UiHost.getInstance();
-            for (Object candidate : host.findUiElements(locatorType, locatorValue)) {
-                WebElement candidateElement = (WebElement) candidate;
-                final String candidateAttributeValue = candidateElement.getAttribute(attribute);
+            for (WebElement candidate : host.findUiElements(locatorType, locatorValue)) {
+                final String candidateAttributeValue = candidate.getAttribute(attribute);
                 if (candidateAttributeValue != null && candidateAttributeValue.contains(attributeValue))
-                    return candidateElement;
+                    return candidate;
             }
             return null;
         }
@@ -608,8 +595,14 @@ public class UiElement {
     }
 
     /**
-     * ** SET ELEMENT BEHAVIORS ****
+     * ** ELEMENT BEHAVIORS ****
      */
+    private interface ElementBehavior {
+        void set(String text);
+
+        String getText();
+    }
+
     private class SelectElementBehavior implements ElementBehavior {
 
         @Override
@@ -634,8 +627,7 @@ public class UiElement {
         @Override
         public String getText() {
             final WebElement element = getElement();
-            return element == null ? null : element.getTagName().equals("input") ? element.getAttribute("value") : element
-                    .getText();
+            return element == null ? null : element.getTagName().equals("input") ? element.getAttribute("value") : element.getText();
         }
     }
 }
