@@ -1,6 +1,9 @@
 package com.softwareonpurpose.uinavigator;
 
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
+
+import java.util.Set;
 
 public class CookieViewer {
 
@@ -15,6 +18,12 @@ public class CookieViewer {
     }
 
     public String getCookieValue(String name, String domain, String path) {
-        return "cookie value";
+        Set<Cookie> candidates = driver.manage().getCookies();
+        for (Cookie candidate : candidates) {
+            if (domain.equals(candidate.getDomain()) && path.equals(candidate.getPath()) && name.equals(candidate.getName())) {
+                return candidate.getValue();
+            }
+        }
+        return null;
     }
 }

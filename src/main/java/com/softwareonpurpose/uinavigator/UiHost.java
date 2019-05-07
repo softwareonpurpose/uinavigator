@@ -259,4 +259,16 @@ public class UiHost {
         logger.info("Launch browser");
         driver = driverInstantiation.execute();
     }
+
+    /**
+     * Get the value of a specific cookie identified by name, domain and path
+     *
+     * @param name Name
+     * @param domain Domain
+     * @param path Path
+     * @return String value of the identified cookie
+     */
+    public String getCookieValue(String name, String domain, String path) {
+        return CookieViewer.getInstance(driver).getCookieValue(name, domain, path);
+    }
 }
