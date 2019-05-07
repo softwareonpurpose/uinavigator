@@ -15,6 +15,6 @@ public class CookieViewer {
     }
 
     public String getCookieValue(String name, String domain, String path) {
-        return null;
+        return "cookie value";
     }
 }
