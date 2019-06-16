@@ -38,18 +38,19 @@ public class UiHostTest extends TestBase {
         WebElementExpected expected = WebElementExpected.construct("div", "content", "large-12 columns", null, null);
         UiHost.getInstance().load(uri);
         WebElement actual = (WebElement) UiHost.getInstance().findUiElement("id", "content");
-        confirm(WebElementCalibrator.construct(expected, actual).calibrate());
+        confirm(WebElementCalibrator.getInstance(expected, actual).calibrate());
     }
 
     @Test(dependsOnMethods = "construct")
     public void findUiElements() {
         List<WebElementExpected> expected = composeExpectedWebElements();
-        UiHost.getInstance().load(uri);
+        UiHost host = UiHost.getInstance();
+        host.load(uri);
         List<WebElement> actual = new ArrayList<>();
-        for (Object element : UiHost.getInstance().findUiElements("tag", "a")) {
+        for (Object element : host.findUiElements("tag", "a")) {
             actual.add((WebElement) element);
         }
-        confirm(WebElementsCalibrator.construct(expected, actual).calibrate());
+        confirm(WebElementsCalibrator.getInstance(expected, actual).calibrate());
     }
 
     @Test(enabled = false, dataProvider = "drivers")
@@ -68,8 +69,8 @@ public class UiHostTest extends TestBase {
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "challenging_dom"), "Challenging DOM"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "checkboxes"), "Checkboxes"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "context_menu"), "Context Menu"));
-        expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "disappearing_elements"), "Disappearing " +
-                "Elements"));
+        expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "digest_auth"), "Digest Authentication (user and pass: admin)"));
+        expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "disappearing_elements"), "Disappearing Elements"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "drag_and_drop"), "Drag and Drop"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "dropdown"), "Dropdown"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "dynamic_content"), "Dynamic Content"));
@@ -87,6 +88,7 @@ public class UiHostTest extends TestBase {
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "horizontal_slider"), "Horizontal Slider"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "hovers"), "Hovers"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "infinite_scroll"), "Infinite Scroll"));
+        expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "inputs"), "Inputs"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "jqueryui/menu"), "JQuery UI Menus"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "javascript_alerts"), "JavaScript Alerts"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "javascript_error"), "JavaScript onload event " +
