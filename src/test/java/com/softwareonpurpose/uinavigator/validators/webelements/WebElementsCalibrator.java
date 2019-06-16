@@ -14,12 +14,12 @@ public class WebElementsCalibrator extends Calibrator {
         super(DESCRIPTION, expected, actual);
         int index = 0;
         for (WebElementExpected expectedElement : expected) {
-            addChildCalibrator(WebElementCalibrator.construct(expectedElement, actual.get(index)));
+            addChildCalibrator(WebElementCalibrator.getInstance(expectedElement, actual.get(index)));
             index += 1;
         }
     }
 
-    public static WebElementsCalibrator construct(List<WebElementExpected> expected, List<WebElement> actual) {
+    public static WebElementsCalibrator getInstance(List<WebElementExpected> expected, List<WebElement> actual) {
         return new WebElementsCalibrator(expected, actual);
     }
 
