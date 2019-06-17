@@ -4,7 +4,7 @@ apply plugin: 'java'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-version = '2.0.3'
+version = '2.0.4'
 
 repositories {
     mavenCentral()
@@ -22,7 +22,7 @@ dependencies {
     compile 'org.seleniumhq.selenium:selenium-java:3.+'
     testCompile 'org.testng:testng:6.14.+'
     compile files('./src/test/resources/indentmanager-1.0.6.jar')
-    compile files('./src/test/resources/calibrator4test-1.4.2.jar')
+    compile files('./src/test/resources/calibrator4test-1.4.4.jar')
     asciidoclet 'org.asciidoctor:asciidoclet:1.+'
 }
 
