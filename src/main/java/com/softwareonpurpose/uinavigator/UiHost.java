@@ -32,7 +32,7 @@ import java.util.Objects;
 @SuppressWarnings("WeakerAccess")
 public class UiHost {
     private static UiHost uiHost;
-    private static Configuration config;
+    private static UiNavigatorConfiguration config;
     private static DriverInstantiation driverInstantiation;
     private final Logger logger = LoggerFactory.getLogger("");
     private WebDriver driver;
@@ -70,13 +70,13 @@ public class UiHost {
     }
 
     /***
-     * Configuration of UiHost
+     * UiNavigatorConfiguration of UiHost
      *
-     * @return Configuration for instantiating UiHosts
+     * @return UiNavigatorConfiguration for instantiating UiHosts
      */
-    public static Configuration getConfig() {
+    public static UiNavigatorConfiguration getConfig() {
         if (config == null) {
-            config = Configuration.getInstance();
+            config = UiNavigatorConfiguration.getInstance();
         }
         return config;
     }

@@ -21,16 +21,16 @@ import org.openqa.selenium.WebDriver;
  * DriverInstantiation details, including specific driver executable and configuration properties
  */
 public abstract class DriverInstantiation {
-    private static Configuration config;
+    private static UiNavigatorConfiguration config;
 
     /**
-     * Get Configuration details used to instantiate UI driver
+     * Get UiNavigatorConfiguration details used to instantiate UI driver
      *
-     * @return Configuration details
+     * @return UiNavigatorConfiguration details
      */
-    protected static Configuration getConfig() {
+    protected static UiNavigatorConfiguration getConfig() {
         if (config == null) {
-            config = Configuration.getInstance();
+            config = UiNavigatorConfiguration.getInstance();
         }
         return config;
     }
