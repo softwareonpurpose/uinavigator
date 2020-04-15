@@ -5,7 +5,7 @@ plugins {
 
 group 'com.softwareonpurpose'
 sourceCompatibility = 11
-version = '2.0.5'
+version = '3.0.0'
 
 repositories {
     mavenCentral()
@@ -50,6 +50,6 @@ javadoc {
 
 test {
     systemProperties['webdriver.chrome.driver'] = System.properties["/src/test/resources/chromedriver.exe"]
-    maxParallelForks = 4
+    maxParallelForks = 6
     useTestNG()
 }

@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-package com.softwareonpurpose.uinavigator.driver;
+package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.DriverInstantiation;
 import org.openqa.selenium.WebDriver;
@@ -30,13 +30,13 @@ public class DefaultChromeInstantiation extends DriverInstantiation {
     }
 
     @Override
-    protected ChromeDriver instantiateDriver() {
+    public ChromeDriver instantiateDriver() {
         System.setProperty("webdriver.chrome.driver", "./src/main/resources/chromedriver.exe");
         return new ChromeDriver();
     }
 
     @Override
-    protected void configureDriver(WebDriver driver) {
+    public void configureDriver(WebDriver driver) {
         driver.manage().timeouts().implicitlyWait(getConfig().getTimeout(), TimeUnit.SECONDS);
     }
 

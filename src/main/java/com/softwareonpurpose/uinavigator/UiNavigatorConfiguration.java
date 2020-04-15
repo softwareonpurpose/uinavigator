@@ -15,55 +15,42 @@
  */
 package com.softwareonpurpose.uinavigator;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-/**
- * UiNavigator UiNavigatorConfiguration details read from uinavigator.properties resource file
- */
 public class UiNavigatorConfiguration {
 
     private static UiNavigatorConfiguration config;
     private final long timeout;
 
-    private UiNavigatorConfiguration() {
-        InputStream inputStream;
-
+    UiNavigatorConfiguration(String propertiesFilename) {
         Properties prop = new Properties();
-        String propFileName = "uinavigator.properties";
 
-        inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-        Integer configurationTimeout = null;
-        if (inputStream != null) {
-            try {
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propertiesFilename)) {
+            if (inputStream != null) {
                 prop.load(inputStream);
-                configurationTimeout = Integer.parseInt(prop.getProperty("timeout"));
-            } catch (Exception e) {
-                System.out.println("Exception: " + e);
-            } finally {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
+        } catch (Exception e) {
+            System.out.println("Exception: " + e);
         }
-        this.timeout = configurationTimeout == null ? 3 : configurationTimeout;
+        String configurationTimeout = prop.getProperty("timeout");
+        this.timeout = configurationTimeout == null ? 3 : Integer.parseInt(configurationTimeout);
     }
 
     /**
      * Get UiNavigatorConfiguration instance
+     *
      * @return UiNavigatorConfiguration details of UiNavigator
      */
     public static UiNavigatorConfiguration getInstance() {
         if (config == null)
-            config = new UiNavigatorConfiguration();
+            config = new UiNavigatorConfiguration("uinavigator.properties");
         return config;
     }
 
     /**
      * Get default 'timeout' value
+     *
      * @return long timeout value
      */
     public long getTimeout() {

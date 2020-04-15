@@ -1,6 +1,6 @@
-package com.softwareonpurpose.uinavigator;
+package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.driver.DefaultChromeInstantiation;
+import com.softwareonpurpose.uinavigator.DriverInstantiation;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;

@@ -15,6 +15,7 @@
  */
 package com.softwareonpurpose.uinavigator;
 
+import com.softwareonpurpose.uinavigator.UiNavigatorConfiguration;
 import org.openqa.selenium.WebDriver;
 
 /**
@@ -41,7 +42,7 @@ public abstract class DriverInstantiation {
      *
      * @return WebDriver instance using Selenium interface
      */
-    WebDriver execute() {
+    public WebDriver execute() {
         WebDriver driver = instantiateDriver();
         provideTimeForDriverToLoad();
         configureDriver(driver);
@@ -64,19 +65,19 @@ public abstract class DriverInstantiation {
      *
      * @return WebDriver instance using Selenium interface
      */
-    protected abstract WebDriver instantiateDriver();
+    public abstract WebDriver instantiateDriver();
 
     /**
      * Implementation details of concrete DriverInstantiations
      *
      * @param driver WebDriver instance using Selenium interface
      */
-    protected abstract void configureDriver(WebDriver driver);
+    public abstract void configureDriver(WebDriver driver);
 
     /**
-     * Arbitrary name of the instantiated UiHost
+     * Arbitrary name of the instantiated WebUiHost
      *
-     * @return String name of UiHost
+     * @return String name of WebUiHost
      */
     @SuppressWarnings("unused")
     public abstract String getHostName();
