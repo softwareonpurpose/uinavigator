@@ -182,7 +182,6 @@ public class WebUiElement implements UiElement {
      *
      * @return String content
      */
-    @SuppressWarnings("WeakerAccess")
     public String getText() {
         return elementBehaviors.getText();
     }
@@ -192,7 +191,6 @@ public class WebUiElement implements UiElement {
      *
      * @return String href of the defined UI element
      */
-    @SuppressWarnings("WeakerAccess")
     public String getHref() {
         return getAttribute("href");
     }
@@ -202,7 +200,6 @@ public class WebUiElement implements UiElement {
      *
      * @param value String value
      */
-    @SuppressWarnings("WeakerAccess")
     public void set(String value) {
         value = value == null ? "" : value;
         WebElement element = getElement();
@@ -227,7 +224,6 @@ public class WebUiElement implements UiElement {
     /**
      * Click the UI element
      */
-    @SuppressWarnings("WeakerAccess")
     public void click() {
         if (!suppressLogging) {
             getLogger().info(String.format(getIndentation() + "Click %s", getDescription()));
@@ -354,7 +350,6 @@ public class WebUiElement implements UiElement {
      * @param attribute String attribute name
      * @param value     String attribute value
      */
-    @SuppressWarnings("WeakerAccess")
     public void setAttribute(String attribute, String value) {
         WebUiHost.getInstance().setAttribute(locatorType, locatorValue, attribute, value);
     }
@@ -406,7 +401,6 @@ public class WebUiElement implements UiElement {
     private void initializeGetElementBehavior() {
         if (parent == null && attribute == null && ordinal == null)
             elementBehaviors = UiElementBehaviors.getInstance(locatorType, locatorValue);
-        else if (parent == null) getElementBehavior = new GetView_attribute();
         else if (attribute != null) getElementBehavior = new GetElement_attribute();
         else getElementBehavior = new GetElement();
     }
@@ -435,33 +429,11 @@ public class WebUiElement implements UiElement {
     }
 
     /**
-     * ** ELEMENT BEHAVIORS ****
-     */
-    private interface ElementBehavior {
-        void set(String text);
-
-        String getText();
-    }
-
-    /**
      * ** GET ELEMENT BEHAVIORS ****
      */
 
     private interface GetElementBehavior {
         WebElement execute();
-    }
-
-    protected class GetView_attribute implements GetElementBehavior {
-
-        public WebElement execute() {
-            WebUiHost host = WebUiHost.getInstance();
-            for (WebElement candidate : host.findUiElements(locatorType, locatorValue)) {
-                final String candidateAttributeValue = candidate.getAttribute(attribute);
-                if (candidateAttributeValue != null && candidateAttributeValue.contains(attributeValue))
-                    return candidate;
-            }
-            return null;
-        }
     }
 
     protected class GetElement implements GetElementBehavior {
