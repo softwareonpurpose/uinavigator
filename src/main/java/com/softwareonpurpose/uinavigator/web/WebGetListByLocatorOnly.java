@@ -21,17 +21,16 @@ public class WebGetListByLocatorOnly implements WebGetListBehavior {
             case UiLocatorType.CLASS:
                 locator = By.className(locatorValue);
                 break;
-            case UiLocatorType.ID:
-                locator = By.id(locatorValue);
-                break;
             case UiLocatorType.NAME:
                 locator = By.name(locatorValue);
                 break;
             case UiLocatorType.TAG:
                 locator = By.tagName(locatorValue);
                 break;
+            case UiLocatorType.ID:
             default:
-                locator = null;
+                locator = By.id(locatorValue);
+                break;
         }
     }
 
@@ -44,7 +43,7 @@ public class WebGetListByLocatorOnly implements WebGetListBehavior {
         Collection<WebUiElement> elements = new ArrayList<>();
         WebUiElement parent = WebUiElement.getInstance("View", UiLocatorType.TAG, "body");
         Collection<WebElement> webElements = parent.getElement().findElements(locator);
-        for (int elementOrdinal = 1; elementOrdinal <= webElements.size(); elementOrdinal++) {
+        for (int elementOrdinal = 1; elementOrdinal <= webElements.size(); elementOrdinal += 1) {
             String elementDescription = String.format("#%d", elementOrdinal);
             elements.add(WebUiElement.getInstance(elementDescription, locatorType, locatorValue, elementOrdinal, parent));
         }
