@@ -4,7 +4,7 @@ import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-public class WebGetByLocatorOnly extends WebGetElementBehavior{
+public class WebGetByLocatorOnly implements WebGetElementBehavior{
     private final By locator;
 
     public WebGetByLocatorOnly(String locatorType, String locatorValue) {

@@ -1,0 +1,53 @@
+package com.softwareonpurpose.uinavigator.web;
+
+import com.softwareonpurpose.uinavigator.UiLocatorType;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+public class WebGetListByLocatorOnly implements WebGetListBehavior {
+    private final By locator;
+    @Deprecated
+    private final String locatorType;
+    @Deprecated
+    private final String locatorValue;
+
+    private WebGetListByLocatorOnly(String locatorType, String locatorValue) {
+        this.locatorType = locatorType;
+        this.locatorValue = locatorValue;
+        switch (locatorType) {
+            case UiLocatorType.CLASS:
+                locator = By.className(locatorValue);
+                break;
+            case UiLocatorType.ID:
+                locator = By.id(locatorValue);
+                break;
+            case UiLocatorType.NAME:
+                locator = By.name(locatorValue);
+                break;
+            case UiLocatorType.TAG:
+                locator = By.tagName(locatorValue);
+                break;
+            default:
+                locator = null;
+        }
+    }
+
+    public static WebGetListByLocatorOnly getInstance(String locatorType, String locatorValue) {
+        return new WebGetListByLocatorOnly(locatorType, locatorValue);
+    }
+
+    @Override
+    public Collection<WebUiElement> execute() {
+        Collection<WebUiElement> elements = new ArrayList<>();
+        WebUiElement parent = WebUiElement.getInstance("View", UiLocatorType.TAG, "body");
+        Collection<WebElement> webElements = parent.getElement().findElements(locator);
+        for (int elementOrdinal = 1; elementOrdinal <= webElements.size(); elementOrdinal++) {
+            String elementDescription = String.format("#%d", elementOrdinal);
+            elements.add(WebUiElement.getInstance(elementDescription, locatorType, locatorValue, elementOrdinal, parent));
+        }
+        return elements;
+    }
+}

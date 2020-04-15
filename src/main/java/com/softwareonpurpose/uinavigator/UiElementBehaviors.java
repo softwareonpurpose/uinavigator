@@ -22,10 +22,11 @@ public class UiElementBehaviors {
         GetElementBehavior getElementBehavior;
         switch (WebUiHost.getInstance().getDriverName()) {
             case "chrome":
+            case "firefox":
             default:
                 type = "selenium";
-                WebGetElementBehavior getBehavior;
-                getBehavior = WebGetElementProvider.getInstance(locatorType, locatorValue);
+                WebGetElementBehavior getBehavior = WebGetElementProvider.getInstance(locatorType, locatorValue);
+                WebGetListBehavior getListBehavior = WebGetListByLocatorOnly.getInstance(locatorType, locatorValue);
                 if (UiLocatorType.TAG.equals(locatorType) && "select".equals(locatorValue)) {
                     setElementBehavior = WebSetSelectBehavior.getInstance(getBehavior);
                     getTextBehavior = WebGetTextSelectBehavior.getInstance(getBehavior);

@@ -372,7 +372,7 @@ public class WebUiElement implements UiElement {
         return LoggerFactory.getLogger("");
     }
 
-    private WebElement getElement() {
+    WebElement getElement() {
         if (parent == null) WebUiHost.getInstance().selectWindow();
         if (element == null) element = (WebElement) elementBehaviors.get();
         return element;
