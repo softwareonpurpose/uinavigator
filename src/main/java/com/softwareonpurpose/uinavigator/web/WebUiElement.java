@@ -46,7 +46,6 @@ public class WebUiElement implements UiElement {
     private transient String selectedClass;
     private transient String selectedStyle;
     private transient By locator;
-    private transient GetElementBehavior getElementBehavior;
     private transient WebElement element;
     private UiElementBehaviors elementBehaviors;
 
@@ -56,7 +55,7 @@ public class WebUiElement implements UiElement {
         this.locatorType = locatorType;
         this.locatorValue = locatorValue;
         initializeLocator();
-        boolean isBodyTag = (UiLocatorType.TAG.equals(locatorType)&&"body".equals(locatorValue));
+        boolean isBodyTag = (UiLocatorType.TAG.equals(locatorType) && "body".equals(locatorValue));
         this.parent = (parent == null && !isBodyTag)
                 ? WebUiElement.getInstance("Page", UiLocatorType.TAG, "body")
                 : parent;
@@ -396,8 +395,6 @@ public class WebUiElement implements UiElement {
     private void initializeGetElementBehavior() {
         if (parent == null && attribute == null && ordinal == null)
             elementBehaviors = UiElementBehaviors.getInstance(locatorType, locatorValue);
-        else if (attribute != null) getElementBehavior = new GetElement_attribute();
-        else getElementBehavior = new GetElement();
     }
 
     private void reportException(WebDriverException e, String errorMessage) {
@@ -421,61 +418,5 @@ public class WebUiElement implements UiElement {
     @Override
     public String toString() {
         return new Gson().toJson(this);
-    }
-
-    /**
-     * ** GET ELEMENT BEHAVIORS ****
-     */
-
-    private interface GetElementBehavior {
-        WebElement execute();
-    }
-
-    protected class GetElement implements GetElementBehavior {
-
-        public WebElement execute() {
-            List<WebElement> elements;
-            int elementIndex = (ordinal == null || ordinal == 0) ? 0 : ordinal - 1;
-            try {
-                final WebElement parentElement = parent.getElement();
-                elements = parentElement == null ? new ArrayList<>() : parentElement.findElements(locator);
-            } catch (WebDriverException | NullPointerException e) {
-                getLogger().warn(String.format(message_unableToFind, locator.toString()));
-                return null;
-            }
-            if (elements.size() > elementIndex) {
-                return elements.get(elementIndex);
-            } else {
-                getLogger().warn(String.format(message_unableToFind, locator.toString()));
-            }
-            return null;
-        }
-    }
-
-    protected class GetElement_attribute implements GetElementBehavior {
-
-        public WebElement execute() {
-            List<WebElement> elements = new ArrayList<>();
-            int elementIndex = (ordinal == null || ordinal == 0) ? 0 : ordinal - 1;
-            try {
-                final WebElement parentElement = parent.getElement();
-                List<WebElement> candidates = parentElement == null ? new ArrayList<>() : parentElement
-                        .findElements(locator);
-                for (WebElement candidate : candidates) {
-                    final String candidateAttributeValue = candidate.getAttribute(attribute);
-                    if (candidateAttributeValue != null && candidateAttributeValue.contains(attributeValue))
-                        elements.add(candidate);
-                }
-            } catch (WebDriverException | NullPointerException e) {
-                getLogger().warn(String.format(message_unableToFind, locator.toString()));
-                return null;
-            }
-            if (elements.size() > elementIndex) {
-                return elements.get(elementIndex);
-            } else {
-                getLogger().warn(String.format(message_unableToFind, locator.toString()));
-            }
-            return null;
-        }
     }
 }
