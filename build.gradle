@@ -53,3 +53,14 @@ test {
     maxParallelForks = 6
     useTestNG()
 }
+
+task debug(type: Test) {
+    description = 'Tests being debugged'
+    maxParallelForks = 4
+
+    def groupsToInclude = []
+    groupsToInclude.add('debug')
+    useTestNG() {
+        groupsToInclude.each { String group -> includeGroups group }
+    }
+}
