@@ -56,7 +56,10 @@ public class WebUiElement implements UiElement {
         this.locatorType = locatorType;
         this.locatorValue = locatorValue;
         initializeLocator();
-        this.parent = parent;
+        boolean isBodyTag = (UiLocatorType.TAG.equals(locatorType)&&"body".equals(locatorValue));
+        this.parent = (parent == null && !isBodyTag)
+                ? WebUiElement.getInstance("Page", UiLocatorType.TAG, "body")
+                : parent;
         this.attribute = attribute;
         this.attributeValue = attributeValue;
         this.ordinal = ordinal;
@@ -166,15 +169,6 @@ public class WebUiElement implements UiElement {
 
     private void initializeLocator() {
         locator = constructLocator(locatorType, locatorValue);
-        switch (locatorType) {
-            case UiLocatorType.CLASS:
-                break;
-            case UiLocatorType.ID:
-                break;
-            case UiLocatorType.NAME:
-                break;
-            case UiLocatorType.TAG:
-        }
     }
 
     /**
@@ -368,8 +362,9 @@ public class WebUiElement implements UiElement {
     }
 
     WebElement getElement() {
-        if (parent == null) WebUiHost.getInstance().selectWindow();
-        if (element == null) element = (WebElement) elementBehaviors.get();
+        if (element == null) {
+            element = (WebElement) elementBehaviors.get();
+        }
         return element;
     }
 
