@@ -44,7 +44,7 @@ public class UiViewTests {
         Assert.assertEquals(actual, expected, "Failed to return an instance of UiView");
     }
 
-    @Test(groups = "debug")
+    @Test
     public void testLoad_queryString() {
         QueryStringMockView.directNav();
         Class expected = UiView.class;
@@ -52,7 +52,7 @@ public class UiViewTests {
         Assert.assertEquals(actual, expected, "Failed to return an instance of UiView");
     }
 
-    @Test(groups = "debug")
+    @Test
     public void testLoad_relativePath() {
         RelativePathMockView.directNav();
         Class expected = UiView.class;
