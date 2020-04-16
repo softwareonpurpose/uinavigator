@@ -323,7 +323,7 @@ public class WebUiElement implements UiElement {
      */
     @SuppressWarnings("WeakerAccess")
     public boolean waitUntilVisible() {
-        return WebUiHost.getInstance().waitUntilVisible(locatorType, locatorValue);
+        return WebUiHost.getInstance().waitUntilVisible(this.getElement());
     }
 
     /**
