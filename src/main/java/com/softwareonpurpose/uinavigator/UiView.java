@@ -20,7 +20,7 @@ public abstract class UiView {
         final String viewClassName = viewClass.getSimpleName().replaceAll(invalidCharacters, " ");
         LoggerFactory.getLogger("").info(String.format("Expect '%s'", viewClassName));
         T view = construct(viewClass);
-        if (view.confirmElementStates()) {
+        if (!view.confirmElementStates()) {
             String messageFormat = "Unable to confirm the state of '%s'";
             String message = String.format(messageFormat, viewClassName);
             LoggerFactory.getLogger("").info(message);
