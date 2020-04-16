@@ -43,4 +43,16 @@ public class WebUiHostTests {
         Class actual = WebUiHost.getInstance(DefaultChromeInstantiation.getInstance()).getClass();
         Assert.assertEquals(actual, expected, "Failed to return an instance of WebUiHost");
     }
+
+    @Test
+    public void testExecute() {
+        String javascript = "document.getElementsByName('user_name')[0].value = 'whatever';";
+        String expected = "whatever";
+        MockView.directNav();
+        final WebUiHost host = WebUiHost.getInstance();
+        host.execute(javascript);
+        final WebElement element = host.findUiElement(new By.ByName("user_name"));
+        final String actual = element.getAttribute("value");
+        Assert.assertEquals(actual, expected, "Failed to return an instance of WebUiHost");
+    }
 }

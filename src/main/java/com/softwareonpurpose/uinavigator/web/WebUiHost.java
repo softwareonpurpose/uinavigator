@@ -120,7 +120,11 @@ public class WebUiHost implements UiHost {
     @SuppressWarnings("unused")
     public void execute(String javaScript) {
         if (driver instanceof JavascriptExecutor) {
-            ((JavascriptExecutor) driver).executeScript(javaScript);
+            try {
+                ((JavascriptExecutor) driver).executeScript(javaScript);
+            } catch (JavascriptException e) {
+                logger.warn(String.format("Unable to execute javascript: [%s]", javaScript));
+            }
         }
     }
 
