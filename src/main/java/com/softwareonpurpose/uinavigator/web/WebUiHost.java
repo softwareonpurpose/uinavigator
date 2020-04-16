@@ -25,6 +25,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -143,8 +144,7 @@ public class WebUiHost implements UiHost {
 
     WebElement findUiElement(By locator) {
         List<WebElement> elements = findUiElements(locator);
-        //noinspection ConstantConditions   the elements list could return with zero items
-        if (elements == null || elements.size() == 0) {
+        if (elements.size() == 0) {
             logger.warn(String.format("WARNING: Unable to find any element %s", locator.toString()));
             return null;
         } else {
@@ -153,12 +153,11 @@ public class WebUiHost implements UiHost {
     }
 
     private List<WebElement> findUiElements(By locator) {
-        List<WebElement> elements;
+        List<WebElement> elements = new ArrayList<>();
         try {
             elements = driver.findElements(locator);
         } catch (WebDriverException e) {
             logger.warn(String.format("WARNING: Unable to find any element %s", locator.toString()));
-            return null;
         }
         return elements;
     }
