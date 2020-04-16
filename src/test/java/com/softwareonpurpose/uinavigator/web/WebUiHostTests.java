@@ -76,4 +76,17 @@ public class WebUiHostTests {
         final boolean actual = host.waitUntilVisible(element);
         Assert.assertFalse(actual, "Failed to return false for nonexistent element");
     }
+
+    @Test
+    public void testSetAttribute() {
+        final String elementName = "user_name";
+        final String attribute = "data-test";
+        String expected = "updated";
+        MockView.directNav();
+        final WebUiHost host = WebUiHost.getInstance();
+        final WebElement element = host.findUiElement(new By.ByName(elementName));
+        host.setAttribute(element, attribute, expected);
+        String actual = host.findUiElement(new By.ByName(elementName)).getAttribute(attribute);
+        Assert.assertEquals(actual, expected, "Failed to update value of attribute");
+    }
 }
