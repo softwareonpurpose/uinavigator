@@ -67,4 +67,13 @@ public class WebUiHostTests {
         final String message = "Failed to return an empty String when JavascriptExecutor Exception thrown";
         Assert.assertTrue(actual.isEmpty(), message);
     }
+
+    @Test
+    public void testExecute_waitUntilVisible() {
+        MockView.directNav();
+        final WebUiHost host = WebUiHost.getInstance();
+        final WebElement element = host.findUiElement(new By.ByName("nonexistent"));
+        final boolean actual = host.waitUntilVisible(element);
+        Assert.assertFalse(actual, "Failed to return false for nonexistent element");
+    }
 }

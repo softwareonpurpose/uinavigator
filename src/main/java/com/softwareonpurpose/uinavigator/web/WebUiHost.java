@@ -170,7 +170,7 @@ public class WebUiHost implements UiHost {
         try {
             new WebDriverWait(driver, getConfig().getTimeout())
                     .until(ExpectedConditions.visibilityOf(element));
-        } catch (WebDriverException e) {
+        } catch (WebDriverException | NullPointerException e) {
             String warningMessageFormat = "WARNING: WebElement failed to be displayed within %d seconds";
             logger.warn(String.format(warningMessageFormat, getConfig().getTimeout()));
             return false;
