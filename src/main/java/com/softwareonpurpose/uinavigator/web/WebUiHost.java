@@ -17,7 +17,6 @@ package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.DriverInstantiation;
 import com.softwareonpurpose.uinavigator.UiHost;
-import com.softwareonpurpose.uinavigator.UiLocatorType;
 import com.softwareonpurpose.uinavigator.UiNavigatorConfiguration;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -118,10 +117,10 @@ public class WebUiHost implements UiHost {
      * @param javaScript String to execute
      */
     @SuppressWarnings("unused")
-    public void execute(String javaScript) {
+    public void execute(String javaScript, Object... args) {
         if (driver instanceof JavascriptExecutor) {
             try {
-                ((JavascriptExecutor) driver).executeScript(javaScript);
+                ((JavascriptExecutor) driver).executeScript(javaScript, args);
             } catch (JavascriptException e) {
                 logger.warn(String.format("Unable to execute javascript: [%s]", javaScript));
             }
@@ -129,12 +128,7 @@ public class WebUiHost implements UiHost {
     }
 
     void setAttribute(WebElement element, String attribute, String value) {
-        if (driver instanceof JavascriptExecutor && element != null) {
-            ((JavascriptExecutor) driver)
-                    .executeScript("arguments[0].setAttribute(arguments[1], arguments[2]);", element, attribute, value);
-        } else {
-            logger.warn(String.format("Unable to set '%s' attribute of element to \"%s\"", attribute, value));
-        }
+        execute("arguments[0].setAttribute(arguments[1], arguments[2]);", element, attribute, value);
     }
 
     /**
