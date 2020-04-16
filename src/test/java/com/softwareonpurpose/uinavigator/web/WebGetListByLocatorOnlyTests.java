@@ -33,7 +33,7 @@ public class WebGetListByLocatorOnlyTests {
         Assert.assertEquals(actual, expected, "Failed to return an empty Collection");
     }
 
-    @Test(groups = {"debug"})
+    @Test
     public void testExecute_confirmType() {
         Class expected = WebUiElement.class;
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";

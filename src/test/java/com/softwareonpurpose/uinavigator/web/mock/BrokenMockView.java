@@ -6,7 +6,7 @@ import com.softwareonpurpose.uinavigator.web.WebUiView;
 
 public class BrokenMockView extends WebUiView {
 
-    private static final String VIEW_URI = "http://www.google.com";
+    private static final String VIEW_URI = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
 
     protected BrokenMockView() {
         super(VIEW_URI, WebUiElement.getInstance("'Mock' view", UiLocatorType.TAG, "body"));
