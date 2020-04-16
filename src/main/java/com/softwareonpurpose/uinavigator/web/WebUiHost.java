@@ -178,25 +178,6 @@ public class WebUiHost implements UiHost {
         return true;
     }
 
-    private By constructLocator(String locatorType, String locatorValue) {
-        By locator;
-        switch (locatorType) {
-            case UiLocatorType.ID:
-                locator = By.id(locatorValue);
-                break;
-            case UiLocatorType.NAME:
-                locator = By.name(locatorValue);
-                break;
-            case UiLocatorType.TAG:
-                locator = By.tagName(locatorValue);
-                break;
-            case UiLocatorType.CLASS:
-            default:
-                locator = By.className(locatorValue);
-        }
-        return locator;
-    }
-
     /**
      * Get name of UI host driver
      *
