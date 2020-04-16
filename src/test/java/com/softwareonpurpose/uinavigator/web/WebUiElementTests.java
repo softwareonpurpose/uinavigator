@@ -25,6 +25,14 @@ public class WebUiElementTests {
     }
 
     @Test
+    public void testWaitUntilVisible() {
+        MockView.directNav();
+        WebUiElement element = WebUiElement.getInstance("element", UiLocatorType.ID, "name");
+        boolean actual = element.waitUntilVisible();
+        Assert.assertTrue(actual, "Failed to return true when element is nonexistent");
+    }
+
+    @Test
     public void testWaitUntilVisible_nonexistent() {
         MockView.directNav();
         WebUiElement element = WebUiElement.getInstance("element", UiLocatorType.ID, "nonexistent");
