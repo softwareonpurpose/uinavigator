@@ -33,7 +33,6 @@ import java.util.List;
  * Representation of any element of a UI (e.g. web page, Windows or Mac application, etc.)
  */
 public class WebUiElement implements UiElement {
-    private transient static String message_unableToFind = "WARNING: Unable to locate element %s";
     private transient static boolean suppressLogging;
     private final String description;
     private final String locatorType;
@@ -41,24 +40,21 @@ public class WebUiElement implements UiElement {
     private final String attribute;
     private final String attributeValue;
     private final Integer ordinal;
-    private final WebUiElement parent;
+    private final WebGetByLocatorOnly getParent;
     private transient String activeClass;
     private transient String selectedClass;
     private transient String selectedStyle;
     private transient By locator;
-    private transient WebElement element;
     private UiElementBehaviors elementBehaviors;
 
-    private WebUiElement(String description, String locatorType, String locatorValue, String attribute, String attributeValue, Integer ordinal, WebUiElement parent) {
+    private WebUiElement(String description, String locatorType, String locatorValue, String attribute, String attributeValue, Integer ordinal, WebGetByLocatorOnly getParent) {
         elementBehaviors = UiElementBehaviors.getInstance(locatorType, locatorValue);
         this.description = description;
         this.locatorType = locatorType;
         this.locatorValue = locatorValue;
         initializeLocator();
         boolean isBodyTag = (UiLocatorType.TAG.equals(locatorType) && "body".equals(locatorValue));
-        this.parent = (parent == null && !isBodyTag)
-                ? WebUiElement.getInstance("Page", UiLocatorType.TAG, "body")
-                : parent;
+        this.getParent = getParent != null ? getParent : isBodyTag ? null : WebGetByLocatorOnly.getInstance(UiLocatorType.TAG, "body");
         this.attribute = attribute;
         this.attributeValue = attributeValue;
         this.ordinal = ordinal;
@@ -83,25 +79,15 @@ public class WebUiElement implements UiElement {
      * @param description  String description of the element (used for logging)
      * @param locatorType  String (WebUiElement.UiLocatorType) defining locator type
      * @param locatorValue String value of locator
-     * @param parent       WebUiElement containing requested element
+     * @param getParent    WebUiElement containing requested element
      * @return WebUiElement instantiated
      */
-    public static WebUiElement getInstance(String description, String locatorType, String locatorValue, WebUiElement parent) {
-        return new WebUiElement(description, locatorType, locatorValue, null, null, null, parent);
+    public static WebUiElement getInstance(String description, String locatorType, String locatorValue, WebGetByLocatorOnly getParent) {
+        return new WebUiElement(description, locatorType, locatorValue, null, null, null, getParent);
     }
 
-    /**
-     * Get an WebUiElement instance
-     *
-     * @param description  String description of the element (used for logging)
-     * @param locatorType  String (WebUiElement.UiLocatorType) defining locator type
-     * @param locatorValue String value of locator
-     * @param ordinal      Int specifying Nth element within parent
-     * @param parent       WebUiElement containing requested element
-     * @return WebUiElement instantiated
-     */
-    public static WebUiElement getInstance(String description, String locatorType, String locatorValue, int ordinal, WebUiElement parent) {
-        return new WebUiElement(description, locatorType, locatorValue, null, null, ordinal, parent);
+    public static WebUiElement getInstance(String description, String locatorType, String locatorValue, int ordinal, WebGetByLocatorOnly getParent) {
+        return new WebUiElement(description, locatorType, locatorValue, null, null, ordinal, getParent);
     }
 
     /**
@@ -112,11 +98,11 @@ public class WebUiElement implements UiElement {
      * @param locatorValue   String value of locator
      * @param attribute      String attribute of requested element
      * @param attributeValue String value of attribute
-     * @param parent         WebUiElement containing requested element
+     * @param getParent      WebUiElement containing requested element
      * @return WebUiElement instantiated
      */
-    public static WebUiElement getInstance(String description, String locatorType, String locatorValue, String attribute, String attributeValue, WebUiElement parent) {
-        return new WebUiElement(description, locatorType, locatorValue, attribute, attributeValue, null, parent);
+    public static WebUiElement getInstance(String description, String locatorType, String locatorValue, String attribute, String attributeValue, WebGetByLocatorOnly getParent) {
+        return new WebUiElement(description, locatorType, locatorValue, attribute, attributeValue, null, getParent);
     }
 
     /**
@@ -135,18 +121,18 @@ public class WebUiElement implements UiElement {
      * @param description  String description of the elements (used for logging)
      * @param locatorType  String (WebUiElement.UiLocatorType) defining locator type
      * @param locatorValue String value of locator
-     * @param parent       WebUiElement containing requested elements
+     * @param getParent    WebUiElement containing requested elements
      * @return List of UiElements
      */
     @SuppressWarnings("unused")
-    public static List<WebUiElement> getList(String description, String locatorType, String locatorValue, WebUiElement parent) {
+    public static List<WebUiElement> getList(String description, String locatorType, String locatorValue, WebGetByLocatorOnly getParent) {
         List<WebUiElement> elements = new ArrayList<>();
-        WebElement parentElement = parent.getElement();
+        WebElement parentElement = getParent.execute();
         List<WebElement> webElements = parentElement != null ? parentElement
                 .findElements(constructLocator(locatorType, locatorValue)) : new ArrayList<>();
         for (int elementOrdinal = 1; elementOrdinal <= webElements.size(); elementOrdinal++) {
             String elementDescription = String.format("%s #%d", description, elementOrdinal);
-            elements.add(WebUiElement.getInstance(elementDescription, locatorType, locatorValue, elementOrdinal, parent));
+            elements.add(WebUiElement.getInstance(elementDescription, locatorType, locatorValue, elementOrdinal, getParent));
         }
         return elements;
     }
@@ -359,11 +345,8 @@ public class WebUiElement implements UiElement {
         return LoggerFactory.getLogger("");
     }
 
-    WebElement getElement() {
-        if (element == null) {
-            element = (WebElement) elementBehaviors.get();
-        }
-        return element;
+    private WebElement getElement() {
+        return (WebElement) elementBehaviors.get();
     }
 
     private String getIndentation() {
@@ -392,7 +375,7 @@ public class WebUiElement implements UiElement {
     }
 
     private void initializeGetElementBehavior() {
-        if (parent == null && attribute == null && ordinal == null)
+        if (getParent == null && attribute == null && ordinal == null)
             elementBehaviors = UiElementBehaviors.getInstance(locatorType, locatorValue);
     }
 

@@ -7,7 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
-@Test(groups = "debug")
+@Test
 public class WebUiElementTests {
     @AfterMethod
     public void terminate() {

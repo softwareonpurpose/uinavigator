@@ -41,11 +41,11 @@ public class WebGetListByLocatorOnly implements WebGetListBehavior {
     @Override
     public Collection<WebUiElement> execute() {
         Collection<WebUiElement> elements = new ArrayList<>();
-        WebUiElement parent = WebUiElement.getInstance("View", UiLocatorType.TAG, "body");
-        Collection<WebElement> webElements = parent.getElement().findElements(locator);
+        WebGetByLocatorOnly getParent = WebGetByLocatorOnly.getInstance(UiLocatorType.TAG, "body");
+        Collection<WebElement> webElements = getParent.execute().findElements(locator);
         for (int elementOrdinal = 1; elementOrdinal <= webElements.size(); elementOrdinal += 1) {
             String elementDescription = String.format("#%d", elementOrdinal);
-            elements.add(WebUiElement.getInstance(elementDescription, locatorType, locatorValue, elementOrdinal, parent));
+            elements.add(WebUiElement.getInstance(elementDescription, locatorType, locatorValue, elementOrdinal, getParent));
         }
         return elements;
     }

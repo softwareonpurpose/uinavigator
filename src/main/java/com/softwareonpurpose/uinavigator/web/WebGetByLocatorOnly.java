@@ -4,10 +4,11 @@ import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-public class WebGetByLocatorOnly implements WebGetElementBehavior{
+public class WebGetByLocatorOnly implements WebGetElementBehavior {
     private final By locator;
+    private WebElement element;
 
-    public WebGetByLocatorOnly(String locatorType, String locatorValue) {
+    private WebGetByLocatorOnly(String locatorType, String locatorValue) {
         switch (locatorType) {
             case UiLocatorType.CLASS:
                 locator = By.className(locatorValue);
@@ -32,6 +33,9 @@ public class WebGetByLocatorOnly implements WebGetElementBehavior{
 
     @Override
     public WebElement execute() {
-        return WebUiHost.getInstance().findUiElement(locator);
+        if (element == null) {
+            element = WebUiHost.getInstance().findUiElement(locator);
+        }
+        return element;
     }
 }
