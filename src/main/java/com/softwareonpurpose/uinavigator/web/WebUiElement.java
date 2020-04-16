@@ -321,9 +321,9 @@ public class WebUiElement implements UiElement {
      *
      * @return boolean indicating whether the element was visible within the defined timeout period
      */
-    @SuppressWarnings("WeakerAccess")
     public boolean waitUntilVisible() {
-        return WebUiHost.getInstance().waitUntilVisible(this.getElement());
+        final WebElement element = this.getElement();
+        return element != null && WebUiHost.getInstance().waitUntilVisible(element);
     }
 
     /**
@@ -331,7 +331,6 @@ public class WebUiElement implements UiElement {
      *
      * @return String value of 'src' attribute
      */
-    @SuppressWarnings("unused")
     public String getSrc() {
         final WebElement element = getElement();
         return element == null ? null : element.getAttribute(UiAttribute.SRC);
