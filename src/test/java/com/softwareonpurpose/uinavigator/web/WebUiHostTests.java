@@ -53,6 +53,18 @@ public class WebUiHostTests {
         host.execute(javascript);
         final WebElement element = host.findUiElement(new By.ByName("user_name"));
         final String actual = element.getAttribute("value");
-        Assert.assertEquals(actual, expected, "Failed to return an instance of WebUiHost");
+        Assert.assertEquals(actual, expected, "Failed to execute javascript successfully");
+    }
+
+    @Test
+    public void testExecute_javascriptExecutorException() {
+        String javascript = "document.getElementsByName('nonexistent')[0].value = 'whatever';";
+        MockView.directNav();
+        final WebUiHost host = WebUiHost.getInstance();
+        host.execute(javascript);
+        final WebElement element = host.findUiElement(new By.ByName("user_name"));
+        final String actual = element.getAttribute("value");
+        final String message = "Failed to return an empty String when JavascriptExecutor Exception thrown";
+        Assert.assertTrue(actual.isEmpty(), message);
     }
 }
