@@ -4,16 +4,16 @@ import com.softwareonpurpose.uinavigator.UiLocatorType;
 import com.softwareonpurpose.uinavigator.web.WebUiElement;
 import com.softwareonpurpose.uinavigator.web.WebUiView;
 
-public class MockView extends WebUiView {
+public class BrokenMockView extends WebUiView {
 
     private static final String VIEW_URI = "http://www.google.com";
 
-    public MockView() {
+    protected BrokenMockView() {
         super(VIEW_URI, WebUiElement.getInstance("'Mock' view", UiLocatorType.TAG, "body"));
     }
 
-    public static MockView directNav() {
-        MockView view = construct(MockView.class);
+    public static BrokenMockView directNav() {
+        BrokenMockView view = construct(BrokenMockView.class);
         view.load();
         return WebUiView.expect(view.getClass());
     }
