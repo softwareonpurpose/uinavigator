@@ -15,7 +15,7 @@ public class WebUiHostTests {
     }
 
     @Test
-    public void testFindUiElements_nonexistent() {
+    public void testFindUiElement_nonexistent() {
         WebElement expected = null;
         WebElement actual = WebUiHost.getInstance().findUiElement(new By.ById("non-existent"));
         //noinspection ConstantConditions

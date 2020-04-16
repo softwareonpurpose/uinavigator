@@ -143,12 +143,13 @@ public class WebUiHost implements UiHost {
 
     WebElement findUiElement(By locator) {
         List<WebElement> elements = findUiElements(locator);
-        if ((elements != null ? elements.size() : 0) > 0) {
-            return elements.get(0);
-        } else {
+        //noinspection ConstantConditions   the elements list could return with zero items
+        if (elements == null || elements.size() == 0) {
             logger.warn(String.format("WARNING: Unable to find any element %s", locator.toString()));
+            return null;
+        } else {
+            return elements.get(0);
         }
-        return null;
     }
 
     private List<WebElement> findUiElements(By locator) {
