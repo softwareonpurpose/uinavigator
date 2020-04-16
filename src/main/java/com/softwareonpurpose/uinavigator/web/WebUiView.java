@@ -43,4 +43,8 @@ public abstract class WebUiView extends UiView {
     protected WebUiElement getElement() {
         return viewElement;
     }
+
+    public String getUri() {
+        return viewUri;
+    }
 }
