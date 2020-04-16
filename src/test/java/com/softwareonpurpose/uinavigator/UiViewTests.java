@@ -4,6 +4,7 @@ import com.softwareonpurpose.uinavigator.web.WebUiHost;
 import com.softwareonpurpose.uinavigator.web.WebUiView;
 import com.softwareonpurpose.uinavigator.web.mock.BrokenMockView;
 import com.softwareonpurpose.uinavigator.web.mock.MockView;
+import com.softwareonpurpose.uinavigator.web.mock.RedirectMockView;
 import com.softwareonpurpose.uinavigator.web.mock.UnstableMockView;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -43,6 +44,14 @@ public class UiViewTests {
         UnstableMockView.directNav();
         Class expected = UiView.class;
         Class actual = WebUiView.expect(UnstableMockView.class).getClass().getSuperclass().getSuperclass();
+        Assert.assertEquals(actual, expected, "Failed to return an instance of UiView");
+    }
+
+    @Test(groups = "debug")
+    public void testLoad_relativePath() {
+        RedirectMockView.directNav();
+        Class expected = UiView.class;
+        Class actual = WebUiView.expect(RedirectMockView.class).getClass().getSuperclass().getSuperclass();
         Assert.assertEquals(actual, expected, "Failed to return an instance of UiView");
     }
 }
