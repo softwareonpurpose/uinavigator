@@ -344,7 +344,7 @@ public class WebUiElement implements UiElement {
      * @param value     String attribute value
      */
     public void setAttribute(String attribute, String value) {
-        WebUiHost.getInstance().setAttribute(locatorType, locatorValue, attribute, value);
+        WebUiHost.getInstance().setAttribute(getElement(), attribute, value);
     }
 
     /**

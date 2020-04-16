@@ -15,16 +15,17 @@
  */
 package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.*;
+import com.softwareonpurpose.uinavigator.DriverInstantiation;
+import com.softwareonpurpose.uinavigator.UiHost;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
+import com.softwareonpurpose.uinavigator.UiNavigatorConfiguration;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Host for application UI
@@ -122,19 +123,12 @@ public class WebUiHost implements UiHost {
         }
     }
 
-    /***
-     * Locate UI element and set attribute to value
-     *
-     * @param locatorType String WebUiElement.UiLocatorType
-     * @param locatorValue String value of locator type
-     * @param attribute String attribute
-     * @param value String attribute value
-     */
-    void setAttribute(String locatorType, String locatorValue, String attribute, String value) {
-        WebElement element = findUiElement(constructLocator(locatorType, locatorValue));
-        if (driver instanceof JavascriptExecutor) {
+    void setAttribute(WebElement element, String attribute, String value) {
+        if (driver instanceof JavascriptExecutor && element != null) {
             ((JavascriptExecutor) driver)
                     .executeScript("arguments[0].setAttribute(arguments[1], arguments[2]);", element, attribute, value);
+        } else {
+            logger.warn(String.format("Unable to set '%s' attribute of element to \"%s\"", attribute, value));
         }
     }
 
@@ -155,13 +149,6 @@ public class WebUiHost implements UiHost {
             logger.warn(String.format("WARNING: Unable to find any element %s", locator.toString()));
         }
         return null;
-    }
-
-    /***
-     * Switch driver to default UI window
-     */
-    void selectWindow() {
-        driver.switchTo().defaultContent();
     }
 
     private List<WebElement> findUiElements(By locator) {
