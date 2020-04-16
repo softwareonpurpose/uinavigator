@@ -39,4 +39,28 @@ public class WebUiElementTests {
         boolean actual = element.waitUntilVisible();
         Assert.assertFalse(actual, "Failed to return false when element is nonexistent");
     }
+
+    @Test
+    public void testGetInstance_parent() {
+        WebGetByLocatorOnly getParent = WebGetByLocatorOnly.getInstance(UiLocatorType.TAG, "body");
+        Class expected = WebUiElement.class;
+        Class actual = WebUiElement.getInstance("Element", UiLocatorType.ID, "name", getParent).getClass();
+        Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElement");
+    }
+
+    @Test
+    public void testGetInstance_ordinal() {
+        WebGetByLocatorOnly getParent = WebGetByLocatorOnly.getInstance(UiLocatorType.TAG, "body");
+        Class expected = WebUiElement.class;
+        Class actual = WebUiElement.getInstance("Element", UiLocatorType.ID, "name", 1, getParent).getClass();
+        Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElement");
+    }
+
+    @Test
+    public void testGetInstance_attribute() {
+        WebGetByLocatorOnly getParent = WebGetByLocatorOnly.getInstance(UiLocatorType.TAG, "body");
+        Class expected = WebUiElement.class;
+        Class actual = WebUiElement.getInstance("Element", UiLocatorType.ID, "name", "data-test", "initial", getParent).getClass();
+        Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElement");
+    }
 }
