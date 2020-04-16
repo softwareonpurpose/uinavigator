@@ -143,7 +143,7 @@ public class WebUiHost implements UiHost {
 
     WebElement findUiElement(By locator) {
         List<WebElement> elements = findUiElements(locator);
-        if (elements.size() > 0) {
+        if ((elements != null ? elements.size() : 0) > 0) {
             return elements.get(0);
         } else {
             logger.warn(String.format("WARNING: Unable to find any element %s", locator.toString()));
@@ -162,21 +162,13 @@ public class WebUiHost implements UiHost {
         return elements;
     }
 
-    /***
-     * 'Visible' state
-     *
-     * @param locatorType String WebUiElement.UiLocatorType
-     * @param locatorValue String value
-     * @return boolean is visible
-     */
-    boolean waitUntilVisible(String locatorType, String locatorValue) {
-        By locator = constructLocator(locatorType, locatorValue);
+    boolean waitUntilVisible(WebElement element) {
         try {
             new WebDriverWait(driver, getConfig().getTimeout())
-                    .until(ExpectedConditions.visibilityOfElementLocated(locator));
+                    .until(ExpectedConditions.visibilityOf(element));
         } catch (WebDriverException e) {
-            String warningMessageFormat = "WARNING: WebUiElement '%s' failed to be displayed within %d seconds";
-            logger.warn(String.format(warningMessageFormat, locator.toString(), getConfig().getTimeout()));
+            String warningMessageFormat = "WARNING: WebElement failed to be displayed within %d seconds";
+            logger.warn(String.format(warningMessageFormat, getConfig().getTimeout()));
             return false;
         }
         return true;
