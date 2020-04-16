@@ -6,6 +6,9 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 @Test
 public class UiElementBehaviorsTests {
     @AfterMethod
@@ -61,6 +64,17 @@ public class UiElementBehaviorsTests {
         String actual = behaviors.getText();
         WebUiHost.quitInstance();
         String message = "Failed to return expected text";
+        Assert.assertEquals(actual, expected, message);
+    }
+
+    @Test
+    public void testGetList_web() {
+        String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
+        UiElementBehaviors behaviors = UiElementBehaviors.getInstance(UiLocatorType.TAG, "option");
+        WebUiHost.getInstance().load(uri);
+        Class expected = ArrayList.class;
+        Class actual = behaviors.getList().getClass();
+        String message = "Failed to a collection of Selenium RemoteWebElement";
         Assert.assertEquals(actual, expected, message);
     }
 }
