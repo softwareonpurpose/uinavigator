@@ -147,21 +147,9 @@ public class WebUiHost implements UiHost {
         return driver.getCurrentUrl();
     }
 
-    /**
-     * Find and return UI element by locator type and value
-     *
-     * @param locatorType  String WebUiElement.UiLocatorType
-     * @param locatorValue String value
-     * @return WebElement (Selenium)
-     */
-    WebElement findUiElement(String locatorType, String locatorValue) {
-        By locator = constructLocator(locatorType, locatorValue);
-        return findUiElement(locator);
-    }
-
     WebElement findUiElement(By locator) {
         List<WebElement> elements = findUiElements(locator);
-        if (elements != null && elements.size() > 0) {
+        if (elements.size() > 0) {
             return elements.get(0);
         } else {
             logger.warn(String.format("WARNING: Unable to find any element %s", locator.toString()));
@@ -174,18 +162,6 @@ public class WebUiHost implements UiHost {
      */
     void selectWindow() {
         driver.switchTo().defaultContent();
-    }
-
-    /**
-     * Find and return UI elements by locator type and value
-     *
-     * @param locatorType  String WebUiElement.UiLocatorType
-     * @param locatorValue String value
-     * @return WebElement collection (Selenium)
-     */
-    List<WebElement> findUiElements(String locatorType, String locatorValue) {
-        By locator = constructLocator(locatorType, locatorValue);
-        return new ArrayList<>(Objects.requireNonNull(findUiElements(locator)));
     }
 
     private List<WebElement> findUiElements(By locator) {

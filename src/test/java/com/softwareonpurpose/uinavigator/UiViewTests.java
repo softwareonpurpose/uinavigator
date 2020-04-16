@@ -2,10 +2,7 @@ package com.softwareonpurpose.uinavigator;
 
 import com.softwareonpurpose.uinavigator.web.WebUiHost;
 import com.softwareonpurpose.uinavigator.web.WebUiView;
-import com.softwareonpurpose.uinavigator.web.mock.BrokenMockView;
-import com.softwareonpurpose.uinavigator.web.mock.MockView;
-import com.softwareonpurpose.uinavigator.web.mock.RedirectMockView;
-import com.softwareonpurpose.uinavigator.web.mock.UnstableMockView;
+import com.softwareonpurpose.uinavigator.web.mock.*;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -39,7 +36,7 @@ public class UiViewTests {
         Assert.assertEquals(actual, expected, "Failed to return an instance of UiView");
     }
 
-    @Test(groups = "debug")
+    @Test
     public void testConstructor_confirmationFailure() {
         UnstableMockView.directNav();
         Class expected = UiView.class;
@@ -48,10 +45,18 @@ public class UiViewTests {
     }
 
     @Test(groups = "debug")
-    public void testLoad_relativePath() {
-        RedirectMockView.directNav();
+    public void testLoad_queryString() {
+        QueryStringMockView.directNav();
         Class expected = UiView.class;
-        Class actual = WebUiView.expect(RedirectMockView.class).getClass().getSuperclass().getSuperclass();
+        Class actual = WebUiView.expect(QueryStringMockView.class).getClass().getSuperclass().getSuperclass();
+        Assert.assertEquals(actual, expected, "Failed to return an instance of UiView");
+    }
+
+    @Test(groups = "debug")
+    public void testLoad_relativePath() {
+        RelativePathMockView.directNav();
+        Class expected = UiView.class;
+        Class actual = WebUiView.expect(RelativePathMockView.class).getClass().getSuperclass().getSuperclass();
         Assert.assertEquals(actual, expected, "Failed to return an instance of UiView");
     }
 }
