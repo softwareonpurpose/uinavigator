@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 @Test
 public class WebUiHostTests {
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void terminate() {
         WebUiHost.quitInstance();
     }
@@ -35,5 +35,12 @@ public class WebUiHostTests {
         RelativePathMockView.directNav();
         String actual = WebUiHost.getInstance().getCookieValue("NID", "www.google.com", "/");
         Assert.assertFalse((actual == null || actual.isEmpty()), "Failed to return a cookie value");
+    }
+
+    @Test
+    public void testGetInstance() {
+        Class expected = WebUiHost.class;
+        Class actual = WebUiHost.getInstance(DefaultChromeInstantiation.getInstance()).getClass();
+        Assert.assertEquals(actual, expected, "Failed to return an instance of WebUiHost");
     }
 }
