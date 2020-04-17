@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class WebGetListByLocatorAttribute implements WebGetListBehavior {
@@ -22,7 +23,7 @@ public class WebGetListByLocatorAttribute implements WebGetListBehavior {
     }
 
     @Override
-    public List<WebUiElement> execute() {
+    public Collection<WebUiElement> execute() {
         List<WebUiElement> elements = new ArrayList<>();
         List<WebElement> candidates = WebUiHost.getInstance().findUiElements(locator);
         int ordinal = 0;
