@@ -35,14 +35,4 @@ public class WebGetListByLocatorOrdinalParentTests {
         Collection<WebUiElement> actual = getListBehavior.execute();
         Assert.assertEquals(actual.size(), expected, "Failed to return one element in a list");
     }
-
-    @Test
-    public void testExecute_nonExistentOrdinal() {
-        MockView.directNav();
-        final int expected = 0;
-        final WebGetListByLocatorOrdinalParent getListBehavior =
-                WebGetListByLocatorOrdinalParent.getInstance(new By.ByTagName("body"), 5, null);
-        Collection<WebUiElement> actual = getListBehavior.execute();
-        Assert.assertEquals(actual.size(), expected, "Failed to return an empty list for nonexistent ordinal");
-    }
 }
