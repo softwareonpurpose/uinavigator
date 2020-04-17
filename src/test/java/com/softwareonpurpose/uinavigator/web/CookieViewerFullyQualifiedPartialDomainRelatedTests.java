@@ -7,7 +7,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class CookieViewerFullyQualifiedPartialTests {
+public class CookieViewerFullyQualifiedPartialDomainRelatedTests {
     private WebDriver driver;
 
     @AfterMethod
@@ -18,7 +18,7 @@ public class CookieViewerFullyQualifiedPartialTests {
     }
 
     @Test
-    public void testGetCookieValue_fullyQualifiedNameOnly() {
+    public void testGetCookieValue_fullyQualifiedNameDomain() {
         driver = DefaultChromeInstantiation.getInstance().instantiateDriver();
         String uri = "http://www.google.com";
         driver.navigate().to(uri);
@@ -26,21 +26,7 @@ public class CookieViewerFullyQualifiedPartialTests {
         js.executeScript("document.cookie = \"cookiename=cookievalue\";");
         String expected = "cookievalue";
         CookieViewer viewer = CookieViewer.getInstance(driver);
-        String actual = viewer.getCookieValue("cookiename", "nonexistent", "/nonexistent");
+        String actual = viewer.getCookieValue("cookiename", "www.google.com", null);
         Assert.assertEquals(actual, expected, "Failed to return expected cookie value");
     }
-
-    @Test
-    public void testGetCookieValue_fullyQualifiedNamePath() {
-        driver = DefaultChromeInstantiation.getInstance().instantiateDriver();
-        String uri = "http://www.google.com";
-        driver.navigate().to(uri);
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("document.cookie = \"cookiename=cookievalue\";");
-        String expected = "cookievalue";
-        CookieViewer viewer = CookieViewer.getInstance(driver);
-        String actual = viewer.getCookieValue("cookiename", null, "/");
-        Assert.assertEquals(actual, expected, "Failed to return expected cookie value");
-    }
-
 }
