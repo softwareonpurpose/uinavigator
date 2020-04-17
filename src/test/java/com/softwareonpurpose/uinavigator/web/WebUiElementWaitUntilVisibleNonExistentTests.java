@@ -7,17 +7,17 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class WebUiElementWaitUntilVisibleTests {
+public class WebUiElementWaitUntilVisibleNonExistentTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
         WebUiHost.quitInstance();
     }
 
     @Test
-    public void testWaitUntilVisible() {
+    public void testWaitUntilVisible_nonexistent() {
         MockView.directNav();
-        WebUiElement element = WebUiElement.getInstance("element", new By.ById("name"));
+        WebUiElement element = WebUiElement.getInstance("element", new By.ById("nonexistent"));
         boolean actual = element.waitUntilVisible();
-        Assert.assertTrue(actual, "Failed to return true when element is nonexistent");
+        Assert.assertFalse(actual, "Failed to return false when element is nonexistent");
     }
 }
