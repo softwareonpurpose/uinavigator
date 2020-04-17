@@ -13,7 +13,7 @@ public class WebGetListByLocatorParent implements WebGetListBehavior {
 
     private WebGetListByLocatorParent(By locator, WebGetElementBehavior getParent) {
         this.locator = locator;
-        this.getParent = getParent;
+        this.getParent = (getParent == null && new By.ByTagName("body").equals(locator)) ? null : getParent;
     }
 
     public static WebGetListByLocatorParent getInstance(By locator, WebGetElementBehavior getParent) {
