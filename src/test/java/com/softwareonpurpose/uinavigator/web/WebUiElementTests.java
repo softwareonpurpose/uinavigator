@@ -18,7 +18,7 @@ public class WebUiElementTests {
     public void testGetElement_initialized() {
         MockView.directNav();
         Class expected = RemoteWebElement.class;
-        final WebGetByLocatorOnly getBehavior = WebGetByLocatorOnly.getInstance(UiLocatorType.ID, "name");
+        final WebGetElementByLocator getBehavior = WebGetElementByLocator.getInstance(UiLocatorType.ID, "name");
         getBehavior.execute();
         Class actual = getBehavior.execute().getClass();
         Assert.assertEquals(actual, expected, "Failed to return the WebElement after it has been initialized");
@@ -42,7 +42,7 @@ public class WebUiElementTests {
 
     @Test
     public void testGetInstance_parent() {
-        WebGetByLocatorOnly getParent = WebGetByLocatorOnly.getInstance(UiLocatorType.TAG, "body");
+        WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "body");
         Class expected = WebUiElement.class;
         Class actual = WebUiElement.getInstance("Element", UiLocatorType.ID, "name", getParent).getClass();
         Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElement");
@@ -50,7 +50,7 @@ public class WebUiElementTests {
 
     @Test
     public void testGetInstance_ordinal() {
-        WebGetByLocatorOnly getParent = WebGetByLocatorOnly.getInstance(UiLocatorType.TAG, "body");
+        WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "body");
         Class expected = WebUiElement.class;
         Class actual = WebUiElement.getInstance("Element", UiLocatorType.ID, "name", 1, getParent).getClass();
         Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElement");
@@ -58,7 +58,7 @@ public class WebUiElementTests {
 
     @Test
     public void testGetInstance_attribute() {
-        WebGetByLocatorOnly getParent = WebGetByLocatorOnly.getInstance(UiLocatorType.TAG, "body");
+        WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "body");
         Class expected = WebUiElement.class;
         Class actual = WebUiElement.getInstance("Element", UiLocatorType.ID, "name", "data-test", "initial", getParent).getClass();
         Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElement");

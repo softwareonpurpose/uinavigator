@@ -1,5 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
+import com.softwareonpurpose.uinavigator.GetListBehavior;
 import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -7,7 +8,7 @@ import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class WebGetListByLocatorOnly implements WebGetListBehavior {
+public class WebGetListByLocatorOnly implements GetListBehavior {
     private final By locator;
     @Deprecated
     private final String locatorType;
@@ -34,14 +35,15 @@ public class WebGetListByLocatorOnly implements WebGetListBehavior {
         }
     }
 
-    public static WebGetListByLocatorOnly getInstance(String locatorType, String locatorValue) {
+    public static WebGetListByLocatorOnly getInstance(
+            String locatorType, String locatorValue, WebGetElementByLocator getParent) {
         return new WebGetListByLocatorOnly(locatorType, locatorValue);
     }
 
     @Override
     public Collection<WebUiElement> execute() {
         Collection<WebUiElement> elements = new ArrayList<>();
-        WebGetByLocatorOnly getParent = WebGetByLocatorOnly.getInstance(UiLocatorType.TAG, "body");
+        WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "body");
         Collection<WebElement> webElements = getParent.execute().findElements(locator);
         for (int elementOrdinal = 1; elementOrdinal <= webElements.size(); elementOrdinal += 1) {
             String elementDescription = String.format("#%d", elementOrdinal);

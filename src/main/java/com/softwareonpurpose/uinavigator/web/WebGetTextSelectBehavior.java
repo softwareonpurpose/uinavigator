@@ -1,6 +1,5 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.GetElementBehavior;
 import com.softwareonpurpose.uinavigator.GetTextBehavior;
 import org.openqa.selenium.support.ui.Select;
 

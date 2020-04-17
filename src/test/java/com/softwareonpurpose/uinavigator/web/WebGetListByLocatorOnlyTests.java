@@ -15,21 +15,21 @@ public class WebGetListByLocatorOnlyTests {
     @Test
     public void testConstructor_typeClass() {
         Class expected = WebGetListByLocatorOnly.class;
-        Class actual = WebGetListByLocatorOnly.getInstance(UiLocatorType.CLASS, "any").getClass();
+        Class actual = WebGetListByLocatorOnly.getInstance(UiLocatorType.CLASS, "any", null).getClass();
         Assert.assertEquals(actual, expected, "Failed to get an instance of WebGetListByLocatorOnly");
     }
 
     @Test
     public void testConstructor_typeId() {
         Class expected = WebGetListByLocatorOnly.class;
-        Class actual = WebGetListByLocatorOnly.getInstance(UiLocatorType.ID, "any").getClass();
+        Class actual = WebGetListByLocatorOnly.getInstance(UiLocatorType.ID, "any", null).getClass();
         Assert.assertEquals(actual, expected, "Failed to get an instance of WebGetListByLocatorOnly");
     }
 
     @Test
     public void testExecute_nonexistent() {
         int expected = 0;
-        int actual = WebGetListByLocatorOnly.getInstance(UiLocatorType.ID, "nonexistent").execute().size();
+        int actual = WebGetListByLocatorOnly.getInstance(UiLocatorType.ID, "nonexistent", null).execute().size();
         Assert.assertEquals(actual, expected, "Failed to return an empty Collection");
     }
 
@@ -38,7 +38,7 @@ public class WebGetListByLocatorOnlyTests {
         Class expected = WebUiElement.class;
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
         WebUiHost.getInstance().load(uri);
-        WebGetListByLocatorOnly listBehavior = WebGetListByLocatorOnly.getInstance(UiLocatorType.TAG, "option");
+        WebGetListByLocatorOnly listBehavior = WebGetListByLocatorOnly.getInstance(UiLocatorType.TAG, "option", null);
         Class actual = listBehavior.execute().iterator().next().getClass();
         Assert.assertEquals(actual, expected, "Failed to return a Collection of WebUiElement");
     }

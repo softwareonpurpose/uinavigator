@@ -28,7 +28,7 @@ public class UiViewTests {
         Assert.assertEquals(actual, expected, message);
     }
 
-    @Test
+    @Test(groups="debug")
     public void testConstructor() {
         MockView.directNav();
         Class expected = UiView.class;
