@@ -16,6 +16,31 @@ public class WebGetListByLocatorOrdinalParentTests {
     }
 
     @Test
+    public void testConstructor_bodyTagNullParent() {
+        Class expected = WebGetListByLocatorOrdinalParent.class;
+        Class actual = WebGetListByLocatorOrdinalParent.getInstance(new By.ByTagName("body"), 1, null).getClass();
+        final String message = "Failed to return an instance of WebGetListByLocatorOrdinalParent";
+        Assert.assertEquals(actual, expected, message);
+    }
+
+    @Test
+    public void testConstructor_selectTagNullParent() {
+        Class expected = WebGetListByLocatorOrdinalParent.class;
+        Class actual = WebGetListByLocatorOrdinalParent.getInstance(new By.ByTagName("select"), 1, null).getClass();
+        final String message = "Failed to return an instance of WebGetListByLocatorOrdinalParent";
+        Assert.assertEquals(actual, expected, message);
+    }
+
+    @Test
+    public void testConstructor_bodyTagPrentInstance() {
+        WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(new By.ByTagName("select"));
+        Class expected = WebGetListByLocatorOrdinalParent.class;
+        Class actual = WebGetListByLocatorOrdinalParent.getInstance(new By.ByTagName("select"), 1, getParent).getClass();
+        final String message = "Failed to return an instance of WebGetListByLocatorOrdinalParent";
+        Assert.assertEquals(actual, expected, message);
+    }
+
+    @Test
     public void testExecute() {
         MockView.directNav();
         WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(new By.ByTagName("select"));
