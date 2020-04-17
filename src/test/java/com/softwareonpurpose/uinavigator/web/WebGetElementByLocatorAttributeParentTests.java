@@ -2,6 +2,7 @@ package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.web.mock.MockView;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -39,5 +40,17 @@ public class WebGetElementByLocatorAttributeParentTests {
                 WebGetElementByLocatorAttributeParent.getInstance(locator, attribute, attributeValue, null);
         Class actual = getBehavior.execute().getClass();
         Assert.assertEquals(actual, expected, "Failed to return WebElement instance");
+    }
+
+    @Test
+    public void testExecute_nonExistent() {
+        MockView.directNav();
+        final By locator = new By.ByTagName("body");
+        final String attribute = "data-test";
+        final String attributeValue = "not-there";
+        final WebGetElementByLocatorAttributeParent getBehavior =
+                WebGetElementByLocatorAttributeParent.getInstance(locator, attribute, attributeValue, null);
+        WebElement actual = getBehavior.execute();
+        Assert.assertNull(actual, "Failed to return null when attribute value is non-existent");
     }
 }
