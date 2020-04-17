@@ -7,7 +7,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class CookieViewerFullyQualifiedTests {
+public class CookieViewerFullyQualifiedPartialTests {
     private WebDriver driver;
 
     @AfterMethod
@@ -15,19 +15,6 @@ public class CookieViewerFullyQualifiedTests {
         if (driver != null) {
             driver.quit();
         }
-    }
-
-    @Test
-    public void testGetCookieValue_fullyQualifiedMatch() {
-        driver = DefaultChromeInstantiation.getInstance().instantiateDriver();
-        String uri = "http://www.google.com";
-        driver.navigate().to(uri);
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("document.cookie = \"cookiename=cookievalue\";");
-        String expected = "cookievalue";
-        CookieViewer viewer = CookieViewer.getInstance(driver);
-        String actual = viewer.getCookieValue("cookiename", "www.google.com", "/");
-        Assert.assertEquals(actual, expected, "Failed to return expected cookie value");
     }
 
     @Test
