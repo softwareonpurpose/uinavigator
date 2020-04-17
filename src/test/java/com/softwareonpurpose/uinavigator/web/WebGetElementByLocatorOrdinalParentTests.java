@@ -44,20 +44,7 @@ public class WebGetElementByLocatorOrdinalParentTests {
     }
 
     @Test
-    public void testExecute() {
-        final By.ByTagName locator = new By.ByTagName("option");
-        WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(new By.ByTagName("select"));
-        final WebGetElementByLocatorOrdinalParent getBehavior =
-                WebGetElementByLocatorOrdinalParent.getInstance(locator, 4, getParent);
-        Class expected = RemoteWebElement.class;
-        MockView.directNav();
-        Class actual = getBehavior.execute().getClass();
-        final String message = "Failed to return an instance of RemoteWebElement";
-        Assert.assertEquals(actual, expected, message);
-    }
-
-    @Test
-    public void testExecute_parentNull() {
+    public void testExecute_bodyTagParentNull() {
         final By.ByTagName locator = new By.ByTagName("body");
         final WebGetElementByLocatorOrdinalParent getBehavior =
                 WebGetElementByLocatorOrdinalParent.getInstance(locator, 1, null);
