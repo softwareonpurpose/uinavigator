@@ -37,15 +37,7 @@ public class WebUiElementBehaviorsTests {
     }
 
     @Test
-    public void testGet_web() {
-        WebUiElementBehaviors behaviors = WebUiElementBehaviors.getInstanceByLocator(new By.ByTagName("body"));
-        Object actual = behaviors.get();
-        String message = "Failed to return a Selenium RemoteWebElement";
-        Assert.assertEquals(actual.getClass(), RemoteWebElement.class, message);
-    }
-
-    @Test
-    public void testGetText_web() {
+    public void testGetText() {
         WebUiElementBehaviors behaviors = WebUiElementBehaviors.getInstanceByLocator(new By.ByTagName("body"));
         String expected = "";
         String actual = behaviors.getText();
@@ -55,7 +47,7 @@ public class WebUiElementBehaviorsTests {
     }
 
     @Test
-    public void testSet_web() {
+    public void testSet() {
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
         WebUiHost.getInstance().load(uri);
         WebUiElementBehaviors behaviors = WebUiElementBehaviors.getInstanceByLocator(new By.ByName("user_name"));
@@ -64,17 +56,6 @@ public class WebUiElementBehaviorsTests {
         String actual = behaviors.getText();
         WebUiHost.quitInstance();
         String message = "Failed to return expected text";
-        Assert.assertEquals(actual, expected, message);
-    }
-
-    @Test
-    public void testGetList_web() {
-        String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
-        WebUiElementBehaviors behaviors = WebUiElementBehaviors.getInstanceByLocator(new By.ByTagName("option"));
-        WebUiHost.getInstance().load(uri);
-        Class expected = ArrayList.class;
-        Class actual = behaviors.getList().getClass();
-        String message = "Failed to a collection of Selenium RemoteWebElement";
         Assert.assertEquals(actual, expected, message);
     }
 }
