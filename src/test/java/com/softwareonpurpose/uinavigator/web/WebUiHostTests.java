@@ -16,11 +16,10 @@ public class WebUiHostTests {
     }
 
     @Test
-    public void testFindUiElement_nonexistent() {
-        WebElement expected = null;
-        WebElement actual = WebUiHost.getInstance().findUiElement(new By.ById("non-existent"));
-        //noinspection ConstantConditions
-        Assert.assertEquals(actual, expected, "Failed to return null for non-existent element");
+    public void testGetInstance() {
+        Class expected = WebUiHost.class;
+        Class actual = WebUiHost.getInstance(DefaultChromeInstantiation.getInstance()).getClass();
+        Assert.assertEquals(actual, expected, "Failed to return an instance of WebUiHost");
     }
 
     @Test
@@ -38,56 +37,20 @@ public class WebUiHostTests {
     }
 
     @Test
-    public void testGetInstance() {
-        Class expected = WebUiHost.class;
-        Class actual = WebUiHost.getInstance(DefaultChromeInstantiation.getInstance()).getClass();
-        Assert.assertEquals(actual, expected, "Failed to return an instance of WebUiHost");
+    public void testFindUiElement_nonexistent() {
+        WebElement expected = null;
+        WebElement actual = WebUiHost.getInstance().findUiElement(new By.ById("non-existent"));
+        //noinspection ConstantConditions
+        Assert.assertEquals(actual, expected, "Failed to return null for non-existent element");
     }
 
     @Test
-    public void testExecute() {
-        String javascript = "document.getElementsByName('user_name')[0].value = 'whatever';";
-        String expected = "whatever";
-        MockView.directNav();
-        final WebUiHost host = WebUiHost.getInstance();
-        host.execute(javascript);
-        final WebElement element = host.findUiElement(new By.ByName("user_name"));
-        final String actual = element.getAttribute("value");
-        Assert.assertEquals(actual, expected, "Failed to execute javascript successfully");
-    }
-
-    @Test
-    public void testExecute_javascriptExecutorException() {
-        String javascript = "document.getElementsByName('nonexistent')[0].value = 'whatever';";
-        MockView.directNav();
-        final WebUiHost host = WebUiHost.getInstance();
-        host.execute(javascript);
-        final WebElement element = host.findUiElement(new By.ByName("user_name"));
-        final String actual = element.getAttribute("value");
-        final String message = "Failed to return an empty String when JavascriptExecutor Exception thrown";
-        Assert.assertTrue(actual.isEmpty(), message);
-    }
-
-    @Test
-    public void testExecute_waitUntilVisible() {
+    public void testWaitUntilVisible() {
         MockView.directNav();
         final WebUiHost host = WebUiHost.getInstance();
         final WebElement element = host.findUiElement(new By.ByName("nonexistent"));
         final boolean actual = host.waitUntilVisible(element);
         Assert.assertFalse(actual, "Failed to return false for nonexistent element");
-    }
-
-    @Test
-    public void testSetAttribute() {
-        final String elementName = "user_name";
-        final String attribute = "data-test";
-        String expected = "updated";
-        MockView.directNav();
-        final WebUiHost host = WebUiHost.getInstance();
-        final WebElement element = host.findUiElement(new By.ByName(elementName));
-        host.setAttribute(element, attribute, expected);
-        String actual = host.findUiElement(new By.ByName(elementName)).getAttribute(attribute);
-        Assert.assertEquals(actual, expected, "Failed to update value of attribute");
     }
 
     @Test
