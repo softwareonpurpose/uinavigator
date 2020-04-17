@@ -1,5 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
+import com.softwareonpurpose.uinavigator.web.mock.MockView;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -16,6 +17,7 @@ public class WebGetListByLocatorOrdinalParentTests {
 
     @Test
     public void testExecute() {
+        MockView.directNav();
         WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(new By.ByTagName("select"));
         final WebGetListByLocatorOrdinalParent getListBehavior =
                 WebGetListByLocatorOrdinalParent.getInstance(new By.ByTagName("option"), 3, getParent);
