@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.UiLocatorType;
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -16,7 +16,7 @@ public class WebGetTextDefaultBehaviorTests {
     public void testExecute() {
         WebGetElementBehavior get =
                 WebGetElementProvider.getInstance(
-                        UiLocatorType.ID, "nonexistent",
+                        new By.ById("nonexistent"),
                         null, null,
                         null,
                         null);

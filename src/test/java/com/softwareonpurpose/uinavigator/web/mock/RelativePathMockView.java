@@ -1,15 +1,15 @@
 package com.softwareonpurpose.uinavigator.web.mock;
 
-import com.softwareonpurpose.uinavigator.UiLocatorType;
 import com.softwareonpurpose.uinavigator.web.WebUiElement;
 import com.softwareonpurpose.uinavigator.web.WebUiView;
+import org.openqa.selenium.By;
 
 public class RelativePathMockView extends WebUiView {
 
     private static final String VIEW_URI = "http://www.google.com";
 
     public RelativePathMockView() {
-        super(VIEW_URI, WebUiElement.getInstance("'Mock' view", UiLocatorType.TAG, "body"));
+        super(VIEW_URI, WebUiElement.getInstance("'Mock' view", new By.ByTagName("body")));
     }
 
     public static RelativePathMockView directNav() {

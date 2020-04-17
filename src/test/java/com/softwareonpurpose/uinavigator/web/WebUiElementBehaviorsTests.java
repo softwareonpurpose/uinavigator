@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.UiLocatorType;
+import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -20,7 +20,7 @@ public class WebUiElementBehaviorsTests {
         Class expected = WebUiElementBehaviors.class;
         Class actual =
                 WebUiElementBehaviors.getInstance(
-                        UiLocatorType.TAG, "body",
+                        new By.ByTagName("body"),
                         null, null,
                         null,
                         null).getClass();
@@ -31,8 +31,7 @@ public class WebUiElementBehaviorsTests {
     public void testGetInstance_select() {
         Class expected = WebUiElementBehaviors.class;
         Class actual =
-                WebUiElementBehaviors.getInstance(
-                        UiLocatorType.TAG, "select",
+                WebUiElementBehaviors.getInstance(new By.ByTagName("select"),
                         null, null,
                         null,
                         null).getClass();
@@ -44,7 +43,7 @@ public class WebUiElementBehaviorsTests {
         Class expected = WebUiElementBehaviors.class;
         Class actual =
                 WebUiElementBehaviors.getInstance(
-                        UiLocatorType.TAG, "name",
+                        new By.ByTagName("name"),
                         null, null,
                         null,
                         null).getClass();
@@ -55,7 +54,7 @@ public class WebUiElementBehaviorsTests {
     public void testGet_web() {
         WebUiElementBehaviors behaviors =
                 WebUiElementBehaviors.getInstance(
-                        UiLocatorType.TAG, "body",
+                        new By.ByTagName("body"),
                         null, null,
                         null,
                         null);
@@ -67,8 +66,7 @@ public class WebUiElementBehaviorsTests {
     @Test
     public void testGetText_web() {
         WebUiElementBehaviors behaviors =
-                WebUiElementBehaviors.getInstance(
-                        UiLocatorType.TAG, "body",
+                WebUiElementBehaviors.getInstance(new By.ByTagName("body"),
                         null, null,
                         null,
                         null);
@@ -84,8 +82,7 @@ public class WebUiElementBehaviorsTests {
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
         WebUiHost.getInstance().load(uri);
         WebUiElementBehaviors behaviors =
-                WebUiElementBehaviors.getInstance(
-                        UiLocatorType.NAME, "user_name",
+                WebUiElementBehaviors.getInstance(new By.ByName("user_name"),
                         null, null,
                         null,
                         null);
@@ -101,8 +98,7 @@ public class WebUiElementBehaviorsTests {
     public void testGetList_web() {
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
         WebUiElementBehaviors behaviors =
-                WebUiElementBehaviors.getInstance(
-                        UiLocatorType.TAG, "option",
+                WebUiElementBehaviors.getInstance(new By.ByTagName("option"),
                         null, null,
                         null,
                         null);

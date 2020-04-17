@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.UiLocatorType;
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -17,7 +17,7 @@ public class WebGetTextSelectBehaviorTests {
         String message = "Failed to return null when 'select' element has NO 'option' elements";
         WebGetElementBehavior get =
                 WebGetElementProvider.getInstance(
-                        UiLocatorType.ID, "empty-select",
+                        new By.ById("empty-select"),
                         null, null,
                         null,
                         null);

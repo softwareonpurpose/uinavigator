@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.UiLocatorType;
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -15,7 +15,7 @@ public class WebSetSelectBehaviorTests {
     @Test
     public void testExecute() {
         WebGetElementBehavior getElement =
-                WebGetElementProvider.getInstance(UiLocatorType.ID, "pet-select",
+                WebGetElementProvider.getInstance(new By.ById("pet-select"),
                         null, null,
                         null,
                         null);

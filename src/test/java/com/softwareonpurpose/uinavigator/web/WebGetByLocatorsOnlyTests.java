@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.UiLocatorType;
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -8,31 +8,31 @@ import org.testng.annotations.Test;
 public class WebGetByLocatorsOnlyTests {
     @Test
     public void testConstructor_class() {
-        WebGetElementByLocator.getInstance(UiLocatorType.CLASS, "select");
+        WebGetElementByLocator.getInstance(new By.ByClassName("select"));
         Assert.assertTrue(true, "Failed:  constructor threw exception");
     }
 
     @Test
     public void testConstructor_id() {
-        WebGetElementByLocator.getInstance(UiLocatorType.ID, "elementID");
+        WebGetElementByLocator.getInstance(new By.ById("elementID"));
         Assert.assertTrue(true, "Failed:  constructor threw exception");
     }
 
     @Test
     public void testConstructor_name() {
-        WebGetElementByLocator.getInstance(UiLocatorType.NAME, "nameValue");
+        WebGetElementByLocator.getInstance(new By.ByName("nameValue"));
         Assert.assertTrue(true, "Failed:  constructor threw exception");
     }
 
     @Test
     public void testConstructor_tag() {
-        WebGetElementByLocator.getInstance(UiLocatorType.TAG, "body");
+        WebGetElementByLocator.getInstance(new By.ByTagName("body"));
         Assert.assertTrue(true, "Failed:  constructor threw exception");
     }
 
     @Test
     public void testConstructor_null() {
-        WebGetElementByLocator.getInstance("non-existent locator", "unknown value");
+        WebGetElementByLocator.getInstance(null);
         Assert.assertTrue(true, "Failed:  constructor threw exception");
     }
 }

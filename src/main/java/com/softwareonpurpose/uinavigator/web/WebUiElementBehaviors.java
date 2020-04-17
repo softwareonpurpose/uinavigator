@@ -1,12 +1,16 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.*;
+import com.softwareonpurpose.uinavigator.GetElementBehavior;
+import com.softwareonpurpose.uinavigator.GetListBehavior;
+import com.softwareonpurpose.uinavigator.GetTextBehavior;
+import com.softwareonpurpose.uinavigator.SetElementBehavior;
+import org.openqa.selenium.By;
 
 import java.util.Collection;
 
 public class WebUiElementBehaviors {
     private static final WebGetElementBehavior defaultParentLocator =
-            WebGetElementByLocator.getInstance(UiLocatorType.TAG, "body");
+            WebGetElementByLocator.getInstance(new By.ByTagName("body"));
     private final GetElementBehavior getElement;
     private final GetListBehavior getList;
     private final SetElementBehavior setElement;
@@ -25,21 +29,21 @@ public class WebUiElementBehaviors {
     }
 
     public static WebUiElementBehaviors getInstance(
-            String locatorType, String locatorValue,
+            By locator,
             String attribute, String attributeValue,
             Integer ordinal,
             WebGetElementBehavior getParent) {
         SetElementBehavior setElementBehavior;
         GetTextBehavior getTextBehavior;
-        boolean isBodyTag = (UiLocatorType.TAG.equals(locatorType) && "body".equals(locatorValue));
+        boolean isBodyTag = new By.ByTagName("body").equals(locator);
         WebGetElementBehavior webGetParent = getParent != null ? getParent : isBodyTag ? null : defaultParentLocator;
         WebGetElementBehavior getBehavior =
                 WebGetElementProvider.getInstance(
-                        locatorType, locatorValue, attribute, attributeValue, ordinal, webGetParent);
+                        locator, attribute, attributeValue, ordinal, webGetParent);
         GetListBehavior getListBehavior =
-                WebGetListBehavior.getInstance(
-                        locatorType, locatorValue, attribute, attributeValue, ordinal, webGetParent);
-        if (UiLocatorType.TAG.equals(locatorType) && "select".equals(locatorValue)) {
+                WebGetListProvider.getInstance(
+                        locator, attribute, attributeValue, ordinal, webGetParent);
+        if (new By.ByTagName("select").equals(locator)) {
             setElementBehavior = WebSetSelectBehavior.getInstance(getBehavior);
             getTextBehavior = WebGetTextSelectBehavior.getInstance(getBehavior);
         } else {

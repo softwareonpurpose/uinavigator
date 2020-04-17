@@ -1,7 +1,7 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.UiLocatorType;
 import com.softwareonpurpose.uinavigator.web.mock.MockView;
+import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -18,7 +18,7 @@ public class WebUiElementTests {
     public void testGetElement_initialized() {
         MockView.directNav();
         Class expected = RemoteWebElement.class;
-        final WebGetElementByLocator getBehavior = WebGetElementByLocator.getInstance(UiLocatorType.ID, "name");
+        final WebGetElementByLocator getBehavior = WebGetElementByLocator.getInstance(new By.ById("name"));
         getBehavior.execute();
         Class actual = getBehavior.execute().getClass();
         Assert.assertEquals(actual, expected, "Failed to return the WebElement after it has been initialized");
@@ -27,7 +27,7 @@ public class WebUiElementTests {
     @Test
     public void testWaitUntilVisible() {
         MockView.directNav();
-        WebUiElement element = WebUiElement.getInstance("element", UiLocatorType.ID, "name");
+        WebUiElement element = WebUiElement.getInstance("element", new By.ById("name"));
         boolean actual = element.waitUntilVisible();
         Assert.assertTrue(actual, "Failed to return true when element is nonexistent");
     }
@@ -35,32 +35,32 @@ public class WebUiElementTests {
     @Test
     public void testWaitUntilVisible_nonexistent() {
         MockView.directNav();
-        WebUiElement element = WebUiElement.getInstance("element", UiLocatorType.ID, "nonexistent");
+        WebUiElement element = WebUiElement.getInstance("element", new By.ById("nonexistent"));
         boolean actual = element.waitUntilVisible();
         Assert.assertFalse(actual, "Failed to return false when element is nonexistent");
     }
 
     @Test
     public void testGetInstance_parent() {
-        WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "body");
+        WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(new By.ByTagName("body"));
         Class expected = WebUiElement.class;
-        Class actual = WebUiElement.getInstance("Element", UiLocatorType.ID, "name", getParent).getClass();
+        Class actual = WebUiElement.getInstance("Element", new By.ById("name"), getParent).getClass();
         Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElement");
     }
 
     @Test
     public void testGetInstance_ordinal() {
-        WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "body");
+        WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(new By.ByTagName("body"));
         Class expected = WebUiElement.class;
-        Class actual = WebUiElement.getInstance("Element", UiLocatorType.ID, "name", 1, getParent).getClass();
+        Class actual = WebUiElement.getInstance("Element", new By.ById("name"), 1, getParent).getClass();
         Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElement");
     }
 
     @Test
     public void testGetInstance_attribute() {
-        WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "body");
+        WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(new By.ByTagName("body"));
         Class expected = WebUiElement.class;
-        Class actual = WebUiElement.getInstance("Element", UiLocatorType.ID, "name", "data-test", "initial", getParent).getClass();
+        Class actual = WebUiElement.getInstance("Element", new By.ById("name"), "data-test", "initial", getParent).getClass();
         Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElement");
     }
 }

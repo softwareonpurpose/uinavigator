@@ -150,7 +150,7 @@ public class WebUiHost implements UiHost {
         }
     }
 
-    private List<WebElement> findUiElements(By locator) {
+    List<WebElement> findUiElements(By locator) {
         List<WebElement> elements = new ArrayList<>();
         try {
             elements = driver.findElements(locator);
