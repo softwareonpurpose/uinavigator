@@ -25,22 +25,6 @@ public class WebUiElementTests {
     }
 
     @Test
-    public void testWaitUntilVisible() {
-        MockView.directNav();
-        WebUiElement element = WebUiElement.getInstance("element", new By.ById("name"));
-        boolean actual = element.waitUntilVisible();
-        Assert.assertTrue(actual, "Failed to return true when element is nonexistent");
-    }
-
-    @Test
-    public void testWaitUntilVisible_nonexistent() {
-        MockView.directNav();
-        WebUiElement element = WebUiElement.getInstance("element", new By.ById("nonexistent"));
-        boolean actual = element.waitUntilVisible();
-        Assert.assertFalse(actual, "Failed to return false when element is nonexistent");
-    }
-
-    @Test
     public void testGetInstance_parent() {
         WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(new By.ByTagName("body"));
         Class expected = WebUiElement.class;
