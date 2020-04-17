@@ -28,6 +28,6 @@ public class WebGetElementByLocatorOrdinalParent implements WebGetElementBehavio
         } else {
             elements = getParent.execute().findElements(locator);
         }
-        return elements.get(ordinal - 1);
+        return elements.size() >= ordinal ? elements.get(ordinal - 1) : null;
     }
 }
