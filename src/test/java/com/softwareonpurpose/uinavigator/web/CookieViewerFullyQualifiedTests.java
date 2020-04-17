@@ -44,34 +44,6 @@ public class CookieViewerFullyQualifiedTests {
     }
 
     @Test
-    public void testGetCookieValue_fullyQualifiedDomainOnly() {
-        driver = DefaultChromeInstantiation.getInstance().instantiateDriver();
-        String uri = "http://www.google.com";
-        driver.navigate().to(uri);
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("document.cookie = \"cookiename=cookievalue\";");
-        String expected = null;
-        CookieViewer viewer = CookieViewer.getInstance(driver);
-        String actual = viewer.getCookieValue("nonexistent", "www.google.com", "/nonexistent");
-        //noinspection ConstantConditions
-        Assert.assertEquals(actual, expected, "Failed to return expected cookie value");
-    }
-
-    @Test
-    public void testGetCookieValue_fullyQualifiedPathOnly() {
-        driver = DefaultChromeInstantiation.getInstance().instantiateDriver();
-        String uri = "http://www.google.com";
-        driver.navigate().to(uri);
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("document.cookie = \"cookiename=cookievalue\";");
-        String expected = null;
-        CookieViewer viewer = CookieViewer.getInstance(driver);
-        String actual = viewer.getCookieValue("nonexistent", "nonexistent", "/");
-        //noinspection ConstantConditions
-        Assert.assertEquals(actual, expected, "Failed to return expected cookie value");
-    }
-
-    @Test
     public void testGetCookieValue_fullyQualifiedNameDomain() {
         driver = DefaultChromeInstantiation.getInstance().instantiateDriver();
         String uri = "http://www.google.com";
@@ -94,20 +66,6 @@ public class CookieViewerFullyQualifiedTests {
         String expected = "cookievalue";
         CookieViewer viewer = CookieViewer.getInstance(driver);
         String actual = viewer.getCookieValue("cookiename", null, "/");
-        Assert.assertEquals(actual, expected, "Failed to return expected cookie value");
-    }
-
-    @Test
-    public void testGetCookieValue_fullyQualifiedDomainPath() {
-        driver = DefaultChromeInstantiation.getInstance().instantiateDriver();
-        String uri = "http://www.google.com";
-        driver.navigate().to(uri);
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("document.cookie = \"cookiename=cookievalue\";");
-        String expected = null;
-        CookieViewer viewer = CookieViewer.getInstance(driver);
-        String actual = viewer.getCookieValue(null, "www.google.com", "/");
-        //noinspection ConstantConditions
         Assert.assertEquals(actual, expected, "Failed to return expected cookie value");
     }
 

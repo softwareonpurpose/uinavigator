@@ -43,6 +43,17 @@ public class WebGetElementByLocatorParentTests {
         MockView.directNav();
         final By.ByName locator = new By.ByName("user_name");
         Class expected = RemoteWebElement.class;
+        WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(new By.ByTagName("form"));
+        Class actual = WebGetElementByLocatorParent.getInstance(locator, getParent).execute().getClass();
+        final String message = "Failed to return new instance with parent 'null' and locator is 'body' tag";
+        Assert.assertEquals(actual, expected, message);
+    }
+
+    @Test
+    public void testExecute_nullParent() {
+        MockView.directNav();
+        final By.ByName locator = new By.ByName("user_name");
+        Class expected = RemoteWebElement.class;
         Class actual = WebGetElementByLocatorParent.getInstance(locator, null).execute().getClass();
         final String message = "Failed to return new instance with parent 'null' and locator is 'body' tag";
         Assert.assertEquals(actual, expected, message);
