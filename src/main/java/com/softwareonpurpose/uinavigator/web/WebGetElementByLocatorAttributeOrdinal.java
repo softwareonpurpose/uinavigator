@@ -3,7 +3,6 @@ package com.softwareonpurpose.uinavigator.web;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WebGetElementByLocatorAttributeOrdinal implements WebGetElementBehavior {
@@ -29,9 +28,12 @@ public class WebGetElementByLocatorAttributeOrdinal implements WebGetElementBeha
         List<WebElement> candidates = WebUiHost.getInstance().findUiElements(locator);
         Integer ordinal = 0;
         for (WebElement candidate : candidates) {
-            ordinal += 1;
-            if (candidate.getAttribute(attribute).equals(attributeValue) && ordinal.equals(this.ordinal)) {
-                return candidate;
+            final String attributeValue = candidate.getAttribute(this.attribute);
+            if (attributeValue != null && attributeValue.equals(this.attributeValue)) {
+                ordinal += 1;
+                if (ordinal.equals(this.ordinal)) {
+                    return candidate;
+                }
             }
         }
         return null;
