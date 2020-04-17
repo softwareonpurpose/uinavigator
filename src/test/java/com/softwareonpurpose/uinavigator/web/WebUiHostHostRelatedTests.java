@@ -1,7 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.web.mock.MockView;
-import com.softwareonpurpose.uinavigator.web.mock.RelativePathMockView;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -25,13 +24,6 @@ public class WebUiHostHostRelatedTests {
         String expected = MockView.directNav().getUri();
         String actual = WebUiHost.getInstance().getUri();
         Assert.assertEquals(actual, expected, "Failed to return expected URI");
-    }
-
-    @Test
-    public void testGetCookieValue() {
-        RelativePathMockView.directNav();
-        String actual = WebUiHost.getInstance().getCookieValue("NID", "www.google.com", "/");
-        Assert.assertFalse((actual == null || actual.isEmpty()), "Failed to return a cookie value");
     }
 
     @Test
