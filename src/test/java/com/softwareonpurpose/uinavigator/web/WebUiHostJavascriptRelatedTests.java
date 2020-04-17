@@ -27,18 +27,6 @@ public class WebUiHostJavascriptRelatedTests {
     }
 
     @Test
-    public void testExecute_javascriptExecutorException() {
-        String javascript = "document.getElementsByName('nonexistent')[0].value = 'whatever';";
-        MockView.directNav();
-        final WebUiHost host = WebUiHost.getInstance();
-        host.execute(javascript);
-        final WebElement element = host.findUiElement(new By.ByName("user_name"));
-        final String actual = element.getAttribute("value");
-        final String message = "Failed to return an empty String when JavascriptExecutor Exception thrown";
-        Assert.assertTrue(actual.isEmpty(), message);
-    }
-
-    @Test
     public void testSetAttribute() {
         final String elementName = "user_name";
         final String attribute = "data-test";
