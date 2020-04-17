@@ -13,7 +13,7 @@ public class WebGetElementByLocatorOrdinalParent implements WebGetElementBehavio
     private WebGetElementByLocatorOrdinalParent(By locator, Integer ordinal, WebGetElementBehavior getParent) {
         this.locator = locator;
         this.ordinal = ordinal;
-        this.getParent = (getParent == null && new By.ByTagName("body").equals(locator)) ? null : getParent;
+        this.getParent = (new By.ByTagName("body").equals(locator)) ? null : getParent;
     }
 
     public static WebGetElementByLocatorOrdinalParent getInstance(By locator, Integer ordinal, WebGetElementBehavior getParent) {

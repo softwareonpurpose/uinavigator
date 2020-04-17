@@ -6,23 +6,20 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
-import java.util.Collection;
-
 @Test
-public class WebGetListByLocatorParentExecuteTests {
+public class WebGetListByLocatorParentExecuteSingleElementTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
         WebUiHost.quitInstance();
     }
 
     @Test
-    public void testExecute() {
+    public void testExecute_parentNull() {
         MockView.directNav();
-        WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(new By.ByTagName("select"));
         Class expected = WebUiElement.class;
-        final Collection<WebUiElement> getListBehavior =
-                WebGetListByLocatorParent.getInstance(new By.ByTagName("option"), getParent).execute();
-        Class actual = getListBehavior.iterator().next().getClass();
+        final WebGetListByLocatorParent getListBehavior =
+                WebGetListByLocatorParent.getInstance(new By.ByTagName("body"), null);
+        Class actual = getListBehavior.execute().iterator().next().getClass();
         Assert.assertEquals(actual, expected, "Failed to return a list of WebUiElements");
     }
 }

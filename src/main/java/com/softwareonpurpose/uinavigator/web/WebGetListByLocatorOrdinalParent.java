@@ -15,7 +15,7 @@ public class WebGetListByLocatorOrdinalParent implements WebGetListBehavior {
     private WebGetListByLocatorOrdinalParent(By locator, Integer ordinal, WebGetElementBehavior getParent) {
         this.locator = locator;
         this.ordinal = ordinal;
-        this.getParent = (getParent == null && new By.ByTagName("body").equals(locator)) ? null : getParent;
+        this.getParent = (new By.ByTagName("body").equals(locator)) ? null : getParent;
     }
 
     public static WebGetListByLocatorOrdinalParent getInstance(

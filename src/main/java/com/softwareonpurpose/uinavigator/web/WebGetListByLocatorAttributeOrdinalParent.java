@@ -20,7 +20,7 @@ public class WebGetListByLocatorAttributeOrdinalParent implements WebGetListBeha
         this.attribute = attribute;
         this.attributeValue = attributeValue;
         this.ordinal = ordinal;
-        this.getParent = (getParent == null && new By.ByTagName("body").equals(locator)) ? null : getParent;
+        this.getParent = (new By.ByTagName("body").equals(locator)) ? null : getParent;
     }
 
     public static WebGetListByLocatorAttributeOrdinalParent getInstance(

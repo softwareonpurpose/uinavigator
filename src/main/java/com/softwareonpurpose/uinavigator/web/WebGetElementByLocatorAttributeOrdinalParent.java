@@ -19,7 +19,7 @@ public class WebGetElementByLocatorAttributeOrdinalParent implements WebGetEleme
         this.attributeValue = attributeValue;
         this.attribute = attribute;
         this.ordinal = ordinal;
-        this.getParent = (getParent == null && new By.ByTagName("body").equals(locator)) ? null : getParent;
+        this.getParent = (new By.ByTagName("body").equals(locator)) ? null : getParent;
     }
 
     public static WebGetElementByLocatorAttributeOrdinalParent getInstance(

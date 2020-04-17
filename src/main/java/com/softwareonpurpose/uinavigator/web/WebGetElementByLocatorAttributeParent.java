@@ -17,7 +17,7 @@ public class WebGetElementByLocatorAttributeParent implements WebGetElementBehav
         this.locator = locator;
         this.attribute = attribute;
         this.attributeValue = attributeValue;
-        this.getParent = (getParent == null && new By.ByTagName("body").equals(locator)) ? null : getParent;
+        this.getParent = (new By.ByTagName("body").equals(locator)) ? null : getParent;
     }
 
     public static WebGetElementByLocatorAttributeParent getInstance(
