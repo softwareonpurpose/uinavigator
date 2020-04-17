@@ -19,9 +19,20 @@ public class WebGetListByLocatorOrdinalParentTests {
     public void testExecute() {
         MockView.directNav();
         WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(new By.ByTagName("select"));
+        final int expected = 1;
         final WebGetListByLocatorOrdinalParent getListBehavior =
                 WebGetListByLocatorOrdinalParent.getInstance(new By.ByTagName("option"), 3, getParent);
         Collection<WebUiElement> actual = getListBehavior.execute();
-        Assert.assertTrue(actual.size() > 0, "Failed to return a list of elements");
+        Assert.assertEquals(actual.size(), expected, "Failed to return one element in a list");
+    }
+
+    @Test
+    public void testExecute_parentNull() {
+        MockView.directNav();
+        final int expected = 1;
+        final WebGetListByLocatorOrdinalParent getListBehavior =
+                WebGetListByLocatorOrdinalParent.getInstance(new By.ByTagName("body"), 1, null);
+        Collection<WebUiElement> actual = getListBehavior.execute();
+        Assert.assertEquals(actual.size(), expected, "Failed to return one element in a list");
     }
 }

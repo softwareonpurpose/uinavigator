@@ -18,7 +18,7 @@ public class WebGetListByLocatorAttributeParent implements WebGetListBehavior {
         this.locator = locator;
         this.attribute = attribute;
         this.attributeValue = attributeValue;
-        this.getParent = getParent;
+        this.getParent = (getParent == null && new By.ByTagName("body").equals(locator)) ? null : getParent;
     }
 
     public static WebGetListByLocatorAttributeParent getInstance(
