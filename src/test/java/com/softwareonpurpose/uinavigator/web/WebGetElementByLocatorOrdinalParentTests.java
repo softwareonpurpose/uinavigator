@@ -30,4 +30,13 @@ public class WebGetElementByLocatorOrdinalParentTests {
         final String message = "Failed to return an instance of WebGetElementByLocatorOrdinalParent";
         Assert.assertEquals(actual, expected, message);
     }
+
+    @Test
+    public void testConstructor_labelTagParentNull() {
+        final By.ByTagName locator = new By.ByTagName("label");
+        Class expected = WebGetElementByLocatorOrdinalParent.class;
+        Class actual = WebGetElementByLocatorOrdinalParent.getInstance(locator, 2, null).getClass();
+        final String message = "Failed to return an instance of WebGetElementByLocatorOrdinalParent";
+        Assert.assertEquals(actual, expected, message);
+    }
 }
