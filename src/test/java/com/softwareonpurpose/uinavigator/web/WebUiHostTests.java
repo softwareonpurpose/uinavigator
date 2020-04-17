@@ -89,4 +89,11 @@ public class WebUiHostTests {
         String actual = host.findUiElement(new By.ByName(elementName)).getAttribute(attribute);
         Assert.assertEquals(actual, expected, "Failed to update value of attribute");
     }
+
+    @Test
+    public void testGetDriverName() {
+        String expected = "ChromeDriver";
+        String actual = WebUiHost.getInstance().getDriverName();
+        Assert.assertTrue(actual.endsWith(expected), "Failed to return correct driver name");
+    }
 }
