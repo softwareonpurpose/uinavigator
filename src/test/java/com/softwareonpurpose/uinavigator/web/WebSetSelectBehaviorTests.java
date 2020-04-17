@@ -14,11 +14,7 @@ public class WebSetSelectBehaviorTests {
 
     @Test
     public void testExecute() {
-        WebGetElementBehavior getElement =
-                WebGetElementProvider.getInstance(new By.ById("pet-select"),
-                        null, null,
-                        null,
-                        null);
+        WebGetElementBehavior getElement = WebGetElementProvider.getInstance(new By.ById("pet-select"));
         WebGetTextSelectBehavior getText = WebGetTextSelectBehavior.getInstance(getElement);
         WebSetSelectBehavior setText = WebSetSelectBehavior.getInstance(getElement);
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";

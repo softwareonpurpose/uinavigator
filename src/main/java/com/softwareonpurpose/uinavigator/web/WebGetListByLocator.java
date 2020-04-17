@@ -6,16 +6,16 @@ import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class WebGetListByLocatorOnly implements WebGetListBehavior {
+public class WebGetListByLocator implements WebGetListBehavior {
     private final By locator;
 
-    private WebGetListByLocatorOnly(By locator) {
+    private WebGetListByLocator(By locator) {
         this.locator = locator;
     }
 
-    public static WebGetListByLocatorOnly getInstance(
+    public static WebGetListByLocator getInstance(
             By locator) {
-        return new WebGetListByLocatorOnly(locator);
+        return new WebGetListByLocator(locator);
     }
 
     @Override

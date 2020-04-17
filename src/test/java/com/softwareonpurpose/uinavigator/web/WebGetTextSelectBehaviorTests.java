@@ -15,12 +15,7 @@ public class WebGetTextSelectBehaviorTests {
     @Test
     public void testExecute() {
         String message = "Failed to return null when 'select' element has NO 'option' elements";
-        WebGetElementBehavior get =
-                WebGetElementProvider.getInstance(
-                        new By.ById("empty-select"),
-                        null, null,
-                        null,
-                        null);
+        WebGetElementBehavior get = WebGetElementProvider.getInstance(new By.ById("empty-select"));
         WebGetTextSelectBehavior getText = WebGetTextSelectBehavior.getInstance(get);
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
         String expected = null;
