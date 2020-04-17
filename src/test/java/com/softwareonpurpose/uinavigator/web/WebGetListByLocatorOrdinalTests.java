@@ -20,4 +20,12 @@ public class WebGetListByLocatorOrdinalTests {
         Integer actual = WebGetListByLocatorOrdinal.getInstance(new By.ByTagName("option"), 3).execute().size();
         Assert.assertEquals(actual, expected, "Failed to return list of one instance of WebUiElement");
     }
+
+    @Test
+    public void testExecute_nonExistent() {
+        MockView.directNav();
+        Integer expected = 0;
+        Integer actual = WebGetListByLocatorOrdinal.getInstance(new By.ByTagName("label"), 3).execute().size();
+        Assert.assertEquals(actual, expected, "Failed to return empty list of WebUiElement");
+    }
 }
