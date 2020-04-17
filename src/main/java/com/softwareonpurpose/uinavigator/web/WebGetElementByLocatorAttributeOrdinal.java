@@ -27,12 +27,13 @@ public class WebGetElementByLocatorAttributeOrdinal implements WebGetElementBeha
     @Override
     public WebElement execute() {
         List<WebElement> candidates = WebUiHost.getInstance().findUiElements(locator);
-        List<WebElement> elements = new ArrayList<>();
+        Integer ordinal = 0;
         for (WebElement candidate : candidates) {
-            if (candidate.getAttribute(attribute).equals(attributeValue)) {
-                elements.add(candidate);
+            ordinal += 1;
+            if (candidate.getAttribute(attribute).equals(attributeValue) && ordinal.equals(this.ordinal)) {
+                return candidate;
             }
         }
-        return elements.get(ordinal - 1);
+        return null;
     }
 }
