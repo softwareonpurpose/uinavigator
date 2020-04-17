@@ -7,7 +7,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class CookieViewerNonExistentTests {
+public class CookieViewerNonExistentDomainRelatedTests {
     private WebDriver driver;
 
     @AfterMethod
@@ -18,17 +18,7 @@ public class CookieViewerNonExistentTests {
     }
 
     @Test
-    public void testGetCookieValue_nonexistent() {
-        driver = DefaultChromeInstantiation.getInstance().instantiateDriver();
-        String expected = null;
-        CookieViewer viewer = CookieViewer.getInstance(driver);
-        String actual = viewer.getCookieValue("unknown", "domain", "path");
-        //noinspection ConstantConditions
-        Assert.assertEquals(actual, expected, "Failed to return an instance of CookieViewer");
-    }
-
-    @Test
-    public void testGetCookieValue_nameQualifiedNonExistent() {
+    public void testGetCookieValue_nameDomainQualifiedDomainOnly() {
         driver = DefaultChromeInstantiation.getInstance().instantiateDriver();
         String uri = "http://www.google.com";
         driver.navigate().to(uri);
@@ -36,7 +26,7 @@ public class CookieViewerNonExistentTests {
         js.executeScript("document.cookie = \"cookiename=cookievalue\";");
         String expected = null;
         CookieViewer viewer = CookieViewer.getInstance(driver);
-        String actual = viewer.getCookieValue("nonexistent");
+        String actual = viewer.getCookieValue("nonexistent", "www.google.com");
         //noinspection ConstantConditions
         Assert.assertEquals(actual, expected, "Failed to return expected cookie value");
     }
