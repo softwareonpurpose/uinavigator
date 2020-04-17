@@ -14,7 +14,7 @@ public class WebGetTextDefaultBehaviorTests {
 
     @Test
     public void testExecute() {
-        WebGetElementBehavior get = WebGetElementProvider.getInstance(new By.ById("nonexistent"));
+        WebGetElementBehavior get = WebGetElementByLocator.getInstance(new By.ById("nonexistent"));
         WebGetTextDefaultBehavior getText = WebGetTextDefaultBehavior.getInstance(get);
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
         String expected = null;

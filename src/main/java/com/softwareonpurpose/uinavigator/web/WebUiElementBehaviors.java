@@ -28,31 +28,6 @@ public class WebUiElementBehaviors {
         this.getText = getText;
     }
 
-    public static WebUiElementBehaviors getInstance(
-            By locator,
-            String attribute, String attributeValue,
-            Integer ordinal,
-            WebGetElementBehavior getParent) {
-        SetElementBehavior setElementBehavior;
-        GetTextBehavior getTextBehavior;
-        boolean isBodyTag = new By.ByTagName("body").equals(locator);
-        WebGetElementBehavior webGetParent = getParent != null ? getParent : isBodyTag ? null : defaultParentLocator;
-        WebGetElementBehavior getBehavior =
-                WebGetElementProvider.getInstance(
-                        locator, attribute, attributeValue, ordinal, webGetParent);
-        WebGetListBehavior getListBehavior =
-                WebGetListProvider.getInstance(
-                        locator, attribute, attributeValue, ordinal, webGetParent);
-        if (new By.ByTagName("select").equals(locator)) {
-            setElementBehavior = WebSetSelectBehavior.getInstance(getBehavior);
-            getTextBehavior = WebGetTextSelectBehavior.getInstance(getBehavior);
-        } else {
-            setElementBehavior = WebSetDefaultBehavior.getInstance(getBehavior);
-            getTextBehavior = WebGetTextDefaultBehavior.getInstance(getBehavior);
-        }
-        return new WebUiElementBehaviors(getBehavior, getListBehavior, setElementBehavior, getTextBehavior);
-    }
-
     static WebUiElementBehaviors getInstanceByLocator(By locator) {
         WebGetElementBehavior getElement = WebGetElementByLocator.getInstance(locator);
         WebGetListBehavior getList = WebGetListByLocator.getInstance(locator);

@@ -23,4 +23,12 @@ public class WebGetElementByLocatorOrdinalTests {
                 WebGetElementByLocatorOrdinal.getInstance(new By.ByTagName("option"), 5).execute().getClass();
         Assert.assertEquals(actual, expected, "Failed to return a WebElement");
     }
+
+    @Test
+    public void testExecute_ordinalGreaterThanList() {
+        MockView.directNav();
+        final By.ByTagName locator = new By.ByTagName("label");
+        final WebElement actual = WebGetElementByLocatorOrdinal.getInstance(locator, 5).execute();
+        Assert.assertNull(actual, "Failed to return null when ordinal is greater than list size");
+    }
 }
