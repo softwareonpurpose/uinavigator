@@ -7,7 +7,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class CookieViewerTests {
+public class CookieViewerNameDomainQualifiedTests {
     private WebDriver driver;
 
     @AfterMethod
@@ -18,15 +18,7 @@ public class CookieViewerTests {
     }
 
     @Test
-    public void testGetInstance() {
-        driver = DefaultChromeInstantiation.getInstance().instantiateDriver();
-        Class expected = CookieViewer.class;
-        Class actual = CookieViewer.getInstance(driver).getClass();
-        Assert.assertEquals(actual, expected, "Failed to return an instance of CookieViewer");
-    }
-
-    @Test
-    public void testGetCookieValue_nameQualified() {
+    public void testGetCookieValue_nameDomainQualifiedMatch() {
         driver = DefaultChromeInstantiation.getInstance().instantiateDriver();
         String uri = "http://www.google.com";
         driver.navigate().to(uri);
@@ -34,7 +26,20 @@ public class CookieViewerTests {
         js.executeScript("document.cookie = \"cookiename=cookievalue\";");
         String expected = "cookievalue";
         CookieViewer viewer = CookieViewer.getInstance(driver);
-        String actual = viewer.getCookieValue("cookiename");
+        String actual = viewer.getCookieValue("cookiename", "www.google.com");
+        Assert.assertEquals(actual, expected, "Failed to return expected cookie value");
+    }
+
+    @Test
+    public void testGetCookieValue_nameDomainQualifiedNameOnly() {
+        driver = DefaultChromeInstantiation.getInstance().instantiateDriver();
+        String uri = "http://www.google.com";
+        driver.navigate().to(uri);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("document.cookie = \"cookiename=cookievalue\";");
+        String expected = "cookievalue";
+        CookieViewer viewer = CookieViewer.getInstance(driver);
+        String actual = viewer.getCookieValue("cookiename", "nonexistent");
         Assert.assertEquals(actual, expected, "Failed to return expected cookie value");
     }
 }
