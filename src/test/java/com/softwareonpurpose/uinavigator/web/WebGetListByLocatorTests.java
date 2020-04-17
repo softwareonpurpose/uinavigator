@@ -27,13 +27,6 @@ public class WebGetListByLocatorTests {
     }
 
     @Test
-    public void testExecute_nonexistent() {
-        int expected = 0;
-        int actual = WebGetListByLocator.getInstance(new By.ById("nonexistent")).execute().size();
-        Assert.assertEquals(actual, expected, "Failed to return an empty Collection");
-    }
-
-    @Test
     public void testExecute_tagOption() {
         Class expected = WebUiElement.class;
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
