@@ -9,18 +9,10 @@ import org.testng.annotations.Test;
 import java.util.Collection;
 
 @Test
-public class WebGetListByLocatorParentTests {
+public class WebGetListByLocatorParentExecuteTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
         WebUiHost.quitInstance();
-    }
-
-    @Test
-    public void testConstructor_optionTagParentNull() {
-        MockView.directNav();
-        Class expected = WebGetListByLocatorParent.class;
-        Class actual = WebGetListByLocatorParent.getInstance(new By.ByTagName("option"), null).getClass();
-        Assert.assertEquals(actual, expected, "Failed to return an instance of WebGetListByLocatorParent");
     }
 
     @Test
