@@ -53,4 +53,16 @@ public class WebGetElementByLocatorOrdinalParentTests {
         final String message = "Failed to return an instance of RemoteWebElement";
         Assert.assertEquals(actual, expected, message);
     }
+
+    @Test
+    public void testExecute_parentNull() {
+        final By.ByTagName locator = new By.ByTagName("body");
+        final WebGetElementByLocatorOrdinalParent getBehavior =
+                WebGetElementByLocatorOrdinalParent.getInstance(locator, 1, null);
+        Class expected = RemoteWebElement.class;
+        MockView.directNav();
+        Class actual = getBehavior.execute().getClass();
+        final String message = "Failed to return an instance of RemoteWebElement";
+        Assert.assertEquals(actual, expected, message);
+    }
 }
