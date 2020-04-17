@@ -30,6 +30,6 @@ public class WebGetElementByLocatorAttribute implements WebGetElementBehavior {
                 elements.add(candidate);
             }
         }
-        return elements.get(0);
+        return elements.size() == 0 ? null : elements.get(0);
     }
 }
