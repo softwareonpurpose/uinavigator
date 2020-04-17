@@ -2,6 +2,7 @@ package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.web.mock.MockView;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -65,5 +66,17 @@ public class WebGetElementByLocatorOrdinalParentTests {
         Class actual = getBehavior.execute().getClass();
         final String message = "Failed to return an instance of RemoteWebElement";
         Assert.assertEquals(actual, expected, message);
+    }
+
+    @Test
+    public void testExecute_ordinalNonExistent() {
+        final By.ByTagName locator = new By.ByTagName("label");
+        WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(new By.ByTagName("form"));
+        final WebGetElementByLocatorOrdinalParent getBehavior =
+                WebGetElementByLocatorOrdinalParent.getInstance(locator, 4, getParent);
+        MockView.directNav();
+        final WebElement actual = getBehavior.execute();
+        final String message = "Failed to return null when ordinal > list size";
+        Assert.assertNull(actual, message);
     }
 }
