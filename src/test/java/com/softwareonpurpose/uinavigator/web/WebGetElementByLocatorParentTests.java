@@ -13,9 +13,25 @@ public class WebGetElementByLocatorParentTests {
     }
 
     @Test
-    public void testConstructor() {
+    public void testConstructor_bodyTagLocatorNullParent() {
         Class expected = WebGetElementByLocatorParent.class;
         Class actual = WebGetElementByLocatorParent.getInstance(new By.ByTagName("body"), null).getClass();
+        final String message = "Failed to return new instance with parent 'null' and locator is 'body' tag";
+        Assert.assertEquals(actual, expected, message);
+    }
+
+    @Test
+    public void testConstructor_selectTagLocatorNullParent() {
+        Class expected = WebGetElementByLocatorParent.class;
+        Class actual = WebGetElementByLocatorParent.getInstance(new By.ByTagName("select"), null).getClass();
+        final String message = "Failed to return new instance with parent 'null' and locator is 'body' tag";
+        Assert.assertEquals(actual, expected, message);
+    }
+
+    @Test
+    public void testConstructor_nameLocatorNullParent() {
+        Class expected = WebGetElementByLocatorParent.class;
+        Class actual = WebGetElementByLocatorParent.getInstance(new By.ByName("user_name"), null).getClass();
         final String message = "Failed to return new instance with parent 'null' and locator is 'body' tag";
         Assert.assertEquals(actual, expected, message);
     }
