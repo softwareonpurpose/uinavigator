@@ -204,3 +204,6 @@
 [0417/110056.975:ERROR:process_memory_win.cc(73)] ReadMemory at 0x7ffef633f978 of 48 bytes failed: Only part of a ReadProcessMemory or WriteProcessMemory request was completed. (0x12B)
 [0417/110056.975:ERROR:process_memory_win.cc(73)] ReadMemory at 0x7ffef63453c0 of 64 bytes failed: Only part of a ReadProcessMemory or WriteProcessMemory request was completed. (0x12B)
 [0417/110056.982:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: An attempt was made to access an exiting process. (0xc000010a)
+[0417/152410.078:ERROR:process_reader_win.cc(108)] process 116004 not found
+[0417/152410.080:ERROR:exception_snapshot_win.cc(98)] thread ID 116556 not found in process
+[0417/152410.080:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: An attempt was made to access an exiting process. (0xc000010a)

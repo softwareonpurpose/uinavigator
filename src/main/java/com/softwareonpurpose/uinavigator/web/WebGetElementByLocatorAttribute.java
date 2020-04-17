@@ -26,7 +26,8 @@ public class WebGetElementByLocatorAttribute implements WebGetElementBehavior {
         List<WebElement> candidates = WebUiHost.getInstance().findUiElements(locator);
         List<WebElement> elements = new ArrayList<>();
         for (WebElement candidate : candidates) {
-            if (candidate.getAttribute(attribute).equals(attributeValue)) {
+            final String attributeValue = candidate.getAttribute(this.attribute);
+            if (attributeValue != null && attributeValue.equals(this.attributeValue)) {
                 elements.add(candidate);
             }
         }

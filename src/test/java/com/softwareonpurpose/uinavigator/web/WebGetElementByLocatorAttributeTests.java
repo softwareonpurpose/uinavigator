@@ -35,4 +35,14 @@ public class WebGetElementByLocatorAttributeTests {
         WebElement actual = getBehavior.execute();
         Assert.assertNull(actual, "Failed to return null for nonexistent attribute");
     }
+
+    @Test
+    public void testExecute_nonexistentAttribute() {
+        final By.ById locator = new By.ById("name");
+        MockView.directNav();
+        final WebGetElementByLocatorAttribute getBehavior =
+                WebGetElementByLocatorAttribute.getInstance(locator, "data-nonexistent", "non-existent");
+        WebElement actual = getBehavior.execute();
+        Assert.assertNull(actual, "Failed to return null for nonexistent attribute");
+    }
 }

@@ -39,11 +39,12 @@ public class WebGetListByLocatorAttributeOrdinalParent implements WebGetListBeha
         }
         Integer ordinal = 0;
         for (WebElement candidate : candidates) {
-            if (candidate.getAttribute(attribute).equals(attributeValue)) {
+            final String attributeValue = candidate.getAttribute(this.attribute);
+            if (attributeValue != null && attributeValue.equals(this.attributeValue)) {
                 ordinal += 1;
                 if (ordinal.equals(this.ordinal)) {
                     elements.add(WebUiElement.getInstance(
-                            String.format("#%d", ordinal), locator, attribute, attributeValue, ordinal));
+                            String.format("#%d", ordinal), locator, this.attribute, this.attributeValue, ordinal));
                     return elements;
                 }
             }
