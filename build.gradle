@@ -50,13 +50,12 @@ javadoc {
 
 test {
     systemProperties['webdriver.chrome.driver'] = System.properties["/src/test/resources/chromedriver.exe"]
-    maxParallelForks = 6
+    maxParallelForks = 8
     useTestNG()
 }
 
 task debug(type: Test) {
     description = 'Tests being debugged'
-    maxParallelForks = 4
 
     def groupsToInclude = []
     groupsToInclude.add('debug')
