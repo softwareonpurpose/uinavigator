@@ -5,7 +5,7 @@ plugins {
 
 group 'com.softwareonpurpose'
 sourceCompatibility = 11
-version = '3.0.0'
+project.version = '3.0.0'
 
 repositories {
     mavenCentral()
@@ -16,12 +16,12 @@ configurations {
 }
 
 dependencies {
-    compile 'com.google.code.gson:gson:2.8.+'
-    compile 'ch.qos.logback:logback-core:1.2.+'
-    compile 'ch.qos.logback:logback-classic:1.2.+'
-    compile 'org.slf4j:slf4j-api:1.7.+'
-    compile 'org.seleniumhq.selenium:selenium-java:3.+'
-    testCompile 'org.testng:testng:6.14.+'
+    implementation 'com.google.code.gson:gson:2.8.+'
+    implementation 'ch.qos.logback:logback-core:1.2.+'
+    implementation 'ch.qos.logback:logback-classic:1.2.+'
+    implementation 'org.slf4j:slf4j-api:1.7.+'
+    implementation 'org.seleniumhq.selenium:selenium-java:3.+'
+    testImplementation 'org.testng:testng:6.14.+'
     asciidoclet 'org.asciidoctor:asciidoclet:1.+'
 }
 
@@ -31,7 +31,7 @@ wrapper() {
 
 jar {
     manifest {
-        attributes 'Implementation-Title': 'calibrator4test', 'Implementation-Version': version
+        attributes 'Implementation-Title': 'calibrator4test', 'Implementation-Version': archiveVersion
     }
 }
 
