@@ -14,7 +14,7 @@ public class WebGetElementByLocatorAttributeOrdinalTests {
         WebUiHost.quitInstance();
     }
 
-    @Test(groups = "debug")
+    @Test
     public void testExecute() {
         MockView.directNav();
         Class expected = RemoteWebElement.class;

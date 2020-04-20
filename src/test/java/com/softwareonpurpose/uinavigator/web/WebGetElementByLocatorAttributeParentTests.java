@@ -16,40 +16,42 @@ public class WebGetElementByLocatorAttributeParentTests {
 
     @Test
     public void testConstructor_bodyTagParentNull() {
-        final String message = "Failed to return an instance of WebGetElementByLocatorAttributeParent";
-        Class expected = WebGetElementByLocatorAttributeParent.class;
         final By.ByTagName locator = new By.ByTagName("body");
         final String attribute = "data-test";
         final String attributeValue = "view-element";
         final WebGetElementByLocatorAttributeParent getBehavior =
                 WebGetElementByLocatorAttributeParent.getInstance(locator, attribute, attributeValue, null);
+        Class expected = WebGetElementByLocatorAttributeParent.class;
         Class actual = getBehavior.getClass();
+        final String message = "Failed to return an instance of WebGetElementByLocatorAttributeParent";
         Assert.assertEquals(actual, expected, message);
     }
 
     @Test
     public void testConstructor_idParentNull() {
-        final String message = "Failed to return an instance of WebGetElementByLocatorAttributeParent";
-        Class expected = WebGetElementByLocatorAttributeParent.class;
         final By locator = new By.ById("name");
         final String attribute = "data-test";
         final String attributeValue = "view-element";
         final WebGetElementByLocatorAttributeParent getBehavior =
                 WebGetElementByLocatorAttributeParent.getInstance(locator, attribute, attributeValue, null);
+        Class expected = WebGetElementByLocatorAttributeParent.class;
         Class actual = getBehavior.getClass();
+        final String message = "Failed to return an instance of WebGetElementByLocatorAttributeParent";
         Assert.assertEquals(actual, expected, message);
     }
 
     @Test
-    public void testConstructor_bodyTagParentInstance() {
-        final String message = "Failed to return an instance of WebGetElementByLocatorAttributeParent";
-        Class expected = WebGetElementByLocatorAttributeParent.class;
+    public void testExecute_parentInstance() {
         final By locator = new By.ById("name");
         final String attribute = "data-test";
-        final String attributeValue = "view-element";
+        final String attributeValue = "initial";
+        WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(new By.ByTagName("form"));
         final WebGetElementByLocatorAttributeParent getBehavior =
-                WebGetElementByLocatorAttributeParent.getInstance(locator, attribute, attributeValue, null);
-        Class actual = getBehavior.getClass();
+                WebGetElementByLocatorAttributeParent.getInstance(locator, attribute, attributeValue, getParent);
+        MockView.directNav();
+        Class expected = RemoteWebElement.class;
+        Class actual = getBehavior.execute().getClass();
+        final String message = "Failed to return an instance of WebElement";
         Assert.assertEquals(actual, expected, message);
     }
 

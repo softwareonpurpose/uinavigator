@@ -27,9 +27,6 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Representation of any element of a UI (e.g. web page, Windows or Mac application, etc.)
- */
 public class WebUiElement implements UiElement {
     private static final WebGetElementByLocator defaultParentLocator =
             WebGetElementByLocator.getInstance(new By.ByTagName("body"));
@@ -106,17 +103,10 @@ public class WebUiElement implements UiElement {
         return new WebUiElement(description, behaviors);
     }
 
-    /**
-     * Suppresses logging of interactions all UiElements
-     *
-     * @param suppress boolean logging preference
-     */
-    @SuppressWarnings("unused")
     public static void suppressLogging(boolean suppress) {
         suppressLogging = suppress;
     }
 
-    @SuppressWarnings("unused")
     public static List<WebUiElement> getList(String description, By locator, WebGetElementByLocator getParent) {
         List<WebUiElement> elements = new ArrayList<>();
         WebElement parentElement = getParent.execute();
@@ -129,29 +119,14 @@ public class WebUiElement implements UiElement {
         return elements;
     }
 
-    /**
-     * Text content of WebUiElement
-     *
-     * @return String content
-     */
     public String getText() {
         return behaviors.getText();
     }
 
-    /**
-     * Href value
-     *
-     * @return String href of the defined UI element
-     */
     public String getHref() {
         return getAttribute("href");
     }
 
-    /**
-     * Sets value of the UI element (i.e. an 'input' field)
-     *
-     * @param value String value
-     */
     public void set(String value) {
         value = value == null ? "" : value;
         WebElement element = getElement();
@@ -173,9 +148,6 @@ public class WebUiElement implements UiElement {
         }
     }
 
-    /**
-     * Click the UI element
-     */
     public void click() {
         if (!suppressLogging) {
             getLogger().info(String.format(getIndentation() + "Click %s", getDescription()));
@@ -204,108 +176,48 @@ public class WebUiElement implements UiElement {
         }
     }
 
-    /**
-     * 'Active' state
-     *
-     * @return boolean 'active' state
-     */
-    @SuppressWarnings("unused")
     public boolean isActive() {
         return classContains(activeClass);
     }
 
-    /**
-     * 'Selected' state
-     *
-     * @return boolean 'selected' state
-     */
-    @SuppressWarnings("unused")
     public boolean isSelected() {
         WebElement element = getElement();
         return classContains(selectedClass) || styleContains(selectedStyle) || (element != null && element.isSelected());
     }
 
-    /**
-     * 'Displayed' state
-     *
-     * @return boolean 'displayed' state
-     */
-    @SuppressWarnings("unused")
     public boolean isDisplayed() {
         return this.waitUntilVisible();
     }
 
-    /**
-     * Set 'class' value indicating the UI element is selected
-     *
-     * @param elementClass String class value indicating the element is selected
-     * @return WebUiElement instance
-     */
-    @SuppressWarnings("unused")
     public WebUiElement setSelectedClass(String elementClass) {
         this.selectedClass = elementClass;
         return this;
     }
 
-    /**
-     * Set 'style' value indicating the UI element is selected
-     *
-     * @param elementStyle String style value indicating the element is selected
-     * @return WebUiElement instance
-     */
-    @SuppressWarnings("unused")
     public WebUiElement setSelectedStyle(String elementStyle) {
         this.selectedStyle = elementStyle;
         return this;
     }
 
-    /**
-     * Set 'class' value indicating the UI element is active
-     *
-     * @param elementClass String class value indicating the element is active
-     * @return WebUiElement instance
-     */
-    @SuppressWarnings("unused")
     public WebUiElement setActiveClass(String elementClass) {
         this.activeClass = elementClass;
         return this;
     }
 
-    /**
-     * 'Visible' state
-     *
-     * @return boolean indicating whether the element was visible within the defined timeout period
-     */
     public boolean waitUntilVisible() {
         final WebElement element = this.getElement();
         return element != null && WebUiHost.getInstance().waitUntilVisible(element);
     }
 
-    /**
-     * Src value
-     *
-     * @return String value of 'src' attribute
-     */
     public String getSrc() {
         final WebElement element = getElement();
         return element == null ? null : element.getAttribute(UiAttribute.SRC);
     }
 
-    /**
-     * Set the attribute of a UI element to a given value
-     *
-     * @param attribute String attribute name
-     * @param value     String attribute value
-     */
     public void setAttribute(String attribute, String value) {
         WebUiHost.getInstance().setAttribute(getElement(), attribute, value);
     }
 
-    /**
-     * Description
-     *
-     * @return String description
-     */
     public String getDescription() {
         return description;
     }
@@ -349,16 +261,8 @@ public class WebUiElement implements UiElement {
         throw new WebDriverException(errorMessage);
     }
 
-    /**
-     * Value of an attribute
-     *
-     * @param attribute String attribute name
-     * @return String attribute value
-     */
-    @SuppressWarnings("WeakerAccess")
     public String getAttribute(String attribute) {
-        WebElement element = getElement();
-        return element == null ? null : attribute == null ? null : element.getAttribute(attribute);
+        return behaviors.getAttribute(attribute);
     }
 
     @Override

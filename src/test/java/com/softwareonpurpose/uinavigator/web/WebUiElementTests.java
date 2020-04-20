@@ -47,4 +47,13 @@ public class WebUiElementTests {
         Class actual = WebUiElement.getInstance("Element", new By.ById("name"), "data-test", "initial", getParent).getClass();
         Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElement");
     }
+
+    @Test
+    public void testGetAttribute() {
+        final WebUiElement element = WebUiElement.getInstance("Bogus Select", new By.ById("empty-select-two"));
+        String expected = "bogus";
+        MockView.directNav();
+        String actual = element.getAttribute("data-test");
+        Assert.assertEquals(actual, expected, "Failed to return attribute value");
+    }
 }

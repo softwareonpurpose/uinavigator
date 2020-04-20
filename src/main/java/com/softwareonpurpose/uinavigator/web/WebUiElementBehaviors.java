@@ -1,7 +1,5 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.GetElementBehavior;
-import com.softwareonpurpose.uinavigator.GetListBehavior;
 import com.softwareonpurpose.uinavigator.GetTextBehavior;
 import com.softwareonpurpose.uinavigator.SetElementBehavior;
 import org.openqa.selenium.By;
@@ -9,23 +7,22 @@ import org.openqa.selenium.By;
 import java.util.Collection;
 
 public class WebUiElementBehaviors {
-    private static final WebGetElementBehavior defaultParentLocator =
-            WebGetElementByLocator.getInstance(new By.ByTagName("body"));
-    private final GetElementBehavior getElement;
-    private final GetListBehavior getList;
+    private final WebGetElementBehavior getElement;
+    private final WebGetListBehavior getList;
     private final SetElementBehavior setElement;
     private final GetTextBehavior getText;
+    private final WebGetAttributeBehavior getAttribute;
 
     private WebUiElementBehaviors(
             WebGetElementBehavior getElement,
             WebGetListBehavior getList,
             SetElementBehavior setElement,
-            GetTextBehavior getText
-    ) {
+            GetTextBehavior getText) {
         this.getElement = getElement;
         this.getList = getList;
         this.setElement = setElement;
         this.getText = getText;
+        this.getAttribute = WebGetAttributeBehavior.getInstance(getElement);
     }
 
     static WebUiElementBehaviors getInstanceByLocator(By locator) {
@@ -137,5 +134,9 @@ public class WebUiElementBehaviors {
 
     void set(String value) {
         setElement.execute(value);
+    }
+
+    public String getAttribute(String attribute) {
+        return getAttribute.execute(attribute);
     }
 }

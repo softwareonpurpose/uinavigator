@@ -13,24 +13,46 @@ public class WebUiElementBehaviorsTests {
     }
 
     @Test
-    public void testGetInstance_default() {
-        Class expected = WebUiElementBehaviors.class;
-        Class actual = WebUiElementBehaviors.getInstanceByLocator(new By.ByTagName("body")).getClass();
-        Assert.assertEquals(actual, expected, "Failed to return 'default' behaviors");
-    }
-
-    @Test
-    public void testGetInstance_select() {
+    public void testGetInstanceByLocator_tagSelect() {
         Class expected = WebUiElementBehaviors.class;
         Class actual = WebUiElementBehaviors.getInstanceByLocator(new By.ByTagName("select")).getClass();
-        Assert.assertEquals(actual, expected, "Failed to return 'select' behaviors");
+        Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElementBehaviors");
     }
 
     @Test
-    public void testGetInstance_name() {
+    public void testGetInstanceByLocator_idName() {
         Class expected = WebUiElementBehaviors.class;
-        Class actual = WebUiElementBehaviors.getInstanceByLocator(new By.ByTagName("name")).getClass();
-        Assert.assertEquals(actual, expected, "Failed to return behaviors element with tag 'name'");
+        Class actual = WebUiElementBehaviors.getInstanceByLocator(new By.ById("name")).getClass();
+        Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElementBehaviors");
+    }
+
+    @Test
+    public void testGetInstanceByLocatorAttributeOrdinal() {
+        Class expected = WebUiElementBehaviors.class;
+        final By.ByTagName locator = new By.ByTagName("select");
+        final String attribute = "data-test";
+        final String attributeValue = "select-element";
+        final int ordinal = 2;
+        final WebUiElementBehaviors behaviors =
+                WebUiElementBehaviors.getInstanceByLocatorAttributeOrdinal(locator, attribute, attributeValue, ordinal);
+        Class actual = behaviors.getClass();
+        Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElementBehaviors");
+    }
+
+    @Test
+    public void testGetInstanceByLocatorAttributeOrdinalParent() {
+        Class expected = WebUiElementBehaviors.class;
+        WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(new By.ByTagName("form"));
+        final By.ByTagName locator = new By.ByTagName("select");
+        final String attribute = "data-test";
+        final String attributeValue = "select-element";
+        final int ordinal = 2;
+        final WebUiElementBehaviors behaviors =
+                WebUiElementBehaviors.getInstanceByLocatorAttributeOrdinalParent(
+                        locator, attribute, attributeValue,
+                        ordinal, getParent);
+        Class actual = behaviors.getClass();
+        Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElementBehaviors");
     }
 
     @Test
