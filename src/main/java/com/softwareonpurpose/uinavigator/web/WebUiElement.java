@@ -205,8 +205,7 @@ public class WebUiElement implements UiElement {
     }
 
     public boolean waitUntilVisible() {
-        final WebElement element = this.getElement();
-        return element != null && WebUiHost.getInstance().waitUntilVisible(element);
+        return behaviors.isDisplayed();
     }
 
     public String getSrc() {

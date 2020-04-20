@@ -56,4 +56,11 @@ public class WebUiElementTests {
         String actual = element.getAttribute("data-test");
         Assert.assertEquals(actual, expected, "Failed to return attribute value");
     }
+
+    @Test
+    public void testIsDisplayed() {
+        MockView.directNav();
+        boolean actual = WebUiElement.getInstance("Element", new By.ByTagName("label")).isDisplayed();
+        Assert.assertTrue(actual, "Failed to return 'true' for displayed element");
+    }
 }
