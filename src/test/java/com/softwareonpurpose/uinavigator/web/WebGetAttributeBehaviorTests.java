@@ -25,9 +25,16 @@ public class WebGetAttributeBehaviorTests {
     @Test
     public void testExecute_nullArgument() {
         WebGetElementBehavior getBehavior = WebGetElementByLocator.getInstance(new By.ById("empty-select-two"));
-        String expected = "bogus";
         MockView.directNav();
         String actual = WebGetAttributeBehavior.getInstance(getBehavior).execute(null);
-        Assert.assertEquals(actual, expected, "Failed to return null when requested attribute is null");
+        Assert.assertNull(actual, "Failed to return null when requested attribute is null");
+    }
+
+    @Test
+    public void testExecute_nonExistentElement() {
+        WebGetElementBehavior getBehavior = WebGetElementByLocator.getInstance(new By.ById("bogus"));
+        MockView.directNav();
+        String actual = WebGetAttributeBehavior.getInstance(getBehavior).execute(null);
+        Assert.assertNull(actual, "Failed to return null when element non-existent");
     }
 }
