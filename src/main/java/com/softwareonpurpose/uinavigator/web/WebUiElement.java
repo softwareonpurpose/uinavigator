@@ -186,7 +186,7 @@ public class WebUiElement implements UiElement {
     }
 
     public boolean isDisplayed() {
-        return this.waitUntilVisible();
+        return behaviors.isDisplayed();
     }
 
     public WebUiElement setSelectedClass(String elementClass) {

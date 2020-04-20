@@ -12,6 +12,7 @@ public class WebUiElementBehaviors {
     private final SetElementBehavior setElement;
     private final GetTextBehavior getText;
     private final WebGetAttributeBehavior getAttribute;
+    private final WebIsDisplayedBehavior isDisplayed;
 
     private WebUiElementBehaviors(
             WebGetElementBehavior getElement,
@@ -23,6 +24,7 @@ public class WebUiElementBehaviors {
         this.setElement = setElement;
         this.getText = getText;
         this.getAttribute = WebGetAttributeBehavior.getInstance(getElement);
+        this.isDisplayed = WebIsDisplayedBehavior.getInstance(getElement);
     }
 
     static WebUiElementBehaviors getInstanceByLocator(By locator) {
@@ -138,5 +140,9 @@ public class WebUiElementBehaviors {
 
     public String getAttribute(String attribute) {
         return getAttribute.execute(attribute);
+    }
+
+    boolean isDisplayed() {
+        return isDisplayed.execute();
     }
 }

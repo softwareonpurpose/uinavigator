@@ -7,7 +7,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class WebGetAttributeBehaviorTests {
+public class WebGetAttributeBehaviorNonExistentElementTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
         WebUiHost.quitInstance();
