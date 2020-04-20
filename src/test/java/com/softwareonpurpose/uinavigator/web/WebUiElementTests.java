@@ -71,4 +71,12 @@ public class WebUiElementTests {
         String actual = WebUiElement.getInstance("'Link' element", new By.ByTagName("a")).getHref();
         Assert.assertEquals(actual, expected, "Failed to return HREF of element");
     }
+
+    @Test
+    public void testGetText() {
+        String expected = "google";
+        MockView.directNav();
+        String actual = WebUiElement.getInstance("Element", new By.ByTagName("a")).getText();
+        Assert.assertEquals(actual, expected, "Failed to get text of element");
+    }
 }
