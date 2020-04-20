@@ -8,24 +8,23 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class WebGetElementByLocatorAttributeOrdinalParentTests {
+public class WebGetElementByLocatorAttributeOrdinalParentNullParentTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
         WebUiHost.quitInstance();
     }
 
     @Test
-    public void testExecute() {
+    public void testExecute_parentNull() {
         Class expected = RemoteWebElement.class;
-        WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(new By.ByTagName("form"));
-        final By.ByTagName locator = new By.ByTagName("select");
+        final By.ByTagName locator = new By.ByTagName("body");
         final String attribute = "data-test";
-        final String attributeValue = "select-element";
-        final int ordinal = 2;
+        final String attributeValue = "view-element";
+        final int ordinal = 1;
         MockView.directNav();
         final WebGetElementByLocatorAttributeOrdinalParent getBehavior =
                 WebGetElementByLocatorAttributeOrdinalParent.getInstance(
-                        locator, attribute, attributeValue, ordinal, getParent);
+                        locator, attribute, attributeValue, ordinal, null);
         Class actual = getBehavior.execute().getClass();
         Assert.assertEquals(actual, expected, "Failed to return an instance of WebElement");
     }

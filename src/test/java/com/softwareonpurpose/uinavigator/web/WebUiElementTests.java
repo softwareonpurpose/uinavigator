@@ -79,4 +79,14 @@ public class WebUiElementTests {
         String actual = WebUiElement.getInstance("Element", new By.ByTagName("a")).getText();
         Assert.assertEquals(actual, expected, "Failed to get text of element");
     }
+
+    @Test(groups = "debug")
+    public void testSet() {
+        final String expected = "A Name";
+        final WebUiElement element = WebUiElement.getInstance("Username", new By.ById("name"));
+        MockView.directNav();
+        element.set(expected);
+        String actual = element.getText();
+        Assert.assertEquals(actual, expected, "Failed to set value of element");
+    }
 }
