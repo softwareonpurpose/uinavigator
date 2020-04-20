@@ -63,4 +63,12 @@ public class WebUiElementTests {
         boolean actual = WebUiElement.getInstance("Element", new By.ByTagName("label")).isDisplayed();
         Assert.assertTrue(actual, "Failed to return 'true' for displayed element");
     }
+
+    @Test
+    public void testGetHref() {
+        String expected = "http://www.google.com/";
+        MockView.directNav();
+        String actual = WebUiElement.getInstance("'Link' element", new By.ByTagName("a")).getHref();
+        Assert.assertEquals(actual, expected, "Failed to return HREF of element");
+    }
 }

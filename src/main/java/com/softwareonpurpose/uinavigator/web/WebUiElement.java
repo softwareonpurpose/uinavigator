@@ -124,7 +124,7 @@ public class WebUiElement implements UiElement {
     }
 
     public String getHref() {
-        return getAttribute("href");
+        return behaviors.getAttribute("href");
     }
 
     public void set(String value) {
