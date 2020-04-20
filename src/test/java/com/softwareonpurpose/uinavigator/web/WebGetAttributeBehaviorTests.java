@@ -21,4 +21,13 @@ public class WebGetAttributeBehaviorTests {
         String actual = WebGetAttributeBehavior.getInstance(getBehavior).execute("data-test");
         Assert.assertEquals(actual, expected, "Failed to return attribute value");
     }
+
+    @Test
+    public void testExecute_nullArgument() {
+        WebGetElementBehavior getBehavior = WebGetElementByLocator.getInstance(new By.ById("empty-select-two"));
+        String expected = "bogus";
+        MockView.directNav();
+        String actual = WebGetAttributeBehavior.getInstance(getBehavior).execute(null);
+        Assert.assertEquals(actual, expected, "Failed to return null when requested attribute is null");
+    }
 }
