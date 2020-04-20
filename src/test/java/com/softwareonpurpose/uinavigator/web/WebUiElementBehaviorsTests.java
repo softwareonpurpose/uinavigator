@@ -1,5 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
+import com.softwareonpurpose.uinavigator.web.mock.MockView;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -63,5 +64,17 @@ public class WebUiElementBehaviorsTests {
         WebUiHost.quitInstance();
         String message = "Failed to return expected text";
         Assert.assertEquals(actual, expected, message);
+    }
+
+    @Test
+    public void testIsDisplayed() {
+        final By.ByTagName locator = new By.ByTagName("label");
+        final String attribute = "for";
+        final String attributeValue = "name";
+        final WebUiElementBehaviors behaviors =
+                WebUiElementBehaviors.getInstanceByLocatorAttribute(locator, attribute, attributeValue);
+        MockView.directNav();
+        boolean actual = behaviors.isDisplayed();
+        Assert.assertTrue(actual, "Failed to return 'true' for existing element");
     }
 }
