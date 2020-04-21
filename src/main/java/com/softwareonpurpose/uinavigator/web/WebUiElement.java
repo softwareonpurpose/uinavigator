@@ -174,8 +174,7 @@ public class WebUiElement implements UiElement {
     }
 
     public String getSrc() {
-        final WebElement element = getElement();
-        return element == null ? null : element.getAttribute(UiAttribute.SRC);
+        return behaviors.getSrc();
     }
 
     public void setAttribute(String attribute, String value) {
@@ -198,12 +197,6 @@ public class WebUiElement implements UiElement {
         return new String(new char[4]).replace('\0', ' ');
     }
 
-    private boolean classContains(String value) {
-        String className = getClassName();
-        if (className == null || value == null) return false;
-        return className.contains(value);
-    }
-
     private boolean styleContains(String value) {
         String style = getStyle();
         if (style == null || value == null) return false;
@@ -213,10 +206,6 @@ public class WebUiElement implements UiElement {
     private String getStyle() {
         WebElement element = getElement();
         return element == null ? null : element.getAttribute(UiAttribute.STYLE);
-    }
-
-    private String getClassName() {
-        return getAttribute("class");
     }
 
     private void reportException(WebDriverException e, String errorMessage) {

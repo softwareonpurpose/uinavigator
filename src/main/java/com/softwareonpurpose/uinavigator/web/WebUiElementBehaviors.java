@@ -212,4 +212,8 @@ public class WebUiElementBehaviors {
     boolean isActive() {
         return isActive.execute();
     }
+
+    public String getSrc() {
+        return getAttribute.execute("src");
+    }
 }
