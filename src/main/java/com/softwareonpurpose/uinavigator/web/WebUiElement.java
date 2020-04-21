@@ -16,7 +16,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
 import com.google.gson.Gson;
-import com.softwareonpurpose.uinavigator.UiAttribute;
 import com.softwareonpurpose.uinavigator.UiElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriverException;
@@ -30,9 +29,6 @@ import java.util.List;
 public class WebUiElement implements UiElement {
     private transient static boolean suppressLogging;
     private final String description;
-    private transient String activeClass;
-    private transient String selectedClass;
-    private transient String selectedStyle;
     private WebUiElementBehaviors behaviors;
 
     private WebUiElement(String description, WebUiElementBehaviors behaviors) {
@@ -155,21 +151,6 @@ public class WebUiElement implements UiElement {
         return behaviors.isDisplayed();
     }
 
-    public WebUiElement setSelectedClass(String elementClass) {
-        this.selectedClass = elementClass;
-        return this;
-    }
-
-    public WebUiElement setSelectedStyle(String elementStyle) {
-        this.selectedStyle = elementStyle;
-        return this;
-    }
-
-    public WebUiElement setActiveClass(String elementClass) {
-        this.activeClass = elementClass;
-        return this;
-    }
-
     public boolean waitUntilVisible() {
         return behaviors.isDisplayed();
     }
@@ -182,16 +163,12 @@ public class WebUiElement implements UiElement {
         behaviors.setAttribute(attribute, value);
     }
 
-    public String getDescription() {
+    String getDescription() {
         return description;
     }
 
     private Logger getLogger() {
         return LoggerFactory.getLogger("");
-    }
-
-    private WebElement getElement() {
-        return (WebElement) behaviors.get();
     }
 
     private String getIndentation() {
