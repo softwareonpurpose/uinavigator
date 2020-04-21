@@ -8,7 +8,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class WebUiElementTests {
+public class WebUiElementGetAttributesTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
         WebUiHost.quitInstance();
