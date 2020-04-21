@@ -77,4 +77,13 @@ public class WebUiElementBehaviorsTests {
         boolean actual = behaviors.isDisplayed();
         Assert.assertTrue(actual, "Failed to return 'true' for existing element");
     }
+
+    @Test
+    public void testGetSrc() {
+        WebUiElement element = WebUiElement.getInstance("Element", new By.ByTagName("img"));
+        String expected = "file://missing.jpg/";
+        MockView.directNav();
+        String actual = element.getSrc();
+        Assert.assertEquals(actual, expected, "Failed to return expected 'src' value");
+    }
 }
