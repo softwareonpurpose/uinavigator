@@ -198,17 +198,6 @@ public class WebUiElement implements UiElement {
         return new String(new char[4]).replace('\0', ' ');
     }
 
-    private boolean styleContains(String value) {
-        String style = getStyle();
-        if (style == null || value == null) return false;
-        return style.contains(value);
-    }
-
-    private String getStyle() {
-        WebElement element = getElement();
-        return element == null ? null : element.getAttribute(UiAttribute.STYLE);
-    }
-
     private void reportException(WebDriverException e, String errorMessage) {
         getLogger().error(errorMessage);
         e.printStackTrace();
