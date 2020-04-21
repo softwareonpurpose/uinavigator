@@ -23,14 +23,6 @@ public class WebUiElementTests {
     }
 
     @Test
-    public void testGetHref() {
-        String expected = "http://www.google.com/";
-        MockView.directNav();
-        String actual = WebUiElement.getInstance("'Link' element", new By.ByTagName("a")).getHref();
-        Assert.assertEquals(actual, expected, "Failed to return HREF of element");
-    }
-
-    @Test
     public void testGetText() {
         String expected = "google";
         MockView.directNav();

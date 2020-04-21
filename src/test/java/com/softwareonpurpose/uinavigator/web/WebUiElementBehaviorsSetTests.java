@@ -16,10 +16,10 @@ public class WebUiElementBehaviorsSetTests {
     public void testSet() {
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
         WebUiHost.getInstance().load(uri);
-        WebUiElementBehaviors behaviors = WebUiElementBehaviors.getInstanceByLocator(new By.ByName("user_name"));
-        behaviors.set("Hello World");
+        WebUiElement element = WebUiElement.getInstance("Element", new By.ByName("user_name"));
+        element.set("Hello World");
         String expected = "Hello World";
-        String actual = behaviors.getText();
+        String actual = element.getText();
         WebUiHost.quitInstance();
         String message = "Failed to return expected text";
         Assert.assertEquals(actual, expected, message);

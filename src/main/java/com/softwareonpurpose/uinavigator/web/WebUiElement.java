@@ -129,22 +129,15 @@ public class WebUiElement implements UiElement {
 
     public void set(String value) {
         value = value == null ? "" : value;
-        WebElement element = getElement();
         if (!suppressLogging) {
             getLogger().info(String.format(getIndentation() + "Set %s to \"%s\"", getDescription(), value));
         }
         String message_unableToSet = "BLOCKED: Unable to set %s to \"%s\" using element hierarchy %s";
-        if (element != null) {
-            try {
-                behaviors.set(value);
-            } catch (WebDriverException e) {
-                final String errorMessage = String.format(message_unableToSet, getDescription(), value, this.toString());
-                reportException(e, errorMessage);
-            }
-        } else {
-            if (!suppressLogging) {
-                getLogger().error(String.format(message_unableToSet, description, value, this.toString()));
-            }
+        try {
+            behaviors.set(value);
+        } catch (WebDriverException e) {
+            final String errorMessage = String.format(message_unableToSet, getDescription(), value, this.toString());
+            reportException(e, errorMessage);
         }
     }
 
