@@ -18,8 +18,9 @@ public class WebUiElementBehaviors {
     private final WebGetAttributeBehavior getAttribute;
     private final WebIsDisplayedBehavior isDisplayed;
     private final String description;
-    private StateBehavior activeBehavior;
+    private StateBehavior isActive;
     private boolean suppressLogging;
+    private StateBehavior isSelected;
 
     private WebUiElementBehaviors(
             String description, WebGetElementBehavior getElement,
@@ -155,7 +156,11 @@ public class WebUiElementBehaviors {
     }
 
     void setActiveBehavior(String attribute, String value) {
-        activeBehavior = StateBehavior.getInstance(getElement, attribute, value);
+        isActive = StateBehavior.getInstance(getElement, attribute, value);
+    }
+
+    void setSelectedBehavior(String attribute, String value) {
+        isSelected = StateBehavior.getInstance(getElement, attribute, value);
     }
 
     private Logger getLogger() {
@@ -170,7 +175,7 @@ public class WebUiElementBehaviors {
         return description;
     }
 
-    private void reportException(WebDriverException e, String errorMessage) {
+    private void reportException(Exception e, String errorMessage) {
         getLogger().error(errorMessage);
         e.printStackTrace();
         throw new WebDriverException(errorMessage);
@@ -185,7 +190,7 @@ public class WebUiElementBehaviors {
         if (element != null && !"".equals(element.getTagName())) {
             try {
                 element.click();
-            } catch (WebDriverException e) {
+            } catch (WebDriverException | NullPointerException e) {
                 reportException(e, errorMessage);
             }
         } else {
@@ -198,5 +203,13 @@ public class WebUiElementBehaviors {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    boolean isSelected() {
+        return isSelected.execute();
+    }
+
+    boolean isActive() {
+        return isActive.execute();
     }
 }

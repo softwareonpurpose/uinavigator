@@ -143,13 +143,11 @@ public class WebUiElement implements UiElement {
         behaviors.click();
     }
 
-    public boolean isActive() {
-        return classContains(activeClass);
+    public boolean isActive() {return behaviors.isActive();
     }
 
     public boolean isSelected() {
-        WebElement element = getElement();
-        return classContains(selectedClass) || styleContains(selectedStyle) || (element != null && element.isSelected());
+        return behaviors.isSelected();
     }
 
     public boolean isDisplayed() {
@@ -239,6 +237,12 @@ public class WebUiElement implements UiElement {
     @Override
     public WebUiElement setActiveBehavior(String attribute, String value) {
         behaviors.setActiveBehavior(attribute, value);
+        return this;
+    }
+
+    @Override
+    public Object setSelectedBehavior(String attribute, String value) {
+        behaviors.setSelectedBehavior(attribute, value);
         return this;
     }
 }
