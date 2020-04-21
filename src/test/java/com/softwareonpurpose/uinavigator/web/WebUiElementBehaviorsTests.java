@@ -16,14 +16,14 @@ public class WebUiElementBehaviorsTests {
     @Test
     public void testGetInstanceByLocator_tagSelect() {
         Class expected = WebUiElementBehaviors.class;
-        Class actual = WebUiElementBehaviors.getInstanceByLocator(new By.ByTagName("select")).getClass();
+        Class actual = WebUiElementBehaviors.getInstanceByLocator("Select", new By.ByTagName("select")).getClass();
         Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElementBehaviors");
     }
 
     @Test
     public void testGetInstanceByLocator_idName() {
         Class expected = WebUiElementBehaviors.class;
-        Class actual = WebUiElementBehaviors.getInstanceByLocator(new By.ById("name")).getClass();
+        Class actual = WebUiElementBehaviors.getInstanceByLocator("Name", new By.ById("name")).getClass();
         Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElementBehaviors");
     }
 
@@ -35,7 +35,7 @@ public class WebUiElementBehaviorsTests {
         final String attributeValue = "select-element";
         final int ordinal = 2;
         final WebUiElementBehaviors behaviors =
-                WebUiElementBehaviors.getInstanceByLocatorAttributeOrdinal(locator, attribute, attributeValue, ordinal);
+                WebUiElementBehaviors.getInstanceByLocatorAttributeOrdinal("Select", locator, attribute, attributeValue, ordinal);
         Class actual = behaviors.getClass();
         Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElementBehaviors");
     }
@@ -49,7 +49,7 @@ public class WebUiElementBehaviorsTests {
         final String attributeValue = "select-element";
         final int ordinal = 2;
         final WebUiElementBehaviors behaviors =
-                WebUiElementBehaviors.getInstanceByLocatorAttributeOrdinalParent(
+                WebUiElementBehaviors.getInstanceByLocatorAttributeOrdinalParent("Select",
                         locator, attribute, attributeValue,
                         ordinal, getParent);
         Class actual = behaviors.getClass();
@@ -58,7 +58,7 @@ public class WebUiElementBehaviorsTests {
 
     @Test
     public void testGetText() {
-        WebUiElementBehaviors behaviors = WebUiElementBehaviors.getInstanceByLocator(new By.ByTagName("body"));
+        WebUiElementBehaviors behaviors = WebUiElementBehaviors.getInstanceByLocator("Page", new By.ByTagName("body"));
         String expected = "";
         String actual = behaviors.getText();
         WebUiHost.quitInstance();
@@ -72,7 +72,7 @@ public class WebUiElementBehaviorsTests {
         final String attribute = "for";
         final String attributeValue = "name";
         final WebUiElementBehaviors behaviors =
-                WebUiElementBehaviors.getInstanceByLocatorAttribute(locator, attribute, attributeValue);
+                WebUiElementBehaviors.getInstanceByLocatorAttribute("Label", locator, attribute, attributeValue);
         MockView.directNav();
         boolean actual = behaviors.isDisplayed();
         Assert.assertTrue(actual, "Failed to return 'true' for existing element");

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Mock</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <body data-test="view-element">
 <form>
@@ -29,5 +30,14 @@
     </select>
 </form>
 <a href="http://www.google.com">google</a>
+<button id="button-1">Click Me!</button>
+<script>
+const button = document.querySelector('button');
+
+button.addEventListener('click', event => {
+  button.innerHTML = `Clicked`;
+});
+
+</script>
 </body>
 </html>

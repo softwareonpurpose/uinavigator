@@ -17,7 +17,7 @@ public class WebUiElementBehaviorsGetRelatedTests {
 
     @Test
     public void testGet() {
-        WebUiElementBehaviors behaviors = WebUiElementBehaviors.getInstanceByLocator(new By.ByTagName("body"));
+        WebUiElementBehaviors behaviors = WebUiElementBehaviors.getInstanceByLocator("Page", new By.ByTagName("body"));
         Object actual = behaviors.get();
         String message = "Failed to return a Selenium RemoteWebElement";
         Assert.assertEquals(actual.getClass(), RemoteWebElement.class, message);
@@ -26,7 +26,7 @@ public class WebUiElementBehaviorsGetRelatedTests {
     @Test
     public void testGetList() {
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
-        WebUiElementBehaviors behaviors = WebUiElementBehaviors.getInstanceByLocator(new By.ByTagName("option"));
+        WebUiElementBehaviors behaviors = WebUiElementBehaviors.getInstanceByLocator("Option", new By.ByTagName("option"));
         WebUiHost.getInstance().load(uri);
         Class expected = ArrayList.class;
         Class actual = behaviors.getList().getClass();

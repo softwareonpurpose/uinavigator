@@ -28,8 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WebUiElement implements UiElement {
-    private static final WebGetElementByLocator defaultParentLocator =
-            WebGetElementByLocator.getInstance(new By.ByTagName("body"));
     private transient static boolean suppressLogging;
     private final String description;
     private transient String activeClass;
@@ -43,7 +41,7 @@ public class WebUiElement implements UiElement {
     }
 
     public static WebUiElement getInstance(String description, By locator) {
-        WebUiElementBehaviors behaviors = WebUiElementBehaviors.getInstanceByLocator(locator);
+        WebUiElementBehaviors behaviors = WebUiElementBehaviors.getInstanceByLocator(description, locator);
         return new WebUiElement(description, behaviors);
     }
 
@@ -51,19 +49,19 @@ public class WebUiElement implements UiElement {
     public static WebUiElement getInstance(String description, By locator,
                                            String attribute, String attributeValue) {
         WebUiElementBehaviors behaviors =
-                WebUiElementBehaviors.getInstanceByLocatorAttribute(locator, attribute, attributeValue);
+                WebUiElementBehaviors.getInstanceByLocatorAttribute(description, locator, attribute, attributeValue);
         return new WebUiElement(description, behaviors);
     }
 
     public static WebUiElement getInstance(String description, By locator,
                                            Integer ordinal) {
-        WebUiElementBehaviors behaviors = WebUiElementBehaviors.getInstanceByLocatorOrdinal(locator, ordinal);
+        WebUiElementBehaviors behaviors = WebUiElementBehaviors.getInstanceByLocatorOrdinal(description, locator, ordinal);
         return new WebUiElement(description, behaviors);
     }
 
     public static WebUiElement getInstance(String description, By locator,
                                            WebGetElementBehavior getParent) {
-        WebUiElementBehaviors behaviors = WebUiElementBehaviors.getInstanceByLocatorParent(locator, getParent);
+        WebUiElementBehaviors behaviors = WebUiElementBehaviors.getInstanceByLocatorParent(description, locator, getParent);
         return new WebUiElement(description, behaviors);
     }
 
@@ -71,7 +69,7 @@ public class WebUiElement implements UiElement {
                                            String attribute, String attributeValue,
                                            Integer ordinal) {
         WebUiElementBehaviors behaviors =
-                WebUiElementBehaviors.getInstanceByLocatorAttributeOrdinal(
+                WebUiElementBehaviors.getInstanceByLocatorAttributeOrdinal(description,
                         locator, attribute, attributeValue, ordinal);
         return new WebUiElement(description, behaviors);
     }
@@ -80,7 +78,7 @@ public class WebUiElement implements UiElement {
                                            String attribute, String attributeValue,
                                            WebGetElementBehavior getParent) {
         WebUiElementBehaviors behaviors =
-                WebUiElementBehaviors.getInstanceByLocatorAttributeParent(
+                WebUiElementBehaviors.getInstanceByLocatorAttributeParent(description,
                         locator, attribute, attributeValue, getParent);
         return new WebUiElement(description, behaviors);
     }
@@ -89,7 +87,7 @@ public class WebUiElement implements UiElement {
                                            Integer ordinal,
                                            WebGetElementBehavior getParent) {
         WebUiElementBehaviors behaviors =
-                WebUiElementBehaviors.getInstanceByLocatorOrdinalParent(locator, ordinal, getParent);
+                WebUiElementBehaviors.getInstanceByLocatorOrdinalParent(description, locator, ordinal, getParent);
         return new WebUiElement(description, behaviors);
     }
 
@@ -98,7 +96,7 @@ public class WebUiElement implements UiElement {
                                            Integer ordinal,
                                            WebGetElementBehavior getParent) {
         WebUiElementBehaviors behaviors =
-                WebUiElementBehaviors.getInstanceByLocatorAttributeOrdinalParent(
+                WebUiElementBehaviors.getInstanceByLocatorAttributeOrdinalParent(description,
                         locator, attribute, attributeValue, ordinal, getParent);
         return new WebUiElement(description, behaviors);
     }
@@ -142,31 +140,7 @@ public class WebUiElement implements UiElement {
     }
 
     public void click() {
-        if (!suppressLogging) {
-            getLogger().info(String.format(getIndentation() + "Click %s", getDescription()));
-        }
-        WebElement element = getElement();
-        final String errorMessage = String.format("BLOCKED: Unable to click %s using hierarchy %s", getDescription(), this.toString());
-        if (element != null && !"".equals(element.getTagName())) {
-            try {
-                element.click();
-            } catch (WebDriverException e) {
-                reportException(e, errorMessage);
-            }
-        } else {
-            if (!suppressLogging) {
-                getLogger().error(errorMessage);
-            }
-        }
-        waitForPotentialStateTransitionToBegin();
-    }
-
-    private void waitForPotentialStateTransitionToBegin() {
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        behaviors.click();
     }
 
     public boolean isActive() {
