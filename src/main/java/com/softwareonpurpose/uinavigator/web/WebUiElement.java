@@ -143,7 +143,8 @@ public class WebUiElement implements UiElement {
         behaviors.click();
     }
 
-    public boolean isActive() {return behaviors.isActive();
+    public boolean isActive() {
+        return behaviors.isActive();
     }
 
     public boolean isSelected() {
@@ -178,7 +179,7 @@ public class WebUiElement implements UiElement {
     }
 
     public void setAttribute(String attribute, String value) {
-        WebUiHost.getInstance().setAttribute(getElement(), attribute, value);
+        behaviors.setAttribute(attribute, value);
     }
 
     public String getDescription() {

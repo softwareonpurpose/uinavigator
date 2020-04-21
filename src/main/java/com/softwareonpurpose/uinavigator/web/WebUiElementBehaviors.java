@@ -21,6 +21,7 @@ public class WebUiElementBehaviors {
     private StateBehavior isActive;
     private boolean suppressLogging;
     private StateBehavior isSelected;
+    private WebSetAttributeBehavior setAttribute;
 
     private WebUiElementBehaviors(
             String description, WebGetElementBehavior getElement,
@@ -34,6 +35,7 @@ public class WebUiElementBehaviors {
         this.getText = getText;
         this.getAttribute = WebGetAttributeBehavior.getInstance(getElement);
         this.isDisplayed = WebIsDisplayedBehavior.getInstance(getElement);
+        this.setAttribute = WebSetAttributeBehavior.getInstance(getElement);
     }
 
     static WebUiElementBehaviors getInstanceByLocator(String description, By locator) {
@@ -215,5 +217,9 @@ public class WebUiElementBehaviors {
 
     public String getSrc() {
         return getAttribute.execute("src");
+    }
+
+    void setAttribute(String attribute, String value) {
+        setAttribute.execute(attribute, value);
     }
 }

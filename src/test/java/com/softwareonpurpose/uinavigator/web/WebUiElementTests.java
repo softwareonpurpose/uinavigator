@@ -29,4 +29,14 @@ public class WebUiElementTests {
         String actual = WebUiElement.getInstance("Element", new By.ByTagName("a")).getText();
         Assert.assertEquals(actual, expected, "Failed to return text value of WebUiElement");
     }
+
+    @Test
+    public void testSetAttribute() {
+        WebUiElement element = WebUiElement.getInstance("Element", new By.ById("name"));
+        String expected = "new-value";
+        MockView.directNav();
+        element.setAttribute("data-test", expected);
+        String actual = element.getAttribute("data-test");
+        Assert.assertEquals(actual, expected, "Failed to set attribute to new value");
+    }
 }
