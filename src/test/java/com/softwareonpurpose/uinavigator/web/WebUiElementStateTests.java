@@ -24,6 +24,19 @@ public class WebUiElementStateTests {
     }
 
     @Test
+    public void testIsActive() {
+        WebUiElement element = WebUiElement.getInstance("Element", new By.ById("empty-select"));
+        String attribute = "data-test";
+        String value = "active";
+        element.setActiveBehavior(attribute, value);
+        boolean expected = true;
+        MockView.directNav();
+        boolean actual = element.isActive();
+        //noinspection ConstantConditions
+        Assert.assertEquals(actual, expected, "Failed to return expected state");
+    }
+
+    @Test
     public void testIsSelected() {
         WebUiElement element = WebUiElement.getInstance("Element", new By.ById("button-1"));
         String attribute = "data-selected";
