@@ -268,4 +268,10 @@ public class WebUiElement implements UiElement {
     public String toString() {
         return new Gson().toJson(this);
     }
+
+    @Override
+    public WebUiElement setActiveBehavior(String attribute, String value) {
+        behaviors.setActiveBehavior(attribute, value);
+        return this;
+    }
 }

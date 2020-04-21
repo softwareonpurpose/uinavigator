@@ -13,6 +13,7 @@ public class WebUiElementBehaviors {
     private final GetTextBehavior getText;
     private final WebGetAttributeBehavior getAttribute;
     private final WebIsDisplayedBehavior isDisplayed;
+    private StateBehavior activeBehavior;
 
     private WebUiElementBehaviors(
             WebGetElementBehavior getElement,
@@ -144,5 +145,9 @@ public class WebUiElementBehaviors {
 
     boolean isDisplayed() {
         return isDisplayed.execute();
+    }
+
+    void setActiveBehavior(String attribute, String value) {
+        activeBehavior = StateBehavior.getInstance(getElement, attribute, value);
     }
 }
