@@ -24,13 +24,6 @@ public class WebUiElementGetAttributesTests {
     }
 
     @Test
-    public void testIsDisplayed() {
-        MockView.directNav();
-        boolean actual = WebUiElement.getInstance("Element", new By.ByTagName("label")).isDisplayed();
-        Assert.assertTrue(actual, "Failed to return 'true' for displayed element");
-    }
-
-    @Test
     public void testGetHref() {
         String expected = "http://www.google.com/";
         MockView.directNav();
