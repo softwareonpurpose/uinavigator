@@ -160,16 +160,6 @@ public class WebUiElement implements UiElement {
         return description;
     }
 
-    private String getIndentation() {
-        return new String(new char[4]).replace('\0', ' ');
-    }
-
-    private void reportException(WebDriverException e, String errorMessage) {
-        LoggerFactory.getLogger("").error(errorMessage);
-        e.printStackTrace();
-        throw new WebDriverException(errorMessage);
-    }
-
     public String getAttribute(String attribute) {
         return behaviors.getAttribute(attribute);
     }
