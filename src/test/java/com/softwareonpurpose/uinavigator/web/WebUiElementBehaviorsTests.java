@@ -75,4 +75,14 @@ public class WebUiElementBehaviorsTests {
         String actual = element.getSrc();
         Assert.assertEquals(actual, expected, "Failed to return expected 'src' value");
     }
+
+    @Test
+    public void testSuppressLogging() {
+        boolean expected = true;
+        //noinspection ConstantConditions
+        WebUiElementBehaviors.suppressLogging(expected);
+        boolean actual = WebUiElementBehaviors.loggingSuppressed();
+        //noinspection ConstantConditions
+        Assert.assertEquals(actual, expected, "Failed to set logging suppression");
+    }
 }

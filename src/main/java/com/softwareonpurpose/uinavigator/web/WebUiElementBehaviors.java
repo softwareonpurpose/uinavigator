@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Collection;
 
 public class WebUiElementBehaviors {
+    private static boolean isLoggingSuppressed;
     private final WebGetElementBehavior getElement;
     private final WebGetListBehavior getList;
     private final SetElementBehavior setElement;
@@ -19,7 +20,6 @@ public class WebUiElementBehaviors {
     private final WebIsDisplayedBehavior isDisplayed;
     private final String description;
     private StateBehavior isActive;
-    private boolean suppressLogging;
     private StateBehavior isSelected;
     private WebSetAttributeBehavior setAttribute;
 
@@ -133,6 +133,14 @@ public class WebUiElementBehaviors {
         }
     }
 
+    public static boolean loggingSuppressed() {
+        return isLoggingSuppressed;
+    }
+
+    public static void suppressLogging(boolean suppressLogging) {
+        isLoggingSuppressed = suppressLogging;
+    }
+
     Object get() {
         return getElement.execute();
     }
@@ -184,7 +192,7 @@ public class WebUiElementBehaviors {
     }
 
     void click() {
-        if (!suppressLogging) {
+        if (!isLoggingSuppressed) {
             getLogger().info(String.format(getIndentation() + "Click %s", getDescription()));
         }
         WebElement element = getElement.execute();
@@ -196,7 +204,7 @@ public class WebUiElementBehaviors {
                 reportException(e, errorMessage);
             }
         } else {
-            if (!suppressLogging) {
+            if (!isLoggingSuppressed) {
                 getLogger().error(errorMessage);
             }
         }
