@@ -85,4 +85,25 @@ public class WebUiElementBehaviorsTests {
         //noinspection ConstantConditions
         Assert.assertEquals(actual, expected, "Failed to set logging suppression");
     }
+
+    @Test(groups = "debug")
+    public void testToString() {
+        String locatorString = "\"locator\":{\"tagName\":\"select\"}";
+        String getParentString = "\"getParent\":{\"locator\":{\"tagName\":\"form\"}}";
+        String elementString =
+                String.format("\"attributeValue\":\"select-element\",\"attribute\":\"data-test\",\"ordinal\":2,%s,%s",
+                        getParentString, locatorString);
+        String expected = String.format("{\"getElement\":{%s}}", elementString);
+        WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(new By.ByTagName("form"));
+        final String description = "Element";
+        final By.ByTagName locator = new By.ByTagName("select");
+        final String attribute = "data-test";
+        final String attributeValue = "select-element";
+        final int ordinal = 2;
+        final WebUiElementBehaviors behaviors =
+                WebUiElementBehaviors.getInstanceByLocatorAttributeOrdinalParent(
+                        description, locator, attribute, attributeValue, ordinal, getParent);
+        String actual = behaviors.toString();
+        Assert.assertEquals(actual, expected, "Failed to return description via toString()");
+    }
 }
