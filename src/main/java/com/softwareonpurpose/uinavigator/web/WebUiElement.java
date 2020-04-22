@@ -36,61 +36,61 @@ public class WebUiElement implements UiElement {
         this.behaviors = behaviors;
     }
 
-    public static WebUiElement getInstance(String description, By locator) {
+    static WebUiElement getInstance(String description, By locator) {
         WebUiElementBehaviors behaviors = WebUiElementBehaviors.getInstanceByLocator(description, locator);
         return new WebUiElement(description, behaviors);
     }
 
 
-    public static WebUiElement getInstance(String description, By locator,
-                                           String attribute, String attributeValue) {
+    static WebUiElement getInstance(String description, By locator,
+                                    String attribute, String attributeValue) {
         WebUiElementBehaviors behaviors =
                 WebUiElementBehaviors.getInstanceByLocatorAttribute(description, locator, attribute, attributeValue);
         return new WebUiElement(description, behaviors);
     }
 
-    public static WebUiElement getInstance(String description, By locator,
-                                           Integer ordinal) {
+    static WebUiElement getInstance(String description, By locator,
+                                    Integer ordinal) {
         WebUiElementBehaviors behaviors = WebUiElementBehaviors.getInstanceByLocatorOrdinal(description, locator, ordinal);
         return new WebUiElement(description, behaviors);
     }
 
-    public static WebUiElement getInstance(String description, By locator,
-                                           WebGetElementBehavior getParent) {
+    static WebUiElement getInstance(String description, By locator,
+                                    WebGetElementBehavior getParent) {
         WebUiElementBehaviors behaviors = WebUiElementBehaviors.getInstanceByLocatorParent(description, locator, getParent);
         return new WebUiElement(description, behaviors);
     }
 
-    public static WebUiElement getInstance(String description, By locator,
-                                           String attribute, String attributeValue,
-                                           Integer ordinal) {
+    static WebUiElement getInstance(String description, By locator,
+                                    String attribute, String attributeValue,
+                                    Integer ordinal) {
         WebUiElementBehaviors behaviors =
                 WebUiElementBehaviors.getInstanceByLocatorAttributeOrdinal(description,
                         locator, attribute, attributeValue, ordinal);
         return new WebUiElement(description, behaviors);
     }
 
-    public static WebUiElement getInstance(String description, By locator,
-                                           String attribute, String attributeValue,
-                                           WebGetElementBehavior getParent) {
+    static WebUiElement getInstance(String description, By locator,
+                                    String attribute, String attributeValue,
+                                    WebGetElementBehavior getParent) {
         WebUiElementBehaviors behaviors =
                 WebUiElementBehaviors.getInstanceByLocatorAttributeParent(description,
                         locator, attribute, attributeValue, getParent);
         return new WebUiElement(description, behaviors);
     }
 
-    public static WebUiElement getInstance(String description, By locator,
-                                           Integer ordinal,
-                                           WebGetElementBehavior getParent) {
+    static WebUiElement getInstance(String description, By locator,
+                                    Integer ordinal,
+                                    WebGetElementBehavior getParent) {
         WebUiElementBehaviors behaviors =
                 WebUiElementBehaviors.getInstanceByLocatorOrdinalParent(description, locator, ordinal, getParent);
         return new WebUiElement(description, behaviors);
     }
 
-    public static WebUiElement getInstance(String description, By locator,
-                                           String attribute, String attributeValue,
-                                           Integer ordinal,
-                                           WebGetElementBehavior getParent) {
+    static WebUiElement getInstance(String description, By locator,
+                                    String attribute, String attributeValue,
+                                    Integer ordinal,
+                                    WebGetElementBehavior getParent) {
         WebUiElementBehaviors behaviors =
                 WebUiElementBehaviors.getInstanceByLocatorAttributeOrdinalParent(description,
                         locator, attribute, attributeValue, ordinal, getParent);

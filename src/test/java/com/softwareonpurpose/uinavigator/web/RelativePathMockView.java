@@ -1,7 +1,5 @@
-package com.softwareonpurpose.uinavigator.web.mock;
+package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.web.WebUiElement;
-import com.softwareonpurpose.uinavigator.web.WebUiView;
 import org.openqa.selenium.By;
 
 public class RelativePathMockView extends WebUiView {

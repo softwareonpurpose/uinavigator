@@ -1,6 +1,5 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.web.mock.MockView;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -19,5 +18,10 @@ public class WebUiElementTests {
         MockView.directNav();
         String actual = WebUiElement.getInstance("Element", new By.ByTagName("a")).getText();
         Assert.assertEquals(actual, expected, "Failed to return text value of WebUiElement");
+    }
+
+    @Test
+    public void testToString(){
+
     }
 }

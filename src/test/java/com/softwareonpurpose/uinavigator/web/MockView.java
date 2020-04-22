@@ -1,19 +1,17 @@
-package com.softwareonpurpose.uinavigator.web.mock;
+package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.web.WebUiElement;
-import com.softwareonpurpose.uinavigator.web.WebUiView;
 import org.openqa.selenium.By;
 
-public class BrokenMockView extends WebUiView {
+public class MockView extends WebUiView {
 
     private static final String VIEW_URI = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
 
-    protected BrokenMockView() {
+    public MockView() {
         super(VIEW_URI, WebUiElement.getInstance("'Mock' view", new By.ByTagName("body")));
     }
 
-    public static BrokenMockView directNav() {
-        BrokenMockView view = construct(BrokenMockView.class);
+    public static MockView directNav() {
+        MockView view = construct(MockView.class);
         view.load();
         return WebUiView.expect(view.getClass());
     }
