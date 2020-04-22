@@ -1,5 +1,18 @@
 package com.softwareonpurpose.uinavigator;
 
-public interface GetElementBehavior {
-    Object execute();
+import org.openqa.selenium.By;
+
+public abstract class GetElementBehavior {
+    protected By locator;
+
+    protected GetElementBehavior(By locator) {
+        this.locator = locator;
+    }
+
+    protected abstract Object execute();
+
+    @Override
+    public String toString() {
+        return locator.toString();
+    }
 }

@@ -5,12 +5,11 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class WebGetElementByLocatorParent implements WebGetElementBehavior {
-    private final By locator;
+public class WebGetElementByLocatorParent extends WebGetElementBehavior {
     private final WebGetElementBehavior getParent;
 
     private WebGetElementByLocatorParent(By locator, WebGetElementBehavior getParent) {
-        this.locator = locator;
+        super(locator);
         this.getParent = (new By.ByTagName("body").equals(locator)) ? null : getParent;
     }
 

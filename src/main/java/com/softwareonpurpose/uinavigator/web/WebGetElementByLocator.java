@@ -3,12 +3,11 @@ package com.softwareonpurpose.uinavigator.web;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-public class WebGetElementByLocator implements WebGetElementBehavior {
-    private final By locator;
+public class WebGetElementByLocator extends WebGetElementBehavior {
     private WebElement element;
 
     private WebGetElementByLocator(By locator) {
-        this.locator = locator;
+        super(locator);
     }
 
     public static WebGetElementByLocator getInstance(By locator) {

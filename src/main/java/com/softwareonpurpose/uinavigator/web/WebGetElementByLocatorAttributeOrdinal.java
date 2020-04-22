@@ -5,14 +5,13 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class WebGetElementByLocatorAttributeOrdinal implements WebGetElementBehavior {
-    private final By locator;
+public class WebGetElementByLocatorAttributeOrdinal extends WebGetElementBehavior {
     private final String attribute;
     private final String attributeValue;
     private final Integer ordinal;
 
     private WebGetElementByLocatorAttributeOrdinal(By locator, String attribute, String attributeValue, Integer ordinal) {
-        this.locator = locator;
+        super(locator);
         this.attribute = attribute;
         this.attributeValue = attributeValue;
         this.ordinal = ordinal;

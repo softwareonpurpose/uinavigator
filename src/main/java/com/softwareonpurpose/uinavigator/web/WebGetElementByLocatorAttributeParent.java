@@ -5,8 +5,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class WebGetElementByLocatorAttributeParent implements WebGetElementBehavior {
-    private final By locator;
+public class WebGetElementByLocatorAttributeParent extends WebGetElementBehavior {
     private final String attribute;
     private final String attributeValue;
     private final WebGetElementBehavior getParent;
@@ -14,7 +13,7 @@ public class WebGetElementByLocatorAttributeParent implements WebGetElementBehav
     private WebGetElementByLocatorAttributeParent(
             By locator, String attribute, String attributeValue,
             WebGetElementBehavior getParent) {
-        this.locator = locator;
+        super(locator);
         this.attribute = attribute;
         this.attributeValue = attributeValue;
         this.getParent = (new By.ByTagName("body").equals(locator)) ? null : getParent;

@@ -1,5 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
+import com.google.gson.Gson;
 import com.softwareonpurpose.uinavigator.GetTextBehavior;
 import com.softwareonpurpose.uinavigator.SetElementBehavior;
 import org.openqa.selenium.By;
@@ -13,15 +14,15 @@ import java.util.Collection;
 public class WebUiElementBehaviors {
     private static boolean isLoggingSuppressed;
     private final WebGetElementBehavior getElement;
-    private final WebGetListBehavior getList;
-    private final SetElementBehavior setElement;
-    private final GetTextBehavior getText;
-    private final WebGetAttributeBehavior getAttribute;
-    private final WebIsDisplayedBehavior isDisplayed;
-    private final String description;
-    private StateBehavior isActive;
-    private StateBehavior isSelected;
-    private WebSetAttributeBehavior setAttribute;
+    private transient final String description;
+    private transient final WebGetListBehavior getList;
+    private transient final SetElementBehavior setElement;
+    private transient final GetTextBehavior getText;
+    private transient final WebGetAttributeBehavior getAttribute;
+    private transient final WebIsDisplayedBehavior isDisplayed;
+    private transient StateBehavior isActive;
+    private transient StateBehavior isSelected;
+    private transient WebSetAttributeBehavior setAttribute;
 
     private WebUiElementBehaviors(
             String description, WebGetElementBehavior getElement,
@@ -133,7 +134,7 @@ public class WebUiElementBehaviors {
         }
     }
 
-    public static boolean loggingSuppressed() {
+    public static boolean isLoggingSuppressed() {
         return isLoggingSuppressed;
     }
 
@@ -154,7 +155,17 @@ public class WebUiElementBehaviors {
     }
 
     void set(String value) {
-        setElement.execute(value);
+        value = value == null ? "" : value;
+        if (!isLoggingSuppressed) {
+            getLogger().info(String.format(getIndentation() + "Set %s to \"%s\"", getDescription(), value));
+        }
+        String message_unableToSet = "BLOCKED: Unable to set %s to \"%s\" using element hierarchy %s";
+        try {
+            setElement.execute(value);
+        } catch (WebDriverException e) {
+            final String errorMessage = String.format(message_unableToSet, getDescription(), value, this.toString());
+            reportException(e, errorMessage);
+        }
     }
 
     public String getAttribute(String attribute) {
@@ -196,7 +207,8 @@ public class WebUiElementBehaviors {
             getLogger().info(String.format(getIndentation() + "Click %s", getDescription()));
         }
         WebElement element = getElement.execute();
-        final String errorMessage = String.format("BLOCKED: Unable to click %s using hierarchy %s", getDescription(), this.toString());
+        final String message = "BLOCKED: Unable to click %s using hierarchy %s";
+        final String errorMessage = String.format(message, getDescription(), getElement.toString());
         if (element != null && !"".equals(element.getTagName())) {
             try {
                 element.click();
@@ -229,5 +241,10 @@ public class WebUiElementBehaviors {
 
     void setAttribute(String attribute, String value) {
         setAttribute.execute(attribute, value);
+    }
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
     }
 }

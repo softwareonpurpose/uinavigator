@@ -21,7 +21,18 @@ public class WebUiElementTests {
     }
 
     @Test
-    public void testToString(){
+    public void testSuppressLogging() {
+        boolean expected = true;
+        WebUiElement.suppressLogging(true);
+        boolean actual = WebUiElement.isLoggingSuppressed();
+        //noinspection ConstantConditions
+        Assert.assertEquals(actual, expected, "Failed to set log suppression to true");
+    }
 
+    @Test
+    public void testToString() {
+        String expected = "{\"description\":\"Element\",\"behaviors\":{\"getElement\":{\"locator\":{\"tagName\":\"body\"}}}}";
+        String actual = WebUiElement.getInstance("Element", new By.ByTagName("body")).toString();
+        Assert.assertEquals(actual, expected, "Failed to return the String description");
     }
 }

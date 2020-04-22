@@ -6,13 +6,12 @@ import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WebGetElementByLocatorAttribute implements WebGetElementBehavior {
-    private final By locator;
+public class WebGetElementByLocatorAttribute extends WebGetElementBehavior {
     private final String attribute;
     private final String attributeValue;
 
     private WebGetElementByLocatorAttribute(By locator, String attribute, String attributeValue) {
-        this.locator = locator;
+        super(locator);
         this.attribute = attribute;
         this.attributeValue = attributeValue;
     }

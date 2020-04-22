@@ -81,7 +81,7 @@ public class WebUiElementBehaviorsTests {
         boolean expected = true;
         //noinspection ConstantConditions
         WebUiElementBehaviors.suppressLogging(expected);
-        boolean actual = WebUiElementBehaviors.loggingSuppressed();
+        boolean actual = WebUiElementBehaviors.isLoggingSuppressed();
         //noinspection ConstantConditions
         Assert.assertEquals(actual, expected, "Failed to set logging suppression");
     }

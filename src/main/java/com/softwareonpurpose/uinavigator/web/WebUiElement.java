@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WebUiElement implements UiElement {
-    private transient static boolean suppressLogging;
     private final String description;
     private WebUiElementBehaviors behaviors;
 
@@ -97,8 +96,8 @@ public class WebUiElement implements UiElement {
         return new WebUiElement(description, behaviors);
     }
 
-    public static void suppressLogging(boolean suppress) {
-        suppressLogging = suppress;
+    public static void suppressLogging(boolean suppressLogging) {
+        WebUiElementBehaviors.suppressLogging(suppressLogging);
     }
 
     public static List<WebUiElement> getList(String description, By locator, WebGetElementByLocator getParent) {
@@ -113,6 +112,10 @@ public class WebUiElement implements UiElement {
         return elements;
     }
 
+    public static boolean isLoggingSuppressed() {
+        return WebUiElementBehaviors.isLoggingSuppressed();
+    }
+
     public String getText() {
         return behaviors.getText();
     }
@@ -122,17 +125,7 @@ public class WebUiElement implements UiElement {
     }
 
     public void set(String value) {
-        value = value == null ? "" : value;
-        if (!suppressLogging) {
-            getLogger().info(String.format(getIndentation() + "Set %s to \"%s\"", getDescription(), value));
-        }
-        String message_unableToSet = "BLOCKED: Unable to set %s to \"%s\" using element hierarchy %s";
-        try {
-            behaviors.set(value);
-        } catch (WebDriverException e) {
-            final String errorMessage = String.format(message_unableToSet, getDescription(), value, this.toString());
-            reportException(e, errorMessage);
-        }
+        behaviors.set(value);
     }
 
     public void click() {
@@ -167,16 +160,12 @@ public class WebUiElement implements UiElement {
         return description;
     }
 
-    private Logger getLogger() {
-        return LoggerFactory.getLogger("");
-    }
-
     private String getIndentation() {
         return new String(new char[4]).replace('\0', ' ');
     }
 
     private void reportException(WebDriverException e, String errorMessage) {
-        getLogger().error(errorMessage);
+        LoggerFactory.getLogger("").error(errorMessage);
         e.printStackTrace();
         throw new WebDriverException(errorMessage);
     }
