@@ -17,16 +17,12 @@ package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiView;
 
-@SuppressWarnings("unused")
 public abstract class WebUiView extends UiView {
-    private final static String ERROR_CONSTRUCTOR_SCOPE = "Unable to access View constructor; ensure it is parameter-less and has 'public' scope";
-    private final WebUiElement viewElement;
     private final String viewUri;
 
     protected WebUiView(String viewUri, WebUiElement viewElement) {
         super(viewElement);
         this.viewUri = viewUri;
-        this.viewElement = viewElement;
     }
 
     protected void load() {
@@ -41,7 +37,7 @@ public abstract class WebUiView extends UiView {
 
     @Override
     protected WebUiElement getElement() {
-        return viewElement;
+        return (WebUiElement) super.getElement();
     }
 
     public String getUri() {

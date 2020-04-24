@@ -46,7 +46,9 @@ public abstract class UiView {
         return view;
     }
 
-    protected abstract Object getElement();
+    protected Object getElement() {
+        return viewElement;
+    }
 
     protected abstract boolean confirmElementStates();
 }
