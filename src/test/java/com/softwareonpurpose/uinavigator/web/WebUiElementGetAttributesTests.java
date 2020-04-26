@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import org.openqa.selenium.By;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -14,7 +14,7 @@ public class WebUiElementGetAttributesTests {
 
     @Test
     public void testGetAttribute() {
-        final WebUiElement element = WebUiElement.getInstance("Bogus Select", new By.ById("empty-select-two"));
+        final WebUiElement element = WebUiElement.getInstance("Bogus Select", UiLocatorType.ID, "empty-select-two");
         String expected = "bogus";
         MockView.directNav();
         String actual = element.getAttribute("data-test");
@@ -25,7 +25,7 @@ public class WebUiElementGetAttributesTests {
     public void testGetHref() {
         String expected = "http://www.google.com/";
         MockView.directNav();
-        String actual = WebUiElement.getInstance("'Link' element", new By.ByTagName("a")).getHref();
+        String actual = WebUiElement.getInstance("'Link' element", UiLocatorType.TAG, "a").getHref();
         Assert.assertEquals(actual, expected, "Failed to return HREF of element");
     }
 }

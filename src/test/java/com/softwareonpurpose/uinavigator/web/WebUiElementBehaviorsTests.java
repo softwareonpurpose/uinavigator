@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import org.openqa.selenium.By;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -14,54 +14,51 @@ public class WebUiElementBehaviorsTests {
 
     @Test
     public void testGetInstanceByLocator_tagSelect() {
-        Class expected = WebUiElementBehaviors.class;
-        Class actual = WebUiElementBehaviors.getInstanceByLocator("Select", new By.ByTagName("select")).getClass();
+        Class<WebUiElementBehaviors> expected = WebUiElementBehaviors.class;
+        Class actual = WebUiElementBehaviors.getInstanceByLocator("Select", UiLocatorType.TAG, "select").getClass();
         Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElementBehaviors");
     }
 
     @Test
     public void testGetInstanceByLocator_idName() {
-        Class expected = WebUiElementBehaviors.class;
-        Class actual = WebUiElementBehaviors.getInstanceByLocator("Name", new By.ById("name")).getClass();
+        Class<WebUiElementBehaviors> expected = WebUiElementBehaviors.class;
+        Class actual = WebUiElementBehaviors.getInstanceByLocator("Name", UiLocatorType.ID, "name").getClass();
         Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElementBehaviors");
     }
 
     @Test
     public void testGetInstanceByLocatorAttributeOrdinal() {
-        Class expected = WebUiElementBehaviors.class;
-        final By.ByTagName locator = new By.ByTagName("select");
         final String attribute = "data-test";
         final String attributeValue = "select-element";
         final int ordinal = 2;
         final WebUiElementBehaviors behaviors =
-                WebUiElementBehaviors.getInstanceByLocatorAttributeOrdinal("Select", locator, attribute, attributeValue, ordinal);
+                WebUiElementBehaviors.getInstanceByLocatorAttributeOrdinal("Select", UiLocatorType.TAG, "select", attribute, attributeValue, ordinal);
+        Class<WebUiElementBehaviors> expected = WebUiElementBehaviors.class;
         Class actual = behaviors.getClass();
         Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElementBehaviors");
     }
 
     @Test
     public void testGetInstanceByLocatorAttributeOrdinalParent() {
-        Class expected = WebUiElementBehaviors.class;
-        WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(new By.ByTagName("form"));
-        final By.ByTagName locator = new By.ByTagName("select");
+        WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "form");
         final String attribute = "data-test";
         final String attributeValue = "select-element";
         final int ordinal = 2;
         final WebUiElementBehaviors behaviors =
                 WebUiElementBehaviors.getInstanceByLocatorAttributeOrdinalParent("Select",
-                        locator, attribute, attributeValue,
+                        UiLocatorType.TAG, "select", attribute, attributeValue,
                         ordinal, getParent);
+        Class<WebUiElementBehaviors> expected = WebUiElementBehaviors.class;
         Class actual = behaviors.getClass();
         Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElementBehaviors");
     }
 
     @Test
     public void testIsDisplayed() {
-        final By.ByTagName locator = new By.ByTagName("label");
         final String attribute = "for";
         final String attributeValue = "name";
         final WebUiElementBehaviors behaviors =
-                WebUiElementBehaviors.getInstanceByLocatorAttribute("Label", locator, attribute, attributeValue);
+                WebUiElementBehaviors.getInstanceByLocatorAttribute("Label", UiLocatorType.TAG, "label", attribute, attributeValue);
         MockView.directNav();
         boolean actual = behaviors.isDisplayed();
         Assert.assertTrue(actual, "Failed to return 'true' for existing element");
@@ -69,9 +66,9 @@ public class WebUiElementBehaviorsTests {
 
     @Test
     public void testGetSrc() {
-        WebUiElement element = WebUiElement.getInstance("Element", new By.ByTagName("img"));
-        String expected = "file://missing.jpg/";
+        WebUiElement element = WebUiElement.getInstance("Element", UiLocatorType.TAG, "img");
         MockView.directNav();
+        String expected = "file://missing.jpg/";
         String actual = element.getSrc();
         Assert.assertEquals(actual, expected, "Failed to return expected 'src' value");
     }
@@ -86,23 +83,22 @@ public class WebUiElementBehaviorsTests {
         Assert.assertEquals(actual, expected, "Failed to set logging suppression");
     }
 
-    @Test(groups = "debug")
+    @Test
     public void testToString() {
         String locatorString = "\"locator\":{\"tagName\":\"select\"}";
         String getParentString = "\"getParent\":{\"locator\":{\"tagName\":\"form\"}}";
         String elementString =
                 String.format("\"attributeValue\":\"select-element\",\"attribute\":\"data-test\",\"ordinal\":2,%s,%s",
                         getParentString, locatorString);
-        String expected = String.format("{\"getElement\":{%s}}", elementString);
-        WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(new By.ByTagName("form"));
+        WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "form");
         final String description = "Element";
-        final By.ByTagName locator = new By.ByTagName("select");
         final String attribute = "data-test";
         final String attributeValue = "select-element";
         final int ordinal = 2;
         final WebUiElementBehaviors behaviors =
                 WebUiElementBehaviors.getInstanceByLocatorAttributeOrdinalParent(
-                        description, locator, attribute, attributeValue, ordinal, getParent);
+                        description, UiLocatorType.TAG, "select", attribute, attributeValue, ordinal, getParent);
+        String expected = String.format("{\"getElement\":{%s}}", elementString);
         String actual = behaviors.toString();
         Assert.assertEquals(actual, expected, "Failed to return description via toString()");
     }

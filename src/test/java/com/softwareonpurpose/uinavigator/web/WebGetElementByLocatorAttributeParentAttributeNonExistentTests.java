@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import org.openqa.selenium.By;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -15,12 +15,15 @@ public class WebGetElementByLocatorAttributeParentAttributeNonExistentTests {
 
     @Test
     public void testExecute_attributeNonExistent() {
-        MockView.directNav();
-        final By locator = new By.ByTagName("body");
         final String attribute = "data-nonexistent";
         final String attributeValue = "not-there";
+        final String locatorValue = "body";
+        final WebGetElementBehavior getParent = null;
+        //noinspection ConstantConditions
         final WebGetElementByLocatorAttributeParent getBehavior =
-                WebGetElementByLocatorAttributeParent.getInstance(locator, attribute, attributeValue, null);
+                WebGetElementByLocatorAttributeParent.getInstance(
+                        UiLocatorType.TAG, locatorValue, attribute, attributeValue, getParent);
+        MockView.directNav();
         WebElement actual = getBehavior.execute();
         Assert.assertNull(actual, "Failed to return null when attribute value is non-existent");
     }

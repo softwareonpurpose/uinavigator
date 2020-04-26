@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import org.openqa.selenium.By;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -15,11 +15,12 @@ public class WebGetElementByLocatorOrdinalParentExecuteOneOfListTests {
 
     @Test
     public void testExecute() {
-        final By.ByTagName locator = new By.ByTagName("option");
-        WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(new By.ByTagName("select"));
+        WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "select");
+        final String locatorValue = "option";
+        final int ordinal = 4;
         final WebGetElementByLocatorOrdinalParent getBehavior =
-                WebGetElementByLocatorOrdinalParent.getInstance(locator, 4, getParent);
-        Class expected = RemoteWebElement.class;
+                WebGetElementByLocatorOrdinalParent.getInstance(UiLocatorType.TAG, locatorValue, ordinal, getParent);
+        Class<RemoteWebElement> expected = RemoteWebElement.class;
         MockView.directNav();
         Class actual = getBehavior.execute().getClass();
         final String message = "Failed to return an instance of RemoteWebElement";

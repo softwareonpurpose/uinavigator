@@ -13,8 +13,13 @@ public class WebGetElementByLocatorOrdinal extends WebGetElementBehavior {
         this.ordinal = ordinal;
     }
 
+    @Deprecated
     public static WebGetElementByLocatorOrdinal getInstance(By locator, Integer ordinal) {
         return new WebGetElementByLocatorOrdinal(locator, ordinal);
+    }
+
+    public static WebGetElementBehavior getInstance(String locatorType, String locatorValue, Integer ordinal) {
+        return new WebGetElementByLocatorOrdinal(WebUiLocator.getInstance(locatorType, locatorValue), ordinal);
     }
 
     @Override

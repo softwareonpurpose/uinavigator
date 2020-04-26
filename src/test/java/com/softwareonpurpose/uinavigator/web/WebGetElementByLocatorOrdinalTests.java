@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import org.openqa.selenium.By;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -15,10 +15,13 @@ public class WebGetElementByLocatorOrdinalTests {
 
     @Test
     public void testExecute() {
-        Class expected = RemoteWebElement.class;
+        final String locatorValue = "option";
+        final int ordinal = 5;
+        final WebGetElementBehavior getElement =
+                WebGetElementByLocatorOrdinal.getInstance(UiLocatorType.TAG, locatorValue, ordinal);
+        Class<RemoteWebElement> expected = RemoteWebElement.class;
         MockView.directNav();
-        Class actual =
-                WebGetElementByLocatorOrdinal.getInstance(new By.ByTagName("option"), 5).execute().getClass();
+        Class actual = getElement.execute().getClass();
         Assert.assertEquals(actual, expected, "Failed to return a WebElement");
     }
 }

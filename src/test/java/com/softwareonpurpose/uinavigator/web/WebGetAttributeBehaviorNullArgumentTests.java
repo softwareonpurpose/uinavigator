@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import org.openqa.selenium.By;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -14,7 +14,8 @@ public class WebGetAttributeBehaviorNullArgumentTests {
 
     @Test
     public void testExecute_nullArgument() {
-        WebGetElementBehavior getBehavior = WebGetElementByLocator.getInstance(new By.ById("empty-select-two"));
+        final String locatorValue = "empty-select-two";
+        WebGetElementBehavior getBehavior = WebGetElementByLocator.getInstance(UiLocatorType.ID, locatorValue);
         MockView.directNav();
         String actual = WebGetAttributeBehavior.getInstance(getBehavior).execute(null);
         Assert.assertNull(actual, "Failed to return null when requested attribute is null");

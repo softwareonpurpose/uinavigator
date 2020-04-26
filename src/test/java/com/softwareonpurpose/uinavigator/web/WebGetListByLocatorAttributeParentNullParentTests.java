@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import org.openqa.selenium.By;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -14,11 +14,10 @@ public class WebGetListByLocatorAttributeParentNullParentTests {
 
     @SuppressWarnings("rawtypes")
     public void testExecute_nullParent() {
-        final By.ByTagName locator = new By.ByTagName("body");
         final String attribute = "data-test";
         final String attributeValue = "view-element";
         final WebGetListByLocatorAttributeParent getBehavior =
-                WebGetListByLocatorAttributeParent.getInstance(locator, attribute, attributeValue, null);
+                WebGetListByLocatorAttributeParent.getInstance(UiLocatorType.TAG, "body", attribute, attributeValue, null);
         Class expected = WebUiElement.class;
         MockView.directNav();
         Class actual = getBehavior.execute().iterator().next().getClass();

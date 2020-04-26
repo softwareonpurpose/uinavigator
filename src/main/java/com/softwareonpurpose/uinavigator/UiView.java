@@ -8,9 +8,9 @@ import java.lang.reflect.InvocationTargetException;
 public abstract class UiView {
     private final static String ERROR_CONSTRUCTOR_SCOPE =
             "Unable to access View constructor; ensure it is parameter-less and has 'public' scope";
-    private final Object viewElement;
+    private final UiElement viewElement;
 
-    protected UiView(Object viewElement) {
+    protected UiView(UiElement viewElement) {
         this.viewElement = viewElement;
     }
 
@@ -46,7 +46,7 @@ public abstract class UiView {
         return view;
     }
 
-    protected Object getElement() {
+    protected UiElement getElement() {
         return viewElement;
     }
 

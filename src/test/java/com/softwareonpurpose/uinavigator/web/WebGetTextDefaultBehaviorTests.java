@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import org.openqa.selenium.By;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -14,8 +14,8 @@ public class WebGetTextDefaultBehaviorTests {
 
     @Test
     public void testExecute() {
-        WebGetElementBehavior get = WebGetElementByLocator.getInstance(new By.ById("nonexistent"));
-        WebGetTextDefaultBehavior getText = WebGetTextDefaultBehavior.getInstance(get);
+        WebGetElementBehavior getElement = WebGetElementByLocator.getInstance(UiLocatorType.ID, "nonexistent");
+        WebGetTextDefaultBehavior getText = WebGetTextDefaultBehavior.getInstance(getElement);
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
         String expected = null;
         WebUiHost.getInstance().load(uri);

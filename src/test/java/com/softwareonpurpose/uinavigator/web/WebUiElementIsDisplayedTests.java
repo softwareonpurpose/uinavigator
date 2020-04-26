@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import org.openqa.selenium.By;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -15,7 +15,9 @@ public class WebUiElementIsDisplayedTests {
     @Test
     public void testIsDisplayed() {
         MockView.directNav();
-        boolean actual = WebUiElement.getInstance("Element", new By.ByTagName("label")).isDisplayed();
+        final String locatorValue = "label";
+        final String description = "Element";
+        boolean actual = WebUiElement.getInstance(description, UiLocatorType.TAG, locatorValue).isDisplayed();
         Assert.assertTrue(actual, "Failed to return 'true' for displayed element");
     }
 }

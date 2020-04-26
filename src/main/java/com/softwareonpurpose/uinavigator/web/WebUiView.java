@@ -30,7 +30,7 @@ public abstract class WebUiView extends UiView {
     }
 
     protected void load(String relativeUri) {
-        relativeUri = relativeUri.substring(0, 1).equals("?") ? relativeUri : String.format("/%s", relativeUri);
+        relativeUri = relativeUri.startsWith("?") ? relativeUri : String.format("/%s", relativeUri);
         String explicitUri = String.format("%s%s", viewUri, relativeUri);
         WebUiHost.getInstance().load(explicitUri);
     }

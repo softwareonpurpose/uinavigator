@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import org.openqa.selenium.By;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -16,7 +16,7 @@ public class WebUiElementGetHrefTests {
     public void testGetHref() {
         String expected = "http://www.google.com/";
         MockView.directNav();
-        String actual = WebUiElement.getInstance("'Link' element", new By.ByTagName("a")).getHref();
+        String actual = WebUiElement.getInstance("'Link' element", UiLocatorType.TAG, "a").getHref();
         Assert.assertEquals(actual, expected, "Failed to return HREF of element");
     }
 }

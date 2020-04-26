@@ -16,8 +16,15 @@ public class WebGetElementByLocatorAttribute extends WebGetElementBehavior {
         this.attributeValue = attributeValue;
     }
 
+    @Deprecated
     public static WebGetElementByLocatorAttribute getInstance(By locator, String attribute, String attributeValue) {
         return new WebGetElementByLocatorAttribute(locator, attribute, attributeValue);
+    }
+
+    public static WebGetElementByLocatorAttribute getInstance(
+            String locatorType, String locatorValue, String attribute, String attributeValue) {
+        return new WebGetElementByLocatorAttribute(
+                WebUiLocator.getInstance(locatorType, locatorValue), attribute, attributeValue);
     }
 
     @Override

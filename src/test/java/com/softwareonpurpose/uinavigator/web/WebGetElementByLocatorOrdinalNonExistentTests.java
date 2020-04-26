@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import org.openqa.selenium.By;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -15,9 +15,12 @@ public class WebGetElementByLocatorOrdinalNonExistentTests {
 
     @Test
     public void testExecute_ordinalGreaterThanList() {
+        final String locatorValue = "label";
+        final int ordinal = 5;
+        final WebGetElementBehavior getBehavior =
+                WebGetElementByLocatorOrdinal.getInstance(UiLocatorType.TAG, locatorValue, ordinal);
         MockView.directNav();
-        final By.ByTagName locator = new By.ByTagName("label");
-        final WebElement actual = WebGetElementByLocatorOrdinal.getInstance(locator, 5).execute();
+        final WebElement actual = getBehavior.execute();
         Assert.assertNull(actual, "Failed to return null when ordinal is greater than list size");
     }
 }

@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import org.openqa.selenium.By;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -14,34 +14,34 @@ public class WebGetListByLocatorTests {
 
     @Test
     public void testConstructor_typeClass() {
-        Class expected = WebGetListByLocator.class;
-        Class actual = WebGetListByLocator.getInstance(new By.ByClassName("any")).getClass();
+        Class<WebGetListByLocator> expected = WebGetListByLocator.class;
+        Class actual = WebGetListByLocator.getInstance(UiLocatorType.CLASS, "any").getClass();
         Assert.assertEquals(actual, expected, "Failed to get an instance of WebGetListByLocator");
     }
 
     @Test
     public void testConstructor_typeId() {
-        Class expected = WebGetListByLocator.class;
-        Class actual = WebGetListByLocator.getInstance(new By.ById("any")).getClass();
+        Class<WebGetListByLocator> expected = WebGetListByLocator.class;
+        Class actual = WebGetListByLocator.getInstance(UiLocatorType.ID, "any").getClass();
         Assert.assertEquals(actual, expected, "Failed to get an instance of WebGetListByLocator");
     }
 
     @Test
     public void testExecute_tagOption() {
-        Class expected = WebUiElement.class;
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
         WebUiHost.getInstance().load(uri);
-        WebGetListByLocator listBehavior = WebGetListByLocator.getInstance(new By.ByTagName("option"));
+        WebGetListByLocator listBehavior = WebGetListByLocator.getInstance(UiLocatorType.TAG, "option");
+        Class<WebUiElement> expected = WebUiElement.class;
         Class actual = listBehavior.execute().iterator().next().getClass();
         Assert.assertEquals(actual, expected, "Failed to return a Collection of WebUiElement");
     }
 
     @Test
     public void testExecute_tagBody() {
-        Class expected = WebUiElement.class;
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
         WebUiHost.getInstance().load(uri);
-        WebGetListByLocator listBehavior = WebGetListByLocator.getInstance(new By.ByTagName("body"));
+        WebGetListByLocator listBehavior = WebGetListByLocator.getInstance(UiLocatorType.TAG, "body");
+        Class<WebUiElement> expected = WebUiElement.class;
         Class actual = listBehavior.execute().iterator().next().getClass();
         Assert.assertEquals(actual, expected, "Failed to return a Collection of WebUiElement");
     }

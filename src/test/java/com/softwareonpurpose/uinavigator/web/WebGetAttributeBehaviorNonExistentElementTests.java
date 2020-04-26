@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import org.openqa.selenium.By;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -14,7 +14,7 @@ public class WebGetAttributeBehaviorNonExistentElementTests {
 
     @Test
     public void testExecute_nonExistentElement() {
-        WebGetElementBehavior getBehavior = WebGetElementByLocator.getInstance(new By.ById("bogus"));
+        WebGetElementBehavior getBehavior = WebGetElementByLocator.getInstance(UiLocatorType.ID, "bogus");
         MockView.directNav();
         String actual = WebGetAttributeBehavior.getInstance(getBehavior).execute(null);
         Assert.assertNull(actual, "Failed to return null when element non-existent");

@@ -1,5 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.testng.Assert;
@@ -15,13 +16,16 @@ public class WebGetElementByLocatorAttributeParentExecuteNullParentTests {
 
     @Test
     public void testExecute_nullParent() {
-        MockView.directNav();
-        final By locator = new By.ByTagName("body");
         final String attribute = "data-test";
         final String attributeValue = "view-element";
-        Class expected = RemoteWebElement.class;
+        final String locatorValue = "body";
+        final WebGetElementBehavior getParent = null;
+        //noinspection ConstantConditions
         final WebGetElementByLocatorAttributeParent getBehavior =
-                WebGetElementByLocatorAttributeParent.getInstance(locator, attribute, attributeValue, null);
+                WebGetElementByLocatorAttributeParent.getInstance(
+                        UiLocatorType.TAG, locatorValue, attribute, attributeValue, getParent);
+        Class<RemoteWebElement> expected = RemoteWebElement.class;
+        MockView.directNav();
         Class actual = getBehavior.execute().getClass();
         Assert.assertEquals(actual, expected, "Failed to return WebElement instance");
     }

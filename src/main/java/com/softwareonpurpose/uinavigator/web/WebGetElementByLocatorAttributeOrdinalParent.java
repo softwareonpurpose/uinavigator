@@ -12,7 +12,7 @@ public class WebGetElementByLocatorAttributeOrdinalParent extends WebGetElementB
     private final WebGetElementBehavior getParent;
 
     private WebGetElementByLocatorAttributeOrdinalParent(
-            By locator, String attributeValue, String attribute,
+            By locator, String attribute, String attributeValue,
             Integer ordinal, WebGetElementBehavior getParent) {
         super(locator);
         this.attributeValue = attributeValue;
@@ -21,9 +21,17 @@ public class WebGetElementByLocatorAttributeOrdinalParent extends WebGetElementB
         this.getParent = (new By.ByTagName("body").equals(locator)) ? null : getParent;
     }
 
+    @Deprecated
     public static WebGetElementByLocatorAttributeOrdinalParent getInstance(
             By locator, String attribute, String attributeValue, Integer ordinal, WebGetElementBehavior getParent) {
-        return new WebGetElementByLocatorAttributeOrdinalParent(locator, attributeValue, attribute, ordinal, getParent);
+        return new WebGetElementByLocatorAttributeOrdinalParent(locator, attribute, attributeValue, ordinal, getParent);
+    }
+
+    public static WebGetElementByLocatorAttributeOrdinalParent getInstance(
+            String locatorType, String locatorValue,
+            String attribute, String attributeValue, Integer ordinal, WebGetElementBehavior getParent) {
+        return new WebGetElementByLocatorAttributeOrdinalParent(
+                WebUiLocator.getInstance(locatorType, locatorValue), attribute, attributeValue, ordinal, getParent);
     }
 
     @Override

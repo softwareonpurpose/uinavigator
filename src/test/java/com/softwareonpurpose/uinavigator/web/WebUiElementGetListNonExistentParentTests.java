@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import org.openqa.selenium.By;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -15,9 +15,9 @@ public class WebUiElementGetListNonExistentParentTests {
     @Test
     public void testGetList_nonExistentParent() {
         int expected = 0;
-        WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(new By.ByTagName("bogus"));
+        WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "bogus");
         MockView.directNav();
-        int actual = WebUiElement.getList("Element List", new By.ByTagName("select"), getParent).size();
+        int actual = WebUiElement.getList("Element List", UiLocatorType.TAG, "select", getParent).size();
         Assert.assertEquals(actual, expected, "Failed to return a list of WebUiElement");
     }
 }

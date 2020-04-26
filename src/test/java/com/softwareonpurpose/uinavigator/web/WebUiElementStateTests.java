@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import org.openqa.selenium.By;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -14,17 +14,17 @@ public class WebUiElementStateTests {
 
     @Test
     public void testSetActiveBehavior() {
-        Class expected = WebUiElement.class;
         String activeValue = "active";
-        WebUiElement element = WebUiElement.getInstance("Element", new By.ById("pet-select"));
+        WebUiElement element = WebUiElement.getInstance("Element", UiLocatorType.ID, "pet-select");
         element = element.setActiveBehavior("data-state", activeValue);
+        Class<WebUiElement> expected = WebUiElement.class;
         Class actual = element.getClass();
         Assert.assertEquals(actual, expected, "Failed to return WebUiElement when 'active' state behavior set");
     }
 
     @Test
     public void testIsActive() {
-        WebUiElement element = WebUiElement.getInstance("Element", new By.ById("empty-select"));
+        WebUiElement element = WebUiElement.getInstance("Element", UiLocatorType.ID, "empty-select");
         String attribute = "data-test";
         String value = "active";
         element.setActiveBehavior(attribute, value);
@@ -37,7 +37,7 @@ public class WebUiElementStateTests {
 
     @Test
     public void testIsSelected() {
-        WebUiElement element = WebUiElement.getInstance("Element", new By.ById("button-1"));
+        WebUiElement element = WebUiElement.getInstance("Element", UiLocatorType.ID, "button-1");
         String attribute = "data-selected";
         String value = "true";
         element.setSelectedBehavior(attribute, value);

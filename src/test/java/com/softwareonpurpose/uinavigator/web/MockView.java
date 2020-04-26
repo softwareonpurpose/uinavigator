@@ -1,13 +1,13 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import org.openqa.selenium.By;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 
 public class MockView extends WebUiView {
 
     private static final String VIEW_URI = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
 
     public MockView() {
-        super(VIEW_URI, WebUiElement.getInstance("'Mock' view", new By.ByTagName("body")));
+        super(VIEW_URI, WebUiElement.getInstance("'Mock' view", UiLocatorType.TAG, "body"));
     }
 
     public static MockView directNav() {

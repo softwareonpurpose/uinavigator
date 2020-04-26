@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import org.openqa.selenium.By;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -13,7 +13,7 @@ public class WebIsDisplayedBehaviorTests {
     }
 
     public void testExecute() {
-        final WebGetElementByLocator getBehavior = WebGetElementByLocator.getInstance(new By.ByTagName("label"));
+        final WebGetElementByLocator getBehavior = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "label");
         final WebIsDisplayedBehavior isDisplayed = WebIsDisplayedBehavior.getInstance(getBehavior);
         MockView.directNav();
         boolean actual = isDisplayed.execute();

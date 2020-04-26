@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import org.openqa.selenium.By;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -14,7 +14,8 @@ public class WebGetAttributeBehaviorTests {
 
     @Test
     public void testExecute() {
-        WebGetElementBehavior getBehavior = WebGetElementByLocator.getInstance(new By.ById("empty-select-two"));
+        final String locatorValue = "empty-select-two";
+        WebGetElementBehavior getBehavior = WebGetElementByLocator.getInstance(UiLocatorType.ID, locatorValue);
         String expected = "bogus";
         MockView.directNav();
         String actual = WebGetAttributeBehavior.getInstance(getBehavior).execute("data-test");

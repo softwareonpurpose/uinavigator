@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import org.openqa.selenium.By;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -15,7 +15,7 @@ public class WebUiElementClickTests {
     @Test
     public void testClick() {
         String expected = "Clicked";
-        WebUiElement element = WebUiElement.getInstance("Button", new By.ById("button-1"));
+        WebUiElement element = WebUiElement.getInstance("Button", UiLocatorType.ID, "button-1");
         MockView.directNav();
         element.click();
         String actual = element.getText();

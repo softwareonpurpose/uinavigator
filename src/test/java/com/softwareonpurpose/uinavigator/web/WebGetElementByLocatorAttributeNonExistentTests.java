@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import org.openqa.selenium.By;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -15,20 +15,24 @@ public class WebGetElementByLocatorAttributeNonExistentTests {
 
     @Test
     public void testExecute_nonExistent() {
-        final By.ById locator = new By.ById("name");
         MockView.directNav();
+        final String locatorValue = "name";
+        final String attribute = "data-test";
+        final String attributeValue = "non-existent";
         final WebGetElementByLocatorAttribute getBehavior =
-                WebGetElementByLocatorAttribute.getInstance(locator, "data-test", "non-existent");
+                WebGetElementByLocatorAttribute.getInstance(UiLocatorType.ID, locatorValue, attribute, attributeValue);
         WebElement actual = getBehavior.execute();
         Assert.assertNull(actual, "Failed to return null for nonexistent attribute");
     }
 
     @Test
     public void testExecute_nonexistentAttribute() {
-        final By.ById locator = new By.ById("name");
         MockView.directNav();
+        final String locatorValue = "name";
+        final String attribute = "data-nonexistent";
+        final String attributeValue = "non-existent";
         final WebGetElementByLocatorAttribute getBehavior =
-                WebGetElementByLocatorAttribute.getInstance(locator, "data-nonexistent", "non-existent");
+                WebGetElementByLocatorAttribute.getInstance(UiLocatorType.ID, locatorValue, attribute, attributeValue);
         WebElement actual = getBehavior.execute();
         Assert.assertNull(actual, "Failed to return null for nonexistent attribute");
     }

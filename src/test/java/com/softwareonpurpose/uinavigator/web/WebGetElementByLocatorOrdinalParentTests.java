@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import org.openqa.selenium.By;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.testng.Assert;
@@ -16,38 +16,56 @@ public class WebGetElementByLocatorOrdinalParentTests {
 
     @Test
     public void testConstructor_bodyTagParentNull() {
-        final By.ByTagName locator = new By.ByTagName("body");
-        Class expected = WebGetElementByLocatorOrdinalParent.class;
-        Class actual = WebGetElementByLocatorOrdinalParent.getInstance(locator, 2, null).getClass();
+        final String locatorValue = "body";
+        final int ordinal = 2;
+        final WebGetElementBehavior getParent = null;
+        //noinspection ConstantConditions
+        final WebGetElementByLocatorOrdinalParent getElement =
+                WebGetElementByLocatorOrdinalParent.getInstance(UiLocatorType.TAG, locatorValue, ordinal, getParent);
+        Class<WebGetElementByLocatorOrdinalParent> expected = WebGetElementByLocatorOrdinalParent.class;
+        Class actual = getElement.getClass();
         final String message = "Failed to return an instance of WebGetElementByLocatorOrdinalParent";
         Assert.assertEquals(actual, expected, message);
     }
 
     @Test
     public void testConstructor_bodyTag() {
-        final By.ByTagName locator = new By.ByTagName("body");
-        final WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(new By.ByName("user_name"));
-        Class expected = WebGetElementByLocatorOrdinalParent.class;
-        Class actual = WebGetElementByLocatorOrdinalParent.getInstance(locator, 2, getParent).getClass();
+        final String parentLocatorValue = "user_name";
+        final WebGetElementByLocator getParent =
+                WebGetElementByLocator.getInstance(UiLocatorType.NAME, parentLocatorValue);
+        final String locatorValue = "body";
+        final int ordinal = 2;
+        final WebGetElementByLocatorOrdinalParent getElement =
+                WebGetElementByLocatorOrdinalParent.getInstance(UiLocatorType.TAG, locatorValue, ordinal, getParent);
+        Class<WebGetElementByLocatorOrdinalParent> expected = WebGetElementByLocatorOrdinalParent.class;
+        Class actual = getElement.getClass();
         final String message = "Failed to return an instance of WebGetElementByLocatorOrdinalParent";
         Assert.assertEquals(actual, expected, message);
     }
 
     @Test
     public void testConstructor_labelTagParentNull() {
-        final By.ByTagName locator = new By.ByTagName("label");
-        Class expected = WebGetElementByLocatorOrdinalParent.class;
-        Class actual = WebGetElementByLocatorOrdinalParent.getInstance(locator, 2, null).getClass();
+        final String locatorValue = "label";
+        final int ordinal = 2;
+        final WebGetElementBehavior getParent = null;
+        //noinspection ConstantConditions
+        final WebGetElementByLocatorOrdinalParent getElement =
+                WebGetElementByLocatorOrdinalParent.getInstance(UiLocatorType.NAME, locatorValue, ordinal, getParent);
+        Class<WebGetElementByLocatorOrdinalParent> expected = WebGetElementByLocatorOrdinalParent.class;
+        Class actual = getElement.getClass();
         final String message = "Failed to return an instance of WebGetElementByLocatorOrdinalParent";
         Assert.assertEquals(actual, expected, message);
     }
 
     @Test
     public void testExecute_bodyTagParentNull() {
-        final By.ByTagName locator = new By.ByTagName("body");
+        final String locatorValue = "body";
+        final int ordinal = 1;
+        final WebGetElementBehavior getParent = null;
+        //noinspection ConstantConditions
         final WebGetElementByLocatorOrdinalParent getBehavior =
-                WebGetElementByLocatorOrdinalParent.getInstance(locator, 1, null);
-        Class expected = RemoteWebElement.class;
+                WebGetElementByLocatorOrdinalParent.getInstance(UiLocatorType.TAG, locatorValue, ordinal, getParent);
+        Class<RemoteWebElement> expected = RemoteWebElement.class;
         MockView.directNav();
         Class actual = getBehavior.execute().getClass();
         final String message = "Failed to return an instance of RemoteWebElement";
@@ -56,10 +74,11 @@ public class WebGetElementByLocatorOrdinalParentTests {
 
     @Test
     public void testExecute_ordinalNonExistent() {
-        final By.ByTagName locator = new By.ByTagName("label");
-        WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(new By.ByTagName("form"));
+        WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "form");
+        final String locatorValue = "label";
+        final int ordinal = 4;
         final WebGetElementByLocatorOrdinalParent getBehavior =
-                WebGetElementByLocatorOrdinalParent.getInstance(locator, 4, getParent);
+                WebGetElementByLocatorOrdinalParent.getInstance(UiLocatorType.TAG, locatorValue, ordinal, getParent);
         MockView.directNav();
         final WebElement actual = getBehavior.execute();
         final String message = "Failed to return null when ordinal > list size";

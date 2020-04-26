@@ -1,7 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiLocatorType;
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -14,6 +13,7 @@ public class WebUiElementGetInstanceTests {
         Class actual = WebUiElement.getInstance("An Element", UiLocatorType.CLASS, "test").getClass();
         Assert.assertEquals(actual, expected, "Failed to return an instance of WebUiElement");
     }
+
     @SuppressWarnings("rawtypes")
     @Test
     public void testGetInstance_id() {
@@ -25,7 +25,8 @@ public class WebUiElementGetInstanceTests {
     @SuppressWarnings("rawtypes")
     @Test
     public void testGetInstance_parent() {
-        final WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(new By.ByTagName("select"));
+        final String locatorValue = "select";
+        final WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, locatorValue);
         Class expected = WebUiElement.class;
         final WebUiElement element =
                 WebUiElement.getInstance("Select", UiLocatorType.TAG, "option", getParent);
@@ -46,7 +47,8 @@ public class WebUiElementGetInstanceTests {
     @SuppressWarnings("rawtypes")
     @Test
     public void testGetInstance_ordinalParent() {
-        final WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(new By.ByTagName("select"));
+        final String locatorValue = "select";
+        final WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, locatorValue);
         Class expected = WebUiElement.class;
         final WebUiElement element =
                 WebUiElement.getInstance("Select", UiLocatorType.TAG, "option", 3, getParent);
@@ -72,7 +74,9 @@ public class WebUiElementGetInstanceTests {
     @SuppressWarnings("rawtypes")
     @Test
     public void testGetInstance_attributeParent() {
-        final WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(new By.ByTagName("form"));
+        final String parentLocatorValue = "form";
+        final WebGetElementByLocator getParent =
+                WebGetElementByLocator.getInstance(UiLocatorType.TAG, parentLocatorValue);
         final String description = "Select";
         final String locatorType = UiLocatorType.TAG;
         final String locatorValue = "option";
@@ -104,7 +108,9 @@ public class WebUiElementGetInstanceTests {
     @SuppressWarnings("rawtypes")
     @Test
     public void testGetInstance_attributeOrdinalParent() {
-        final WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(new By.ByTagName("form"));
+        final String parentLocatorValue = "form";
+        final WebGetElementByLocator getParent =
+                WebGetElementByLocator.getInstance(UiLocatorType.TAG, parentLocatorValue);
         final String description = "Select";
         final String locatorType = UiLocatorType.TAG;
         final String locatorValue = "option";

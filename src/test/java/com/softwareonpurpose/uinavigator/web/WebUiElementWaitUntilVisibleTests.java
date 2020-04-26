@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import org.openqa.selenium.By;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -15,7 +15,7 @@ public class WebUiElementWaitUntilVisibleTests {
     @Test
     public void testWaitUntilVisible() {
         MockView.directNav();
-        WebUiElement element = WebUiElement.getInstance("element", new By.ById("name"));
+        WebUiElement element = WebUiElement.getInstance("element", UiLocatorType.ID, "name");
         boolean actual = element.waitUntilVisible();
         Assert.assertTrue(actual, "Failed to return true when element is nonexistent");
     }

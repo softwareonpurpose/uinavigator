@@ -8,24 +8,27 @@ import java.util.Collection;
 import java.util.List;
 
 public class WebGetListByLocatorOrdinal implements WebGetListBehavior {
-    private final By locator;
     private final Integer ordinal;
+    private final String locatorType;
+    private final String locatorValue;
 
-    private WebGetListByLocatorOrdinal(By locator, Integer ordinal) {
-        this.locator = locator;
+    private WebGetListByLocatorOrdinal(String locatorType, String locatorValue, Integer ordinal) {
         this.ordinal = ordinal;
+        this.locatorValue = locatorValue;
+        this.locatorType = locatorType;
     }
 
-    public static WebGetListByLocatorOrdinal getInstance(By locator, Integer ordinal) {
-        return new WebGetListByLocatorOrdinal(locator, ordinal);
+    public static WebGetListByLocatorOrdinal getInstance(String locatorType, String locatorValue, Integer ordinal) {
+        return new WebGetListByLocatorOrdinal(locatorType, locatorValue, ordinal);
     }
 
     @Override
     public Collection<WebUiElement> execute() {
         List<WebUiElement> elements = new ArrayList<>();
+        By locator = WebUiLocator.getInstance(locatorType, locatorValue);
         List<WebElement> candidates = WebUiHost.getInstance().findUiElements(locator);
         if (candidates.size() >= ordinal) {
-            elements.add(WebUiElement.getInstance(String.format("#%d", ordinal), locator, ordinal));
+            elements.add(WebUiElement.getInstance(String.format("#%d", ordinal), locatorType, locatorValue, ordinal));
         }
         return elements;
     }

@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import org.openqa.selenium.By;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -14,7 +14,7 @@ public class WebUiElementAttributeTests {
 
     @Test
     public void testGetAttribute() {
-        final WebUiElement element = WebUiElement.getInstance("Bogus Select", new By.ById("empty-select-two"));
+        final WebUiElement element = WebUiElement.getInstance("Bogus Select", UiLocatorType.ID, "empty-select-two");
         String expected = "bogus";
         MockView.directNav();
         String actual = element.getAttribute("data-test");
@@ -23,7 +23,7 @@ public class WebUiElementAttributeTests {
 
     @Test
     public void testSetAttribute() {
-        WebUiElement element = WebUiElement.getInstance("Element", new By.ById("name"));
+        WebUiElement element = WebUiElement.getInstance("Element", UiLocatorType.ID, "name");
         String expected = "new-value";
         MockView.directNav();
         element.setAttribute("data-test", expected);
