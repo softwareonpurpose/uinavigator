@@ -16,7 +16,7 @@ public class WebGetElementByLocator extends WebGetElementBehavior {
 
     @Override
     public WebElement execute() {
-        if (element == null && locator != null) {
+        if (element == null) {
             element = WebUiHost.getInstance().findUiElement(locator);
         }
         return element;
