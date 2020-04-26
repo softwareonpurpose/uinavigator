@@ -15,9 +15,11 @@ public class WebUiElementGetListNonExistentParentTests {
     @Test
     public void testGetList_nonExistentParent() {
         int expected = 0;
-        WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "bogus");
+        WebUiElement parent = WebUiElement.getInstance("Parent", UiLocatorType.TAG, "bogus");
         MockView.directNav();
-        int actual = WebUiElement.getList("Element List", UiLocatorType.TAG, "select", getParent).size();
+        final String description = "Element List";
+        final String locatorValue = "select";
+        int actual = WebUiElement.getList(description, UiLocatorType.TAG, locatorValue, parent).size();
         Assert.assertEquals(actual, expected, "Failed to return a list of WebUiElement");
     }
 }

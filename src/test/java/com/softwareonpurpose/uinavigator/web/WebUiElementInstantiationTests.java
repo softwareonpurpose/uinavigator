@@ -14,30 +14,30 @@ public class WebUiElementInstantiationTests {
 
     @Test
     public void testGetInstance_parent() {
-        WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "body");
+        WebUiElement parent = WebUiElement.getInstance("Parent", UiLocatorType.TAG, "body");
         Class<WebUiElement> expected = WebUiElement.class;
         final String description = "Element";
         final String locatorValue = "name";
-        Class actual = WebUiElement.getInstance(description, UiLocatorType.ID, locatorValue, getParent).getClass();
+        Class actual = WebUiElement.getInstance(description, UiLocatorType.ID, locatorValue, parent).getClass();
         Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElement");
     }
 
     @Test
     public void testGetInstance_ordinal() {
-        WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "body");
+        WebUiElement parent = WebUiElement.getInstance("Parent", UiLocatorType.TAG, "body");
         Class<WebUiElement> expected = WebUiElement.class;
         final String description = "Element";
         final String locatorValue = "name";
         final int ordinal = 1;
         final WebUiElement element =
-                WebUiElement.getInstance(description, UiLocatorType.ID, locatorValue, ordinal, getParent);
+                WebUiElement.getInstance(description, UiLocatorType.ID, locatorValue, ordinal, parent);
         Class actual = element.getClass();
         Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElement");
     }
 
     @Test
     public void testGetInstance_attribute() {
-        WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "body");
+        WebUiElement parent = WebUiElement.getInstance("Parent", UiLocatorType.TAG, "body");
         Class<WebUiElement> expected = WebUiElement.class;
         final String description = "Element";
         final String locatorValue = "name";
@@ -45,7 +45,7 @@ public class WebUiElementInstantiationTests {
         final String attributeValue = "initial";
         final WebUiElement element =
                 WebUiElement.getInstance(
-                        description, UiLocatorType.ID, locatorValue, attribute, attributeValue, getParent);
+                        description, UiLocatorType.ID, locatorValue, attribute, attributeValue, parent);
         Class actual = element.getClass();
         Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElement");
     }

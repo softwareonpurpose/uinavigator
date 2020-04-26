@@ -39,7 +39,7 @@ public class WebUiElementTests {
 
     @Test
     public void testGetInstanceByLocatorAttributeOrdinalParent() {
-        WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "form");
+        WebUiElement parent = WebUiElement.getInstance("Parent", UiLocatorType.TAG, "form");
         final String description = "Element";
         final String attribute = "data-test";
         final String attributeValue = "select-element";
@@ -47,7 +47,7 @@ public class WebUiElementTests {
         final String locatorValue = "select";
         final WebUiElement element =
                 WebUiElement.getInstance(
-                        description, UiLocatorType.TAG, locatorValue, attribute, attributeValue, ordinal, getParent);
+                        description, UiLocatorType.TAG, locatorValue, attribute, attributeValue, ordinal, parent);
         Class<WebUiElement> expected = WebUiElement.class;
         Class actual = element.getClass();
         Assert.assertEquals(actual, expected, "Failed to return an instance of WebUiElement");

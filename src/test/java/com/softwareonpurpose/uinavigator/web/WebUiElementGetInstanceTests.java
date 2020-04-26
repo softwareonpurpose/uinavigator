@@ -26,10 +26,10 @@ public class WebUiElementGetInstanceTests {
     @Test
     public void testGetInstance_parent() {
         final String locatorValue = "select";
-        final WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, locatorValue);
+        WebUiElement parent = WebUiElement.getInstance("Parent", UiLocatorType.TAG, locatorValue);
         Class expected = WebUiElement.class;
         final WebUiElement element =
-                WebUiElement.getInstance("Select", UiLocatorType.TAG, "option", getParent);
+                WebUiElement.getInstance("Select", UiLocatorType.TAG, "option", parent);
         Class actual = element.getClass();
         Assert.assertEquals(actual, expected, "Failed to return an instance of WebUiElement");
     }
@@ -48,10 +48,10 @@ public class WebUiElementGetInstanceTests {
     @Test
     public void testGetInstance_ordinalParent() {
         final String locatorValue = "select";
-        final WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, locatorValue);
+        WebUiElement parent = WebUiElement.getInstance("Parent", UiLocatorType.TAG, locatorValue);
         Class expected = WebUiElement.class;
         final WebUiElement element =
-                WebUiElement.getInstance("Select", UiLocatorType.TAG, "option", 3, getParent);
+                WebUiElement.getInstance("Select", UiLocatorType.TAG, "option", 3, parent);
         Class actual = element.getClass();
         Assert.assertEquals(actual, expected, "Failed to return an instance of WebUiElement");
     }
@@ -75,8 +75,7 @@ public class WebUiElementGetInstanceTests {
     @Test
     public void testGetInstance_attributeParent() {
         final String parentLocatorValue = "form";
-        final WebGetElementByLocator getParent =
-                WebGetElementByLocator.getInstance(UiLocatorType.TAG, parentLocatorValue);
+        WebUiElement parent = WebUiElement.getInstance("Parent", UiLocatorType.TAG, parentLocatorValue);
         final String description = "Select";
         final String locatorType = UiLocatorType.TAG;
         final String locatorValue = "option";
@@ -84,7 +83,7 @@ public class WebUiElementGetInstanceTests {
         final String attributeValue = "select-element";
         Class expected = WebUiElement.class;
         final WebUiElement element =
-                WebUiElement.getInstance(description, locatorType, locatorValue, attribute, attributeValue, getParent);
+                WebUiElement.getInstance(description, locatorType, locatorValue, attribute, attributeValue, parent);
         Class actual = element.getClass();
         Assert.assertEquals(actual, expected, "Failed to return an instance of WebUiElement");
     }
@@ -109,8 +108,7 @@ public class WebUiElementGetInstanceTests {
     @Test
     public void testGetInstance_attributeOrdinalParent() {
         final String parentLocatorValue = "form";
-        final WebGetElementByLocator getParent =
-                WebGetElementByLocator.getInstance(UiLocatorType.TAG, parentLocatorValue);
+        WebUiElement parent = WebUiElement.getInstance("Parent", UiLocatorType.TAG, parentLocatorValue);
         final String description = "Select";
         final String locatorType = UiLocatorType.TAG;
         final String locatorValue = "option";
@@ -119,7 +117,8 @@ public class WebUiElementGetInstanceTests {
         Integer ordinal = 2;
         Class expected = WebUiElement.class;
         final WebUiElement element =
-                WebUiElement.getInstance(description, locatorType, locatorValue, attribute, attributeValue, ordinal, getParent);
+                WebUiElement.getInstance(
+                        description, locatorType, locatorValue, attribute, attributeValue, ordinal, parent);
         Class actual = element.getClass();
         Assert.assertEquals(actual, expected, "Failed to return an instance of WebUiElement");
     }

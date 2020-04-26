@@ -15,11 +15,11 @@ public class WebUiElementGetListTests {
     @Test
     public void testGetList() {
         int expected = 4;
-        WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "body");
+        WebUiElement parent = WebUiElement.getInstance("Parent", UiLocatorType.TAG, "body");
         MockView.directNav();
         final String elementList = "Element List";
         final String locatorValue = "select";
-        int actual = WebUiElement.getList(elementList, UiLocatorType.TAG, locatorValue, getParent).size();
+        int actual = WebUiElement.getList(elementList, UiLocatorType.TAG, locatorValue, parent).size();
         Assert.assertEquals(actual, expected, "Failed to return a list of WebUiElement");
     }
 }

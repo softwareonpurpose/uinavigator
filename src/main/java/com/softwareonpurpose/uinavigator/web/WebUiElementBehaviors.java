@@ -257,4 +257,8 @@ public class WebUiElementBehaviors {
     public String toString() {
         return new Gson().toJson(this);
     }
+
+    public WebGetElementBehavior getBehavior() {
+        return getElement;
+    }
 }
