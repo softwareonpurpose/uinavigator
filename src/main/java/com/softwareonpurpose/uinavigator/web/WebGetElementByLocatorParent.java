@@ -26,6 +26,6 @@ public class WebGetElementByLocatorParent extends WebGetElementBehavior {
         } else {
             elements = getParent.execute().findElements(locator);
         }
-        return elements.get(0);
+        return elements.size() == 0 ? null : elements.get(0);
     }
 }
