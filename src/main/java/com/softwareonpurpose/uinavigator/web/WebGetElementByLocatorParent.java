@@ -13,11 +13,6 @@ public class WebGetElementByLocatorParent extends WebGetElementBehavior {
         this.getParent = (new By.ByTagName("body").equals(locator)) ? null : getParent;
     }
 
-    @Deprecated
-    public static WebGetElementByLocatorParent getInstance(By locator, WebGetElementBehavior getParent) {
-        return new WebGetElementByLocatorParent(locator, getParent);
-    }
-
     public static WebGetElementByLocatorParent getInstance(
             String locatorType, String locatorValue, WebGetElementBehavior getParent) {
         return new WebGetElementByLocatorParent(WebUiLocator.getInstance(locatorType, locatorValue), getParent);

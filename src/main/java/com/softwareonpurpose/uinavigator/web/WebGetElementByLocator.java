@@ -10,11 +10,6 @@ public class WebGetElementByLocator extends WebGetElementBehavior {
         super(locator);
     }
 
-    @Deprecated
-    public static WebGetElementByLocator getInstance(By locator) {
-        return new WebGetElementByLocator(locator);
-    }
-
     public static WebGetElementByLocator getInstance(String locatorType, String locatorValue) {
         return new WebGetElementByLocator(WebUiLocator.getInstance(locatorType, locatorValue));
     }

@@ -50,7 +50,7 @@ public class WebGetElementByLocatorParentTests {
         Assert.assertEquals(actual, expected, message);
     }
 
-    @Test(groups = "debug")
+    @Test
     public void testExecute() {
         WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "form");
         final String locatorValue = "user_name";

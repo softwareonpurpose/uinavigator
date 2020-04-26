@@ -15,11 +15,6 @@ public class WebGetElementByLocatorOrdinalParent extends WebGetElementBehavior {
         this.getParent = (new By.ByTagName("body").equals(locator)) ? null : getParent;
     }
 
-    @Deprecated
-    public static WebGetElementByLocatorOrdinalParent getInstance(By locator, Integer ordinal, WebGetElementBehavior getParent) {
-        return new WebGetElementByLocatorOrdinalParent(locator, ordinal, getParent);
-    }
-
     public static WebGetElementByLocatorOrdinalParent getInstance(
             String locatorType, String locatorValue, Integer ordinal, WebGetElementBehavior getParent) {
         return new WebGetElementByLocatorOrdinalParent(WebUiLocator.getInstance(locatorType, locatorValue), ordinal, getParent);

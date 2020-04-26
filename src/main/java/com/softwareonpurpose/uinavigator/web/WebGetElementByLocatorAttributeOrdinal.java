@@ -17,12 +17,6 @@ public class WebGetElementByLocatorAttributeOrdinal extends WebGetElementBehavio
         this.ordinal = ordinal;
     }
 
-    @Deprecated
-    public static WebGetElementByLocatorAttributeOrdinal getInstance(
-            By locator, String attribute, String attributeValue, Integer ordinal) {
-        return new WebGetElementByLocatorAttributeOrdinal(locator, attribute, attributeValue, ordinal);
-    }
-
     public static WebGetElementByLocatorAttributeOrdinal getInstance(
             String locatorType, String locatorValue, String attribute, String attributeValue, Integer ordinal) {
         return new WebGetElementByLocatorAttributeOrdinal(
