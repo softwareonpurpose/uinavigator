@@ -1,4 +1,5 @@
 package com.softwareonpurpose.uinavigator.web;
+
 /*
   Copyright 2020 Craig A. Stockton
   <p/>

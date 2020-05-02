@@ -14,6 +14,7 @@ package com.softwareonpurpose.uinavigator.web;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
+
 import com.softwareonpurpose.uinavigator.GetElementBehavior;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;

@@ -1,5 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
+import com.softwareonpurpose.uinavigator.UiElement;
 import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -20,7 +21,7 @@ public class WebGetListByLocatorOrdinalParentNonExistentTests {
         final int expected = 0;
         final WebGetListByLocatorOrdinalParent getListBehavior =
                 WebGetListByLocatorOrdinalParent.getInstance(UiLocatorType.TAG, "body", 5, null);
-        Collection<WebUiElement> actual = getListBehavior.execute();
+        Collection<UiElement> actual = getListBehavior.execute();
         Assert.assertEquals(actual.size(), expected, "Failed to return an empty list for nonexistent ordinal");
     }
 }

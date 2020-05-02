@@ -14,9 +14,11 @@ package com.softwareonpurpose.uinavigator.web;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
+
 import com.google.gson.Gson;
 import com.softwareonpurpose.uinavigator.GetTextBehavior;
 import com.softwareonpurpose.uinavigator.SetElementBehavior;
+import com.softwareonpurpose.uinavigator.UiElement;
 import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
@@ -188,7 +190,7 @@ public class WebUiElementBehaviors {
         return getElement.execute();
     }
 
-    Collection<WebUiElement> getList() {
+    Collection<UiElement> getList() {
         return getList.execute();
     }
 

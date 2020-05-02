@@ -1,4 +1,5 @@
 package com.softwareonpurpose.uinavigator.web;
+
 /*
   Copyright 2020 Craig A. Stockton
   <p/>
@@ -18,7 +19,7 @@ public class SwitchToFrame implements WebSwitchToBehavior {
     private final WebGetElementBehavior getElement;
 
     public SwitchToFrame(WebGetElementBehavior getElement) {
-        this.getElement=getElement;
+        this.getElement = getElement;
     }
 
     public static SwitchToFrame getInstance(WebGetElementBehavior getElement) {

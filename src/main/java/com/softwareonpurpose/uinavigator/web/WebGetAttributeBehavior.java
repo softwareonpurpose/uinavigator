@@ -14,9 +14,10 @@ package com.softwareonpurpose.uinavigator.web;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
+
 import org.openqa.selenium.WebElement;
 
-public class WebGetAttributeBehavior implements GetAttributeBehavior{
+public class WebGetAttributeBehavior implements GetAttributeBehavior {
     private final WebGetElementBehavior getBehavior;
 
     private WebGetAttributeBehavior(WebGetElementBehavior getBehavior) {
