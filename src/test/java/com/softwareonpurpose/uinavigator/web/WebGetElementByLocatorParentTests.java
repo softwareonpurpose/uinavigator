@@ -64,19 +64,4 @@ public class WebGetElementByLocatorParentTests {
         final String message = "Failed to return new instance with parent 'null' and locator is 'body' tag";
         Assert.assertEquals(actual, expected, message);
     }
-
-    @Test
-    public void testExecute_nullParent() {
-        final String locatorValue = "user_name";
-        final WebGetElementBehavior getParent = null;
-        //noinspection ConstantConditions
-        final WebGetElementByLocatorParent getElement =
-                WebGetElementByLocatorParent.getInstance(UiLocatorType.NAME, locatorValue, getParent);
-        Class<RemoteWebElement> expected = RemoteWebElement.class;
-        MockView.directNav();
-        //noinspection rawtypes
-        Class actual = getElement.execute().getClass();
-        final String message = "Failed to return new instance with parent 'null' and locator is 'body' tag";
-        Assert.assertEquals(actual, expected, message);
-    }
 }
