@@ -1,5 +1,6 @@
+package com.softwareonpurpose.uinavigator.web;
 /*
-  Copyright 2019 Craig A. Stockton
+  Copyright 2020 Craig A. Stockton
   <p/>
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -13,8 +14,6 @@
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-package com.softwareonpurpose.uinavigator.web;
-
 import com.google.gson.Gson;
 import com.softwareonpurpose.uinavigator.UiElement;
 import org.openqa.selenium.WebElement;
@@ -183,5 +182,9 @@ public class WebUiElement implements UiElement {
     public Object setSelectedBehavior(String attribute, String value) {
         behaviors.setSelectedBehavior(attribute, value);
         return this;
+    }
+
+    public void switchTo() {
+        behaviors.switchTo();
     }
 }

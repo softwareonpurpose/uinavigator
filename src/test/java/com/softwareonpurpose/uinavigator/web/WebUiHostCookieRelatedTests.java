@@ -13,7 +13,7 @@ public class WebUiHostCookieRelatedTests {
 
     @Test
     public void testGetCookieValue() {
-        RelativePathMockView.directNav();
+        MockViewRelativePath.directNav();
         String actual = WebUiHost.getInstance().getCookieValue("NID", "www.google.com", "/");
         Assert.assertFalse((actual == null || actual.isEmpty()), "Failed to return a cookie value");
     }

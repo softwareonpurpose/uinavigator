@@ -14,25 +14,6 @@ package com.softwareonpurpose.uinavigator.web;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-
-public class WebGetElementByLocator extends WebGetElementBehavior {
-    private WebElement element;
-
-    private WebGetElementByLocator(By locator) {
-        super(locator);
-    }
-
-    public static WebGetElementByLocator getInstance(String locatorType, String locatorValue) {
-        return new WebGetElementByLocator(WebUiLocator.getInstance(locatorType, locatorValue));
-    }
-
-    @Override
-    public WebElement execute() {
-        if (element == null) {
-            element = WebUiHost.getInstance().findUiElement(locator);
-        }
-        return element;
-    }
+public interface WebSwitchToBehavior {
+    void execute();
 }

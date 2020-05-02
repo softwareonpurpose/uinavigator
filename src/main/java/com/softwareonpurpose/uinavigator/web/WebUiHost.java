@@ -1,5 +1,6 @@
+package com.softwareonpurpose.uinavigator.web;
 /*
-  Copyright 2018 Craig A. Stockton
+  Copyright 2020 Craig A. Stockton
   <p/>
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -13,8 +14,6 @@
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-package com.softwareonpurpose.uinavigator.web;
-
 import com.softwareonpurpose.uinavigator.DriverInstantiation;
 import com.softwareonpurpose.uinavigator.UiHost;
 import com.softwareonpurpose.uinavigator.UiNavigatorConfiguration;
@@ -201,5 +200,14 @@ public class WebUiHost implements UiHost {
      */
     public String getCookieValue(String name, String domain, String path) {
         return CookieViewer.getInstance(driver).getCookieValue(name, domain, path);
+    }
+
+    public void switchTo(WebElement frameElement) {
+        final WebElement element = frameElement;
+        driver.switchTo().frame(element);
+    }
+
+    public void switchTo() {
+        driver.switchTo().defaultContent();
     }
 }

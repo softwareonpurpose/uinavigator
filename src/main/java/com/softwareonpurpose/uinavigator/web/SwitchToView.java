@@ -1,4 +1,5 @@
 package com.softwareonpurpose.uinavigator.web;
+
 /*
   Copyright 2020 Craig A. Stockton
   <p/>
@@ -14,22 +15,18 @@ package com.softwareonpurpose.uinavigator.web;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-public class StateBehavior {
-    private final WebGetElementBehavior getBehavior;
-    private final String attribute;
-    private final String value;
+public class SwitchToView implements WebSwitchToBehavior {
 
-    private StateBehavior(WebGetElementBehavior getBehavior, String attribute, String value) {
-        this.getBehavior = getBehavior;
-        this.attribute = attribute;
-        this.value = value;
+    public SwitchToView() {
+
     }
 
-    public static StateBehavior getInstance(WebGetElementBehavior getBehavior, String attribute, String value) {
-        return new StateBehavior(getBehavior, attribute, value);
+    public static SwitchToView getInstance() {
+        return new SwitchToView();
     }
 
-    public boolean execute() {
-        return getBehavior.execute().getAttribute(attribute).contains(value);
+    @Override
+    public void execute() {
+        WebUiHost.getInstance().switchTo();
     }
 }

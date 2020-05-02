@@ -1,5 +1,6 @@
+package com.softwareonpurpose.uinavigator.web;
 /*
-  Copyright 2019 Craig A. Stockton
+  Copyright 2020 Craig A. Stockton
   <p/>
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -13,8 +14,6 @@
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-package com.softwareonpurpose.uinavigator.web;
-
 import com.softwareonpurpose.uinavigator.UiView;
 
 public abstract class WebUiView extends UiView {
@@ -27,6 +26,7 @@ public abstract class WebUiView extends UiView {
 
     protected void load() {
         WebUiHost.getInstance().load(viewUri);
+        getElement().switchTo();
     }
 
     protected void load(String relativeUri) {
@@ -42,5 +42,9 @@ public abstract class WebUiView extends UiView {
 
     public String getUri() {
         return viewUri;
+    }
+
+    protected void switchTo() {
+        this.getElement().switchTo();
     }
 }

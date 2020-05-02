@@ -1,5 +1,6 @@
+package com.softwareonpurpose.uinavigator;
 /*
-  Copyright 2019 Craig A. Stockton
+  Copyright 2020 Craig A. Stockton
   <p/>
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -13,7 +14,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-package com.softwareonpurpose.uinavigator;
+import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
 import java.util.Properties;
@@ -31,7 +32,8 @@ public class UiNavigatorConfiguration {
                 prop.load(inputStream);
             }
         } catch (Exception e) {
-            System.out.println("Exception: " + e);
+            final String message = "Unable to load configuration file %s";
+            LoggerFactory.getLogger(this.getClass()).warn(String.format(message, propertiesFilename));
         }
         String configurationTimeout = prop.getProperty("timeout");
         this.timeout = configurationTimeout == null ? 3 : Integer.parseInt(configurationTimeout);

@@ -1,5 +1,19 @@
 package com.softwareonpurpose.uinavigator.web;
-
+/*
+  Copyright 2020 Craig A. Stockton
+  <p/>
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  <p/>
+  http://www.apache.org/licenses/LICENSE-2.0
+  <p/>
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ */
 import com.google.gson.Gson;
 import com.softwareonpurpose.uinavigator.GetTextBehavior;
 import com.softwareonpurpose.uinavigator.SetElementBehavior;
@@ -21,6 +35,7 @@ public class WebUiElementBehaviors {
     private transient final WebGetAttributeBehavior getAttribute;
     private transient final WebIsDisplayedBehavior isDisplayed;
     private transient final WebSetAttributeBehavior setAttribute;
+    private transient final WebSwitchToBehavior switchTo;
     private transient StateBehavior isActive;
     private transient StateBehavior isSelected;
 
@@ -28,7 +43,7 @@ public class WebUiElementBehaviors {
             String description, WebGetElementBehavior getElement,
             WebGetListBehavior getList,
             SetElementBehavior setElement,
-            GetTextBehavior getText) {
+            GetTextBehavior getText, WebSwitchToBehavior switchTo) {
         this.description = description;
         this.getElement = getElement;
         this.getList = getList;
@@ -37,6 +52,7 @@ public class WebUiElementBehaviors {
         this.getAttribute = WebGetAttributeBehavior.getInstance(getElement);
         this.isDisplayed = WebIsDisplayedBehavior.getInstance(getElement);
         this.setAttribute = WebSetAttributeBehavior.getInstance(getElement);
+        this.switchTo = switchTo;
     }
 
     static WebUiElementBehaviors getInstanceByLocator(String description, String locatorType, String locatorValue) {
@@ -44,7 +60,8 @@ public class WebUiElementBehaviors {
         WebGetListBehavior getList = WebGetListByLocator.getInstance(locatorType, locatorValue);
         SetElementBehavior set = getSetBehavior(locatorType, locatorValue, getElement);
         GetTextBehavior getText = getGetTextBehavior(locatorType, locatorValue, getElement);
-        return new WebUiElementBehaviors(description, getElement, getList, set, getText);
+        WebSwitchToBehavior switchTo = getSwitchToBehavior(locatorType, locatorValue, getElement);
+        return new WebUiElementBehaviors(description, getElement, getList, set, getText, switchTo);
     }
 
     static WebUiElementBehaviors getInstanceByLocatorAttribute(
@@ -55,7 +72,8 @@ public class WebUiElementBehaviors {
                 WebGetListByLocatorAttribute.getInstance(locatorType, locatorValue, attribute, attributeValue);
         SetElementBehavior set = getSetBehavior(locatorType, locatorValue, getElement);
         GetTextBehavior getText = getGetTextBehavior(locatorType, locatorValue, getElement);
-        return new WebUiElementBehaviors(description, getElement, getList, set, getText);
+        WebSwitchToBehavior switchTo = getSwitchToBehavior(locatorType, locatorValue, getElement);
+        return new WebUiElementBehaviors(description, getElement, getList, set, getText, switchTo);
     }
 
     static WebUiElementBehaviors getInstanceByLocatorOrdinal(
@@ -64,7 +82,8 @@ public class WebUiElementBehaviors {
         WebGetListBehavior getList = WebGetListByLocatorOrdinal.getInstance(locatorType, locatorValue, ordinal);
         SetElementBehavior set = getSetBehavior(locatorType, locatorValue, getElement);
         GetTextBehavior getText = getGetTextBehavior(locatorType, locatorValue, getElement);
-        return new WebUiElementBehaviors(description, getElement, getList, set, getText);
+        WebSwitchToBehavior switchTo = getSwitchToBehavior(locatorType, locatorValue, getElement);
+        return new WebUiElementBehaviors(description, getElement, getList, set, getText, switchTo);
     }
 
     static WebUiElementBehaviors getInstanceByLocatorParent(
@@ -73,7 +92,8 @@ public class WebUiElementBehaviors {
         WebGetListBehavior getList = WebGetListByLocatorParent.getInstance(locatorType, locatorValue, getParent);
         SetElementBehavior set = getSetBehavior(locatorType, locatorValue, getElement);
         GetTextBehavior getText = getGetTextBehavior(locatorType, locatorValue, getElement);
-        return new WebUiElementBehaviors(description, getElement, getList, set, getText);
+        WebSwitchToBehavior switchTo = getSwitchToBehavior(locatorType, locatorValue, getElement);
+        return new WebUiElementBehaviors(description, getElement, getList, set, getText, switchTo);
     }
 
     static WebUiElementBehaviors getInstanceByLocatorAttributeOrdinal(
@@ -85,7 +105,8 @@ public class WebUiElementBehaviors {
                 WebGetListByLocatorAttributeOrdinal.getInstance(locatorType, locatorValue, attribute, attributeValue, ordinal);
         SetElementBehavior set = getSetBehavior(locatorType, locatorValue, getElement);
         GetTextBehavior getText = getGetTextBehavior(locatorType, locatorValue, getElement);
-        return new WebUiElementBehaviors(description, getElement, getList, set, getText);
+        WebSwitchToBehavior switchTo = getSwitchToBehavior(locatorType, locatorValue, getElement);
+        return new WebUiElementBehaviors(description, getElement, getList, set, getText, switchTo);
     }
 
     static WebUiElementBehaviors getInstanceByLocatorAttributeParent(
@@ -97,7 +118,8 @@ public class WebUiElementBehaviors {
                 WebGetListByLocatorAttributeParent.getInstance(locatorType, locatorValue, attribute, attributeValue, getParent);
         SetElementBehavior set = getSetBehavior(locatorType, locatorValue, getElement);
         GetTextBehavior getText = getGetTextBehavior(locatorType, locatorValue, getElement);
-        return new WebUiElementBehaviors(description, getElement, getList, set, getText);
+        WebSwitchToBehavior switchTo = getSwitchToBehavior(locatorType, locatorValue, getElement);
+        return new WebUiElementBehaviors(description, getElement, getList, set, getText, switchTo);
     }
 
     static WebUiElementBehaviors getInstanceByLocatorOrdinalParent(
@@ -109,7 +131,8 @@ public class WebUiElementBehaviors {
                 WebGetListByLocatorOrdinalParent.getInstance(locatorType, locatorValue, ordinal, getParent);
         SetElementBehavior set = getSetBehavior(locatorType, locatorValue, getElement);
         GetTextBehavior getText = getGetTextBehavior(locatorType, locatorValue, getElement);
-        return new WebUiElementBehaviors(description, getElement, getList, set, getText);
+        WebSwitchToBehavior switchTo = getSwitchToBehavior(locatorType, locatorValue, getElement);
+        return new WebUiElementBehaviors(description, getElement, getList, set, getText, switchTo);
     }
 
     static WebUiElementBehaviors getInstanceByLocatorAttributeOrdinalParent(
@@ -123,7 +146,16 @@ public class WebUiElementBehaviors {
                         locatorType, locatorValue, attribute, attributeValue, ordinal, getParent);
         SetElementBehavior set = getSetBehavior(locatorType, locatorValue, getElement);
         GetTextBehavior getText = getGetTextBehavior(locatorType, locatorValue, getElement);
-        return new WebUiElementBehaviors(description, getElement, getList, set, getText);
+        WebSwitchToBehavior switchTo = getSwitchToBehavior(locatorType, locatorValue, getElement);
+        return new WebUiElementBehaviors(description, getElement, getList, set, getText, switchTo);
+    }
+
+    private static WebSwitchToBehavior getSwitchToBehavior(String locatorType, String locatorValue, WebGetElementBehavior getElement) {
+        if (UiLocatorType.TAG.equals(locatorType) && "iframe".equals(locatorValue)) {
+            return SwitchToFrame.getInstance(getElement);
+        } else {
+            return SwitchToView.getInstance();
+        }
     }
 
     private static GetTextBehavior getGetTextBehavior(
@@ -260,5 +292,9 @@ public class WebUiElementBehaviors {
 
     public WebGetElementBehavior getBehavior() {
         return getElement;
+    }
+
+    public void switchTo() {
+        switchTo.execute();
     }
 }
