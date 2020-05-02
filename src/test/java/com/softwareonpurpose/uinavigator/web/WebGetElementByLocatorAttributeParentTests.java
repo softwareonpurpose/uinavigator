@@ -60,20 +60,4 @@ public class WebGetElementByLocatorAttributeParentTests {
         final String message = "Failed to return an instance of WebElement";
         Assert.assertEquals(actual, expected, message);
     }
-
-    @Test
-    public void testExecute_nullParent() {
-        MockView.directNav();
-        final String attribute = "data-test";
-        final String attributeValue = "view-element";
-        Class<RemoteWebElement> expected = RemoteWebElement.class;
-        final String locatorValue = "body";
-        final WebGetElementBehavior getParent = null;
-        //noinspection ConstantConditions
-        final WebGetElementByLocatorAttributeParent getBehavior =
-                WebGetElementByLocatorAttributeParent.getInstance(
-                        UiLocatorType.TAG, locatorValue, attribute, attributeValue, getParent);
-        Class actual = getBehavior.execute().getClass();
-        Assert.assertEquals(actual, expected, "Failed to return WebElement instance");
-    }
 }
