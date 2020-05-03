@@ -6,21 +6,21 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class WebGetListByLocatorAttributeOrdinalParentTests {
+public class WebGetListByLocatorAttributeOrdinalParentTagLocatorTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
         WebUiHost.quitInstance();
     }
 
     @Test
-    public void testExecute() {
+    public void testExecute_bodyTag() {
         WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "form");
         Class<WebUiElement> expected = WebUiElement.class;
         MockView.directNav();
         final String attribute = "data-test";
-        final String attributeValue = "select-element";
-        final int ordinal = 2;
-        final String locatorValue = "select";
+        final String attributeValue = "view-element";
+        final int ordinal = 1;
+        final String locatorValue = "body";
         final WebGetListByLocatorAttributeOrdinalParent getBehavior =
                 WebGetListByLocatorAttributeOrdinalParent.getInstance(
                         UiLocatorType.TAG, locatorValue, attribute, attributeValue, ordinal, getParent);
