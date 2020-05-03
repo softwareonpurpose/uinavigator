@@ -7,17 +7,17 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class WebGetElementByLocatorAttributeNonExistentTests {
+public class WebGetElementByLocatorAttributeNonExistentAttributeTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
         WebUiHost.quitInstance();
     }
 
     @Test
-    public void testExecute_nonExistent() {
+    public void testExecute_nonexistentAttribute() {
         MockView.directNav();
         final String locatorValue = "name";
-        final String attribute = "data-test";
+        final String attribute = "data-nonexistent";
         final String attributeValue = "non-existent";
         final WebGetElementByLocatorAttribute getBehavior =
                 WebGetElementByLocatorAttribute.getInstance(UiLocatorType.ID, locatorValue, attribute, attributeValue);
