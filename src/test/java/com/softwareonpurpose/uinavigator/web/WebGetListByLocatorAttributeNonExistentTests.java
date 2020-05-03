@@ -6,22 +6,21 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class WebGetListByLocatorAttributeTests {
+public class WebGetListByLocatorAttributeNonExistentTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
         WebUiHost.quitInstance();
     }
 
     @Test
-    public void testExecute() {
+    public void testExecute_nonExistent() {
         MockView.directNav();
-        Class<WebUiElement> expected = WebUiElement.class;
+        int expected = 0;
         final String attribute = "data-test";
-        final String attributeValue = "select-element";
+        final String attributeValue = "not-there";
         final WebGetListByLocatorAttribute getBehavior =
                 WebGetListByLocatorAttribute.getInstance(UiLocatorType.TAG, "select", attribute, attributeValue);
-        //noinspection rawtypes
-        Class actual = getBehavior.execute().iterator().next().getClass();
-        Assert.assertEquals(actual, expected, "Failed to return a list of at least one WebUiElement");
+        final int actual = getBehavior.execute().size();
+        Assert.assertEquals(actual, expected, "Failed to return null when element is non-existent");
     }
 }
