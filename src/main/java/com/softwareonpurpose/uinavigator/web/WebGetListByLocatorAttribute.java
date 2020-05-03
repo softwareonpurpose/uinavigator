@@ -49,7 +49,7 @@ public class WebGetListByLocatorAttribute implements WebGetListBehavior {
         int ordinal = 0;
         for (WebElement candidate : candidates) {
             final String attributeValue = candidate.getAttribute(this.attribute);
-            if (attributeValue != null && attributeValue.equals(this.attributeValue)) {
+            if (attributeValue.equals(this.attributeValue)) {
                 ordinal += 1;
                 elements.add(WebUiElement.getInstance(String.format("#%d", ordinal), locatorType, locatorValue, this.attribute, this.attributeValue));
             }
