@@ -14,6 +14,7 @@ package com.softwareonpurpose.uinavigator.web;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
+
 import com.softwareonpurpose.uinavigator.UiElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -50,7 +51,7 @@ public class WebGetListByLocatorAttributeOrdinal implements WebGetListBehavior {
         Integer ordinal = 0;
         for (WebElement candidate : candidates) {
             final String attributeValue = candidate.getAttribute(this.attribute);
-            if (attributeValue != null && attributeValue.equals(this.attributeValue)) {
+            if (attributeValue.equals(this.attributeValue)) {
                 ordinal += 1;
                 if (ordinal.equals(this.ordinal)) {
                     elements.add(WebUiElement.getInstance(
