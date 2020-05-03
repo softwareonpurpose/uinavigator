@@ -30,12 +30,4 @@ public class WebUiViewTests {
         Class actual = WebUiView.expect(view.getClass()).getClass();
         Assert.assertEquals(actual, expected, "Failed to return an instance of WebUiElement");
     }
-
-    @Test
-    public void testSwitchTo_iFrame() {
-        final MockViewFramed view = MockViewFramed.directNav();
-        String expected = "Life Reconciled";
-        String actual = view.getSiteTitle();
-        Assert.assertEquals(actual, expected, "Failed to successfully switch to iframe");
-    }
 }
