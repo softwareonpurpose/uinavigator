@@ -60,7 +60,7 @@ public class WebGetListByLocatorAttributeParent implements WebGetListBehavior {
         int ordinal = 0;
         for (WebElement candidate : candidates) {
             final String attributeValue = candidate.getAttribute(this.attribute);
-            if (attributeValue != null && attributeValue.equals(this.attributeValue)) {
+            if (attributeValue.equals(this.attributeValue)) {
                 ordinal += 1;
                 final String description = String.format("#%d", ordinal);
                 elements.add(WebUiElement.getInstance(description, locatorType, locatorValue, this.attribute, this.attributeValue));
