@@ -29,15 +29,15 @@ public class WebGetListByLocatorAttributeOrdinalParentTests {
         Assert.assertEquals(actual, expected, "Failed to return a list of WebUiElement");
     }
 
-    @Test
+    @Test(groups = "debug")
     public void testExecute_bodyTag() {
-        WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "body");
+        WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "form");
         Class<WebUiElement> expected = WebUiElement.class;
         MockView.directNav();
         final String attribute = "data-test";
-        final String attributeValue = "select-element";
-        final int ordinal = 2;
-        final String locatorValue = "select";
+        final String attributeValue = "view-element";
+        final int ordinal = 1;
+        final String locatorValue = "body";
         final WebGetListByLocatorAttributeOrdinalParent getBehavior =
                 WebGetListByLocatorAttributeOrdinalParent.getInstance(
                         UiLocatorType.TAG, locatorValue, attribute, attributeValue, ordinal, getParent);
