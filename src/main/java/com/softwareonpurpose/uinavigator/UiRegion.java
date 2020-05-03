@@ -1,4 +1,7 @@
 package com.softwareonpurpose.uinavigator;
+
+import org.slf4j.LoggerFactory;
+
 /*
   Copyright 2020 Craig A. Stockton
   <p/>
@@ -14,5 +17,29 @@ package com.softwareonpurpose.uinavigator;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-public interface UiRegion {
+public abstract class UiRegion {
+    private static boolean suppressLogging;
+    private final UiElement regionElement;
+
+    protected UiRegion(UiElement regionElement) {
+        this.regionElement = regionElement;
+        if (!suppressLogging)
+            LoggerFactory.getLogger("").info(String.format("In %s...", getDescription()));
+    }
+
+    public static void suppressConstructionLogging(boolean suppress) {
+        suppressLogging = suppress;
+    }
+
+    public boolean isVisible() {
+        return regionElement.waitUntilVisible();
+    }
+
+    public UiElement getElement() {
+        return regionElement;
+    }
+
+    public String getDescription() {
+        return getElement().getDescription();
+    }
 }

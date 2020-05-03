@@ -40,7 +40,7 @@ public class WebUiElementStateTests {
         WebUiElement element = WebUiElement.getInstance("Element", UiLocatorType.ID, "button-1");
         String attribute = "data-selected";
         String value = "true";
-        element.setSelectedBehavior(attribute, value);
+        element = element.setSelectedBehavior(attribute, value);
         boolean expected = true;
         MockView.directNav();
         boolean actual = element.isSelected();

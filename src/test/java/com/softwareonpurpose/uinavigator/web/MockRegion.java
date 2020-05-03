@@ -1,14 +1,14 @@
-package com.softwareonpurpose.uinavigator.web.mock;
+package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.web.WebUiElement;
-import com.softwareonpurpose.uinavigator.web.WebUiRegion;
+import com.softwareonpurpose.uinavigator.UiElement;
+import com.softwareonpurpose.uinavigator.UiRegion;
 
-public class MockRegion extends WebUiRegion {
-    private MockRegion(WebUiElement regionElement) {
+public class MockRegion extends UiRegion {
+    private MockRegion(UiElement regionElement) {
         super(regionElement);
     }
 
-    public static WebUiRegion getInstance(WebUiElement regionElement) {
+    public static UiRegion getInstance(UiElement regionElement) {
         return new MockRegion(regionElement);
     }
 }

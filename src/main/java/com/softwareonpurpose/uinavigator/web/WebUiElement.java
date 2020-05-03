@@ -14,6 +14,7 @@ package com.softwareonpurpose.uinavigator.web;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
+
 import com.google.gson.Gson;
 import com.softwareonpurpose.uinavigator.UiElement;
 import org.openqa.selenium.WebElement;
@@ -159,7 +160,7 @@ public class WebUiElement implements UiElement {
         behaviors.setAttribute(attribute, value);
     }
 
-    String getDescription() {
+    public String getDescription() {
         return description;
     }
 
@@ -179,7 +180,7 @@ public class WebUiElement implements UiElement {
     }
 
     @Override
-    public Object setSelectedBehavior(String attribute, String value) {
+    public WebUiElement setSelectedBehavior(String attribute, String value) {
         behaviors.setSelectedBehavior(attribute, value);
         return this;
     }

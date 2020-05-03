@@ -1,4 +1,5 @@
 package com.softwareonpurpose.uinavigator;
+
 /*
   Copyright 2020 Craig A. Stockton
   <p/>
@@ -15,7 +16,11 @@ package com.softwareonpurpose.uinavigator;
   limitations under the License.
  */
 public interface UiElement {
-    Object setActiveBehavior(String attribute, String value);
+    UiElement setActiveBehavior(String attribute, String value);
 
-    Object setSelectedBehavior(String attribute, String value);
+    UiElement setSelectedBehavior(String attribute, String value);
+
+    boolean waitUntilVisible();
+
+    String getDescription();
 }
