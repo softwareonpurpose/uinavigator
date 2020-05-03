@@ -16,6 +16,12 @@ public class MockView extends WebUiView {
         return WebUiView.expect(view.getClass());
     }
 
+    public static WebUiView directNav(String relativeUrl) {
+        MockView view = construct(MockView.class);
+        view.load(relativeUrl);
+        return WebUiView.expect(view.getClass());
+    }
+
     @Override
     protected boolean confirmElementStates() {
         return this.getElement().waitUntilVisible();

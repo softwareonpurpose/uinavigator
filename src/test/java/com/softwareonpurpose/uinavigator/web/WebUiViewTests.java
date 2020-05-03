@@ -13,8 +13,20 @@ public class WebUiViewTests {
 
     @Test
     public void testExpect() {
+        //noinspection rawtypes
         Class expected = MockView.class;
         WebUiView view = MockView.directNav();
+        //noinspection rawtypes
+        Class actual = WebUiView.expect(view.getClass()).getClass();
+        Assert.assertEquals(actual, expected, "Failed to return an instance of WebUiElement");
+    }
+
+    @Test
+    public void testLoad_queryString() {
+        //noinspection rawtypes
+        Class expected = MockView.class;
+        WebUiView view = MockView.directNav("?name=value");
+        //noinspection rawtypes
         Class actual = WebUiView.expect(view.getClass()).getClass();
         Assert.assertEquals(actual, expected, "Failed to return an instance of WebUiElement");
     }
