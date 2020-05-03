@@ -14,6 +14,7 @@ package com.softwareonpurpose.uinavigator.web;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
+
 import com.softwareonpurpose.uinavigator.DriverInstantiation;
 import com.softwareonpurpose.uinavigator.UiHost;
 import com.softwareonpurpose.uinavigator.UiNavigatorConfiguration;
@@ -203,8 +204,7 @@ public class WebUiHost implements UiHost {
     }
 
     public void switchTo(WebElement frameElement) {
-        final WebElement element = frameElement;
-        driver.switchTo().frame(element);
+        driver.switchTo().frame(frameElement);
     }
 
     public void switchTo() {

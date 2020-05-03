@@ -15,12 +15,21 @@ public class MockViewFramed extends WebUiView {
     public static MockViewFramed directNav() {
         MockViewFramed view = construct(MockViewFramed.class);
         view.load();
-        view.switchTo();
         return WebUiView.expect(view.getClass());
     }
 
     @Override
     protected boolean confirmElementStates() {
-        return this.getElement().waitUntilVisible();
+        boolean confirmed = this.getElement().waitUntilVisible();
+        confirmed &= getSiteTitleElement().waitUntilVisible();
+        return confirmed;
+    }
+
+    public String getSiteTitle() {
+        return getSiteTitleElement().getText();
+    }
+
+    private WebUiElement getSiteTitleElement() {
+        return WebUiElement.getInstance("Site Title", UiLocatorType.CLASS, "site-title");
     }
 }
