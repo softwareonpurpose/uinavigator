@@ -14,6 +14,7 @@ package com.softwareonpurpose.uinavigator.web;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
+
 import com.softwareonpurpose.uinavigator.UiView;
 
 public abstract class WebUiView extends UiView {
@@ -33,6 +34,7 @@ public abstract class WebUiView extends UiView {
         relativeUri = relativeUri.startsWith("?") ? relativeUri : String.format("/%s", relativeUri);
         String explicitUri = String.format("%s%s", viewUri, relativeUri);
         WebUiHost.getInstance().load(explicitUri);
+        getElement().switchTo();
     }
 
     @Override
@@ -42,9 +44,5 @@ public abstract class WebUiView extends UiView {
 
     public String getUri() {
         return viewUri;
-    }
-
-    protected void switchTo() {
-        this.getElement().switchTo();
     }
 }
