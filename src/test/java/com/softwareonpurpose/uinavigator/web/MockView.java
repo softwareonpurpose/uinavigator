@@ -1,8 +1,9 @@
 package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiLocatorType;
+import com.softwareonpurpose.uinavigator.UiView;
 
-public class MockView extends WebUiView {
+public class MockView extends UiView {
 
     private static final String VIEW_URI = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
 
@@ -13,13 +14,13 @@ public class MockView extends WebUiView {
     public static MockView directNav() {
         MockView view = construct(MockView.class);
         view.load();
-        return WebUiView.expect(view.getClass());
+        return UiView.expect(view.getClass());
     }
 
-    public static WebUiView directNav(String relativeUrl) {
+    public static UiView directNav(String relativeUrl) {
         MockView view = construct(MockView.class);
         view.load(relativeUrl);
-        return WebUiView.expect(view.getClass());
+        return UiView.expect(view.getClass());
     }
 
     @Override

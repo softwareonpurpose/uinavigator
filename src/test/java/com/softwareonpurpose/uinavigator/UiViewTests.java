@@ -1,11 +1,13 @@
-package com.softwareonpurpose.uinavigator.web;
+package com.softwareonpurpose.uinavigator;
 
+import com.softwareonpurpose.uinavigator.web.MockView;
+import com.softwareonpurpose.uinavigator.web.WebUiHost;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class WebUiViewTests {
+public class UiViewTests {
     @AfterMethod
     public void terminate() {
         WebUiHost.quitInstance();
@@ -15,9 +17,9 @@ public class WebUiViewTests {
     public void testExpect() {
         //noinspection rawtypes
         Class expected = MockView.class;
-        WebUiView view = MockView.directNav();
+        UiView view = MockView.directNav();
         //noinspection rawtypes
-        Class actual = WebUiView.expect(view.getClass()).getClass();
+        Class actual = UiView.expect(view.getClass()).getClass();
         Assert.assertEquals(actual, expected, "Failed to return an instance of WebUiElement");
     }
 
@@ -25,9 +27,9 @@ public class WebUiViewTests {
     public void testLoad_queryString() {
         //noinspection rawtypes
         Class expected = MockView.class;
-        WebUiView view = MockView.directNav("?name=value");
+        UiView view = MockView.directNav("?name=value");
         //noinspection rawtypes
-        Class actual = WebUiView.expect(view.getClass()).getClass();
+        Class actual = UiView.expect(view.getClass()).getClass();
         Assert.assertEquals(actual, expected, "Failed to return an instance of WebUiElement");
     }
 }

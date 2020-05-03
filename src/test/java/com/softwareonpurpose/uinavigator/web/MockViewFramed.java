@@ -1,8 +1,9 @@
 package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiLocatorType;
+import com.softwareonpurpose.uinavigator.UiView;
 
-public class MockViewFramed extends WebUiView {
+public class MockViewFramed extends UiView {
 
     private static final String VIEW_URI = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
     private static final String LOCATOR_VALUE = "iframe";
@@ -15,7 +16,7 @@ public class MockViewFramed extends WebUiView {
     public static MockViewFramed directNav() {
         MockViewFramed view = construct(MockViewFramed.class);
         view.load();
-        return WebUiView.expect(view.getClass());
+        return UiView.expect(view.getClass());
     }
 
     @Override

@@ -136,7 +136,7 @@ public class WebUiHost implements UiHost {
      *
      * @return String URI
      */
-    public String getUri() {
+    public String getAddress() {
         return driver.getCurrentUrl();
     }
 

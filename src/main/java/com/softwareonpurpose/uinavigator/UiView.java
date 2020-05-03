@@ -14,6 +14,8 @@ package com.softwareonpurpose.uinavigator;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
+
+import com.softwareonpurpose.uinavigator.web.WebUiHost;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
@@ -24,8 +26,23 @@ public abstract class UiView {
             "Unable to access View constructor; ensure it is parameter-less and has 'public' scope";
     private final UiElement viewElement;
 
-    protected UiView(UiElement viewElement) {
+    private final String address;
+
+    protected UiView(String viewAddress, UiElement viewElement) {
+        this.address = viewAddress;
         this.viewElement = viewElement;
+    }
+
+    protected void load() {
+        WebUiHost.getInstance().load(address);
+        getElement().switchTo();
+    }
+
+    protected void load(String relativeUri) {
+        relativeUri = relativeUri.startsWith("?") ? relativeUri : String.format("/%s", relativeUri);
+        String explicitUri = String.format("%s%s", address, relativeUri);
+        WebUiHost.getInstance().load(explicitUri);
+        getElement().switchTo();
     }
 
     public static <T extends UiView> T expect(Class<T> viewClass) {
@@ -65,4 +82,8 @@ public abstract class UiView {
     }
 
     protected abstract boolean confirmElementStates();
+
+    public String getAddress() {
+        return address;
+    }
 }

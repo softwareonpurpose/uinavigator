@@ -13,8 +13,8 @@ public class WebUiHostDriverRelatedTests {
 
     @Test
     public void testGetUri() {
-        String expected = MockView.directNav().getUri();
-        String actual = WebUiHost.getInstance().getUri();
+        String expected = MockView.directNav().getAddress();
+        String actual = WebUiHost.getInstance().getAddress();
         Assert.assertEquals(actual, expected, "Failed to return expected URI");
     }
 

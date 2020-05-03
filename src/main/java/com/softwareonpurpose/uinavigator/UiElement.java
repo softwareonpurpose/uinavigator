@@ -23,4 +23,6 @@ public interface UiElement {
     boolean waitUntilVisible();
 
     String getDescription();
+
+    void switchTo();
 }

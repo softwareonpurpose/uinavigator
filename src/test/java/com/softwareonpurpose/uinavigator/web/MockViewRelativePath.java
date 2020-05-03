@@ -1,8 +1,9 @@
 package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiLocatorType;
+import com.softwareonpurpose.uinavigator.UiView;
 
-public class MockViewRelativePath extends WebUiView {
+public class MockViewRelativePath extends UiView {
     private static final String VIEW_URI = "http://www.google.com";
     private static final String LOCATOR_VALUE = "body";
 
@@ -14,7 +15,7 @@ public class MockViewRelativePath extends WebUiView {
     public static MockViewRelativePath directNav() {
         MockViewRelativePath view = construct(MockViewRelativePath.class);
         view.load("search?q=mousetrap");
-        return WebUiView.expect(view.getClass());
+        return UiView.expect(view.getClass());
     }
 
     @Override
