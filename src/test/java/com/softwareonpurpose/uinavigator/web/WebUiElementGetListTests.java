@@ -14,7 +14,7 @@ public class WebUiElementGetListTests {
 
     @Test
     public void testGetList() {
-        int expected = 4;
+        int expected = 5;
         WebUiElement parent = WebUiElement.getInstance("Parent", UiLocatorType.TAG, "body");
         MockView.directNav();
         final String elementList = "Element List";

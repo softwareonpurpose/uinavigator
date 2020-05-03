@@ -1,7 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiLocatorType;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -28,20 +27,5 @@ public class WebGetElementByLocatorAttributeOrdinalTests {
         //noinspection rawtypes
         Class actual = getBehavior.execute().getClass();
         Assert.assertEquals(actual, expected, "Failed to return an instance of WebElement");
-    }
-
-    @Test
-    public void testExecute_nullAttributeValue() {
-        final String attribute = "data-test";
-        final String attributeValue = null;
-        final int ordinal = 2;
-        final String locatorValue = "select";
-        //noinspection ConstantConditions
-        final WebGetElementByLocatorAttributeOrdinal getBehavior =
-                WebGetElementByLocatorAttributeOrdinal.getInstance(
-                        UiLocatorType.TAG, locatorValue, attribute, attributeValue, ordinal);
-        MockView.directNav();
-        final WebElement actual = getBehavior.execute();
-        Assert.assertNull(actual, "Failed to return null when attribute value is null");
     }
 }

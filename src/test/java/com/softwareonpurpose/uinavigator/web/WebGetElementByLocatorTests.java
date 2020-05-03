@@ -69,7 +69,7 @@ public class WebGetElementByLocatorTests {
         Assert.assertEquals(actual, expected, "Failed:  constructor threw exception");
     }
 
-    @Test(groups = "debug")
+    @Test
     public void testExecute_iFrame() {
         MockView.directNav();
         WebElement actual = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "iframe").execute();
