@@ -6,7 +6,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class WebUiElementStateTests {
+public class WebUiElementIsActiveTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
         WebUiHost.quitInstance();
@@ -18,6 +18,7 @@ public class WebUiElementStateTests {
         WebUiElement element = WebUiElement.getInstance("Element", UiLocatorType.ID, "pet-select");
         element = element.setActiveBehavior("data-state", activeValue);
         Class<WebUiElement> expected = WebUiElement.class;
+        //noinspection rawtypes
         Class actual = element.getClass();
         Assert.assertEquals(actual, expected, "Failed to return WebUiElement when 'active' state behavior set");
     }
@@ -31,19 +32,6 @@ public class WebUiElementStateTests {
         boolean expected = true;
         MockView.directNav();
         boolean actual = element.isActive();
-        //noinspection ConstantConditions
-        Assert.assertEquals(actual, expected, "Failed to return expected state");
-    }
-
-    @Test
-    public void testIsSelected() {
-        WebUiElement element = WebUiElement.getInstance("Element", UiLocatorType.ID, "button-1");
-        String attribute = "data-selected";
-        String value = "true";
-        element = element.setSelectedBehavior(attribute, value);
-        boolean expected = true;
-        MockView.directNav();
-        boolean actual = element.isSelected();
         //noinspection ConstantConditions
         Assert.assertEquals(actual, expected, "Failed to return expected state");
     }
