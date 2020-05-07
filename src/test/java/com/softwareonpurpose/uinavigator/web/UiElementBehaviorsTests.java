@@ -1,5 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
+import com.softwareonpurpose.uinavigator.UiElementBehaviors;
 import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -15,6 +16,7 @@ public class WebUiElementBehaviorsTests {
     @Test
     public void testGetInstanceByLocator_tagSelect() {
         Class<WebUiElementBehaviors> expected = WebUiElementBehaviors.class;
+        //noinspection rawtypes
         Class actual = WebUiElementBehaviors.getInstanceByLocator("Select", UiLocatorType.TAG, "select").getClass();
         Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElementBehaviors");
     }
@@ -22,6 +24,7 @@ public class WebUiElementBehaviorsTests {
     @Test
     public void testGetInstanceByLocator_idName() {
         Class<WebUiElementBehaviors> expected = WebUiElementBehaviors.class;
+        //noinspection rawtypes
         Class actual = WebUiElementBehaviors.getInstanceByLocator("Name", UiLocatorType.ID, "name").getClass();
         Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElementBehaviors");
     }
@@ -31,9 +34,10 @@ public class WebUiElementBehaviorsTests {
         final String attribute = "data-test";
         final String attributeValue = "select-element";
         final int ordinal = 2;
-        final WebUiElementBehaviors behaviors =
-                WebUiElementBehaviors.getInstanceByLocatorAttributeOrdinal("Select", UiLocatorType.TAG, "select", attribute, attributeValue, ordinal);
+        final UiElementBehaviors behaviors =
+                UiElementBehaviors.getInstanceByLocatorAttributeOrdinal("Select", UiLocatorType.TAG, "select", attribute, attributeValue, ordinal);
         Class<WebUiElementBehaviors> expected = WebUiElementBehaviors.class;
+        //noinspection rawtypes
         Class actual = behaviors.getClass();
         Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElementBehaviors");
     }
@@ -44,11 +48,12 @@ public class WebUiElementBehaviorsTests {
         final String attribute = "data-test";
         final String attributeValue = "select-element";
         final int ordinal = 2;
-        final WebUiElementBehaviors behaviors =
-                WebUiElementBehaviors.getInstanceByLocatorAttributeOrdinalParent("Select",
+        final UiElementBehaviors behaviors =
+                UiElementBehaviors.getInstanceByLocatorAttributeOrdinalParent("Select",
                         UiLocatorType.TAG, "select", attribute, attributeValue,
                         ordinal, getParent);
         Class<WebUiElementBehaviors> expected = WebUiElementBehaviors.class;
+        //noinspection rawtypes
         Class actual = behaviors.getClass();
         Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElementBehaviors");
     }
@@ -57,8 +62,8 @@ public class WebUiElementBehaviorsTests {
     public void testIsDisplayed() {
         final String attribute = "for";
         final String attributeValue = "name";
-        final WebUiElementBehaviors behaviors =
-                WebUiElementBehaviors.getInstanceByLocatorAttribute("Label", UiLocatorType.TAG, "label", attribute, attributeValue);
+        final UiElementBehaviors behaviors =
+                UiElementBehaviors.getInstanceByLocatorAttribute("Label", UiLocatorType.TAG, "label", attribute, attributeValue);
         MockView.directNav();
         boolean actual = behaviors.isDisplayed();
         Assert.assertTrue(actual, "Failed to return 'true' for existing element");
@@ -95,8 +100,8 @@ public class WebUiElementBehaviorsTests {
         final String attribute = "data-test";
         final String attributeValue = "select-element";
         final int ordinal = 2;
-        final WebUiElementBehaviors behaviors =
-                WebUiElementBehaviors.getInstanceByLocatorAttributeOrdinalParent(
+        final UiElementBehaviors behaviors =
+                UiElementBehaviors.getInstanceByLocatorAttributeOrdinalParent(
                         description, UiLocatorType.TAG, "select", attribute, attributeValue, ordinal, getParent);
         String expected = String.format("{\"getElement\":{%s}}", elementString);
         String actual = behaviors.toString();

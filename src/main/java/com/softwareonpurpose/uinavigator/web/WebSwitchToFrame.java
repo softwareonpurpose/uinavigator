@@ -1,5 +1,7 @@
 package com.softwareonpurpose.uinavigator.web;
 
+import com.softwareonpurpose.uinavigator.SwitchToBehavior;
+
 /*
   Copyright 2020 Craig A. Stockton
   <p/>
@@ -15,18 +17,19 @@ package com.softwareonpurpose.uinavigator.web;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-public class SwitchToView implements WebSwitchToBehavior {
+public class SwitchToFrame extends SwitchToBehavior {
+    private final WebGetElementBehavior getElement;
 
-    public SwitchToView() {
-
+    public SwitchToFrame(WebGetElementBehavior getElement) {
+        this.getElement = getElement;
     }
 
-    public static SwitchToView getInstance() {
-        return new SwitchToView();
+    public static SwitchToFrame getInstance(WebGetElementBehavior getElement) {
+        return new SwitchToFrame(getElement);
     }
 
     @Override
     public void execute() {
-        WebUiHost.getInstance().switchTo();
+        WebUiHost.getInstance().switchTo(getElement.execute());
     }
 }

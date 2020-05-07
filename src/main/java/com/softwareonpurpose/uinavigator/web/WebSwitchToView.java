@@ -1,4 +1,7 @@
 package com.softwareonpurpose.uinavigator.web;
+
+import com.softwareonpurpose.uinavigator.SwitchToBehavior;
+
 /*
   Copyright 2020 Craig A. Stockton
   <p/>
@@ -14,6 +17,18 @@ package com.softwareonpurpose.uinavigator.web;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-public interface WebSwitchToBehavior {
-    void execute();
+public class SwitchToView extends SwitchToBehavior {
+
+    public SwitchToView() {
+
+    }
+
+    public static SwitchToView getInstance() {
+        return new SwitchToView();
+    }
+
+    @Override
+    public void execute() {
+        WebUiHost.getInstance().switchTo();
+    }
 }
