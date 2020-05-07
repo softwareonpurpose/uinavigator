@@ -14,7 +14,10 @@ public class WebGetListByLocatorAttributeOrdinalParentTests {
 
     @Test
     public void testExecute() {
-        WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "form");
+        String parentDescription = "Form";
+        final String parentLocatorValue = "form";
+        WebGetElementBehavior getParent =
+                WebGetElementByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue);
         Class<WebUiElement> expected = WebUiElement.class;
         MockView.directNav();
         final String attribute = "data-test";

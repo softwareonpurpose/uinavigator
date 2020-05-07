@@ -15,14 +15,19 @@ public class WebGetElementByLocatorAttributeOrdinalParentNonExistentTests {
 
     @Test
     public void testExecute_nonExistent() {
-        WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "form");
+        String parentDescription = "Form";
+        WebGetElementBehavior getParent = WebGetElementByLocator
+                .getInstance(parentDescription, UiLocatorType.TAG, "form");
+        String description = "Select";
         final String attribute = "data-test";
         final String attributeValue = "select-element";
         final int ordinal = 3;
         MockView.directNav();
+        final String locatorValue = "select";
         final WebGetElementByLocatorAttributeOrdinalParent getBehavior =
-                WebGetElementByLocatorAttributeOrdinalParent.getInstance(
-                        UiLocatorType.TAG, "select", attribute, attributeValue, ordinal, getParent);
+                WebGetElementByLocatorAttributeOrdinalParent
+                        .getInstance(description, UiLocatorType.TAG, locatorValue,
+                                attribute, attributeValue, ordinal, getParent);
         WebElement actual = getBehavior.execute();
         Assert.assertNull(actual, "Failed to return null for non-existent element");
     }

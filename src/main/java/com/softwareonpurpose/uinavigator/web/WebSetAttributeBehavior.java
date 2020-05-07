@@ -1,6 +1,7 @@
 package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.SetAttributeBehavior;
+import org.openqa.selenium.WebElement;
 
 /*
   Copyright 2020 Craig A. Stockton
@@ -29,6 +30,6 @@ public class WebSetAttributeBehavior extends SetAttributeBehavior {
     }
 
     public void execute(String attribute, String value) {
-        WebUiHost.getInstance().setAttribute(getBehavior.execute(), attribute, value);
+        WebUiHost.getInstance().setAttribute((WebElement) getBehavior.execute(), attribute, value);
     }
 }

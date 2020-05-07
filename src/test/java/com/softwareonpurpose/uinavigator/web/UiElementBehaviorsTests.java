@@ -44,7 +44,10 @@ public class UiElementBehaviorsTests {
 
     @Test
     public void testGetInstanceByLocatorAttributeOrdinalParent() {
-        WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "form");
+        final String description = "Form";
+        final String locatorValue = "form";
+        WebGetElementByLocator getParent =
+                WebGetElementByLocator.getInstance(description, UiLocatorType.TAG, locatorValue);
         final String attribute = "data-test";
         final String attributeValue = "select-element";
         final int ordinal = 2;
@@ -81,12 +84,10 @@ public class UiElementBehaviorsTests {
 
     @Test
     public void testToString() {
-        String locatorString = "\"locator\":{\"tagName\":\"select\"}";
-        String getParentString = "\"getParent\":{\"locator\":{\"tagName\":\"form\"}}";
-        String elementString =
-                String.format("\"attributeValue\":\"select-element\",\"attribute\":\"data-test\",\"ordinal\":2,%s,%s",
-                        getParentString, locatorString);
-        WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "form");
+        final String parentDescription = "Form";
+        final String locatorValue = "form";
+        WebGetElementBehavior getParent =
+                WebGetElementByLocator.getInstance(parentDescription, UiLocatorType.TAG, locatorValue);
         final String description = "Element";
         final String attribute = "data-test";
         final String attributeValue = "select-element";
@@ -94,7 +95,7 @@ public class UiElementBehaviorsTests {
         final UiElementBehaviors behaviors =
                 UiElementBehaviors.getInstanceByLocatorAttributeOrdinalParent(
                         description, UiLocatorType.TAG, "select", attribute, attributeValue, ordinal, getParent);
-        String expected = String.format("{\"getElement\":{%s}}", elementString);
+        String expected = "{\"description\":\"Element\",\"getElement\":{\"attributeValue\":\"select-element\",\"attribute\":\"data-test\",\"ordinal\":2,\"getParent\":{\"locator\":{\"tagName\":\"form\"},\"description\":\"Form\"},\"locator\":{\"tagName\":\"select\"},\"description\":\"Element\"}}";
         String actual = behaviors.toString();
         Assert.assertEquals(actual, expected, "Failed to return description via toString()");
     }

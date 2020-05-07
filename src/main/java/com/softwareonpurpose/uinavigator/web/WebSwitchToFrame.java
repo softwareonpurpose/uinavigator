@@ -1,6 +1,7 @@
 package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.SwitchToBehavior;
+import org.openqa.selenium.WebElement;
 
 /*
   Copyright 2020 Craig A. Stockton
@@ -26,6 +27,6 @@ public class WebSwitchToFrame extends SwitchToBehavior {
 
     @Override
     public void execute() {
-        WebUiHost.getInstance().switchTo(getElement.execute());
+        WebUiHost.getInstance().switchTo((WebElement) getElement.execute());
     }
 }

@@ -15,64 +15,86 @@ public class WebGetElementByLocatorTests {
 
     @Test
     public void testConstructor_class() {
+        String description = "Select";
         Class<WebGetElementBehavior> expected = WebGetElementBehavior.class;
         final String locatorValue = "select";
+        final WebGetElementByLocator getElement =
+                WebGetElementByLocator.getInstance(description, UiLocatorType.CLASS, locatorValue);
         //noinspection rawtypes
-        Class actual = WebGetElementByLocator.getInstance(UiLocatorType.CLASS, locatorValue).getClass().getSuperclass();
+        Class actual = getElement.getClass().getSuperclass();
         Assert.assertEquals(actual, expected, "Failed:  constructor threw exception");
     }
 
     @Test
     public void testConstructor_id() {
+        String description = "Element Id";
         Class<WebGetElementBehavior> expected = WebGetElementBehavior.class;
         final String locatorValue = "elementID";
+        final WebGetElementByLocator getElement =
+                WebGetElementByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
         //noinspection rawtypes
-        Class actual = WebGetElementByLocator.getInstance(UiLocatorType.ID, locatorValue).getClass().getSuperclass();
+        Class actual = getElement.getClass().getSuperclass();
         Assert.assertEquals(actual, expected, "Failed:  constructor threw exception");
     }
 
     @Test
     public void testConstructor_tag() {
+        String description = "Body";
         Class<WebGetElementBehavior> expected = WebGetElementBehavior.class;
         final String locatorValue = "body";
+        final WebGetElementByLocator getElement =
+                WebGetElementByLocator.getInstance(description, UiLocatorType.TAG, locatorValue);
         //noinspection rawtypes
-        Class actual = WebGetElementByLocator.getInstance(UiLocatorType.TAG, locatorValue).getClass().getSuperclass();
+        Class actual = getElement.getClass().getSuperclass();
         Assert.assertEquals(actual, expected, "Failed:  constructor threw exception");
     }
 
     @Test
     public void testConstructor_name() {
+        String description = "Name";
         Class<WebGetElementBehavior> expected = WebGetElementBehavior.class;
         final String locatorValue = "nameValue";
+        final WebGetElementByLocator getElement =
+                WebGetElementByLocator.getInstance(description, UiLocatorType.NAME, locatorValue);
         //noinspection rawtypes
-        Class actual = WebGetElementByLocator.getInstance(UiLocatorType.NAME, locatorValue).getClass().getSuperclass();
+        Class actual = getElement.getClass().getSuperclass();
         Assert.assertEquals(actual, expected, "Failed:  constructor threw exception");
     }
 
     @Test
     public void testConstructor_nullType() {
+        String description = "Body";
         Class<WebGetElementBehavior> expected = WebGetElementBehavior.class;
         final String locatorType = null;
         final String locatorValue = "body";
-        //noinspection rawtypes,ConstantConditions
-        Class actual = WebGetElementByLocator.getInstance(locatorType, locatorValue).getClass().getSuperclass();
+        //noinspection ConstantConditions
+        final WebGetElementByLocator getElement =
+                WebGetElementByLocator.getInstance(description, locatorType, locatorValue);
+        //noinspection rawtypes
+        Class actual = getElement.getClass().getSuperclass();
         Assert.assertEquals(actual, expected, "Failed:  constructor threw exception");
     }
 
     @Test
     public void testConstructor_nullValue() {
+        String description = "NULL";
         Class<WebGetElementBehavior> expected = WebGetElementBehavior.class;
         final String locatorType = UiLocatorType.TAG;
         final String locatorValue = null;
+        //noinspection ConstantConditions
+        final WebGetElementByLocator getElement =
+                WebGetElementByLocator.getInstance(description, locatorType, locatorValue);
         //noinspection rawtypes
-        Class actual = WebGetElementByLocator.getInstance(locatorType, locatorValue).getClass().getSuperclass();
+        Class actual = getElement.getClass().getSuperclass();
         Assert.assertEquals(actual, expected, "Failed:  constructor threw exception");
     }
 
     @Test
     public void testExecute_iFrame() {
+        String description = "IFrame";
         MockView.directNav();
-        WebElement actual = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "iframe").execute();
+        final String locatorValue = "iframe";
+        WebElement actual = WebGetElementByLocator.getInstance(description, UiLocatorType.TAG, locatorValue).execute();
         Assert.assertNotNull(actual, "Failed to return instance of iframe WebElement");
     }
 }

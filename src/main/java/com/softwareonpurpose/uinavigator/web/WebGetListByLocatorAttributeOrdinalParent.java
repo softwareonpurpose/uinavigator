@@ -58,7 +58,7 @@ public class WebGetListByLocatorAttributeOrdinalParent implements WebGetListBeha
         if (getParent == null) {
             candidates = WebUiHost.getInstance().findUiElements(locator);
         } else {
-            candidates = getParent.execute().findElements(locator);
+            candidates = ((WebElement) getParent.execute()).findElements(locator);
         }
         Integer ordinal = 0;
         for (WebElement candidate : candidates) {

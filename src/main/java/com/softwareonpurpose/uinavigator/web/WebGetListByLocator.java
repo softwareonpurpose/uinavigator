@@ -26,14 +26,16 @@ import java.util.Collection;
 public class WebGetListByLocator implements WebGetListBehavior {
     private final String locatorType;
     private final String locatorValue;
+    private final String description;
 
-    private WebGetListByLocator(String locatorType, String locatorValue) {
+    private WebGetListByLocator(String description, String locatorType, String locatorValue) {
+        this.description = description;
         this.locatorValue = locatorValue;
         this.locatorType = locatorType;
     }
 
-    public static WebGetListByLocator getInstance(String locatorType, String locatorValue) {
-        return new WebGetListByLocator(locatorType, locatorValue);
+    public static WebGetListByLocator getInstance(String description, String locatorType, String locatorValue) {
+        return new WebGetListByLocator(description, locatorType, locatorValue);
     }
 
     @Override
@@ -44,7 +46,7 @@ public class WebGetListByLocator implements WebGetListBehavior {
         if (new By.ByTagName("body").equals(locator)) {
             webElements = WebUiHost.getInstance().findUiElements(locator);
         } else {
-            WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "body");
+            WebGetElementByLocator getParent = WebGetElementByLocator.getInstance(description, UiLocatorType.TAG, "body");
             webElements = getParent.execute().findElements(locator);
         }
         for (int elementOrdinal = 1; elementOrdinal <= webElements.size(); elementOrdinal += 1) {

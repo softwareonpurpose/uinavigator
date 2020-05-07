@@ -48,7 +48,7 @@ public class WebGetListByLocatorParent implements WebGetListBehavior {
         if (getParent == null) {
             candidates = WebUiHost.getInstance().findUiElements(locator);
         } else {
-            candidates = getParent.execute().findElements(locator);
+            candidates = ((WebElement) getParent.execute()).findElements(locator);
         }
         int ordinal = 0;
         //noinspection unused

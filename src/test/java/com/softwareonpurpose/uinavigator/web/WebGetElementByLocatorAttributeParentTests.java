@@ -15,6 +15,7 @@ public class WebGetElementByLocatorAttributeParentTests {
 
     @Test
     public void testConstructor_bodyTagParentNull() {
+        String description = "View";
         final String attribute = "data-test";
         final String attributeValue = "view-element";
         final String locatorValue = "body";
@@ -22,8 +23,9 @@ public class WebGetElementByLocatorAttributeParentTests {
         //noinspection ConstantConditions
         final WebGetElementByLocatorAttributeParent getBehavior =
                 WebGetElementByLocatorAttributeParent.getInstance(
-                        UiLocatorType.TAG, locatorValue, attribute, attributeValue, getParent);
+                        description, UiLocatorType.TAG, locatorValue, attribute, attributeValue, getParent);
         Class<WebGetElementByLocatorAttributeParent> expected = WebGetElementByLocatorAttributeParent.class;
+        //noinspection rawtypes
         Class actual = getBehavior.getClass();
         final String message = "Failed to return an instance of WebGetElementByLocatorAttributeParent";
         Assert.assertEquals(actual, expected, message);
@@ -31,6 +33,7 @@ public class WebGetElementByLocatorAttributeParentTests {
 
     @Test
     public void testConstructor_idParentNull() {
+        String description = "View";
         final String attribute = "data-test";
         final String attributeValue = "view-element";
         final String locatorValue = "name";
@@ -38,8 +41,9 @@ public class WebGetElementByLocatorAttributeParentTests {
         //noinspection ConstantConditions
         final WebGetElementByLocatorAttributeParent getBehavior =
                 WebGetElementByLocatorAttributeParent.getInstance(
-                        UiLocatorType.ID, locatorValue, attribute, attributeValue, getParent);
+                        description, UiLocatorType.ID, locatorValue, attribute, attributeValue, getParent);
         Class<WebGetElementByLocatorAttributeParent> expected = WebGetElementByLocatorAttributeParent.class;
+        //noinspection rawtypes
         Class actual = getBehavior.getClass();
         final String message = "Failed to return an instance of WebGetElementByLocatorAttributeParent";
         Assert.assertEquals(actual, expected, message);
@@ -47,15 +51,18 @@ public class WebGetElementByLocatorAttributeParentTests {
 
     @Test
     public void testExecute_parentInstance() {
+        String parentDescription = "Form";
         final String attribute = "data-test";
         final String attributeValue = "initial";
-        WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "form");
+        WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(parentDescription, UiLocatorType.TAG, "form");
+        String description = "Name";
         final String locatorValue = "name";
         final WebGetElementByLocatorAttributeParent getBehavior =
                 WebGetElementByLocatorAttributeParent.getInstance(
-                        UiLocatorType.ID, locatorValue, attribute, attributeValue, getParent);
+                        description, UiLocatorType.ID, locatorValue, attribute, attributeValue, getParent);
         Class<RemoteWebElement> expected = RemoteWebElement.class;
         MockView.directNav();
+        //noinspection rawtypes
         Class actual = getBehavior.execute().getClass();
         final String message = "Failed to return an instance of WebElement";
         Assert.assertEquals(actual, expected, message);

@@ -15,11 +15,12 @@ public class WebGetElementByLocatorParentNullParentTests {
 
     @Test
     public void testExecute_nullParent() {
+        String description = "Username";
         final String locatorValue = "user_name";
         final WebGetElementBehavior getParent = null;
         //noinspection ConstantConditions
         final WebGetElementByLocatorParent getElement =
-                WebGetElementByLocatorParent.getInstance(UiLocatorType.NAME, locatorValue, getParent);
+                WebGetElementByLocatorParent.getInstance(description, UiLocatorType.NAME, locatorValue, getParent);
         Class<RemoteWebElement> expected = RemoteWebElement.class;
         MockView.directNav();
         //noinspection rawtypes

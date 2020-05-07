@@ -1,6 +1,7 @@
 package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiStateBehavior;
+import org.openqa.selenium.WebElement;
 
 public class WebIsActiveBehavior extends UiStateBehavior {
     private final WebGetElementBehavior getElement;
@@ -18,6 +19,6 @@ public class WebIsActiveBehavior extends UiStateBehavior {
         if (attribute == null || value == null) {
             return false;
         }
-        return value.equals(getElement.execute().getAttribute(attribute));
+        return value.equals(((WebElement) getElement.execute()).getAttribute(attribute));
     }
 }

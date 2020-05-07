@@ -1,7 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiLocatorType;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -17,23 +16,26 @@ public class WebGetElementByLocatorParentTests {
     @SuppressWarnings("RedundantSuppression")
     @Test
     public void testConstructor_bodyTagLocatorNullParent() {
+        String description = "Body";
         final String locatorValue = "body";
         final WebGetElementBehavior getParent = null;
         Class<WebGetElementByLocatorParent> expected = WebGetElementByLocatorParent.class;
         //noinspection ConstantConditions,rawtypes
-        Class actual = WebGetElementByLocatorParent.getInstance(UiLocatorType.TAG, locatorValue, getParent).getClass();
+        Class actual = WebGetElementByLocatorParent
+                .getInstance(description, UiLocatorType.TAG, locatorValue, getParent).getClass();
         final String message = "Failed to return new instance with parent 'null' and locator is 'body' tag";
         Assert.assertEquals(actual, expected, message);
     }
 
     @Test
     public void testConstructor_selectTagLocatorNullParent() {
+        String description = "Select";
         final String locatorValue = "select";
         final WebGetElementBehavior getParent = null;
         Class<WebGetElementByLocatorParent> expected = WebGetElementByLocatorParent.class;
         //noinspection ConstantConditions
         final WebGetElementByLocatorParent getElement =
-                WebGetElementByLocatorParent.getInstance(UiLocatorType.TAG, locatorValue, getParent);
+                WebGetElementByLocatorParent.getInstance(description, UiLocatorType.TAG, locatorValue, getParent);
         //noinspection rawtypes
         Class actual = getElement.getClass();
         final String message = "Failed to return new instance with parent 'null' and locator is 'body' tag";
@@ -42,21 +44,29 @@ public class WebGetElementByLocatorParentTests {
 
     @Test
     public void testConstructor_nameLocatorNullParent() {
+        String description = "Username";
         final String locatorValue = "user_name";
         final WebGetElementBehavior getParent = null;
         Class<WebGetElementByLocatorParent> expected = WebGetElementByLocatorParent.class;
-        //noinspection ConstantConditions,rawtypes
-        Class actual = WebGetElementByLocatorParent.getInstance(UiLocatorType.NAME, locatorValue, getParent).getClass();
+        //noinspection ConstantConditions
+        final WebGetElementByLocatorParent getElement = WebGetElementByLocatorParent
+                .getInstance(description, UiLocatorType.NAME, locatorValue, getParent);
+        //noinspection rawtypes
+        Class actual = getElement.getClass();
         final String message = "Failed to return new instance with parent 'null' and locator is 'body' tag";
         Assert.assertEquals(actual, expected, message);
     }
 
     @Test
     public void testExecute() {
-        WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "form");
+        String parentDescription = "Form";
+        final String parentLocatorValue = "form";
+        WebGetElementBehavior getParent =
+                WebGetElementByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue);
+        String description = "Username";
         final String locatorValue = "user_name";
         final WebGetElementByLocatorParent getElement =
-                WebGetElementByLocatorParent.getInstance(UiLocatorType.NAME, locatorValue, getParent);
+                WebGetElementByLocatorParent.getInstance(description, UiLocatorType.NAME, locatorValue, getParent);
         Class<RemoteWebElement> expected = RemoteWebElement.class;
         MockView.directNav();
         //noinspection rawtypes

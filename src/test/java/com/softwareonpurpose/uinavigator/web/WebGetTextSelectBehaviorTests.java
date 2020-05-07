@@ -15,8 +15,10 @@ public class WebGetTextSelectBehaviorTests {
 
     @Test
     public void testExecute() {
+        String description="Select";
         String message = "Failed to return null when 'select' element has NO 'option' elements";
-        WebGetElementBehavior get = WebGetElementByLocator.getInstance(UiLocatorType.ID, "empty-select");
+        final String locatorValue = "empty-select";
+        WebGetElementBehavior get = WebGetElementByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
         GetTextBehavior getText = WebGetTextSelectBehavior.getSelectInstance(get);
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
         String expected = null;

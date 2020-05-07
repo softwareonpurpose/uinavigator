@@ -104,7 +104,7 @@ public class WebUiElement implements UiElement {
 
     public static List<WebUiElement> getList(String description, String locatorType, String locatorValue, WebUiElement parent) {
         List<WebUiElement> elements = new ArrayList<>();
-        WebElement parentElement = ((WebGetElementBehavior) parent.getBehavior()).execute();
+        WebElement parentElement = (WebElement) (parent.getBehavior()).execute();
         List<WebElement> webElements = parentElement != null ? parentElement
                 .findElements(WebUiLocator.getInstance(locatorType, locatorValue)) : new ArrayList<>();
         for (int elementOrdinal = 1; elementOrdinal <= webElements.size(); elementOrdinal++) {

@@ -15,7 +15,9 @@ public class WebGetAttributeBehaviorNullArgumentTests {
     @Test
     public void testExecute_nullArgument() {
         final String locatorValue = "empty-select-two";
-        WebGetElementBehavior getBehavior = WebGetElementByLocator.getInstance(UiLocatorType.ID, locatorValue);
+        final String description = "Select";
+        WebGetElementBehavior getBehavior =
+                WebGetElementByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
         MockView.directNav();
         String actual = WebGetAttributeBehavior.getInstance(getBehavior).execute(null);
         Assert.assertNull(actual, "Failed to return null when requested attribute is null");

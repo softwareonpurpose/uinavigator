@@ -15,15 +15,21 @@ public class WebGetElementByLocatorAttributeOrdinalParentTests {
 
     @Test
     public void testExecute() {
-        WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "form");
+        String parentDescription = "Form";
+        final String parentLocatorValue = "form";
+        WebGetElementBehavior getParent =
+                WebGetElementByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue);
+        String description = "Select";
         final String attribute = "data-test";
         final String attributeValue = "select-element";
         final int ordinal = 2;
+        final String locatorValue = "select";
         final WebGetElementByLocatorAttributeOrdinalParent getBehavior =
                 WebGetElementByLocatorAttributeOrdinalParent.getInstance(
-                        UiLocatorType.TAG, "select", attribute, attributeValue, ordinal, getParent);
+                        description, UiLocatorType.TAG, locatorValue, attribute, attributeValue, ordinal, getParent);
         Class<RemoteWebElement> expected = RemoteWebElement.class;
         MockView.directNav();
+        //noinspection rawtypes
         Class actual = getBehavior.execute().getClass();
         Assert.assertEquals(actual, expected, "Failed to return an instance of WebElement");
     }

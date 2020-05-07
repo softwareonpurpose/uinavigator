@@ -9,14 +9,14 @@ import org.slf4j.LoggerFactory;
 import java.util.Collection;
 
 public class UiElementBehaviors {
-    private static boolean isLoggingSuppressed = false;
+    private transient static boolean isLoggingSuppressed = false;
+    private final String description;
     private final GetElementBehavior getElement;
     private transient final GetListBehavior getList;
     private transient final GetTextBehavior getText;
     private transient final SetElementBehavior setElement;
     private transient final GetAttributeBehavior getAttribute;
     private transient final IsDisplayedBehavior isDisplayed;
-    private transient final String description;
     private transient final ClickBehavior click;
     private transient final SetAttributeBehavior setAttribute;
     private transient final SwitchToBehavior switchTo;
@@ -37,8 +37,8 @@ public class UiElementBehaviors {
     }
 
     public static UiElementBehaviors getInstanceByLocator(String description, String locatorType, String locatorValue) {
-        GetElementBehavior getBehavior = WebGetElementByLocator.getInstance(locatorType, locatorValue);
-        GetListBehavior getList = WebGetListByLocator.getInstance(locatorType, locatorValue);
+        GetElementBehavior getBehavior = WebGetElementByLocator.getInstance(description, locatorType, locatorValue);
+        GetListBehavior getList = WebGetListByLocator.getInstance(description, locatorType, locatorValue);
         SetElementBehavior set = getSetBehavior(locatorType, locatorValue, getBehavior);
         GetTextBehavior getText = getGetTextBehavior(locatorType, locatorValue, getBehavior);
         SwitchToBehavior switchTo = getSwitchToBehavior(locatorType, locatorValue, getBehavior);
@@ -48,7 +48,7 @@ public class UiElementBehaviors {
     public static UiElementBehaviors getInstanceByLocatorAttribute(
             String description, String locatorType, String locatorValue, String attribute, String attributeValue) {
         WebGetElementBehavior getBehavior =
-                WebGetElementByLocatorAttribute.getInstance(locatorType, locatorValue, attribute, attributeValue);
+                WebGetElementByLocatorAttribute.getInstance(description, locatorType, locatorValue, attribute, attributeValue);
         WebGetListBehavior getList =
                 WebGetListByLocatorAttribute.getInstance(locatorType, locatorValue, attribute, attributeValue);
         SetElementBehavior set = getSetBehavior(locatorType, locatorValue, getBehavior);
@@ -59,7 +59,7 @@ public class UiElementBehaviors {
 
     public static UiElementBehaviors getInstanceByLocatorOrdinal(
             String description, String locatorType, String locatorValue, Integer ordinal) {
-        WebGetElementBehavior getBehavior = WebGetElementByLocatorOrdinal.getInstance(locatorType, locatorValue, ordinal);
+        WebGetElementBehavior getBehavior = WebGetElementByLocatorOrdinal.getInstance(description, locatorType, locatorValue, ordinal);
         WebGetListBehavior getList = WebGetListByLocatorOrdinal.getInstance(locatorType, locatorValue, ordinal);
         SetElementBehavior set = getSetBehavior(locatorType, locatorValue, getBehavior);
         GetTextBehavior getText = getGetTextBehavior(locatorType, locatorValue, getBehavior);
@@ -69,7 +69,7 @@ public class UiElementBehaviors {
 
     public static UiElementBehaviors getInstanceByLocatorParent(
             String description, String locatorType, String locatorValue, GetElementBehavior getParent) {
-        WebGetElementBehavior getBehavior = WebGetElementByLocatorParent.getInstance(locatorType, locatorValue, (WebGetElementBehavior) getParent);
+        WebGetElementBehavior getBehavior = WebGetElementByLocatorParent.getInstance(description, locatorType, locatorValue, (WebGetElementBehavior) getParent);
         WebGetListBehavior getList = WebGetListByLocatorParent.getInstance(locatorType, locatorValue, (WebGetElementBehavior) getParent);
         SetElementBehavior set = getSetBehavior(locatorType, locatorValue, getBehavior);
         GetTextBehavior getText = getGetTextBehavior(locatorType, locatorValue, getBehavior);
@@ -81,7 +81,7 @@ public class UiElementBehaviors {
             String description, String locatorType, String locatorValue, String attribute, String attributeValue, Integer ordinal) {
         WebGetElementBehavior getBehavior =
                 WebGetElementByLocatorAttributeOrdinal.getInstance(
-                        locatorType, locatorValue, attribute, attributeValue, ordinal);
+                        description, locatorType, locatorValue, attribute, attributeValue, ordinal);
         WebGetListBehavior getList =
                 WebGetListByLocatorAttributeOrdinal.getInstance(locatorType, locatorValue, attribute, attributeValue, ordinal);
         SetElementBehavior set = getSetBehavior(locatorType, locatorValue, getBehavior);
@@ -94,7 +94,7 @@ public class UiElementBehaviors {
             String description, String locatorType, String locatorValue,
             String attribute, String attributeValue, WebGetElementBehavior getParent) {
         WebGetElementBehavior getBehavior =
-                WebGetElementByLocatorAttributeParent.getInstance(locatorType, locatorValue, attribute, attributeValue, getParent);
+                WebGetElementByLocatorAttributeParent.getInstance(description, locatorType, locatorValue, attribute, attributeValue, getParent);
         WebGetListBehavior getList =
                 WebGetListByLocatorAttributeParent.getInstance(locatorType, locatorValue, attribute, attributeValue, getParent);
         SetElementBehavior set = getSetBehavior(locatorType, locatorValue, getBehavior);
@@ -107,7 +107,7 @@ public class UiElementBehaviors {
             String description, String locatorType, String locatorValue,
             Integer ordinal, WebGetElementBehavior getParent) {
         WebGetElementBehavior getBehavior =
-                WebGetElementByLocatorOrdinalParent.getInstance(locatorType, locatorValue, ordinal, getParent);
+                WebGetElementByLocatorOrdinalParent.getInstance(description, locatorType, locatorValue, ordinal, getParent);
         WebGetListBehavior getList =
                 WebGetListByLocatorOrdinalParent.getInstance(locatorType, locatorValue, ordinal, getParent);
         SetElementBehavior set = getSetBehavior(locatorType, locatorValue, getBehavior);
@@ -121,7 +121,7 @@ public class UiElementBehaviors {
             String attribute, String attributeValue, Integer ordinal, WebGetElementBehavior getParent) {
         WebGetElementBehavior getBehavior =
                 WebGetElementByLocatorAttributeOrdinalParent.getInstance(
-                        locatorType, locatorValue, attribute, attributeValue, ordinal, getParent);
+                        description, locatorType, locatorValue, attribute, attributeValue, ordinal, getParent);
         WebGetListBehavior getList =
                 WebGetListByLocatorAttributeOrdinalParent.getInstance(
                         locatorType, locatorValue, attribute, attributeValue, ordinal, getParent);

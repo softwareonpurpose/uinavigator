@@ -15,13 +15,14 @@ public class WebGetElementByLocatorAttributeOrdinalTests {
 
     @Test
     public void testExecute() {
+        String description = "Select";
         final String attribute = "data-test";
         final String attributeValue = "select-element";
         final int ordinal = 2;
         final String locatorValue = "select";
         final WebGetElementByLocatorAttributeOrdinal getBehavior =
                 WebGetElementByLocatorAttributeOrdinal.getInstance(
-                        UiLocatorType.TAG, locatorValue, attribute, attributeValue, ordinal);
+                        description, UiLocatorType.TAG, locatorValue, attribute, attributeValue, ordinal);
         Class<RemoteWebElement> expected = RemoteWebElement.class;
         MockView.directNav();
         //noinspection rawtypes

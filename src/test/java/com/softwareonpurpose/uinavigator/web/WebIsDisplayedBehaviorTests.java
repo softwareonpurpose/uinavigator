@@ -13,7 +13,10 @@ public class WebIsDisplayedBehaviorTests {
     }
 
     public void testExecute() {
-        final WebGetElementByLocator getBehavior = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "label");
+        String description = "Label";
+        final String locatorValue = "label";
+        final WebGetElementByLocator getBehavior =
+                WebGetElementByLocator.getInstance(description, UiLocatorType.TAG, locatorValue);
         final WebIsDisplayedBehavior isDisplayed = WebIsDisplayedBehavior.getInstance(getBehavior);
         MockView.directNav();
         boolean actual = isDisplayed.execute();

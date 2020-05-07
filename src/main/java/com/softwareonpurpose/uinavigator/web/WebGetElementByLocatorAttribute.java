@@ -14,6 +14,7 @@ package com.softwareonpurpose.uinavigator.web;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -24,16 +25,16 @@ public class WebGetElementByLocatorAttribute extends WebGetElementBehavior {
     private final String attribute;
     private final String attributeValue;
 
-    private WebGetElementByLocatorAttribute(By locator, String attribute, String attributeValue) {
-        super(locator);
+    private WebGetElementByLocatorAttribute(String description, By locator, String attribute, String attributeValue) {
+        super(description, locator);
         this.attribute = attribute;
         this.attributeValue = attributeValue;
     }
 
     public static WebGetElementByLocatorAttribute getInstance(
-            String locatorType, String locatorValue, String attribute, String attributeValue) {
+            String description, String locatorType, String locatorValue, String attribute, String attributeValue) {
         return new WebGetElementByLocatorAttribute(
-                WebUiLocator.getInstance(locatorType, locatorValue), attribute, attributeValue);
+                description, WebUiLocator.getInstance(locatorType, locatorValue), attribute, attributeValue);
     }
 
     @Override

@@ -16,6 +16,7 @@ package com.softwareonpurpose.uinavigator.web;
  */
 
 import com.softwareonpurpose.uinavigator.IsDisplayedBehavior;
+import org.openqa.selenium.WebElement;
 
 public class WebIsDisplayedBehavior extends IsDisplayedBehavior {
     private final WebGetElementBehavior getBehavior;
@@ -30,6 +31,6 @@ public class WebIsDisplayedBehavior extends IsDisplayedBehavior {
 
     @Override
     public boolean execute() {
-        return WebUiHost.getInstance().waitUntilVisible(getBehavior.execute());
+        return WebUiHost.getInstance().waitUntilVisible((WebElement) getBehavior.execute());
     }
 }

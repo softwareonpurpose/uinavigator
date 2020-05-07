@@ -14,19 +14,14 @@ package com.softwareonpurpose.uinavigator;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-import org.openqa.selenium.By;
 
 public abstract class GetElementBehavior {
-    protected By locator;
-
-    protected GetElementBehavior(By locator) {
-        this.locator = locator;
-    }
-
     public abstract Object execute();
 
     @Override
     public String toString() {
-        return locator.toString();
+        return elementToString();
     }
+
+    protected abstract String elementToString();
 }

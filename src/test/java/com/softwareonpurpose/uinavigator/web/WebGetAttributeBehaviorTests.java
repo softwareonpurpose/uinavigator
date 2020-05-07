@@ -15,7 +15,9 @@ public class WebGetAttributeBehaviorTests {
     @Test
     public void testExecute() {
         final String locatorValue = "empty-select-two";
-        WebGetElementBehavior getBehavior = WebGetElementByLocator.getInstance(UiLocatorType.ID, locatorValue);
+        final String description = "Select";
+        WebGetElementBehavior getBehavior =
+                WebGetElementByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
         String expected = "bogus";
         MockView.directNav();
         String actual = WebGetAttributeBehavior.getInstance(getBehavior).execute("data-test");

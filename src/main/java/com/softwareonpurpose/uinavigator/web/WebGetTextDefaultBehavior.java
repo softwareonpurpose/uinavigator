@@ -14,6 +14,7 @@ package com.softwareonpurpose.uinavigator.web;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
+
 import com.softwareonpurpose.uinavigator.GetTextBehavior;
 import org.openqa.selenium.WebElement;
 
@@ -26,7 +27,7 @@ public class WebGetTextDefaultBehavior extends GetTextBehavior {
 
     @Override
     public String execute() {
-        final WebElement element = getBehavior.execute();
+        final WebElement element = (WebElement) getBehavior.execute();
         if (element == null) {
             return null;
         }

@@ -1,6 +1,7 @@
 package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiStateBehavior;
+import org.openqa.selenium.WebElement;
 
 /*
   Copyright 2020 Craig A. Stockton
@@ -34,6 +35,6 @@ public class WebStateBehavior extends UiStateBehavior {
 
     @Override
     public boolean execute() {
-        return getBehavior.execute().getAttribute(attribute).contains(value);
+        return ((WebElement) getBehavior.execute()).getAttribute(attribute).contains(value);
     }
 }

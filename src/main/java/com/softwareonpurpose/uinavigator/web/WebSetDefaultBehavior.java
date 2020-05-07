@@ -16,6 +16,7 @@ package com.softwareonpurpose.uinavigator.web;
  */
 
 import com.softwareonpurpose.uinavigator.SetElementBehavior;
+import org.openqa.selenium.WebElement;
 
 public class WebSetDefaultBehavior extends SetElementBehavior {
     private final WebGetElementBehavior getBehavior;
@@ -26,7 +27,8 @@ public class WebSetDefaultBehavior extends SetElementBehavior {
 
     @Override
     public void execute(String value) {
-        getBehavior.execute().clear();
-        getBehavior.execute().sendKeys(value);
+        final WebElement element = (WebElement) getBehavior.execute();
+        element.clear();
+        element.sendKeys(value);
     }
 }

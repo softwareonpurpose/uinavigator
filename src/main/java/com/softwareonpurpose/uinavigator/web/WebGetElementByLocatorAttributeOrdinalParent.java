@@ -27,9 +27,9 @@ public class WebGetElementByLocatorAttributeOrdinalParent extends WebGetElementB
     private final WebGetElementBehavior getParent;
 
     private WebGetElementByLocatorAttributeOrdinalParent(
-            By locator, String attribute, String attributeValue,
+            String description, By locator, String attribute, String attributeValue,
             Integer ordinal, WebGetElementBehavior getParent) {
-        super(locator);
+        super(description, locator);
         this.attributeValue = attributeValue;
         this.attribute = attribute;
         this.ordinal = ordinal;
@@ -37,10 +37,11 @@ public class WebGetElementByLocatorAttributeOrdinalParent extends WebGetElementB
     }
 
     public static WebGetElementByLocatorAttributeOrdinalParent getInstance(
-            String locatorType, String locatorValue,
+            String description, String locatorType, String locatorValue,
             String attribute, String attributeValue, Integer ordinal, WebGetElementBehavior getParent) {
         return new WebGetElementByLocatorAttributeOrdinalParent(
-                WebUiLocator.getInstance(locatorType, locatorValue), attribute, attributeValue, ordinal, getParent);
+                description, WebUiLocator.getInstance(locatorType, locatorValue),
+                attribute, attributeValue, ordinal, getParent);
     }
 
     @Override
@@ -49,7 +50,7 @@ public class WebGetElementByLocatorAttributeOrdinalParent extends WebGetElementB
         if (getParent == null) {
             candidates = WebUiHost.getInstance().findUiElements(locator);
         } else {
-            candidates = getParent.execute().findElements(locator);
+            candidates = ((WebElement) getParent.execute()).findElements(locator);
         }
         Integer ordinal = 0;
         for (WebElement candidate : candidates) {

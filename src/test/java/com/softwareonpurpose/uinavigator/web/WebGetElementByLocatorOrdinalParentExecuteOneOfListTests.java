@@ -15,13 +15,18 @@ public class WebGetElementByLocatorOrdinalParentExecuteOneOfListTests {
 
     @Test
     public void testExecute() {
-        WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "select");
+        String description = "Select";
+        final String parentLocatorValue = "select";
+        WebGetElementBehavior getParent =
+                WebGetElementByLocator.getInstance(description, UiLocatorType.TAG, parentLocatorValue);
         final String locatorValue = "option";
         final int ordinal = 4;
         final WebGetElementByLocatorOrdinalParent getBehavior =
-                WebGetElementByLocatorOrdinalParent.getInstance(UiLocatorType.TAG, locatorValue, ordinal, getParent);
+                WebGetElementByLocatorOrdinalParent
+                        .getInstance(description, UiLocatorType.TAG, locatorValue, ordinal, getParent);
         Class<RemoteWebElement> expected = RemoteWebElement.class;
         MockView.directNav();
+        //noinspection rawtypes
         Class actual = getBehavior.execute().getClass();
         final String message = "Failed to return an instance of RemoteWebElement";
         Assert.assertEquals(actual, expected, message);

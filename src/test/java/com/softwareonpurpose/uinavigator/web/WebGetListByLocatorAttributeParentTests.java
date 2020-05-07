@@ -14,11 +14,15 @@ public class WebGetListByLocatorAttributeParentTests {
 
     @SuppressWarnings("rawtypes")
     public void testExecute() {
-        WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "form");
+        String parentDescription = "Form";
+        final String parentLocatorValue = "form";
+        WebGetElementBehavior getParent =
+                WebGetElementByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue);
         final String attribute = "data-test";
         final String attributeValue = "select-element";
         final WebGetListByLocatorAttributeParent getBehavior =
-                WebGetListByLocatorAttributeParent.getInstance(UiLocatorType.TAG, "select", attribute, attributeValue, getParent);
+                WebGetListByLocatorAttributeParent
+                        .getInstance(UiLocatorType.TAG, "select", attribute, attributeValue, getParent);
         Class expected = WebUiElement.class;
         MockView.directNav();
         Class actual = getBehavior.execute().iterator().next().getClass();

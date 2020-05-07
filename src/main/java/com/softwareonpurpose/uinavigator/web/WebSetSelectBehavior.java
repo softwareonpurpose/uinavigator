@@ -16,6 +16,7 @@ package com.softwareonpurpose.uinavigator.web;
  */
 
 import com.softwareonpurpose.uinavigator.SetElementBehavior;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 public class WebSetSelectBehavior extends SetElementBehavior {
@@ -27,6 +28,6 @@ public class WebSetSelectBehavior extends SetElementBehavior {
 
     @Override
     public void execute(String value) {
-        new Select(getBehavior.execute()).selectByVisibleText(value);
+        new Select((WebElement) getBehavior.execute()).selectByVisibleText(value);
     }
 }

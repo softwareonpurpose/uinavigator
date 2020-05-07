@@ -15,6 +15,7 @@ public class WebGetElementByLocatorAttributeParentValueNonExistentTests {
 
     @Test
     public void testExecute_valueNonExistent() {
+        String description = "Body";
         final String attribute = "data-test";
         final String attributeValue = "not-there";
         final String locatorValue = "body";
@@ -22,7 +23,7 @@ public class WebGetElementByLocatorAttributeParentValueNonExistentTests {
         //noinspection ConstantConditions
         final WebGetElementByLocatorAttributeParent getBehavior =
                 WebGetElementByLocatorAttributeParent.getInstance(
-                        UiLocatorType.TAG, locatorValue, attribute, attributeValue, getParent);
+                        description, UiLocatorType.TAG, locatorValue, attribute, attributeValue, getParent);
         MockView.directNav();
         WebElement actual = getBehavior.execute();
         Assert.assertNull(actual, "Failed to return null when attribute value is non-existent");

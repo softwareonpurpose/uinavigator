@@ -19,9 +19,10 @@ public class WebGetElementByLocatorAttributeOrdinalNonExistentTests {
         final String attribute = "data-test";
         final int ordinal = 3;
         final String attributeValue = "select";
+        String description = "Select";
         final WebGetElementByLocatorAttributeOrdinal getBehavior =
-                WebGetElementByLocatorAttributeOrdinal.getInstance(
-                        UiLocatorType.TAG, attributeValue, attribute, attributeValue, ordinal);
+                WebGetElementByLocatorAttributeOrdinal
+                        .getInstance(description, UiLocatorType.TAG, attributeValue, attribute, attributeValue, ordinal);
         final WebElement actual = getBehavior.execute();
         Assert.assertNull(actual, "Failed to return null when ordinal is nonexistent");
     }

@@ -15,13 +15,16 @@ public class WebGetElementByLocatorAttributeTests {
 
     @Test
     public void testExecute() {
+        String description = "Name";
         final String locatorValue = "name";
         final String attribute = "data-test";
         final String attributeValue = "initial";
         final WebGetElementByLocatorAttribute getBehavior =
-                WebGetElementByLocatorAttribute.getInstance(UiLocatorType.ID, locatorValue, attribute, attributeValue);
+                WebGetElementByLocatorAttribute
+                        .getInstance(description, UiLocatorType.ID, locatorValue, attribute, attributeValue);
         Class<RemoteWebElement> expected = RemoteWebElement.class;
         MockView.directNav();
+        //noinspection rawtypes
         Class actual = getBehavior.execute().getClass();
         Assert.assertEquals(actual, expected, "Failed to return a WebElement instance");
     }

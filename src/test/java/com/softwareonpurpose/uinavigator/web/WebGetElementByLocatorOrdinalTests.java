@@ -15,12 +15,14 @@ public class WebGetElementByLocatorOrdinalTests {
 
     @Test
     public void testExecute() {
+        String description = "Option";
         final String locatorValue = "option";
         final int ordinal = 5;
         final WebGetElementBehavior getElement =
-                WebGetElementByLocatorOrdinal.getInstance(UiLocatorType.TAG, locatorValue, ordinal);
+                WebGetElementByLocatorOrdinal.getInstance(description, UiLocatorType.TAG, locatorValue, ordinal);
         Class<RemoteWebElement> expected = RemoteWebElement.class;
         MockView.directNav();
+        //noinspection rawtypes
         Class actual = getElement.execute().getClass();
         Assert.assertEquals(actual, expected, "Failed to return a WebElement");
     }

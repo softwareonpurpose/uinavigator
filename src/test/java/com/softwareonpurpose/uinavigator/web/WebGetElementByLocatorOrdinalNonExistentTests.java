@@ -15,12 +15,13 @@ public class WebGetElementByLocatorOrdinalNonExistentTests {
 
     @Test
     public void testExecute_ordinalGreaterThanList() {
+        String description = "Label";
         final String locatorValue = "label";
         final int ordinal = 5;
         final WebGetElementBehavior getBehavior =
-                WebGetElementByLocatorOrdinal.getInstance(UiLocatorType.TAG, locatorValue, ordinal);
+                WebGetElementByLocatorOrdinal.getInstance(description, UiLocatorType.TAG, locatorValue, ordinal);
         MockView.directNav();
-        final WebElement actual = getBehavior.execute();
+        final WebElement actual = (WebElement) getBehavior.execute();
         Assert.assertNull(actual, "Failed to return null when ordinal is greater than list size");
     }
 }

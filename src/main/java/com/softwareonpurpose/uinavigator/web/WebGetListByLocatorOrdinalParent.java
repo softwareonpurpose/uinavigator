@@ -50,7 +50,7 @@ public class WebGetListByLocatorOrdinalParent implements WebGetListBehavior {
         if (getParent == null) {
             candidates = WebUiHost.getInstance().findUiElements(locator);
         } else {
-            candidates = getParent.execute().findElements(locator);
+            candidates = ((WebElement) getParent.execute()).findElements(locator);
         }
         if (candidates.size() >= ordinal) {
             elements.add(WebUiElement.getInstance(String.format("#%d", ordinal), locatorType, locatorValue, ordinal));

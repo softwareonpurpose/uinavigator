@@ -14,6 +14,7 @@ package com.softwareonpurpose.uinavigator.web;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -22,14 +23,15 @@ import java.util.List;
 public class WebGetElementByLocatorParent extends WebGetElementBehavior {
     private final WebGetElementBehavior getParent;
 
-    private WebGetElementByLocatorParent(By locator, WebGetElementBehavior getParent) {
-        super(locator);
+    private WebGetElementByLocatorParent(String description, By locator, WebGetElementBehavior getParent) {
+        super(description, locator);
         this.getParent = (new By.ByTagName("body").equals(locator)) ? null : getParent;
     }
 
     public static WebGetElementByLocatorParent getInstance(
-            String locatorType, String locatorValue, WebGetElementBehavior getParent) {
-        return new WebGetElementByLocatorParent(WebUiLocator.getInstance(locatorType, locatorValue), getParent);
+            String description, String locatorType, String locatorValue, WebGetElementBehavior getParent) {
+        return new WebGetElementByLocatorParent(
+                description, WebUiLocator.getInstance(locatorType, locatorValue), getParent);
     }
 
     @Override
@@ -38,7 +40,7 @@ public class WebGetElementByLocatorParent extends WebGetElementBehavior {
         if (getParent == null) {
             elements = WebUiHost.getInstance().findUiElements(locator);
         } else {
-            elements = getParent.execute().findElements(locator);
+            elements = ((WebElement) getParent.execute()).findElements(locator);
         }
         return elements.size() == 0 ? null : elements.get(0);
     }

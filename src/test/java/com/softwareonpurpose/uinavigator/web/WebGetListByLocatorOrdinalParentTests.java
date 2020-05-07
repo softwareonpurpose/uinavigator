@@ -32,10 +32,17 @@ public class WebGetListByLocatorOrdinalParentTests {
 
     @Test
     public void testConstructor_bodyTagPrentInstance() {
-        WebGetElementBehavior getParent = WebGetElementByLocator.getInstance(UiLocatorType.TAG, "select");
+        String parentDescription = "Select";
+        final String parentLocatorValue = "select";
+        WebGetElementBehavior getParent =
+                WebGetElementByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue);
         Class<WebGetListByLocatorOrdinalParent> expected = WebGetListByLocatorOrdinalParent.class;
+        final String locatorValue = "select";
+        final int ordinal = 1;
+        final WebGetListByLocatorOrdinalParent getElement =
+                WebGetListByLocatorOrdinalParent.getInstance(UiLocatorType.TAG, locatorValue, ordinal, getParent);
         //noinspection rawtypes
-        Class actual = WebGetListByLocatorOrdinalParent.getInstance(UiLocatorType.TAG, "select", 1, getParent).getClass();
+        Class actual = getElement.getClass();
         final String message = "Failed to return an instance of WebGetListByLocatorOrdinalParent";
         Assert.assertEquals(actual, expected, message);
     }

@@ -26,7 +26,7 @@ public class WebGetAttributeBehavior extends GetAttributeBehavior {
 
     @Override
     public String execute(String attribute) {
-        WebElement element = getBehavior.execute();
-        return element == null ? null : attribute == null ? null : element.getAttribute(attribute);
+        Object element = getBehavior.execute();
+        return element == null ? null : attribute == null ? null : ((WebElement) element).getAttribute(attribute);
     }
 }

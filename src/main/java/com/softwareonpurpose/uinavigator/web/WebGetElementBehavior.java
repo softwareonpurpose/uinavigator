@@ -17,13 +17,17 @@ package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.GetElementBehavior;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 public abstract class WebGetElementBehavior extends GetElementBehavior {
-    protected WebGetElementBehavior(By locator) {
-        super(locator);
+    protected final By locator;
+    private final String description;
+
+    WebGetElementBehavior(String description, By locator) {
+        this.description = description;
+        this.locator = locator;
     }
 
-    @Override
-    public abstract WebElement execute();
+    protected String elementToString() {
+        return String.format("%s - %s", description, locator.toString());
+    }
 }

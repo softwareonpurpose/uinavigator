@@ -16,7 +16,10 @@ public class WebSetSelectBehaviorTests {
 
     @Test
     public void testExecute() {
-        WebGetElementBehavior getElement = WebGetElementByLocator.getInstance(UiLocatorType.ID, "pet-select");
+        String description="Select";
+        final String locatorValue = "pet-select";
+        WebGetElementBehavior getElement =
+                WebGetElementByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
         GetTextBehavior getText = WebGetTextSelectBehavior.getSelectInstance(getElement);
         SetElementBehavior setSelect = WebSetSelectBehavior.getSelectInstance(getElement);
         MockView.directNav();

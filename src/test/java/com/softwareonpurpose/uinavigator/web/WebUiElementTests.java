@@ -32,7 +32,7 @@ public class WebUiElementTests {
     @Test
     public void testToString() {
         String expected =
-                "{\"description\":\"Element\",\"behaviors\":{\"getElement\":{\"locator\":{\"tagName\":\"body\"}}}}";
+                "{\"description\":\"Element\",\"behaviors\":{\"description\":\"Element\",\"getElement\":{\"locator\":{\"tagName\":\"body\"},\"description\":\"Element\"}}}";
         String actual = WebUiElement.getInstance("Element", UiLocatorType.TAG, "body").toString();
         Assert.assertEquals(actual, expected, "Failed to return the String description");
     }

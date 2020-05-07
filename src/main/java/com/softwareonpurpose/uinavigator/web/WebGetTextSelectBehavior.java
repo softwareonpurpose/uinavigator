@@ -16,6 +16,7 @@ package com.softwareonpurpose.uinavigator.web;
  */
 
 import com.softwareonpurpose.uinavigator.GetTextBehavior;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 public class WebGetTextSelectBehavior extends GetTextBehavior {
@@ -27,7 +28,7 @@ public class WebGetTextSelectBehavior extends GetTextBehavior {
 
     @Override
     public String execute() {
-        Select select = new Select(getBehavior.execute());
+        Select select = new Select((WebElement) getBehavior.execute());
         return select.getOptions().size() == 0 ? null : select.getFirstSelectedOption().getText();
     }
 }

@@ -21,18 +21,18 @@ import org.openqa.selenium.WebElement;
 public class WebGetElementByLocator extends WebGetElementBehavior {
     private WebElement element;
 
-    private WebGetElementByLocator(By locator) {
-        super(locator);
+    private WebGetElementByLocator(String description, By locator) {
+        super(description, locator);
     }
 
-    public static WebGetElementByLocator getInstance(String locatorType, String locatorValue) {
-        return new WebGetElementByLocator(WebUiLocator.getInstance(locatorType, locatorValue));
+    public static WebGetElementByLocator getInstance(String description, String locatorType, String locatorValue) {
+        return new WebGetElementByLocator(description, WebUiLocator.getInstance(locatorType, locatorValue));
     }
 
     @Override
     public WebElement execute() {
         if (element == null) {
-            element = WebUiHost.getInstance().findUiElement(locator);
+            element = WebUiHost.getInstance().findUiElement(super.locator);
         }
         return element;
     }

@@ -16,11 +16,13 @@ public class WebGetElementByLocatorAttributeNonExistentTests {
     @Test
     public void testExecute_nonExistent() {
         MockView.directNav();
+        String description = "Non Existent";
         final String locatorValue = "name";
         final String attribute = "data-test";
         final String attributeValue = "non-existent";
         final WebGetElementByLocatorAttribute getBehavior =
-                WebGetElementByLocatorAttribute.getInstance(UiLocatorType.ID, locatorValue, attribute, attributeValue);
+                WebGetElementByLocatorAttribute
+                        .getInstance(description, UiLocatorType.ID, locatorValue, attribute, attributeValue);
         WebElement actual = getBehavior.execute();
         Assert.assertNull(actual, "Failed to return null for nonexistent attribute");
     }

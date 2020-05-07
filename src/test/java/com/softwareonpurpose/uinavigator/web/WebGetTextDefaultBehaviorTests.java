@@ -15,13 +15,17 @@ public class WebGetTextDefaultBehaviorTests {
 
     @Test
     public void testExecute() {
-        WebGetElementBehavior getElement = WebGetElementByLocator.getInstance(UiLocatorType.ID, "nonexistent");
+        String description = "Non Existent";
+        final String locatorValue = "nonexistent";
+        WebGetElementBehavior getElement =
+                WebGetElementByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
         GetTextBehavior getText = WebGetTextDefaultBehavior.getInstance(getElement);
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
         String expected = null;
         WebUiHost.getInstance().load(uri);
         String actual = getText.execute();
+        final String message = "Failed to return null for attempt to get text of non-existent element";
         //noinspection ConstantConditions
-        Assert.assertEquals(actual, expected, "Failed to return null for attempt to get text of non-existent element");
+        Assert.assertEquals(actual, expected, message);
     }
 }
