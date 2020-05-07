@@ -70,15 +70,6 @@ public class UiElementBehaviorsTests {
     }
 
     @Test
-    public void testGetSrc() {
-        WebUiElement element = WebUiElement.getInstance("Element", UiLocatorType.TAG, "img");
-        MockView.directNav();
-        String expected = "file://missing.jpg/";
-        String actual = element.getSrc();
-        Assert.assertEquals(actual, expected, "Failed to return expected 'src' value");
-    }
-
-    @Test
     public void testSuppressLogging() {
         boolean expected = true;
         //noinspection ConstantConditions

@@ -241,10 +241,6 @@ public class UiElementBehaviors {
         return isActive.execute();
     }
 
-    public String getSrc() {
-        return getAttribute.execute("src");
-    }
-
     public void setAttribute(String attribute, String value) {
         setAttribute.execute(attribute, value);
     }

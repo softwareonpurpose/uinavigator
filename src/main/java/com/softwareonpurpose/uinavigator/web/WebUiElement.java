@@ -154,10 +154,6 @@ public class WebUiElement implements UiElement {
         return behaviors.isDisplayed();
     }
 
-    public String getSrc() {
-        return behaviors.getSrc();
-    }
-
     public void setAttribute(String attribute, String value) {
         behaviors.setAttribute(attribute, value);
     }
