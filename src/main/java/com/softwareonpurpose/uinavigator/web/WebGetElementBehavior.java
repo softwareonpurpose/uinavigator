@@ -25,5 +25,5 @@ public abstract class WebGetElementBehavior extends GetElementBehavior {
     }
 
     @Override
-    protected abstract WebElement execute();
+    public abstract WebElement execute();
 }

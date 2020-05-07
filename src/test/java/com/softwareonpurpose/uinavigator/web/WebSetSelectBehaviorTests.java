@@ -1,5 +1,7 @@
 package com.softwareonpurpose.uinavigator.web;
 
+import com.softwareonpurpose.uinavigator.GetTextBehavior;
+import com.softwareonpurpose.uinavigator.SetElementBehavior;
 import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -15,12 +17,11 @@ public class WebSetSelectBehaviorTests {
     @Test
     public void testExecute() {
         WebGetElementBehavior getElement = WebGetElementByLocator.getInstance(UiLocatorType.ID, "pet-select");
-        WebGetTextSelectBehavior getText = WebGetTextSelectBehavior.getInstance(getElement);
-        WebSetSelectBehavior setText = WebSetSelectBehavior.getInstance(getElement);
-        String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
+        GetTextBehavior getText = WebGetTextSelectBehavior.getSelectInstance(getElement);
+        SetElementBehavior setSelect = WebSetSelectBehavior.getSelectInstance(getElement);
+        MockView.directNav();
         String expected = "Dog";
-        WebUiHost.getInstance().load(uri);
-        setText.execute(expected);
+        setSelect.execute(expected);
         String actual = getText.execute();
         Assert.assertEquals(actual, expected, "Failed to set 'select' element to expected value");
     }

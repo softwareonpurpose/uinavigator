@@ -1,4 +1,8 @@
 package com.softwareonpurpose.uinavigator;
+
+import com.softwareonpurpose.uinavigator.web.WebGetElementBehavior;
+import com.softwareonpurpose.uinavigator.web.WebIsDisplayedBehavior;
+
 /*
   Copyright 2020 Craig A. Stockton
   <p/>
@@ -14,6 +18,10 @@ package com.softwareonpurpose.uinavigator;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-public interface IsDisplayedBehavior {
-    boolean execute();
+public abstract class IsDisplayedBehavior {
+    static IsDisplayedBehavior getInstance(GetElementBehavior getElement) {
+        return WebIsDisplayedBehavior.getInstance((WebGetElementBehavior) getElement);
+    }
+
+    protected abstract boolean execute();
 }

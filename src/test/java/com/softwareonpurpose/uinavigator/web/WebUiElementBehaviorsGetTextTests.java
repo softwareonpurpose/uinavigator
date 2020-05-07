@@ -1,5 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
+import com.softwareonpurpose.uinavigator.UiElementBehaviors;
 import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -14,7 +15,7 @@ public class WebUiElementBehaviorsGetTextTests {
 
     @Test
     public void testGetText() {
-        WebUiElementBehaviors behaviors = WebUiElementBehaviors.getInstanceByLocator("Page", UiLocatorType.TAG, "body");
+        UiElementBehaviors behaviors = WebUiElementBehaviors.getInstanceByLocator("Page", UiLocatorType.TAG, "body");
         String expected = "";
         String actual = behaviors.getText();
         WebUiHost.quitInstance();

@@ -14,17 +14,14 @@ package com.softwareonpurpose.uinavigator.web;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
+
 import com.softwareonpurpose.uinavigator.SetElementBehavior;
 
-public class WebSetDefaultBehavior implements SetElementBehavior {
+public class WebSetDefaultBehavior extends SetElementBehavior {
     private final WebGetElementBehavior getBehavior;
 
-    private WebSetDefaultBehavior(WebGetElementBehavior getElementBehavior) {
+    public WebSetDefaultBehavior(WebGetElementBehavior getElementBehavior) {
         getBehavior = getElementBehavior;
-    }
-
-    public static WebSetDefaultBehavior getInstance(WebGetElementBehavior getElementBehavior) {
-        return new WebSetDefaultBehavior(getElementBehavior);
     }
 
     @Override

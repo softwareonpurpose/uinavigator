@@ -17,15 +17,11 @@ import com.softwareonpurpose.uinavigator.SwitchToBehavior;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-public class SwitchToFrame extends SwitchToBehavior {
+public class WebSwitchToFrame extends SwitchToBehavior {
     private final WebGetElementBehavior getElement;
 
-    public SwitchToFrame(WebGetElementBehavior getElement) {
+    public WebSwitchToFrame(WebGetElementBehavior getElement) {
         this.getElement = getElement;
-    }
-
-    public static SwitchToFrame getInstance(WebGetElementBehavior getElement) {
-        return new SwitchToFrame(getElement);
     }
 
     @Override

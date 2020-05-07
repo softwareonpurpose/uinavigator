@@ -1,5 +1,7 @@
 package com.softwareonpurpose.uinavigator.web;
 
+import com.softwareonpurpose.uinavigator.UiStateBehavior;
+
 /*
   Copyright 2020 Craig A. Stockton
   <p/>
@@ -15,21 +17,22 @@ package com.softwareonpurpose.uinavigator.web;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-public class StateBehavior {
+public class WebStateBehavior extends UiStateBehavior {
     private final WebGetElementBehavior getBehavior;
     private final String attribute;
     private final String value;
 
-    private StateBehavior(WebGetElementBehavior getBehavior, String attribute, String value) {
+    private WebStateBehavior(WebGetElementBehavior getBehavior, String attribute, String value) {
         this.getBehavior = getBehavior;
         this.attribute = attribute;
         this.value = value;
     }
 
-    public static StateBehavior getInstance(WebGetElementBehavior getBehavior, String attribute, String value) {
-        return new StateBehavior(getBehavior, attribute, value);
+    public static WebStateBehavior getInstance(WebGetElementBehavior getBehavior, String attribute, String value) {
+        return new WebStateBehavior(getBehavior, attribute, value);
     }
 
+    @Override
     public boolean execute() {
         return getBehavior.execute().getAttribute(attribute).contains(value);
     }

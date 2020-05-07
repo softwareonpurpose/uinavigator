@@ -17,14 +17,8 @@ import com.softwareonpurpose.uinavigator.SwitchToBehavior;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-public class SwitchToView extends SwitchToBehavior {
-
-    public SwitchToView() {
-
-    }
-
-    public static SwitchToView getInstance() {
-        return new SwitchToView();
+public class WebSwitchToView extends SwitchToBehavior {
+    public WebSwitchToView() {
     }
 
     @Override

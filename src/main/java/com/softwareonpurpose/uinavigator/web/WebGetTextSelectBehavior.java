@@ -14,18 +14,15 @@ package com.softwareonpurpose.uinavigator.web;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
+
 import com.softwareonpurpose.uinavigator.GetTextBehavior;
 import org.openqa.selenium.support.ui.Select;
 
-public class WebGetTextSelectBehavior implements GetTextBehavior {
+public class WebGetTextSelectBehavior extends GetTextBehavior {
     private final WebGetElementBehavior getBehavior;
 
-    private WebGetTextSelectBehavior(WebGetElementBehavior getElementBehavior) {
+    public WebGetTextSelectBehavior(WebGetElementBehavior getElementBehavior) {
         this.getBehavior = getElementBehavior;
-    }
-
-    public static WebGetTextSelectBehavior getInstance(WebGetElementBehavior getElementBehavior) {
-        return new WebGetTextSelectBehavior(getElementBehavior);
     }
 
     @Override

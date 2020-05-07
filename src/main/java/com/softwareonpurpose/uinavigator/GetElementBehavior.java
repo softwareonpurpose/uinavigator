@@ -23,7 +23,7 @@ public abstract class GetElementBehavior {
         this.locator = locator;
     }
 
-    protected abstract Object execute();
+    public abstract Object execute();
 
     @Override
     public String toString() {

@@ -1,5 +1,7 @@
 package com.softwareonpurpose.uinavigator.web;
 
+import com.softwareonpurpose.uinavigator.GetElementBehavior;
+
 /*
   Copyright 2020 Craig A. Stockton
   <p/>
@@ -15,6 +17,10 @@ package com.softwareonpurpose.uinavigator.web;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-public interface GetAttributeBehavior {
-    String execute(String attribute);
+public abstract class GetAttributeBehavior {
+    public static GetAttributeBehavior getInstance(GetElementBehavior getElement) {
+        return new WebGetAttributeBehavior((WebGetElementBehavior) getElement);
+    }
+
+    public abstract String execute(String attribute);
 }

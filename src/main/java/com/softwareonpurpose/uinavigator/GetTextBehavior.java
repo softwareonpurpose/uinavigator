@@ -1,4 +1,9 @@
 package com.softwareonpurpose.uinavigator;
+
+import com.softwareonpurpose.uinavigator.web.WebGetElementBehavior;
+import com.softwareonpurpose.uinavigator.web.WebGetTextDefaultBehavior;
+import com.softwareonpurpose.uinavigator.web.WebGetTextSelectBehavior;
+
 /*
   Copyright 2020 Craig A. Stockton
   <p/>
@@ -14,6 +19,15 @@ package com.softwareonpurpose.uinavigator;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-public interface GetTextBehavior {
-    String execute();
+public abstract class GetTextBehavior {
+
+    public static GetTextBehavior getSelectInstance(GetElementBehavior getElement) {
+        return new WebGetTextSelectBehavior((WebGetElementBehavior) getElement);
+    }
+
+    public static GetTextBehavior getInstance(GetElementBehavior getElementBehavior) {
+        return new WebGetTextDefaultBehavior((WebGetElementBehavior) getElementBehavior);
+    }
+
+    public abstract String execute();
 }

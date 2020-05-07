@@ -1,4 +1,7 @@
 package com.softwareonpurpose.uinavigator.web;
+
+import com.softwareonpurpose.uinavigator.SetAttributeBehavior;
+
 /*
   Copyright 2020 Craig A. Stockton
   <p/>
@@ -14,10 +17,10 @@ package com.softwareonpurpose.uinavigator.web;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-public class WebSetAttributeBehavior {
+public class WebSetAttributeBehavior extends SetAttributeBehavior {
     private final WebGetElementBehavior getBehavior;
 
-    private WebSetAttributeBehavior(WebGetElementBehavior getBehavior) {
+    public WebSetAttributeBehavior(WebGetElementBehavior getBehavior) {
         this.getBehavior = getBehavior;
     }
 

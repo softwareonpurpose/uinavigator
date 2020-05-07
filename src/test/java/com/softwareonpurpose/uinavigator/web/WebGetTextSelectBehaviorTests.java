@@ -1,5 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
+import com.softwareonpurpose.uinavigator.GetTextBehavior;
 import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -16,7 +17,7 @@ public class WebGetTextSelectBehaviorTests {
     public void testExecute() {
         String message = "Failed to return null when 'select' element has NO 'option' elements";
         WebGetElementBehavior get = WebGetElementByLocator.getInstance(UiLocatorType.ID, "empty-select");
-        WebGetTextSelectBehavior getText = WebGetTextSelectBehavior.getInstance(get);
+        GetTextBehavior getText = WebGetTextSelectBehavior.getSelectInstance(get);
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
         String expected = null;
         WebUiHost.getInstance().load(uri);

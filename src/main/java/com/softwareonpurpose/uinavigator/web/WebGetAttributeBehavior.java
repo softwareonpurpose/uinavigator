@@ -17,15 +17,11 @@ package com.softwareonpurpose.uinavigator.web;
 
 import org.openqa.selenium.WebElement;
 
-public class WebGetAttributeBehavior implements GetAttributeBehavior {
+public class WebGetAttributeBehavior extends GetAttributeBehavior {
     private final WebGetElementBehavior getBehavior;
 
-    private WebGetAttributeBehavior(WebGetElementBehavior getBehavior) {
+    WebGetAttributeBehavior(WebGetElementBehavior getBehavior) {
         this.getBehavior = getBehavior;
-    }
-
-    public static WebGetAttributeBehavior getInstance(WebGetElementBehavior getBehavior) {
-        return new WebGetAttributeBehavior(getBehavior);
     }
 
     @Override

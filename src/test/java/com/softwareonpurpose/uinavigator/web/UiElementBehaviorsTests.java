@@ -7,7 +7,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class WebUiElementBehaviorsTests {
+public class UiElementBehaviorsTests {
     @AfterMethod
     public void terminate() {
         WebUiHost.quitInstance();
@@ -15,18 +15,18 @@ public class WebUiElementBehaviorsTests {
 
     @Test
     public void testGetInstanceByLocator_tagSelect() {
-        Class<WebUiElementBehaviors> expected = WebUiElementBehaviors.class;
+        Class<UiElementBehaviors> expected = UiElementBehaviors.class;
         //noinspection rawtypes
-        Class actual = WebUiElementBehaviors.getInstanceByLocator("Select", UiLocatorType.TAG, "select").getClass();
+        Class actual = UiElementBehaviors.getInstanceByLocator("Select", UiLocatorType.TAG, "select").getClass();
         Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElementBehaviors");
     }
 
     @Test
     public void testGetInstanceByLocator_idName() {
-        Class<WebUiElementBehaviors> expected = WebUiElementBehaviors.class;
+        Class<UiElementBehaviors> expected = UiElementBehaviors.class;
         //noinspection rawtypes
-        Class actual = WebUiElementBehaviors.getInstanceByLocator("Name", UiLocatorType.ID, "name").getClass();
-        Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElementBehaviors");
+        Class actual = UiElementBehaviors.getInstanceByLocator("Name", UiLocatorType.ID, "name").getClass();
+        Assert.assertEquals(actual, expected, "Failed to return instance of UiElementBehaviors");
     }
 
     @Test
@@ -36,10 +36,10 @@ public class WebUiElementBehaviorsTests {
         final int ordinal = 2;
         final UiElementBehaviors behaviors =
                 UiElementBehaviors.getInstanceByLocatorAttributeOrdinal("Select", UiLocatorType.TAG, "select", attribute, attributeValue, ordinal);
-        Class<WebUiElementBehaviors> expected = WebUiElementBehaviors.class;
+        Class<UiElementBehaviors> expected = UiElementBehaviors.class;
         //noinspection rawtypes
         Class actual = behaviors.getClass();
-        Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElementBehaviors");
+        Assert.assertEquals(actual, expected, "Failed to return instance of UiElementBehaviors");
     }
 
     @Test
@@ -52,10 +52,10 @@ public class WebUiElementBehaviorsTests {
                 UiElementBehaviors.getInstanceByLocatorAttributeOrdinalParent("Select",
                         UiLocatorType.TAG, "select", attribute, attributeValue,
                         ordinal, getParent);
-        Class<WebUiElementBehaviors> expected = WebUiElementBehaviors.class;
+        Class<UiElementBehaviors> expected = UiElementBehaviors.class;
         //noinspection rawtypes
         Class actual = behaviors.getClass();
-        Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElementBehaviors");
+        Assert.assertEquals(actual, expected, "Failed to return instance of UiElementBehaviors");
     }
 
     @Test
@@ -82,8 +82,8 @@ public class WebUiElementBehaviorsTests {
     public void testSuppressLogging() {
         boolean expected = true;
         //noinspection ConstantConditions
-        WebUiElementBehaviors.suppressLogging(expected);
-        boolean actual = WebUiElementBehaviors.isLoggingSuppressed();
+        UiElementBehaviors.suppressLogging(expected);
+        boolean actual = UiElementBehaviors.isLoggingSuppressed();
         //noinspection ConstantConditions
         Assert.assertEquals(actual, expected, "Failed to set logging suppression");
     }

@@ -17,15 +17,11 @@ package com.softwareonpurpose.uinavigator.web;
 import com.softwareonpurpose.uinavigator.GetTextBehavior;
 import org.openqa.selenium.WebElement;
 
-public class WebGetTextDefaultBehavior implements GetTextBehavior {
+public class WebGetTextDefaultBehavior extends GetTextBehavior {
     private final WebGetElementBehavior getBehavior;
 
-    private WebGetTextDefaultBehavior(WebGetElementBehavior getElementBehavior) {
+    public WebGetTextDefaultBehavior(WebGetElementBehavior getElementBehavior) {
         this.getBehavior = getElementBehavior;
-    }
-
-    public static WebGetTextDefaultBehavior getInstance(WebGetElementBehavior getElementBehavior) {
-        return new WebGetTextDefaultBehavior(getElementBehavior);
     }
 
     @Override

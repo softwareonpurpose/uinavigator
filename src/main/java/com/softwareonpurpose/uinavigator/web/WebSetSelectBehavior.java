@@ -14,23 +14,19 @@ package com.softwareonpurpose.uinavigator.web;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
+
 import com.softwareonpurpose.uinavigator.SetElementBehavior;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-public class WebSetSelectBehavior implements SetElementBehavior {
+public class WebSetSelectBehavior extends SetElementBehavior {
     private final WebGetElementBehavior getBehavior;
 
-    private WebSetSelectBehavior(WebGetElementBehavior getElementBehavior) {
+    public WebSetSelectBehavior(WebGetElementBehavior getElementBehavior) {
         this.getBehavior = getElementBehavior;
-    }
-
-    public static WebSetSelectBehavior getInstance(WebGetElementBehavior getElementBehavior) {
-        return new WebSetSelectBehavior(getElementBehavior);
     }
 
     @Override
     public void execute(String value) {
-        new Select((WebElement) getBehavior.execute()).selectByVisibleText(value);
+        new Select(getBehavior.execute()).selectByVisibleText(value);
     }
 }

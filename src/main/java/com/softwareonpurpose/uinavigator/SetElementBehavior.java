@@ -1,4 +1,9 @@
 package com.softwareonpurpose.uinavigator;
+
+import com.softwareonpurpose.uinavigator.web.WebGetElementBehavior;
+import com.softwareonpurpose.uinavigator.web.WebSetDefaultBehavior;
+import com.softwareonpurpose.uinavigator.web.WebSetSelectBehavior;
+
 /*
   Copyright 2020 Craig A. Stockton
   <p/>
@@ -14,6 +19,15 @@ package com.softwareonpurpose.uinavigator;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-public interface SetElementBehavior {
-    void execute(String value);
+public abstract class SetElementBehavior {
+
+    public static SetElementBehavior getSelectInstance(GetElementBehavior getBehavior) {
+        return new WebSetSelectBehavior((WebGetElementBehavior) getBehavior);
+    }
+
+    public static SetElementBehavior getInstance(GetElementBehavior getBehavior) {
+        return new WebSetDefaultBehavior((WebGetElementBehavior) getBehavior);
+    }
+
+    public abstract void execute(String value);
 }
