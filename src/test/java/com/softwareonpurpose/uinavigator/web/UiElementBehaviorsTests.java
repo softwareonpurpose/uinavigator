@@ -99,4 +99,15 @@ public class UiElementBehaviorsTests {
         String actual = behaviors.toString();
         Assert.assertEquals(actual, expected, "Failed to return description via toString()");
     }
+
+    @Test
+    public void testSet_loggingSuppressed() {
+        String expected = "Value";
+        MockView view = MockView.directNav();
+        WebUiElement.suppressLogging(true);
+        view.setUsername(expected);
+        WebUiElement.suppressLogging(false);
+        String actual = view.getUsernameText();
+        Assert.assertEquals(actual, expected, "Failed to set value with logging suppressed");
+    }
 }

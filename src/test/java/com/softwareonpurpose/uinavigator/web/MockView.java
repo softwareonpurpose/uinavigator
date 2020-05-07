@@ -37,4 +37,16 @@ public class MockView extends UiView {
     protected boolean confirmElementStates() {
         return this.getElement().waitUntilVisible();
     }
+
+    public void setUsername(String value) {
+        getUsernameElement().set(value);
+    }
+
+    private WebUiElement getUsernameElement() {
+        return WebUiElement.getInstance("Username", UiLocatorType.NAME, "user_name", (WebUiElement) this.getElement());
+    }
+
+    public String getUsernameText() {
+        return getUsernameElement().getText();
+    }
 }
