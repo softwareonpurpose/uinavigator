@@ -99,4 +99,12 @@ public class UiElementBehaviorsTests {
         String actual = behaviors.toString();
         Assert.assertEquals(actual, expected, "Failed to return description via toString()");
     }
+
+    @Test
+    public void testClick_suppressLogging() {
+        UiElementBehaviors.suppressLogging(true);
+        MockView.directNav().clickButton();
+        UiElementBehaviors.suppressLogging(false);
+        Assert.assertTrue(true, "Failed to click element successfully with logging suppressed");
+    }
 }

@@ -23,6 +23,16 @@ public class MockView extends UiView {
         return UiView.expect(view.getClass());
     }
 
+    public void clickButton() {
+        getButtonElement().click();
+    }
+
+    private WebUiElement getButtonElement() {
+        final String description = "Button";
+        final String locatorValue = "button-1";
+        return WebUiElement.getInstance(description, UiLocatorType.ID, locatorValue, (WebUiElement) this.getElement());
+    }
+
     @Override
     protected boolean confirmElementStates() {
         return this.getElement().waitUntilVisible();
