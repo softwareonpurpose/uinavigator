@@ -17,6 +17,7 @@ package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiGetElement;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 public abstract class WebUiGetElement extends UiGetElement {
     protected final By locator;
@@ -26,6 +27,9 @@ public abstract class WebUiGetElement extends UiGetElement {
         this.description = description;
         this.locator = locator;
     }
+
+    @Override
+    public abstract WebElement execute();
 
     protected String elementToString() {
         return String.format("%s - %s", description, locator.toString());

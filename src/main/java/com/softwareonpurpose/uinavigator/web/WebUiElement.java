@@ -16,9 +16,9 @@ package com.softwareonpurpose.uinavigator.web;
  */
 
 import com.google.gson.Gson;
-import com.softwareonpurpose.uinavigator.UiGetElement;
-import com.softwareonpurpose.uinavigator.UiElement;
 import com.softwareonpurpose.uinavigator.ElementBehaviors;
+import com.softwareonpurpose.uinavigator.UiElement;
+import com.softwareonpurpose.uinavigator.UiGetElement;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
@@ -171,13 +171,11 @@ public class WebUiElement implements UiElement {
         return new Gson().toJson(this);
     }
 
-    @Override
     public WebUiElement setActiveBehavior(String attribute, String value) {
         behaviors.setActiveBehavior(attribute, value);
         return this;
     }
 
-    @Override
     public WebUiElement setSelectedBehavior(String attribute, String value) {
         behaviors.setSelectedBehavior(attribute, value);
         return this;

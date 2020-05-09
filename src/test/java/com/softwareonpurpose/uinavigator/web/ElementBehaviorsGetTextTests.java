@@ -7,7 +7,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class WebElementBehaviorsGetTextTests {
+public class ElementBehaviorsGetTextTests {
     @AfterMethod
     public void terminate() {
         WebUiHost.quitInstance();
@@ -15,7 +15,7 @@ public class WebElementBehaviorsGetTextTests {
 
     @Test
     public void testGetText() {
-        ElementBehaviors behaviors = WebElementBehaviors.getInstanceByLocator("Page", UiLocatorType.TAG, "body");
+        ElementBehaviors behaviors = ElementBehaviors.getInstanceByLocator("Page", UiLocatorType.TAG, "body");
         String expected = "";
         String actual = behaviors.getText();
         WebUiHost.quitInstance();
