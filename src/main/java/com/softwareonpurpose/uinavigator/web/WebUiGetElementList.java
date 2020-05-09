@@ -16,11 +16,10 @@ package com.softwareonpurpose.uinavigator.web;
  */
 
 import com.softwareonpurpose.uinavigator.UiGetElementList;
-import com.softwareonpurpose.uinavigator.UiElement;
 
 import java.util.Collection;
 
 public interface WebUiGetElementList extends UiGetElementList {
     @Override
-    Collection<UiElement> execute();
+    Collection<WebUiElement> execute();
 }

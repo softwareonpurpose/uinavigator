@@ -14,8 +14,11 @@ package com.softwareonpurpose.uinavigator;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
+
+import com.softwareonpurpose.uinavigator.web.WebUiElement;
+
 import java.util.Collection;
 
 public interface UiGetElementList {
-    Collection<UiElement> execute();
+    Collection<WebUiElement> execute();
 }

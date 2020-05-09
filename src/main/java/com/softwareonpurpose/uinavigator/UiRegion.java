@@ -1,5 +1,6 @@
 package com.softwareonpurpose.uinavigator;
 
+import com.softwareonpurpose.uinavigator.web.WebUiElement;
 import org.slf4j.LoggerFactory;
 
 /*
@@ -19,9 +20,9 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class UiRegion {
     private static boolean suppressLogging;
-    private final UiElement regionElement;
+    private final WebUiElement regionElement;
 
-    protected UiRegion(UiElement regionElement) {
+    protected UiRegion(WebUiElement regionElement) {
         this.regionElement = regionElement;
         if (!suppressLogging)
             LoggerFactory.getLogger("").info(String.format("In %s...", getDescription()));
@@ -35,7 +36,7 @@ public abstract class UiRegion {
         return regionElement.waitUntilVisible();
     }
 
-    public UiElement getElement() {
+    public WebUiElement getElement() {
         return regionElement;
     }
 

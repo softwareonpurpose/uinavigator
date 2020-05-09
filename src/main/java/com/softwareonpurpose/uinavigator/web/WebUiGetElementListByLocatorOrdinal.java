@@ -15,7 +15,6 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
-import com.softwareonpurpose.uinavigator.UiElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -39,8 +38,8 @@ public class WebUiGetElementListByLocatorOrdinal implements WebUiGetElementList 
     }
 
     @Override
-    public Collection<UiElement> execute() {
-        List<UiElement> elements = new ArrayList<>();
+    public Collection<WebUiElement> execute() {
+        List<WebUiElement> elements = new ArrayList<>();
         By locator = WebElementLocator.getInstance(locatorType, locatorValue);
         List<WebElement> candidates = WebUiHost.getInstance().findUiElements(locator);
         if (candidates.size() >= ordinal) {

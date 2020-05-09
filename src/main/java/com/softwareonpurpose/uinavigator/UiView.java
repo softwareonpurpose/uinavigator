@@ -15,6 +15,7 @@ package com.softwareonpurpose.uinavigator;
   limitations under the License.
  */
 
+import com.softwareonpurpose.uinavigator.web.WebUiElement;
 import com.softwareonpurpose.uinavigator.web.WebUiHost;
 import org.slf4j.LoggerFactory;
 
@@ -24,25 +25,13 @@ import java.lang.reflect.InvocationTargetException;
 public abstract class UiView {
     private final static String ERROR_CONSTRUCTOR_SCOPE =
             "Unable to access View constructor; ensure it is parameter-less and has 'public' scope";
-    private final UiElement viewElement;
+    private final WebUiElement viewElement;
 
     private final String address;
 
-    protected UiView(String viewAddress, UiElement viewElement) {
+    protected UiView(String viewAddress, WebUiElement viewElement) {
         this.address = viewAddress;
         this.viewElement = viewElement;
-    }
-
-    protected void load() {
-        WebUiHost.getInstance().load(address);
-        getElement().switchTo();
-    }
-
-    protected void load(String relativeUri) {
-        relativeUri = relativeUri.startsWith("?") ? relativeUri : String.format("/%s", relativeUri);
-        String explicitUri = String.format("%s%s", address, relativeUri);
-        WebUiHost.getInstance().load(explicitUri);
-        getElement().switchTo();
     }
 
     public static <T extends UiView> T expect(Class<T> viewClass) {
@@ -77,7 +66,19 @@ public abstract class UiView {
         return view;
     }
 
-    protected UiElement getElement() {
+    protected void load() {
+        WebUiHost.getInstance().load(address);
+        getElement().switchTo();
+    }
+
+    protected void load(String relativeUri) {
+        relativeUri = relativeUri.startsWith("?") ? relativeUri : String.format("/%s", relativeUri);
+        String explicitUri = String.format("%s%s", address, relativeUri);
+        WebUiHost.getInstance().load(explicitUri);
+        getElement().switchTo();
+    }
+
+    protected WebUiElement getElement() {
         return viewElement;
     }
 

@@ -17,14 +17,13 @@ package com.softwareonpurpose.uinavigator.web;
 
 import com.google.gson.Gson;
 import com.softwareonpurpose.uinavigator.ElementBehaviors;
-import com.softwareonpurpose.uinavigator.UiElement;
 import com.softwareonpurpose.uinavigator.UiGetElement;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WebUiElement implements UiElement {
+public class WebUiElement {
     private final String description;
     private final ElementBehaviors behaviors;
 
@@ -150,25 +149,20 @@ public class WebUiElement implements UiElement {
         return behaviors.isDisplayed();
     }
 
-    public boolean waitUntilVisible() {
-        return behaviors.isDisplayed();
+    public String getAttribute(String attribute) {
+        return behaviors.getAttribute(attribute);
     }
 
     public void setAttribute(String attribute, String value) {
         behaviors.setAttribute(attribute, value);
     }
 
+    public boolean waitUntilVisible() {
+        return behaviors.isDisplayed();
+    }
+
     public String getDescription() {
         return description;
-    }
-
-    public String getAttribute(String attribute) {
-        return behaviors.getAttribute(attribute);
-    }
-
-    @Override
-    public String toString() {
-        return new Gson().toJson(this);
     }
 
     public WebUiElement setActiveBehavior(String attribute, String value) {
@@ -183,5 +177,10 @@ public class WebUiElement implements UiElement {
 
     public void switchTo() {
         behaviors.switchTo();
+    }
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
     }
 }

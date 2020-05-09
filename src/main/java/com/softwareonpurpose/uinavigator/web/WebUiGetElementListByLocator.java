@@ -15,7 +15,6 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
-import com.softwareonpurpose.uinavigator.UiElement;
 import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -39,8 +38,8 @@ public class WebUiGetElementListByLocator implements WebUiGetElementList {
     }
 
     @Override
-    public Collection<UiElement> execute() {
-        Collection<UiElement> elements = new ArrayList<>();
+    public Collection<WebUiElement> execute() {
+        Collection<WebUiElement> elements = new ArrayList<>();
         Collection<WebElement> webElements;
         By locator = WebElementLocator.getInstance(locatorType, locatorValue);
         if (new By.ByTagName("body").equals(locator)) {
