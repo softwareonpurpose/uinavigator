@@ -1,7 +1,6 @@
 package com.softwareonpurpose.uinavigator;
 
 import com.softwareonpurpose.uinavigator.web.WebElementGetAttribute;
-import com.softwareonpurpose.uinavigator.web.WebUiGetElement;
 
 /*
   Copyright 2020 Craig A. Stockton
@@ -19,8 +18,14 @@ import com.softwareonpurpose.uinavigator.web.WebUiGetElement;
   limitations under the License.
  */
 public abstract class ElementGetAttribute {
+    protected final UiGetElement getBehavior;
+
+    protected ElementGetAttribute(UiGetElement getBehavior) {
+        this.getBehavior = getBehavior;
+    }
+
     public static ElementGetAttribute getInstance(UiGetElement getElement) {
-        return new WebElementGetAttribute((WebUiGetElement) getElement);
+        return new WebElementGetAttribute(getElement);
     }
 
     public abstract String execute(String attribute);
