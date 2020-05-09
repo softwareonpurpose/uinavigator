@@ -1,6 +1,7 @@
 package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.ElementAttributeSet;
+import com.softwareonpurpose.uinavigator.UiGetElement;
 import org.openqa.selenium.WebElement;
 
 /*
@@ -19,13 +20,11 @@ import org.openqa.selenium.WebElement;
   limitations under the License.
  */
 public class WebElementAttributeSet extends ElementAttributeSet {
-    private final WebUiGetElement getBehavior;
-
-    public WebElementAttributeSet(WebUiGetElement getBehavior) {
-        this.getBehavior = getBehavior;
+    public WebElementAttributeSet(UiGetElement getBehavior) {
+        super(getBehavior);
     }
 
-    public static WebElementAttributeSet getInstance(WebUiGetElement getBehavior) {
+    public static WebElementAttributeSet getInstance(UiGetElement getBehavior) {
         return new WebElementAttributeSet(getBehavior);
     }
 
