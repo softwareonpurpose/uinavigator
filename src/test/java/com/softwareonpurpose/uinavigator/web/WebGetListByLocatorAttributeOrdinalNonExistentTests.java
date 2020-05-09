@@ -18,8 +18,8 @@ public class WebGetListByLocatorAttributeOrdinalNonExistentTests {
         final String attributeValue = "select-element";
         final int ordinal = 3;
         final String locatorValue = "select";
-        final WebGetListByLocatorAttributeOrdinal getBehavior =
-                WebGetListByLocatorAttributeOrdinal.getInstance(UiLocatorType.TAG, locatorValue, attribute, attributeValue, ordinal);
+        final WebUiGetElementListByLocatorAttributeOrdinal getBehavior =
+                WebUiGetElementListByLocatorAttributeOrdinal.getInstance(UiLocatorType.TAG, locatorValue, attribute, attributeValue, ordinal);
         Integer expected = 0;
         Integer actual = getBehavior.execute().size();
         Assert.assertEquals(actual, expected, "Failed to return an empty list of WebUiElement");

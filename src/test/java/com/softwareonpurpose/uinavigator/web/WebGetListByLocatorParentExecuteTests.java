@@ -20,11 +20,11 @@ public class WebGetListByLocatorParentExecuteTests {
         String parentDescription = "Select";
         MockView.directNav();
         final String parentLocatorValue = "select";
-        WebGetElementBehavior getParent =
-                WebGetElementByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue);
+        WebUiGetElement getParent =
+                WebUiGetElementByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue);
         Class<WebUiElement> expected = WebUiElement.class;
         final Collection<UiElement> getListBehavior =
-                WebGetListByLocatorParent.getInstance(UiLocatorType.TAG, "option", getParent).execute();
+                WebUiGetElementListByLocatorParent.getInstance(UiLocatorType.TAG, "option", getParent).execute();
         //noinspection rawtypes
         Class actual = getListBehavior.iterator().next().getClass();
         Assert.assertEquals(actual, expected, "Failed to return a list of WebUiElements");

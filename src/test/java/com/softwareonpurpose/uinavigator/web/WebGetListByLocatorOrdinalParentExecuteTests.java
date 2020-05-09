@@ -20,12 +20,12 @@ public class WebGetListByLocatorOrdinalParentExecuteTests {
         String parentDescription = "Select";
         MockView.directNav();
         final String locatorValue = "select";
-        WebGetElementBehavior getParent =
-                WebGetElementByLocator.getInstance(parentDescription, UiLocatorType.TAG, locatorValue);
+        WebUiGetElement getParent =
+                WebUiGetElementByLocator.getInstance(parentDescription, UiLocatorType.TAG, locatorValue);
         final int expected = 1;
         final int ordinal = 3;
-        final WebGetListByLocatorOrdinalParent getListBehavior =
-                WebGetListByLocatorOrdinalParent.getInstance(UiLocatorType.TAG, "option", ordinal, getParent);
+        final WebUiGetElementListByLocatorOrdinalParent getListBehavior =
+                WebUiGetElementListByLocatorOrdinalParent.getInstance(UiLocatorType.TAG, "option", ordinal, getParent);
         Collection<UiElement> actual = getListBehavior.execute();
         Assert.assertEquals(actual.size(), expected, "Failed to return one element in a list");
     }
@@ -35,10 +35,10 @@ public class WebGetListByLocatorOrdinalParentExecuteTests {
         MockView.directNav();
         final int expected = 1;
         final int ordinal = 1;
-        final WebGetElementBehavior getParent = null;
+        final WebUiGetElement getParent = null;
         //noinspection ConstantConditions
-        final WebGetListByLocatorOrdinalParent getListBehavior =
-                WebGetListByLocatorOrdinalParent.getInstance(UiLocatorType.TAG, "body", ordinal, getParent);
+        final WebUiGetElementListByLocatorOrdinalParent getListBehavior =
+                WebUiGetElementListByLocatorOrdinalParent.getInstance(UiLocatorType.TAG, "body", ordinal, getParent);
         Collection<UiElement> actual = getListBehavior.execute();
         Assert.assertEquals(actual.size(), expected, "Failed to return one element in a list");
     }

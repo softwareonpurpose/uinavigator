@@ -15,7 +15,7 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
-import com.softwareonpurpose.uinavigator.DriverInstantiation;
+import com.softwareonpurpose.uinavigator.UiDriver;
 import com.softwareonpurpose.uinavigator.UiHost;
 import com.softwareonpurpose.uinavigator.UiNavigatorConfiguration;
 import org.openqa.selenium.*;
@@ -34,13 +34,13 @@ import java.util.List;
 public class WebUiHost implements UiHost {
     private static WebUiHost webUiHost;
     private static UiNavigatorConfiguration config;
-    private static DriverInstantiation driverInstantiation;
+    private static UiDriver uiDriver;
     private final Logger logger = LoggerFactory.getLogger("");
     private WebDriver driver;
 
     private WebUiHost() {
-        if (driverInstantiation == null) {
-            setDriverInstantiation(DefaultChromeInstantiation.getInstance());
+        if (uiDriver == null) {
+            setUiDriver(ChromeDriver.getInstance());
         }
         instantiateUiDriver();
     }
@@ -60,11 +60,11 @@ public class WebUiHost implements UiHost {
     /***
      * Get WebUiHost instance
      *
-     * @param driverInstantiation DriverInstantiation
+     * @param uiDriver DriverInstantiation
      * @return WebUiHost instance
      */
-    public static WebUiHost getInstance(DriverInstantiation driverInstantiation) {
-        setDriverInstantiation(driverInstantiation);
+    public static WebUiHost getInstance(UiDriver uiDriver) {
+        setUiDriver(uiDriver);
         quitInstance();
         webUiHost = new WebUiHost();
         return webUiHost;
@@ -95,10 +95,10 @@ public class WebUiHost implements UiHost {
     /***
      * Set UI host instantiation details
      *
-     * @param driverInstantiation DriverInstantiation details
+     * @param uiDriver DriverInstantiation details
      */
-    public static void setDriverInstantiation(DriverInstantiation driverInstantiation) {
-        WebUiHost.driverInstantiation = driverInstantiation;
+    public static void setUiDriver(UiDriver uiDriver) {
+        WebUiHost.uiDriver = uiDriver;
     }
 
     /**
@@ -188,7 +188,7 @@ public class WebUiHost implements UiHost {
 
     private void instantiateUiDriver() {
         logger.info("Launch browser");
-        driver = driverInstantiation.execute();
+        driver = uiDriver.execute();
     }
 
     /**

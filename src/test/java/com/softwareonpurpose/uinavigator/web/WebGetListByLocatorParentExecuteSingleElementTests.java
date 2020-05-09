@@ -16,8 +16,8 @@ public class WebGetListByLocatorParentExecuteSingleElementTests {
     public void testExecute_parentNull() {
         MockView.directNav();
         Class<WebUiElement> expected = WebUiElement.class;
-        final WebGetListByLocatorParent getListBehavior =
-                WebGetListByLocatorParent.getInstance(UiLocatorType.TAG, "body", null);
+        final WebUiGetElementListByLocatorParent getListBehavior =
+                WebUiGetElementListByLocatorParent.getInstance(UiLocatorType.TAG, "body", null);
         Class actual = getListBehavior.execute().iterator().next().getClass();
         Assert.assertEquals(actual, expected, "Failed to return a list of WebUiElements");
     }

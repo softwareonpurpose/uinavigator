@@ -18,8 +18,8 @@ public class WebGetListByLocatorAttributeNonExistentTests {
         int expected = 0;
         final String attribute = "data-test";
         final String attributeValue = "not-there";
-        final WebGetListByLocatorAttribute getBehavior =
-                WebGetListByLocatorAttribute.getInstance(UiLocatorType.TAG, "select", attribute, attributeValue);
+        final WebUiGetElementListByLocatorAttribute getBehavior =
+                WebUiGetElementListByLocatorAttribute.getInstance(UiLocatorType.TAG, "select", attribute, attributeValue);
         final int actual = getBehavior.execute().size();
         Assert.assertEquals(actual, expected, "Failed to return null when element is non-existent");
     }

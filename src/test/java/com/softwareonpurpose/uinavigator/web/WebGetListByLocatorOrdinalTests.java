@@ -16,7 +16,7 @@ public class WebGetListByLocatorOrdinalTests {
     public void testExecute() {
         MockView.directNav();
         Integer expected = 1;
-        Integer actual = WebGetListByLocatorOrdinal.getInstance(UiLocatorType.TAG, "option", 3).execute().size();
+        Integer actual = WebUiGetElementListByLocatorOrdinal.getInstance(UiLocatorType.TAG, "option", 3).execute().size();
         Assert.assertEquals(actual, expected, "Failed to return list of one instance of WebUiElement");
     }
 
@@ -24,7 +24,7 @@ public class WebGetListByLocatorOrdinalTests {
     public void testExecute_nonExistent() {
         MockView.directNav();
         Integer expected = 0;
-        Integer actual = WebGetListByLocatorOrdinal.getInstance(UiLocatorType.TAG, "label", 3).execute().size();
+        Integer actual = WebUiGetElementListByLocatorOrdinal.getInstance(UiLocatorType.TAG, "label", 3).execute().size();
         Assert.assertEquals(actual, expected, "Failed to return empty list of WebUiElement");
     }
 }

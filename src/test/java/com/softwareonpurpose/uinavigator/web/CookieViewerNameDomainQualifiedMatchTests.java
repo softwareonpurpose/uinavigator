@@ -19,7 +19,7 @@ public class CookieViewerNameDomainQualifiedMatchTests {
 
     @Test
     public void testGetCookieValue_nameDomainQualifiedMatch() {
-        driver = DefaultChromeInstantiation.getInstance().instantiateDriver();
+        driver = ChromeDriver.getInstance().instantiateDriver();
         String uri = "http://www.google.com";
         driver.navigate().to(uri);
         JavascriptExecutor js = (JavascriptExecutor) driver;

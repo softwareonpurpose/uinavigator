@@ -16,16 +16,16 @@ public class WebGetListByLocatorAttributeOrdinalParentTests {
     public void testExecute() {
         String parentDescription = "Form";
         final String parentLocatorValue = "form";
-        WebGetElementBehavior getParent =
-                WebGetElementByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue);
+        WebUiGetElement getParent =
+                WebUiGetElementByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue);
         Class<WebUiElement> expected = WebUiElement.class;
         MockView.directNav();
         final String attribute = "data-test";
         final String attributeValue = "select-element";
         final int ordinal = 2;
         final String locatorValue = "select";
-        final WebGetListByLocatorAttributeOrdinalParent getBehavior =
-                WebGetListByLocatorAttributeOrdinalParent.getInstance(
+        final WebUiGetElementListByLocatorAttributeOrdinalParent getBehavior =
+                WebUiGetElementListByLocatorAttributeOrdinalParent.getInstance(
                         UiLocatorType.TAG, locatorValue, attribute, attributeValue, ordinal, getParent);
         //noinspection rawtypes
         Class actual = getBehavior.execute().iterator().next().getClass();

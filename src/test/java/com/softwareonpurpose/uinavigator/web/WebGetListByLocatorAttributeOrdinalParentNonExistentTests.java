@@ -16,14 +16,14 @@ public class WebGetListByLocatorAttributeOrdinalParentNonExistentTests {
     public void testExecute_nonExistent() {
         String parentDescription = "Form";
         final String locatorValue = "form";
-        WebGetElementBehavior getParent =
-                WebGetElementByLocator.getInstance(parentDescription, UiLocatorType.TAG, locatorValue);
+        WebUiGetElement getParent =
+                WebUiGetElementByLocator.getInstance(parentDescription, UiLocatorType.TAG, locatorValue);
         MockView.directNav();
         final String attribute = "data-test";
         final String attributeValue = "select-element";
         final int ordinal = 3;
-        final WebGetListByLocatorAttributeOrdinalParent getBehavior =
-                WebGetListByLocatorAttributeOrdinalParent.getInstance(
+        final WebUiGetElementListByLocatorAttributeOrdinalParent getBehavior =
+                WebUiGetElementListByLocatorAttributeOrdinalParent.getInstance(
                         UiLocatorType.TAG, "select", attribute, attributeValue, ordinal, getParent);
         Integer expected = 0;
         Integer actual = getBehavior.execute().size();

@@ -20,8 +20,8 @@ public class WebGetListByLocatorAttributeOrdinalParentParentNullTests {
         final String attributeValue = "view-element";
         final int ordinal = 1;
         final String locatorValue = "body";
-        final WebGetListByLocatorAttributeOrdinalParent getBehavior =
-                WebGetListByLocatorAttributeOrdinalParent.getInstance(
+        final WebUiGetElementListByLocatorAttributeOrdinalParent getBehavior =
+                WebUiGetElementListByLocatorAttributeOrdinalParent.getInstance(
                         UiLocatorType.TAG, locatorValue, attribute, attributeValue, ordinal, null);
         //noinspection rawtypes
         Class actual = getBehavior.execute().iterator().next().getClass();

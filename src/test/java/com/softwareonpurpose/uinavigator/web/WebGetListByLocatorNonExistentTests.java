@@ -17,8 +17,8 @@ public class WebGetListByLocatorNonExistentTests {
         String description = "Non Existent";
         int expected = 0;
         final String locatorValue = "nonexistent";
-        final WebGetListByLocator getElement =
-                WebGetListByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
+        final WebUiGetElementListByLocator getElement =
+                WebUiGetElementListByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
         int actual = getElement.execute().size();
         Assert.assertEquals(actual, expected, "Failed to return an empty Collection");
     }

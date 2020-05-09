@@ -18,8 +18,8 @@ public class WebGetListByLocatorAttributeTests {
         Class<WebUiElement> expected = WebUiElement.class;
         final String attribute = "data-test";
         final String attributeValue = "select-element";
-        final WebGetListByLocatorAttribute getBehavior =
-                WebGetListByLocatorAttribute.getInstance(UiLocatorType.TAG, "select", attribute, attributeValue);
+        final WebUiGetElementListByLocatorAttribute getBehavior =
+                WebUiGetElementListByLocatorAttribute.getInstance(UiLocatorType.TAG, "select", attribute, attributeValue);
         //noinspection rawtypes
         Class actual = getBehavior.execute().iterator().next().getClass();
         Assert.assertEquals(actual, expected, "Failed to return a list of at least one WebUiElement");

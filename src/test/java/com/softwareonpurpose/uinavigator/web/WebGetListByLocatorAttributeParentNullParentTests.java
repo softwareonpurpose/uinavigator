@@ -16,8 +16,8 @@ public class WebGetListByLocatorAttributeParentNullParentTests {
     public void testExecute_nullParent() {
         final String attribute = "data-test";
         final String attributeValue = "view-element";
-        final WebGetListByLocatorAttributeParent getBehavior =
-                WebGetListByLocatorAttributeParent.getInstance(UiLocatorType.TAG, "body", attribute, attributeValue, null);
+        final WebUiGetElementListByLocatorAttributeParent getBehavior =
+                WebUiGetElementListByLocatorAttributeParent.getInstance(UiLocatorType.TAG, "body", attribute, attributeValue, null);
         Class expected = WebUiElement.class;
         MockView.directNav();
         Class actual = getBehavior.execute().iterator().next().getClass();

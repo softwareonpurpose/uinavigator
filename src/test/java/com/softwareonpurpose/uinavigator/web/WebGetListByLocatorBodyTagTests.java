@@ -18,8 +18,8 @@ public class WebGetListByLocatorBodyTagTests {
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
         WebUiHost.getInstance().load(uri);
         final String locatorValue = "body";
-        WebGetListByLocator listBehavior =
-                WebGetListByLocator.getInstance(description, UiLocatorType.TAG, locatorValue);
+        WebUiGetElementListByLocator listBehavior =
+                WebUiGetElementListByLocator.getInstance(description, UiLocatorType.TAG, locatorValue);
         Class<WebUiElement> expected = WebUiElement.class;
         //noinspection rawtypes
         Class actual = listBehavior.execute().iterator().next().getClass();

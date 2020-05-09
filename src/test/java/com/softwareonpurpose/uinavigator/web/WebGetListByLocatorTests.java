@@ -15,18 +15,18 @@ public class WebGetListByLocatorTests {
     @Test
     public void testConstructor_typeClass() {
         String description = "Any Class";
-        Class<WebGetListByLocator> expected = WebGetListByLocator.class;
+        Class<WebUiGetElementListByLocator> expected = WebUiGetElementListByLocator.class;
         //noinspection rawtypes
-        Class actual = WebGetListByLocator.getInstance(description, UiLocatorType.CLASS, "any").getClass();
+        Class actual = WebUiGetElementListByLocator.getInstance(description, UiLocatorType.CLASS, "any").getClass();
         Assert.assertEquals(actual, expected, "Failed to get an instance of WebGetListByLocator");
     }
 
     @Test
     public void testConstructor_typeId() {
         String description = "Any Id";
-        Class<WebGetListByLocator> expected = WebGetListByLocator.class;
+        Class<WebUiGetElementListByLocator> expected = WebUiGetElementListByLocator.class;
         //noinspection rawtypes
-        Class actual = WebGetListByLocator.getInstance(description, UiLocatorType.ID, "any").getClass();
+        Class actual = WebUiGetElementListByLocator.getInstance(description, UiLocatorType.ID, "any").getClass();
         Assert.assertEquals(actual, expected, "Failed to get an instance of WebGetListByLocator");
     }
 
@@ -36,8 +36,8 @@ public class WebGetListByLocatorTests {
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
         WebUiHost.getInstance().load(uri);
         final String locatorValue = "option";
-        WebGetListByLocator listBehavior =
-                WebGetListByLocator.getInstance(description, UiLocatorType.TAG, locatorValue);
+        WebUiGetElementListByLocator listBehavior =
+                WebUiGetElementListByLocator.getInstance(description, UiLocatorType.TAG, locatorValue);
         Class<WebUiElement> expected = WebUiElement.class;
         //noinspection rawtypes
         Class actual = listBehavior.execute().iterator().next().getClass();

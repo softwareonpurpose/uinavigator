@@ -18,8 +18,8 @@ public class WebGetListByLocatorAttributeOrdinalTests {
         final String attributeValue = "select-element";
         final int ordinal = 2;
         final String locatorValue = "select";
-        final WebGetListByLocatorAttributeOrdinal getBehavior =
-                WebGetListByLocatorAttributeOrdinal.getInstance(
+        final WebUiGetElementListByLocatorAttributeOrdinal getBehavior =
+                WebUiGetElementListByLocatorAttributeOrdinal.getInstance(
                         UiLocatorType.TAG, locatorValue, attribute, attributeValue, ordinal);
         Class<WebUiElement> expected = WebUiElement.class;
         //noinspection rawtypes

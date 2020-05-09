@@ -19,8 +19,8 @@ public class WebGetListByLocatorOrdinalParentNonExistentTests {
     public void testExecute_nonExistentOrdinal() {
         MockView.directNav();
         final int expected = 0;
-        final WebGetListByLocatorOrdinalParent getListBehavior =
-                WebGetListByLocatorOrdinalParent.getInstance(UiLocatorType.TAG, "body", 5, null);
+        final WebUiGetElementListByLocatorOrdinalParent getListBehavior =
+                WebUiGetElementListByLocatorOrdinalParent.getInstance(UiLocatorType.TAG, "body", 5, null);
         Collection<UiElement> actual = getListBehavior.execute();
         Assert.assertEquals(actual.size(), expected, "Failed to return an empty list for nonexistent ordinal");
     }

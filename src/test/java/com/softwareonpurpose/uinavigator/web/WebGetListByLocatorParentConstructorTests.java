@@ -15,8 +15,8 @@ public class WebGetListByLocatorParentConstructorTests {
     @Test
     public void testConstructor_optionTagParentNull() {
         MockView.directNav();
-        Class<WebGetListByLocatorParent> expected = WebGetListByLocatorParent.class;
-        Class actual = WebGetListByLocatorParent.getInstance(UiLocatorType.TAG, "option", null).getClass();
+        Class<WebUiGetElementListByLocatorParent> expected = WebUiGetElementListByLocatorParent.class;
+        Class actual = WebUiGetElementListByLocatorParent.getInstance(UiLocatorType.TAG, "option", null).getClass();
         Assert.assertEquals(actual, expected, "Failed to return an instance of WebGetListByLocatorParent");
     }
 }

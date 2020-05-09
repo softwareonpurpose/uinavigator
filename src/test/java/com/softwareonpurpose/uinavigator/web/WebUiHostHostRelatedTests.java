@@ -14,7 +14,7 @@ public class WebUiHostHostRelatedTests {
     @Test
     public void testGetInstance() {
         Class expected = WebUiHost.class;
-        Class actual = WebUiHost.getInstance(DefaultChromeInstantiation.getInstance()).getClass();
+        Class actual = WebUiHost.getInstance(ChromeDriver.getInstance()).getClass();
         Assert.assertEquals(actual, expected, "Failed to return an instance of WebUiHost");
     }
 }
