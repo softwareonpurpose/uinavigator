@@ -16,14 +16,13 @@ package com.softwareonpurpose.uinavigator.web;
  */
 
 import com.softwareonpurpose.uinavigator.ElementGetText;
+import com.softwareonpurpose.uinavigator.UiGetElement;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 public class WebSelectGetText extends ElementGetText {
-    private final WebUiGetElement getBehavior;
-
-    public WebSelectGetText(WebUiGetElement getElementBehavior) {
-        this.getBehavior = getElementBehavior;
+    public WebSelectGetText(UiGetElement getElementBehavior) {
+        super(getElementBehavior);
     }
 
     @Override

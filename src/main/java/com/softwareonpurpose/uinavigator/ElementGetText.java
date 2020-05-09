@@ -20,13 +20,18 @@ import com.softwareonpurpose.uinavigator.web.WebSelectGetText;
   limitations under the License.
  */
 public abstract class ElementGetText {
+    protected final UiGetElement getBehavior;
+
+    protected ElementGetText(UiGetElement getBehavior) {
+        this.getBehavior = getBehavior;
+    }
 
     public static ElementGetText getSelectInstance(UiGetElement getElement) {
-        return new WebSelectGetText((WebUiGetElement) getElement);
+        return new WebSelectGetText(getElement);
     }
 
     public static ElementGetText getInstance(UiGetElement getElementBehavior) {
-        return new WebElementGetText((WebUiGetElement) getElementBehavior);
+        return new WebElementGetText(getElementBehavior);
     }
 
     public abstract String execute();
