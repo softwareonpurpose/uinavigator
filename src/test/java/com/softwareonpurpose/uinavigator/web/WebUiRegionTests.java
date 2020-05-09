@@ -33,16 +33,4 @@ public class WebUiRegionTests {
         Class actual = MockRegion.getInstance(regionElement).getClass().getSuperclass();
         Assert.assertEquals(actual, expected, "Failed to construct WebUiRegion when logging suppressed");
     }
-
-    @Test
-    public void testIsVisible() {
-        WebUiElement regionElement = WebUiElement.getInstance("Form", UiLocatorType.TAG, "form");
-        UiRegion region = MockRegion.getInstance(regionElement);
-        String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
-        WebUiHost.getInstance().load(uri);
-        boolean expected = true;
-        boolean actual = region.isVisible();
-        //noinspection ConstantConditions
-        Assert.assertEquals(actual, expected, "Failed to return expected WebUiElement");
-    }
 }
