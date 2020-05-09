@@ -16,7 +16,7 @@ public class WebElementIsActiveTests {
         final String attribute = null;
         final String value = "active";
         //noinspection ConstantConditions
-        boolean actual = WebElementIsActive.getInstance(getElement, attribute, value).execute();
+        boolean actual = WebElementIsActive.getIsActiveInstance(getElement, attribute, value).execute();
         Assert.assertFalse(actual, "Failed to return false when attribute null");
     }
 
@@ -30,7 +30,7 @@ public class WebElementIsActiveTests {
         final String attribute = "data-active";
         final String value = null;
         //noinspection ConstantConditions
-        boolean actual = WebElementIsActive.getInstance(getElement, attribute, value).execute();
+        boolean actual = WebElementIsActive.getIsActiveInstance(getElement, attribute, value).execute();
         Assert.assertFalse(actual, "Failed to return false when value null");
     }
 }

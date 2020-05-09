@@ -16,7 +16,7 @@ public class ElementBehaviors {
     private transient final ElementGetText getText;
     private transient final ElementSet setElement;
     private transient final ElementGetAttribute getAttribute;
-    private transient final ElementIsDisplayed isDisplayed;
+    private transient final ElementState isDisplayed;
     private transient final ElementClick click;
     private transient final ElementAttributeSet setAttribute;
     private transient final UiSwitchTo switchTo;
@@ -30,7 +30,7 @@ public class ElementBehaviors {
         this.getText = getText;
         this.setElement = setElement;
         this.getAttribute = ElementGetAttribute.getInstance(getElement);
-        this.isDisplayed = ElementIsDisplayed.getInstance(getElement);
+        this.isDisplayed = ElementState.getIsDisplayedInstance(getElement);
         this.switchTo = switchTo;
         this.click = ElementClick.getInstance(description, getElement);
         this.setAttribute = ElementAttributeSet.getInstance(getElement);
@@ -207,11 +207,11 @@ public class ElementBehaviors {
     }
 
     public void setActiveBehavior(String attribute, String value) {
-        isActive = ElementState.getInstance(getElement, attribute, value);
+        isActive = ElementState.getIsActiveInstance(getElement, attribute, value);
     }
 
     public void setSelectedBehavior(String attribute, String value) {
-        isSelected = ElementState.getInstance(getElement, attribute, value);
+        isSelected = ElementState.getIsActiveInstance(getElement, attribute, value);
     }
 
     private Logger getLogger() {
