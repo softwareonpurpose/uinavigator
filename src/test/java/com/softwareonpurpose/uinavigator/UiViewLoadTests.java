@@ -1,6 +1,5 @@
 package com.softwareonpurpose.uinavigator;
 
-import com.softwareonpurpose.uinavigator.web.MockView;
 import com.softwareonpurpose.uinavigator.web.WebUiHost;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;

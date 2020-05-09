@@ -1,8 +1,10 @@
-package com.softwareonpurpose.uinavigator.web;
+package com.softwareonpurpose.uinavigator;
 
 import com.softwareonpurpose.uinavigator.UiGetElement;
 import com.softwareonpurpose.uinavigator.ElementIsActive;
 import com.softwareonpurpose.uinavigator.UiLocatorType;
+import com.softwareonpurpose.uinavigator.web.WebElementIsActive;
+import com.softwareonpurpose.uinavigator.web.WebUiGetElementByLocator;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

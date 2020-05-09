@@ -1,4 +1,4 @@
-package com.softwareonpurpose.uinavigator.web;
+package com.softwareonpurpose.uinavigator;
 
 import com.softwareonpurpose.uinavigator.UiLocatorType;
 import com.softwareonpurpose.uinavigator.UiElement;

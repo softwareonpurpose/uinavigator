@@ -1,7 +1,8 @@
-package com.softwareonpurpose.uinavigator.web;
+package com.softwareonpurpose.uinavigator;
 
 import com.softwareonpurpose.uinavigator.ElementBehaviors;
 import com.softwareonpurpose.uinavigator.UiLocatorType;
+import com.softwareonpurpose.uinavigator.web.WebUiHost;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;

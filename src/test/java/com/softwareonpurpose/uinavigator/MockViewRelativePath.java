@@ -1,8 +1,4 @@
-package com.softwareonpurpose.uinavigator.web;
-
-import com.softwareonpurpose.uinavigator.UiLocatorType;
-import com.softwareonpurpose.uinavigator.UiView;
-import com.softwareonpurpose.uinavigator.UiElement;
+package com.softwareonpurpose.uinavigator;
 
 public class MockViewRelativePath extends UiView {
     private static final String VIEW_URI = "http://www.google.com";
