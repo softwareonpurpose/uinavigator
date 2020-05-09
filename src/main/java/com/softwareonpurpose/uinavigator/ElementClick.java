@@ -1,7 +1,6 @@
 package com.softwareonpurpose.uinavigator;
 
 import com.softwareonpurpose.uinavigator.web.WebElementClick;
-import com.softwareonpurpose.uinavigator.web.WebUiGetElement;
 
 public abstract class ElementClick {
     protected final String description;
@@ -13,7 +12,7 @@ public abstract class ElementClick {
     }
 
     public static ElementClick getInstance(String description, UiGetElement getElement) {
-        return new WebElementClick(description, (WebUiGetElement) getElement);
+        return new WebElementClick(description, getElement);
     }
 
     public abstract void execute();
