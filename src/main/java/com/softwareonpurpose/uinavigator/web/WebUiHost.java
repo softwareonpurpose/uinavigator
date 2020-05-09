@@ -40,7 +40,7 @@ public class WebUiHost implements UiHost {
 
     private WebUiHost() {
         if (uiDriver == null) {
-            setUiDriver(ChromeDriver.getInstance());
+            setUiDriver(ChromeUiDriver.getInstance());
         }
         instantiateUiDriver();
     }

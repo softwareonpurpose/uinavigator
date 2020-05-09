@@ -19,7 +19,7 @@ public class CookieViewerNonExistentTests {
 
     @Test
     public void testGetCookieValue_nonexistent() {
-        driver = ChromeDriver.getInstance().instantiateDriver();
+        driver = ChromeUiDriver.getInstance().instantiateDriver();
         String expected = null;
         CookieViewer viewer = CookieViewer.getInstance(driver);
         String actual = viewer.getCookieValue("unknown", "domain", "path");
@@ -29,7 +29,7 @@ public class CookieViewerNonExistentTests {
 
     @Test
     public void testGetCookieValue_nameQualifiedNonExistent() {
-        driver = ChromeDriver.getInstance().instantiateDriver();
+        driver = ChromeUiDriver.getInstance().instantiateDriver();
         String uri = "http://www.google.com";
         driver.navigate().to(uri);
         JavascriptExecutor js = (JavascriptExecutor) driver;

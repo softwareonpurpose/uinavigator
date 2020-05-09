@@ -21,12 +21,12 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.concurrent.TimeUnit;
 
-public class ChromeDriver extends UiDriver {
+public class ChromeUiDriver extends UiDriver {
 
     private static final String HOST_NAME = "chrome";
 
     public static UiDriver getInstance() {
-        return new ChromeDriver();
+        return new ChromeUiDriver();
     }
 
     @Override
