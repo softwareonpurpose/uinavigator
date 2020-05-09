@@ -1,12 +1,13 @@
 package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiLocatorType;
+import com.softwareonpurpose.uinavigator.UiElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class WebUiElementIsSelectedTests {
+public class UiElementIsSelectedTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
         WebUiHost.quitInstance();
@@ -14,7 +15,7 @@ public class WebUiElementIsSelectedTests {
 
     @Test
     public void testIsSelected() {
-        WebUiElement element = WebUiElement.getInstance("Element", UiLocatorType.ID, "button-1");
+        UiElement element = UiElement.getInstance("Element", UiLocatorType.ID, "button-1");
         String attribute = "data-selected";
         String value = "true";
         element = element.setSelectedBehavior(attribute, value);

@@ -16,6 +16,7 @@ package com.softwareonpurpose.uinavigator.web;
  */
 
 import com.softwareonpurpose.uinavigator.UiLocatorType;
+import com.softwareonpurpose.uinavigator.UiElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -40,8 +41,8 @@ public class WebUiGetElementListByLocatorParent implements WebUiGetElementList {
     }
 
     @Override
-    public Collection<WebUiElement> execute() {
-        List<WebUiElement> elements = new ArrayList<>();
+    public Collection<UiElement> execute() {
+        List<UiElement> elements = new ArrayList<>();
         List<WebElement> candidates;
         By locator = WebElementLocator.getInstance(locatorType, locatorValue);
         if (getParent == null) {
@@ -53,7 +54,7 @@ public class WebUiGetElementListByLocatorParent implements WebUiGetElementList {
         //noinspection unused
         for (WebElement candidate : candidates) {
             ordinal += 1;
-            elements.add(WebUiElement.getInstance(String.format("#%d", ordinal), locatorType, locatorValue));
+            elements.add(UiElement.getInstance(String.format("#%d", ordinal), locatorType, locatorValue));
         }
         return elements;
     }

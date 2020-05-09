@@ -1,4 +1,4 @@
-package com.softwareonpurpose.uinavigator.web;
+package com.softwareonpurpose.uinavigator;
 /*
   Copyright 2020 Craig A. Stockton
   <p/>
@@ -16,99 +16,99 @@ package com.softwareonpurpose.uinavigator.web;
  */
 
 import com.google.gson.Gson;
-import com.softwareonpurpose.uinavigator.ElementBehaviors;
-import com.softwareonpurpose.uinavigator.UiGetElement;
+import com.softwareonpurpose.uinavigator.web.WebElementLocator;
+import com.softwareonpurpose.uinavigator.web.WebUiGetElement;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WebUiElement {
+public class UiElement {
     private final String description;
     private final ElementBehaviors behaviors;
 
-    private WebUiElement(String description, ElementBehaviors behaviors) {
+    private UiElement(String description, ElementBehaviors behaviors) {
         this.description = description;
         this.behaviors = behaviors;
     }
 
-    public static WebUiElement getInstance(String description, String locatorType, String locatorValue) {
+    public static UiElement getInstance(String description, String locatorType, String locatorValue) {
         ElementBehaviors behaviors =
                 ElementBehaviors.getInstanceByLocator(description, locatorType, locatorValue);
-        return new WebUiElement(description, behaviors);
+        return new UiElement(description, behaviors);
     }
 
-    public static WebUiElement getInstance(String description, String locatorType, String locatorValue,
-                                           String attribute, String attributeValue) {
+    public static UiElement getInstance(String description, String locatorType, String locatorValue,
+                                        String attribute, String attributeValue) {
         ElementBehaviors behaviors =
                 ElementBehaviors.getInstanceByLocatorAttribute(
                         description, locatorType, locatorValue, attribute, attributeValue);
-        return new WebUiElement(description, behaviors);
+        return new UiElement(description, behaviors);
     }
 
-    public static WebUiElement getInstance(String description, String locatorType, String locatorValue,
-                                           Integer ordinal) {
+    public static UiElement getInstance(String description, String locatorType, String locatorValue,
+                                        Integer ordinal) {
         ElementBehaviors behaviors =
                 ElementBehaviors.getInstanceByLocatorOrdinal(description, locatorType, locatorValue, ordinal);
-        return new WebUiElement(description, behaviors);
+        return new UiElement(description, behaviors);
     }
 
-    public static WebUiElement getInstance(String description, String locatorType, String locatorValue,
-                                           WebUiElement parent) {
+    public static UiElement getInstance(String description, String locatorType, String locatorValue,
+                                        UiElement parent) {
         ElementBehaviors behaviors =
                 ElementBehaviors.getInstanceByLocatorParent(description, locatorType, locatorValue, parent.getBehavior());
-        return new WebUiElement(description, behaviors);
+        return new UiElement(description, behaviors);
     }
 
-    public static WebUiElement getInstance(String description, String locatorType, String locatorValue,
-                                           String attribute, String attributeValue,
-                                           Integer ordinal) {
+    public static UiElement getInstance(String description, String locatorType, String locatorValue,
+                                        String attribute, String attributeValue,
+                                        Integer ordinal) {
         ElementBehaviors behaviors =
                 ElementBehaviors.getInstanceByLocatorAttributeOrdinal(description,
                         locatorType, locatorValue, attribute, attributeValue, ordinal);
-        return new WebUiElement(description, behaviors);
+        return new UiElement(description, behaviors);
     }
 
-    public static WebUiElement getInstance(String description, String locatorType, String locatorValue,
-                                           String attribute, String attributeValue,
-                                           WebUiElement parent) {
+    public static UiElement getInstance(String description, String locatorType, String locatorValue,
+                                        String attribute, String attributeValue,
+                                        UiElement parent) {
         ElementBehaviors behaviors =
                 ElementBehaviors.getInstanceByLocatorAttributeParent(description,
                         locatorType, locatorValue, attribute, attributeValue, (WebUiGetElement) parent.getBehavior());
-        return new WebUiElement(description, behaviors);
+        return new UiElement(description, behaviors);
     }
 
-    public static WebUiElement getInstance(String description, String locatorType, String locatorValue,
-                                           Integer ordinal,
-                                           WebUiElement parent) {
+    public static UiElement getInstance(String description, String locatorType, String locatorValue,
+                                        Integer ordinal,
+                                        UiElement parent) {
         ElementBehaviors behaviors =
                 ElementBehaviors.getInstanceByLocatorOrdinalParent(
                         description, locatorType, locatorValue, ordinal, (WebUiGetElement) parent.getBehavior());
-        return new WebUiElement(description, behaviors);
+        return new UiElement(description, behaviors);
     }
 
-    public static WebUiElement getInstance(String description, String locatorType, String locatorValue,
-                                           String attribute, String attributeValue,
-                                           Integer ordinal,
-                                           WebUiElement parent) {
+    public static UiElement getInstance(String description, String locatorType, String locatorValue,
+                                        String attribute, String attributeValue,
+                                        Integer ordinal,
+                                        UiElement parent) {
         ElementBehaviors behaviors =
                 ElementBehaviors.getInstanceByLocatorAttributeOrdinalParent(description,
                         locatorType, locatorValue, attribute, attributeValue, ordinal, (WebUiGetElement) parent.getBehavior());
-        return new WebUiElement(description, behaviors);
+        return new UiElement(description, behaviors);
     }
 
     public static void suppressLogging(boolean suppressLogging) {
         ElementBehaviors.suppressLogging(suppressLogging);
     }
 
-    public static List<WebUiElement> getList(String description, String locatorType, String locatorValue, WebUiElement parent) {
-        List<WebUiElement> elements = new ArrayList<>();
+    public static List<UiElement> getList(String description, String locatorType, String locatorValue, UiElement parent) {
+        List<UiElement> elements = new ArrayList<>();
         WebElement parentElement = (WebElement) (parent.getBehavior()).execute();
         List<WebElement> webElements = parentElement != null ? parentElement
                 .findElements(WebElementLocator.getInstance(locatorType, locatorValue)) : new ArrayList<>();
         for (int elementOrdinal = 1; elementOrdinal <= webElements.size(); elementOrdinal++) {
             String elementDescription = String.format("%s #%d", description, elementOrdinal);
-            elements.add(WebUiElement.getInstance(elementDescription, locatorType, locatorValue, elementOrdinal, parent));
+            elements.add(UiElement.getInstance(elementDescription, locatorType, locatorValue, elementOrdinal, parent));
         }
         return elements;
     }
@@ -165,12 +165,12 @@ public class WebUiElement {
         return description;
     }
 
-    public WebUiElement setActiveBehavior(String attribute, String value) {
+    public UiElement setActiveBehavior(String attribute, String value) {
         behaviors.setActiveBehavior(attribute, value);
         return this;
     }
 
-    public WebUiElement setSelectedBehavior(String attribute, String value) {
+    public UiElement setSelectedBehavior(String attribute, String value) {
         behaviors.setSelectedBehavior(attribute, value);
         return this;
     }

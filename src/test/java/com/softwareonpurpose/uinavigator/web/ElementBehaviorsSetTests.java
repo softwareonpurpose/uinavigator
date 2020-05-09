@@ -1,5 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
+import com.softwareonpurpose.uinavigator.UiElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -15,9 +16,9 @@ public class ElementBehaviorsSetTests {
     public void testSet_loggingSuppressed() {
         String expected = "Value";
         MockView view = MockView.directNav();
-        WebUiElement.suppressLogging(true);
+        UiElement.suppressLogging(true);
         view.setUsername(expected);
-        WebUiElement.suppressLogging(false);
+        UiElement.suppressLogging(false);
         String actual = view.getUsernameText();
         Assert.assertEquals(actual, expected, "Failed to set value with logging suppressed");
     }

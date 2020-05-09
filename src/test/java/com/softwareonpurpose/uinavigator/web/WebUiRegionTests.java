@@ -2,6 +2,7 @@ package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiLocatorType;
 import com.softwareonpurpose.uinavigator.UiRegion;
+import com.softwareonpurpose.uinavigator.UiElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -15,17 +16,17 @@ public class WebUiRegionTests {
 
     @Test
     public void testGetElement() {
-        WebUiElement expected = WebUiElement.getInstance("Form", UiLocatorType.TAG, "form");
+        UiElement expected = UiElement.getInstance("Form", UiLocatorType.TAG, "form");
         UiRegion region = MockRegion.getInstance(expected);
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
         WebUiHost.getInstance().load(uri);
-        WebUiElement actual = region.getElement();
+        UiElement actual = region.getElement();
         Assert.assertEquals(actual, expected, "Failed to return expected WebUiElement");
     }
 
     @Test
     public void testSuppressLogging() {
-        WebUiElement regionElement = WebUiElement.getInstance("Form", UiLocatorType.TAG, "form");
+        UiElement regionElement = UiElement.getInstance("Form", UiLocatorType.TAG, "form");
         UiRegion.suppressConstructionLogging(true);
         Class<UiRegion> expected = UiRegion.class;
         //noinspection rawtypes

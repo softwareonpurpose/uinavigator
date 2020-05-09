@@ -1,6 +1,7 @@
 package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiLocatorType;
+import com.softwareonpurpose.uinavigator.UiElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -38,7 +39,7 @@ public class WebGetListByLocatorTests {
         final String locatorValue = "option";
         WebUiGetElementListByLocator listBehavior =
                 WebUiGetElementListByLocator.getInstance(description, UiLocatorType.TAG, locatorValue);
-        Class<WebUiElement> expected = WebUiElement.class;
+        Class<UiElement> expected = UiElement.class;
         //noinspection rawtypes
         Class actual = listBehavior.execute().iterator().next().getClass();
         Assert.assertEquals(actual, expected, "Failed to return a Collection of WebUiElement");

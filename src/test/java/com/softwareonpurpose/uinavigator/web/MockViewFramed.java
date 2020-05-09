@@ -2,6 +2,7 @@ package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiLocatorType;
 import com.softwareonpurpose.uinavigator.UiView;
+import com.softwareonpurpose.uinavigator.UiElement;
 
 public class MockViewFramed extends UiView {
 
@@ -10,7 +11,7 @@ public class MockViewFramed extends UiView {
     private static final String DESCRIPTION = "'Framed' view";
 
     public MockViewFramed() {
-        super(VIEW_URI, WebUiElement.getInstance(DESCRIPTION, UiLocatorType.TAG, LOCATOR_VALUE));
+        super(VIEW_URI, UiElement.getInstance(DESCRIPTION, UiLocatorType.TAG, LOCATOR_VALUE));
     }
 
     public static MockViewFramed directNav() {
@@ -30,7 +31,7 @@ public class MockViewFramed extends UiView {
         return getSiteTitleElement().getText();
     }
 
-    private WebUiElement getSiteTitleElement() {
-        return WebUiElement.getInstance("Site Title", UiLocatorType.CLASS, "site-title");
+    private UiElement getSiteTitleElement() {
+        return UiElement.getInstance("Site Title", UiLocatorType.CLASS, "site-title");
     }
 }

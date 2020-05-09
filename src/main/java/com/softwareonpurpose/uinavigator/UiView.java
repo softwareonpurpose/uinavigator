@@ -15,7 +15,6 @@ package com.softwareonpurpose.uinavigator;
   limitations under the License.
  */
 
-import com.softwareonpurpose.uinavigator.web.WebUiElement;
 import com.softwareonpurpose.uinavigator.web.WebUiHost;
 import org.slf4j.LoggerFactory;
 
@@ -25,11 +24,11 @@ import java.lang.reflect.InvocationTargetException;
 public abstract class UiView {
     private final static String ERROR_CONSTRUCTOR_SCOPE =
             "Unable to access View constructor; ensure it is parameter-less and has 'public' scope";
-    private final WebUiElement viewElement;
+    private final UiElement viewElement;
 
     private final String address;
 
-    protected UiView(String viewAddress, WebUiElement viewElement) {
+    protected UiView(String viewAddress, UiElement viewElement) {
         this.address = viewAddress;
         this.viewElement = viewElement;
     }
@@ -78,7 +77,7 @@ public abstract class UiView {
         getElement().switchTo();
     }
 
-    protected WebUiElement getElement() {
+    protected UiElement getElement() {
         return viewElement;
     }
 

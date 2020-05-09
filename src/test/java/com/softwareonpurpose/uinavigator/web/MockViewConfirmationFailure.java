@@ -2,13 +2,14 @@ package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiLocatorType;
 import com.softwareonpurpose.uinavigator.UiView;
+import com.softwareonpurpose.uinavigator.UiElement;
 
 public class MockViewConfirmationFailure extends UiView {
 
     private static final String VIEW_URI = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
 
     public MockViewConfirmationFailure() {
-        super(VIEW_URI, WebUiElement.getInstance("'Mock' view", UiLocatorType.TAG, "body"));
+        super(VIEW_URI, UiElement.getInstance("'Mock' view", UiLocatorType.TAG, "body"));
     }
 
     public static MockViewConfirmationFailure directNav() {
@@ -30,7 +31,7 @@ public class MockViewConfirmationFailure extends UiView {
         return confirmed;
     }
 
-    private WebUiElement getNonExistentElement() {
-        return WebUiElement.getInstance("Non Existent", UiLocatorType.ID, "non-existent", (WebUiElement) this.getElement());
+    private UiElement getNonExistentElement() {
+        return UiElement.getInstance("Non Existent", UiLocatorType.ID, "non-existent", (UiElement) this.getElement());
     }
 }

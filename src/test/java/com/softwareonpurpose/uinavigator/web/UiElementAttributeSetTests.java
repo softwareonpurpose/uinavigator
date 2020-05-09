@@ -1,12 +1,13 @@
 package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiLocatorType;
+import com.softwareonpurpose.uinavigator.UiElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class WebUiElementAttributeSetTests {
+public class UiElementAttributeSetTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
         WebUiHost.quitInstance();
@@ -14,7 +15,7 @@ public class WebUiElementAttributeSetTests {
 
     @Test
     public void testSetAttribute() {
-        WebUiElement element = WebUiElement.getInstance("Element", UiLocatorType.ID, "name");
+        UiElement element = UiElement.getInstance("Element", UiLocatorType.ID, "name");
         String expected = "new-value";
         MockView.directNav();
         element.setAttribute("data-test", expected);

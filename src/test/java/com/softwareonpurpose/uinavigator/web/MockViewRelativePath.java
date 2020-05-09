@@ -2,6 +2,7 @@ package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiLocatorType;
 import com.softwareonpurpose.uinavigator.UiView;
+import com.softwareonpurpose.uinavigator.UiElement;
 
 public class MockViewRelativePath extends UiView {
     private static final String VIEW_URI = "http://www.google.com";
@@ -9,7 +10,7 @@ public class MockViewRelativePath extends UiView {
 
     public MockViewRelativePath() {
         super(VIEW_URI,
-                WebUiElement.getInstance("'Relative Path Mock' view", UiLocatorType.TAG, LOCATOR_VALUE));
+                UiElement.getInstance("'Relative Path Mock' view", UiLocatorType.TAG, LOCATOR_VALUE));
     }
 
     public static MockViewRelativePath directNav() {

@@ -2,13 +2,14 @@ package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiLocatorType;
 import com.softwareonpurpose.uinavigator.UiView;
+import com.softwareonpurpose.uinavigator.UiElement;
 
 public class MockView extends UiView {
 
     private static final String VIEW_URI = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
 
     public MockView() {
-        super(VIEW_URI, WebUiElement.getInstance("'Mock' view", UiLocatorType.TAG, "body"));
+        super(VIEW_URI, UiElement.getInstance("'Mock' view", UiLocatorType.TAG, "body"));
     }
 
     public static MockView directNav() {
@@ -27,10 +28,10 @@ public class MockView extends UiView {
         getButtonElement().click();
     }
 
-    private WebUiElement getButtonElement() {
+    private UiElement getButtonElement() {
         final String description = "Button";
         final String locatorValue = "button-1";
-        return WebUiElement.getInstance(description, UiLocatorType.ID, locatorValue, (WebUiElement) this.getElement());
+        return UiElement.getInstance(description, UiLocatorType.ID, locatorValue, (UiElement) this.getElement());
     }
 
     @Override
@@ -42,8 +43,8 @@ public class MockView extends UiView {
         getUsernameElement().set(value);
     }
 
-    private WebUiElement getUsernameElement() {
-        return WebUiElement.getInstance("Username", UiLocatorType.NAME, "user_name", (WebUiElement) this.getElement());
+    private UiElement getUsernameElement() {
+        return UiElement.getInstance("Username", UiLocatorType.NAME, "user_name", (UiElement) this.getElement());
     }
 
     public String getUsernameText() {

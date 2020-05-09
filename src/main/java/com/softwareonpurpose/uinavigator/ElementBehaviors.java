@@ -176,7 +176,7 @@ public class ElementBehaviors {
         return getElement.execute();
     }
 
-    public Collection<WebUiElement> getList() {
+    public Collection<UiElement> getList() {
         return getList.execute();
     }
 

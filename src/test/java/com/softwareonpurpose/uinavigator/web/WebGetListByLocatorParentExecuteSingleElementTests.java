@@ -1,6 +1,7 @@
 package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiLocatorType;
+import com.softwareonpurpose.uinavigator.UiElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -15,7 +16,7 @@ public class WebGetListByLocatorParentExecuteSingleElementTests {
     @Test
     public void testExecute_parentNull() {
         MockView.directNav();
-        Class<WebUiElement> expected = WebUiElement.class;
+        Class<UiElement> expected = UiElement.class;
         final WebUiGetElementListByLocatorParent getListBehavior =
                 WebUiGetElementListByLocatorParent.getInstance(UiLocatorType.TAG, "body", null);
         Class actual = getListBehavior.execute().iterator().next().getClass();

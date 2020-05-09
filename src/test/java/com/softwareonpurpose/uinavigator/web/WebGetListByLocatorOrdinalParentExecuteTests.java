@@ -1,6 +1,7 @@
 package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiLocatorType;
+import com.softwareonpurpose.uinavigator.UiElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -25,7 +26,7 @@ public class WebGetListByLocatorOrdinalParentExecuteTests {
         final int ordinal = 3;
         final WebUiGetElementListByLocatorOrdinalParent getListBehavior =
                 WebUiGetElementListByLocatorOrdinalParent.getInstance(UiLocatorType.TAG, "option", ordinal, getParent);
-        Collection<WebUiElement> actual = getListBehavior.execute();
+        Collection<UiElement> actual = getListBehavior.execute();
         Assert.assertEquals(actual.size(), expected, "Failed to return one element in a list");
     }
 
@@ -38,7 +39,7 @@ public class WebGetListByLocatorOrdinalParentExecuteTests {
         //noinspection ConstantConditions
         final WebUiGetElementListByLocatorOrdinalParent getListBehavior =
                 WebUiGetElementListByLocatorOrdinalParent.getInstance(UiLocatorType.TAG, "body", ordinal, getParent);
-        Collection<WebUiElement> actual = getListBehavior.execute();
+        Collection<UiElement> actual = getListBehavior.execute();
         Assert.assertEquals(actual.size(), expected, "Failed to return one element in a list");
     }
 }

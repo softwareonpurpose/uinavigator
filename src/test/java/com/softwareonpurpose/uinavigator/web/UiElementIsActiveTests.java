@@ -1,12 +1,13 @@
 package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiLocatorType;
+import com.softwareonpurpose.uinavigator.UiElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class WebUiElementIsActiveTests {
+public class UiElementIsActiveTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
         WebUiHost.quitInstance();
@@ -15,9 +16,9 @@ public class WebUiElementIsActiveTests {
     @Test
     public void testSetActiveBehavior() {
         String activeValue = "active";
-        WebUiElement element = WebUiElement.getInstance("Element", UiLocatorType.ID, "pet-select");
+        UiElement element = UiElement.getInstance("Element", UiLocatorType.ID, "pet-select");
         element = element.setActiveBehavior("data-state", activeValue);
-        Class<WebUiElement> expected = WebUiElement.class;
+        Class<UiElement> expected = UiElement.class;
         //noinspection rawtypes
         Class actual = element.getClass();
         Assert.assertEquals(actual, expected, "Failed to return WebUiElement when 'active' state behavior set");
@@ -25,7 +26,7 @@ public class WebUiElementIsActiveTests {
 
     @Test
     public void testIsActive() {
-        WebUiElement element = WebUiElement.getInstance("Element", UiLocatorType.ID, "empty-select");
+        UiElement element = UiElement.getInstance("Element", UiLocatorType.ID, "empty-select");
         String attribute = "data-test";
         String value = "active";
         element.setActiveBehavior(attribute, value);

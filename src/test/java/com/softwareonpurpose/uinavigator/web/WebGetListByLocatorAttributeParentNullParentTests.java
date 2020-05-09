@@ -1,6 +1,7 @@
 package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiLocatorType;
+import com.softwareonpurpose.uinavigator.UiElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -18,7 +19,7 @@ public class WebGetListByLocatorAttributeParentNullParentTests {
         final String attributeValue = "view-element";
         final WebUiGetElementListByLocatorAttributeParent getBehavior =
                 WebUiGetElementListByLocatorAttributeParent.getInstance(UiLocatorType.TAG, "body", attribute, attributeValue, null);
-        Class expected = WebUiElement.class;
+        Class expected = UiElement.class;
         MockView.directNav();
         Class actual = getBehavior.execute().iterator().next().getClass();
         Assert.assertEquals(actual, expected, "Failed to return a list of WebUiElement");

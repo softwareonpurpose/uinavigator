@@ -1,6 +1,7 @@
 package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiLocatorType;
+import com.softwareonpurpose.uinavigator.UiElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -21,8 +22,8 @@ public class WebGetListByLocatorParentExecuteTests {
         final String parentLocatorValue = "select";
         WebUiGetElement getParent =
                 WebUiGetElementByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue);
-        Class<WebUiElement> expected = WebUiElement.class;
-        final Collection<WebUiElement> getListBehavior =
+        Class<UiElement> expected = UiElement.class;
+        final Collection<UiElement> getListBehavior =
                 WebUiGetElementListByLocatorParent.getInstance(UiLocatorType.TAG, "option", getParent).execute();
         //noinspection rawtypes
         Class actual = getListBehavior.iterator().next().getClass();

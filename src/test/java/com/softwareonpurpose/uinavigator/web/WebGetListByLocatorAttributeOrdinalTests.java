@@ -1,6 +1,7 @@
 package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiLocatorType;
+import com.softwareonpurpose.uinavigator.UiElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -21,7 +22,7 @@ public class WebGetListByLocatorAttributeOrdinalTests {
         final WebUiGetElementListByLocatorAttributeOrdinal getBehavior =
                 WebUiGetElementListByLocatorAttributeOrdinal.getInstance(
                         UiLocatorType.TAG, locatorValue, attribute, attributeValue, ordinal);
-        Class<WebUiElement> expected = WebUiElement.class;
+        Class<UiElement> expected = UiElement.class;
         //noinspection rawtypes
         Class actual = getBehavior.execute().iterator().next().getClass();
         Assert.assertEquals(actual, expected, "Failed to return an instance of WebElement");

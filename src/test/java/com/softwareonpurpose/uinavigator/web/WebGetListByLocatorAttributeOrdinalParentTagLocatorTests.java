@@ -1,6 +1,7 @@
 package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiLocatorType;
+import com.softwareonpurpose.uinavigator.UiElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -18,7 +19,7 @@ public class WebGetListByLocatorAttributeOrdinalParentTagLocatorTests {
         final String parentLocatorValue = "form";
         WebUiGetElement getParent =
                 WebUiGetElementByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue);
-        Class<WebUiElement> expected = WebUiElement.class;
+        Class<UiElement> expected = UiElement.class;
         MockView.directNav();
         final String attribute = "data-test";
         final String attributeValue = "view-element";
