@@ -16,13 +16,12 @@ package com.softwareonpurpose.uinavigator.web;
  */
 
 import com.softwareonpurpose.uinavigator.ElementSet;
+import com.softwareonpurpose.uinavigator.UiGetElement;
 import org.openqa.selenium.WebElement;
 
 public class WebElementSet extends ElementSet {
-    private final WebUiGetElement getBehavior;
-
-    public WebElementSet(WebUiGetElement getElementBehavior) {
-        getBehavior = getElementBehavior;
+    public WebElementSet(UiGetElement getElementBehavior) {
+        super(getElementBehavior);
     }
 
     @Override

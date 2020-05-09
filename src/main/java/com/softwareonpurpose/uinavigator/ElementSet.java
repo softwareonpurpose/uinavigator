@@ -20,13 +20,18 @@ import com.softwareonpurpose.uinavigator.web.WebSelectSet;
   limitations under the License.
  */
 public abstract class ElementSet {
+    protected final UiGetElement getBehavior;
+
+    protected ElementSet(UiGetElement getBehavior) {
+        this.getBehavior = getBehavior;
+    }
 
     public static ElementSet getSelectInstance(UiGetElement getBehavior) {
-        return new WebSelectSet((WebUiGetElement) getBehavior);
+        return new WebSelectSet(getBehavior);
     }
 
     public static ElementSet getInstance(UiGetElement getBehavior) {
-        return new WebElementSet((WebUiGetElement) getBehavior);
+        return new WebElementSet(getBehavior);
     }
 
     public abstract void execute(String value);

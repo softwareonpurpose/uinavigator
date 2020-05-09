@@ -16,14 +16,13 @@ package com.softwareonpurpose.uinavigator.web;
  */
 
 import com.softwareonpurpose.uinavigator.ElementSet;
+import com.softwareonpurpose.uinavigator.UiGetElement;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 public class WebSelectSet extends ElementSet {
-    private final WebUiGetElement getBehavior;
-
-    public WebSelectSet(WebUiGetElement getElementBehavior) {
-        this.getBehavior = getElementBehavior;
+    public WebSelectSet(UiGetElement getElementBehavior) {
+        super(getElementBehavior);
     }
 
     @Override
