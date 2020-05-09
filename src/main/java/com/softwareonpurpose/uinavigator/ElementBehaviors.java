@@ -6,8 +6,6 @@ import org.openqa.selenium.WebDriverException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collection;
-
 public class ElementBehaviors {
     private transient static boolean isLoggingSuppressed = false;
     private final String description;
@@ -170,14 +168,6 @@ public class ElementBehaviors {
         LoggerFactory.getLogger(root).error(errorMessage);
         e.printStackTrace();
         throw new WebDriverException(errorMessage);
-    }
-
-    public Object get() {
-        return getElement.execute();
-    }
-
-    public Collection<UiElement> getList() {
-        return getList.execute();
     }
 
     public String getText() {
