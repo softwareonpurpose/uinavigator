@@ -183,4 +183,15 @@ public class UiElement {
     public String toString() {
         return new Gson().toJson(this);
     }
+
+    /***
+     * @deprecated Replace with use of UiLocatorType
+     */
+    @Deprecated
+    static class LocatorType {
+        public static final String CLASS = "class";
+        public static final String ID = "id";
+        public static final String NAME = "name";
+        public static final String TAG = "tag";
+    }
 }
