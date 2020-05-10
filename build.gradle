@@ -1,56 +1,46 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+}
+
 group 'com.softwareonpurpose'
-
-apply plugin: 'java'
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-version = '2.0.4'
+sourceCompatibility = 11
+project.version = '3.0.3'
 
 repositories {
     mavenCentral()
 }
 
-configurations {
-    asciidoclet
-}
-
 dependencies {
-    compile 'com.google.code.gson:gson:2.8.+'
-    compile 'ch.qos.logback:logback-core:1.2.+'
-    compile 'ch.qos.logback:logback-classic:1.2.+'
-    compile 'org.slf4j:slf4j-api:1.7.+'
-    compile 'org.seleniumhq.selenium:selenium-java:3.+'
-    testCompile 'org.testng:testng:6.14.+'
-    compile files('./src/test/resources/indentmanager-1.0.6.jar')
-    compile files('./src/test/resources/calibrator4test-1.4.4.jar')
-    asciidoclet 'org.asciidoctor:asciidoclet:1.+'
+    implementation 'com.google.code.gson:gson:2.8.+'
+    implementation 'ch.qos.logback:logback-core:1.2.+'
+    implementation 'ch.qos.logback:logback-classic:1.2.+'
+    implementation 'org.slf4j:slf4j-api:1.7.+'
+    implementation 'org.seleniumhq.selenium:selenium-java:3.+'
+    testImplementation 'org.testng:testng:6.14.+'
 }
 
 wrapper() {
-    gradleVersion = '5.3.1'
+    gradleVersion = '6.3'
 }
 
 jar {
     manifest {
-        attributes 'Implementation-Title': 'calibrator4test', 'Implementation-Version': version
+        attributes 'Implementation-Title': 'calibrator4test', 'Implementation-Version': archiveVersion
     }
-}
-
-task configureJavadoc {
-    doLast {
-        javadoc {
-            options.doclet = 'org.asciidoctor.Asciidoclet'
-            options.docletpath = configurations.asciidoclet.files.toList()
-        }
-    }
-}
-
-javadoc {
-    dependsOn configureJavadoc
 }
 
 test {
-    systemProperties['webdriver.chrome.driver'] = System.properties["/src/test/resources/chromedriver.exe"]
-    maxParallelForks = 4
+    maxParallelForks = 12
     useTestNG()
+}
+
+task debug(type: Test) {
+    description = 'Tests being debugged'
+
+    def groupsToInclude = []
+    groupsToInclude.add('debug')
+    useTestNG() {
+        groupsToInclude.each { String group -> includeGroups group }
+    }
 }

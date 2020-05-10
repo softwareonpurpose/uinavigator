@@ -1,5 +1,9 @@
+package com.softwareonpurpose.uinavigator;
+
+import org.slf4j.LoggerFactory;
+
 /*
-  Copyright 2019 Craig A. Stockton
+  Copyright 2020 Craig A. Stockton
   <p/>
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -13,14 +17,6 @@
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-package com.softwareonpurpose.uinavigator;
-
-import org.slf4j.LoggerFactory;
-
-/**
- * Region of a UI view
- */
-@SuppressWarnings("unused")
 public abstract class UiRegion {
     private static boolean suppressLogging;
     private final UiElement regionElement;
@@ -31,37 +27,19 @@ public abstract class UiRegion {
             LoggerFactory.getLogger("").info(String.format("In %s...", getDescription()));
     }
 
-    /***
-     * Suppress logging of construction
-     * @param suppress boolean log construction
-     */
     public static void suppressConstructionLogging(boolean suppress) {
         suppressLogging = suppress;
     }
 
-    /***
-     * 'Visible' state
-     * @return boolean
-     */
     public boolean isVisible() {
         return regionElement.waitUntilVisible();
     }
 
-    /***
-     * Get UI element defining UI region
-     * @return UiElement region
-     */
-    @SuppressWarnings("WeakerAccess")
-    protected UiElement getElement() {
+    public UiElement getElement() {
         return regionElement;
     }
 
-    /***
-     * Description
-     * @return String description of UI region
-     */
-    @SuppressWarnings("WeakerAccess")
-    protected String getDescription() {
+    public String getDescription() {
         return getElement().getDescription();
     }
 }
