@@ -10,24 +10,24 @@ import org.testng.annotations.Test;
 public class WebGetListByLocatorTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
-        WebUiHost.quitInstance();
+        WebHost.quitInstance();
     }
 
     @Test
     public void testConstructor_typeClass() {
         String description = "Any Class";
-        Class<WebUiGetElementListByLocator> expected = WebUiGetElementListByLocator.class;
+        Class<WebGetElementListByLocator> expected = WebGetElementListByLocator.class;
         //noinspection rawtypes
-        Class actual = WebUiGetElementListByLocator.getInstance(description, UiLocatorType.CLASS, "any").getClass();
+        Class actual = WebGetElementListByLocator.getInstance(description, UiLocatorType.CLASS, "any").getClass();
         Assert.assertEquals(actual, expected, "Failed to get an instance of WebGetListByLocator");
     }
 
     @Test
     public void testConstructor_typeId() {
         String description = "Any Id";
-        Class<WebUiGetElementListByLocator> expected = WebUiGetElementListByLocator.class;
+        Class<WebGetElementListByLocator> expected = WebGetElementListByLocator.class;
         //noinspection rawtypes
-        Class actual = WebUiGetElementListByLocator.getInstance(description, UiLocatorType.ID, "any").getClass();
+        Class actual = WebGetElementListByLocator.getInstance(description, UiLocatorType.ID, "any").getClass();
         Assert.assertEquals(actual, expected, "Failed to get an instance of WebGetListByLocator");
     }
 
@@ -35,10 +35,10 @@ public class WebGetListByLocatorTests {
     public void testExecute_tagOption() {
         String description = "Option Tag";
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
-        WebUiHost.getInstance().load(uri);
+        WebHost.getInstance().load(uri);
         final String locatorValue = "option";
-        WebUiGetElementListByLocator listBehavior =
-                WebUiGetElementListByLocator.getInstance(description, UiLocatorType.TAG, locatorValue);
+        WebGetElementListByLocator listBehavior =
+                WebGetElementListByLocator.getInstance(description, UiLocatorType.TAG, locatorValue);
         Class<UiElement> expected = UiElement.class;
         //noinspection rawtypes
         Class actual = listBehavior.execute().iterator().next().getClass();

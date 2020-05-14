@@ -10,14 +10,14 @@ import org.testng.annotations.Test;
 public class WebGetListByLocatorOrdinalTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
-        WebUiHost.quitInstance();
+        WebHost.quitInstance();
     }
 
     @Test
     public void testExecute() {
         MockView.directNav();
         Integer expected = 1;
-        Integer actual = WebUiGetElementListByLocatorOrdinal.getInstance(UiLocatorType.TAG, "option", 3).execute().size();
+        Integer actual = WebGetElementListByLocatorOrdinal.getInstance(UiLocatorType.TAG, "option", 3).execute().size();
         Assert.assertEquals(actual, expected, "Failed to return list of one instance of WebUiElement");
     }
 
@@ -25,7 +25,7 @@ public class WebGetListByLocatorOrdinalTests {
     public void testExecute_nonExistent() {
         MockView.directNav();
         Integer expected = 0;
-        Integer actual = WebUiGetElementListByLocatorOrdinal.getInstance(UiLocatorType.TAG, "label", 3).execute().size();
+        Integer actual = WebGetElementListByLocatorOrdinal.getInstance(UiLocatorType.TAG, "label", 3).execute().size();
         Assert.assertEquals(actual, expected, "Failed to return empty list of WebUiElement");
     }
 }

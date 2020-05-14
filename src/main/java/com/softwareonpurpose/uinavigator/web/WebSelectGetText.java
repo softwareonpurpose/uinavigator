@@ -15,12 +15,12 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
-import com.softwareonpurpose.uinavigator.ElementGetText;
+import com.softwareonpurpose.uinavigator.UiElementGetText;
 import com.softwareonpurpose.uinavigator.UiElementGet;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-public class WebSelectGetText extends ElementGetText {
+public class WebSelectGetText extends UiElementGetText {
     public WebSelectGetText(UiElementGet getElementBehavior) {
         super(getElementBehavior);
     }

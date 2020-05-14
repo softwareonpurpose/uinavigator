@@ -15,18 +15,18 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
-import com.softwareonpurpose.uinavigator.DriverInstantiation;
+import com.softwareonpurpose.uinavigator.UiDriverInstantiation;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.concurrent.TimeUnit;
 
-public class ChromeDriverInstantiation extends DriverInstantiation {
+public class ChromeDriverInstantiation extends UiDriverInstantiation {
 
     private static final String HOST_NAME = "chrome";
 
-    public static DriverInstantiation getInstance() {
+    public static UiDriverInstantiation getInstance() {
         return new ChromeDriverInstantiation();
     }
 

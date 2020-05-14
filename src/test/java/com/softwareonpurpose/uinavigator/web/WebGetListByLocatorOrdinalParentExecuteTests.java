@@ -13,7 +13,7 @@ import java.util.Collection;
 public class WebGetListByLocatorOrdinalParentExecuteTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
-        WebUiHost.quitInstance();
+        WebHost.quitInstance();
     }
 
     @Test
@@ -21,12 +21,12 @@ public class WebGetListByLocatorOrdinalParentExecuteTests {
         String parentDescription = "Select";
         MockView.directNav();
         final String locatorValue = "select";
-        WebUiElementGet getParent =
-                WebUiElementGetByLocator.getInstance(parentDescription, UiLocatorType.TAG, locatorValue);
+        WebElementGet getParent =
+                WebElementGetByLocator.getInstance(parentDescription, UiLocatorType.TAG, locatorValue);
         final int expected = 1;
         final int ordinal = 3;
-        final WebUiGetElementListByLocatorOrdinalParent getListBehavior =
-                WebUiGetElementListByLocatorOrdinalParent.getInstance(UiLocatorType.TAG, "option", ordinal, getParent);
+        final WebGetElementListByLocatorOrdinalParent getListBehavior =
+                WebGetElementListByLocatorOrdinalParent.getInstance(UiLocatorType.TAG, "option", ordinal, getParent);
         Collection<UiElement> actual = getListBehavior.execute();
         Assert.assertEquals(actual.size(), expected, "Failed to return one element in a list");
     }
@@ -36,10 +36,10 @@ public class WebGetListByLocatorOrdinalParentExecuteTests {
         MockView.directNav();
         final int expected = 1;
         final int ordinal = 1;
-        final WebUiElementGet getParent = null;
+        final WebElementGet getParent = null;
         //noinspection ConstantConditions
-        final WebUiGetElementListByLocatorOrdinalParent getListBehavior =
-                WebUiGetElementListByLocatorOrdinalParent.getInstance(UiLocatorType.TAG, "body", ordinal, getParent);
+        final WebGetElementListByLocatorOrdinalParent getListBehavior =
+                WebGetElementListByLocatorOrdinalParent.getInstance(UiLocatorType.TAG, "body", ordinal, getParent);
         Collection<UiElement> actual = getListBehavior.execute();
         Assert.assertEquals(actual.size(), expected, "Failed to return one element in a list");
     }

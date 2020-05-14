@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 public class WebUiRegionTests {
     @AfterMethod
     public void terminate() {
-        WebUiHost.quitInstance();
+        WebHost.quitInstance();
     }
 
     @Test
@@ -20,7 +20,7 @@ public class WebUiRegionTests {
         UiElement expected = UiElement.getInstance("Form", UiLocatorType.TAG, "form");
         UiRegion region = MockRegion.getInstance(expected);
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
-        WebUiHost.getInstance().load(uri);
+        WebHost.getInstance().load(uri);
         UiElement actual = region.getElement();
         Assert.assertEquals(actual, expected, "Failed to return expected WebUiElement");
     }

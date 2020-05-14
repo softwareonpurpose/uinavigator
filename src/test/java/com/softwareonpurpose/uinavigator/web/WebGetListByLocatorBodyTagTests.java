@@ -10,17 +10,17 @@ import org.testng.annotations.Test;
 public class WebGetListByLocatorBodyTagTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
-        WebUiHost.quitInstance();
+        WebHost.quitInstance();
     }
 
     @Test
     public void testExecute_tagBody() {
         String description = "Body Tag";
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
-        WebUiHost.getInstance().load(uri);
+        WebHost.getInstance().load(uri);
         final String locatorValue = "body";
-        WebUiGetElementListByLocator listBehavior =
-                WebUiGetElementListByLocator.getInstance(description, UiLocatorType.TAG, locatorValue);
+        WebGetElementListByLocator listBehavior =
+                WebGetElementListByLocator.getInstance(description, UiLocatorType.TAG, locatorValue);
         Class<UiElement> expected = UiElement.class;
         //noinspection rawtypes
         Class actual = listBehavior.execute().iterator().next().getClass();

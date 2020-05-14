@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.ElementGetText;
+import com.softwareonpurpose.uinavigator.UiElementGetText;
 import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 public class WebSelectGetTextTests {
     @AfterMethod
     public void terminate() {
-        WebUiHost.quitInstance();
+        WebHost.quitInstance();
     }
 
     @Test
@@ -18,11 +18,11 @@ public class WebSelectGetTextTests {
         String description="Select";
         String message = "Failed to return null when 'select' element has NO 'option' elements";
         final String locatorValue = "empty-select";
-        WebUiElementGet get = WebUiElementGetByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
-        ElementGetText getText = WebSelectGetText.getSelectInstance(get);
+        WebElementGet get = WebElementGetByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
+        UiElementGetText getText = WebSelectGetText.getSelectInstance(get);
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
         String expected = null;
-        WebUiHost.getInstance().load(uri);
+        WebHost.getInstance().load(uri);
         String actual = getText.execute();
         //noinspection ConstantConditions
         Assert.assertEquals(actual, expected, message);

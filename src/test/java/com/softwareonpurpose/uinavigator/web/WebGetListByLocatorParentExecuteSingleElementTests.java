@@ -11,15 +11,15 @@ import org.testng.annotations.Test;
 public class WebGetListByLocatorParentExecuteSingleElementTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
-        WebUiHost.quitInstance();
+        WebHost.quitInstance();
     }
 
     @Test
     public void testExecute_parentNull() {
         MockView.directNav();
         Class<UiElement> expected = UiElement.class;
-        final WebUiGetElementListByLocatorParent getListBehavior =
-                WebUiGetElementListByLocatorParent.getInstance(UiLocatorType.TAG, "body", null);
+        final WebGetElementListByLocatorParent getListBehavior =
+                WebGetElementListByLocatorParent.getInstance(UiLocatorType.TAG, "body", null);
         Class actual = getListBehavior.execute().iterator().next().getClass();
         Assert.assertEquals(actual, expected, "Failed to return a list of WebUiElements");
     }

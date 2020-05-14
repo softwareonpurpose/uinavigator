@@ -11,19 +11,19 @@ import org.testng.annotations.Test;
 public class WebGetListByLocatorAttributeParentTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
-        WebUiHost.quitInstance();
+        WebHost.quitInstance();
     }
 
     @SuppressWarnings("rawtypes")
     public void testExecute() {
         String parentDescription = "Form";
         final String parentLocatorValue = "form";
-        WebUiElementGet getParent =
-                WebUiElementGetByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue);
+        WebElementGet getParent =
+                WebElementGetByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue);
         final String attribute = "data-test";
         final String attributeValue = "select-element";
-        final WebUiGetElementListByLocatorAttributeParent getBehavior =
-                WebUiGetElementListByLocatorAttributeParent
+        final WebGetElementListByLocatorAttributeParent getBehavior =
+                WebGetElementListByLocatorAttributeParent
                         .getInstance(UiLocatorType.TAG, "select", attribute, attributeValue, getParent);
         Class expected = UiElement.class;
         MockView.directNav();

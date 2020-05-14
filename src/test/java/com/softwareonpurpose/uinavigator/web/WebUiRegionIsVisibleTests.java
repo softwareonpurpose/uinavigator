@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 public class WebUiRegionIsVisibleTests {
     @AfterMethod
     public void terminate() {
-        WebUiHost.quitInstance();
+        WebHost.quitInstance();
     }
 
     @Test
@@ -20,7 +20,7 @@ public class WebUiRegionIsVisibleTests {
         UiElement regionElement = UiElement.getInstance("Form", UiLocatorType.TAG, "form");
         UiRegion region = MockRegion.getInstance(regionElement);
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
-        WebUiHost.getInstance().load(uri);
+        WebHost.getInstance().load(uri);
         boolean expected = true;
         boolean actual = region.isVisible();
         //noinspection ConstantConditions

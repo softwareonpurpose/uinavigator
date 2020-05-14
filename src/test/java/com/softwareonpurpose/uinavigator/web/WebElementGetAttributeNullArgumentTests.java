@@ -10,15 +10,15 @@ import org.testng.annotations.Test;
 public class WebElementGetAttributeNullArgumentTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
-        WebUiHost.quitInstance();
+        WebHost.quitInstance();
     }
 
     @Test
     public void testExecute_nullArgument() {
         final String locatorValue = "empty-select-two";
         final String description = "Select";
-        WebUiElementGet getBehavior =
-                WebUiElementGetByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
+        WebElementGet getBehavior =
+                WebElementGetByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
         MockView.directNav();
         String actual = WebElementGetAttribute.getInstance(getBehavior).execute(null);
         Assert.assertNull(actual, "Failed to return null when requested attribute is null");

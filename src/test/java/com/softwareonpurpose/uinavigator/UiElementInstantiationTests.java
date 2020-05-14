@@ -1,8 +1,6 @@
 package com.softwareonpurpose.uinavigator;
 
-import com.softwareonpurpose.uinavigator.UiLocatorType;
-import com.softwareonpurpose.uinavigator.UiElement;
-import com.softwareonpurpose.uinavigator.web.WebUiHost;
+import com.softwareonpurpose.uinavigator.web.WebHost;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -11,7 +9,7 @@ import org.testng.annotations.Test;
 public class UiElementInstantiationTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
-        WebUiHost.quitInstance();
+        WebHost.quitInstance();
     }
 
     @Test

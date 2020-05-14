@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.ElementAttributeSet;
+import com.softwareonpurpose.uinavigator.UiElementAttributeSet;
 import com.softwareonpurpose.uinavigator.UiElementGet;
 import org.openqa.selenium.WebElement;
 
@@ -19,7 +19,7 @@ import org.openqa.selenium.WebElement;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-public class WebElementAttributeSet extends ElementAttributeSet {
+public class WebElementAttributeSet extends UiElementAttributeSet {
     public WebElementAttributeSet(UiElementGet getBehavior) {
         super(getBehavior);
     }
@@ -29,6 +29,6 @@ public class WebElementAttributeSet extends ElementAttributeSet {
     }
 
     public void execute(String attribute, String value) {
-        WebUiHost.getInstance().setAttribute((WebElement) getBehavior.execute(), attribute, value);
+        WebHost.getInstance().setAttribute((WebElement) getBehavior.execute(), attribute, value);
     }
 }

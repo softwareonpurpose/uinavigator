@@ -1,17 +1,17 @@
 package com.softwareonpurpose.uinavigator;
 
-import com.softwareonpurpose.uinavigator.web.WebUiElementGet;
-import com.softwareonpurpose.uinavigator.web.WebUiSwitchToFrame;
-import com.softwareonpurpose.uinavigator.web.WebUiSwitchToView;
+import com.softwareonpurpose.uinavigator.web.WebElementGet;
+import com.softwareonpurpose.uinavigator.web.WebSwitchToFrame;
+import com.softwareonpurpose.uinavigator.web.WebSwitchToView;
 
 public abstract class UiSwitchTo {
 
     public static UiSwitchTo getFrameInstance(UiElementGet getBehavior) {
-        return new WebUiSwitchToFrame((WebUiElementGet) getBehavior);
+        return new WebSwitchToFrame((WebElementGet) getBehavior);
     }
 
     public static UiSwitchTo getViewInstance() {
-        return new WebUiSwitchToView();
+        return new WebSwitchToView();
     }
 
     public abstract void execute();

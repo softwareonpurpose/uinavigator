@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 public class WebGetListByLocatorAttributeTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
-        WebUiHost.quitInstance();
+        WebHost.quitInstance();
     }
 
     @Test
@@ -20,8 +20,8 @@ public class WebGetListByLocatorAttributeTests {
         Class<UiElement> expected = UiElement.class;
         final String attribute = "data-test";
         final String attributeValue = "select-element";
-        final WebUiGetElementListByLocatorAttribute getBehavior =
-                WebUiGetElementListByLocatorAttribute.getInstance(UiLocatorType.TAG, "select", attribute, attributeValue);
+        final WebGetElementListByLocatorAttribute getBehavior =
+                WebGetElementListByLocatorAttribute.getInstance(UiLocatorType.TAG, "select", attribute, attributeValue);
         //noinspection rawtypes
         Class actual = getBehavior.execute().iterator().next().getClass();
         Assert.assertEquals(actual, expected, "Failed to return a list of at least one WebUiElement");

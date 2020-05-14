@@ -13,7 +13,7 @@ import java.util.Collection;
 public class WebGetListByLocatorParentExecuteTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
-        WebUiHost.quitInstance();
+        WebHost.quitInstance();
     }
 
     @Test
@@ -21,11 +21,11 @@ public class WebGetListByLocatorParentExecuteTests {
         String parentDescription = "Select";
         MockView.directNav();
         final String parentLocatorValue = "select";
-        WebUiElementGet getParent =
-                WebUiElementGetByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue);
+        WebElementGet getParent =
+                WebElementGetByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue);
         Class<UiElement> expected = UiElement.class;
         final Collection<UiElement> getListBehavior =
-                WebUiGetElementListByLocatorParent.getInstance(UiLocatorType.TAG, "option", getParent).execute();
+                WebGetElementListByLocatorParent.getInstance(UiLocatorType.TAG, "option", getParent).execute();
         //noinspection rawtypes
         Class actual = getListBehavior.iterator().next().getClass();
         Assert.assertEquals(actual, expected, "Failed to return a list of WebUiElements");

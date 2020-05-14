@@ -10,13 +10,13 @@ import org.testng.annotations.Test;
 public class WebElementBehaviorsSetNullTests {
     @AfterMethod
     public void terminate() {
-        WebUiHost.quitInstance();
+        WebHost.quitInstance();
     }
 
     @Test
     public void testSet_null() {
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
-        WebUiHost.getInstance().load(uri);
+        WebHost.getInstance().load(uri);
         UiElement element = UiElement.getInstance("Element", UiLocatorType.NAME, "user_name");
         element.set(null);
         String expected = "";

@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.DriverInstantiation;
+import com.softwareonpurpose.uinavigator.UiDriverInstantiation;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -27,7 +27,7 @@ public class ChromeDriverInstantiationTests {
 
     @Test
     public void testConfigureDriver() {
-        DriverInstantiation instantiation = ChromeDriverInstantiation.getInstance();
+        UiDriverInstantiation instantiation = ChromeDriverInstantiation.getInstance();
         WebDriver driver = (WebDriver) instantiation.instantiateDriver();
         instantiation.configureDriver(driver);
         driver.quit();

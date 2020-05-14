@@ -15,11 +15,11 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
-import com.softwareonpurpose.uinavigator.ElementGetAttribute;
+import com.softwareonpurpose.uinavigator.UiElementGetAttribute;
 import com.softwareonpurpose.uinavigator.UiElementGet;
 import org.openqa.selenium.WebElement;
 
-public class WebElementGetAttribute extends ElementGetAttribute {
+public class WebElementGetAttribute extends UiElementGetAttribute {
     public WebElementGetAttribute(UiElementGet getBehavior) {
         super(getBehavior);
     }

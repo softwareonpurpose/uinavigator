@@ -11,23 +11,23 @@ import org.testng.annotations.Test;
 public class WebGetListByLocatorAttributeOrdinalParentClassLocatorTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
-        WebUiHost.quitInstance();
+        WebHost.quitInstance();
     }
 
     @Test
     public void testExecute_bodyClass() {
         String parentDescription = "Form";
         final String parentLocatorValue = "form";
-        WebUiElementGet getParent =
-                WebUiElementGetByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue);
+        WebElementGet getParent =
+                WebElementGetByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue);
         Class<UiElement> expected = UiElement.class;
         MockView.directNav();
         final String attribute = "data-test";
         final String attributeValue = "label-element";
         final int ordinal = 1;
         final String locatorValue = "body";
-        final WebUiGetElementListByLocatorAttributeOrdinalParent getBehavior =
-                WebUiGetElementListByLocatorAttributeOrdinalParent.getInstance(
+        final WebGetElementListByLocatorAttributeOrdinalParent getBehavior =
+                WebGetElementListByLocatorAttributeOrdinalParent.getInstance(
                         UiLocatorType.CLASS, locatorValue, attribute, attributeValue, ordinal, getParent);
         //noinspection rawtypes
         Class actual = getBehavior.execute().iterator().next().getClass();

@@ -1,10 +1,10 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.ElementState;
+import com.softwareonpurpose.uinavigator.UiElementState;
 import com.softwareonpurpose.uinavigator.UiElementGet;
 import org.openqa.selenium.WebElement;
 
-public class WebElementIsActive extends ElementState {
+public class WebElementIsActive extends UiElementState {
     private final String attribute;
     private final String value;
 

@@ -10,15 +10,15 @@ import org.testng.annotations.Test;
 public class WebElementGetAttributeTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
-        WebUiHost.quitInstance();
+        WebHost.quitInstance();
     }
 
     @Test
     public void testExecute() {
         final String locatorValue = "empty-select-two";
         final String description = "Select";
-        WebUiElementGet getBehavior =
-                WebUiElementGetByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
+        WebElementGet getBehavior =
+                WebElementGetByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
         String expected = "bogus";
         MockView.directNav();
         String actual = WebElementGetAttribute.getInstance(getBehavior).execute("data-test");

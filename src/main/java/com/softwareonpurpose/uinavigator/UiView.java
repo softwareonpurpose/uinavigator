@@ -15,7 +15,7 @@ package com.softwareonpurpose.uinavigator;
   limitations under the License.
  */
 
-import com.softwareonpurpose.uinavigator.web.WebUiHost;
+import com.softwareonpurpose.uinavigator.web.WebHost;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
@@ -66,14 +66,14 @@ public abstract class UiView {
     }
 
     protected void load() {
-        WebUiHost.getInstance().load(address);
+        WebHost.getInstance().load(address);
         getElement().switchTo();
     }
 
     protected void load(String relativeUri) {
         relativeUri = relativeUri.startsWith("?") ? relativeUri : String.format("/%s", relativeUri);
         String explicitUri = String.format("%s%s", address, relativeUri);
-        WebUiHost.getInstance().load(explicitUri);
+        WebHost.getInstance().load(explicitUri);
         getElement().switchTo();
     }
 

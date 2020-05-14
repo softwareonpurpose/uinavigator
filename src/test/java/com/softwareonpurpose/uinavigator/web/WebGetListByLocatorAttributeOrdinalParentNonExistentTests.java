@@ -10,21 +10,21 @@ import org.testng.annotations.Test;
 public class WebGetListByLocatorAttributeOrdinalParentNonExistentTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
-        WebUiHost.quitInstance();
+        WebHost.quitInstance();
     }
 
     @Test
     public void testExecute_nonExistent() {
         String parentDescription = "Form";
         final String locatorValue = "form";
-        WebUiElementGet getParent =
-                WebUiElementGetByLocator.getInstance(parentDescription, UiLocatorType.TAG, locatorValue);
+        WebElementGet getParent =
+                WebElementGetByLocator.getInstance(parentDescription, UiLocatorType.TAG, locatorValue);
         MockView.directNav();
         final String attribute = "data-test";
         final String attributeValue = "select-element";
         final int ordinal = 3;
-        final WebUiGetElementListByLocatorAttributeOrdinalParent getBehavior =
-                WebUiGetElementListByLocatorAttributeOrdinalParent.getInstance(
+        final WebGetElementListByLocatorAttributeOrdinalParent getBehavior =
+                WebGetElementListByLocatorAttributeOrdinalParent.getInstance(
                         UiLocatorType.TAG, "select", attribute, attributeValue, ordinal, getParent);
         Integer expected = 0;
         Integer actual = getBehavior.execute().size();

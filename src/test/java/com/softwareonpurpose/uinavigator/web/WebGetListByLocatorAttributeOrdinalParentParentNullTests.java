@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 public class WebGetListByLocatorAttributeOrdinalParentParentNullTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
-        WebUiHost.quitInstance();
+        WebHost.quitInstance();
     }
 
     @Test
@@ -22,8 +22,8 @@ public class WebGetListByLocatorAttributeOrdinalParentParentNullTests {
         final String attributeValue = "view-element";
         final int ordinal = 1;
         final String locatorValue = "body";
-        final WebUiGetElementListByLocatorAttributeOrdinalParent getBehavior =
-                WebUiGetElementListByLocatorAttributeOrdinalParent.getInstance(
+        final WebGetElementListByLocatorAttributeOrdinalParent getBehavior =
+                WebGetElementListByLocatorAttributeOrdinalParent.getInstance(
                         UiLocatorType.TAG, locatorValue, attribute, attributeValue, ordinal, null);
         //noinspection rawtypes
         Class actual = getBehavior.execute().iterator().next().getClass();

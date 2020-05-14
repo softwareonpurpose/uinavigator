@@ -10,14 +10,14 @@ import org.testng.annotations.Test;
 public class WebGetListByLocatorParentConstructorTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
-        WebUiHost.quitInstance();
+        WebHost.quitInstance();
     }
 
     @Test
     public void testConstructor_optionTagParentNull() {
         MockView.directNav();
-        Class<WebUiGetElementListByLocatorParent> expected = WebUiGetElementListByLocatorParent.class;
-        Class actual = WebUiGetElementListByLocatorParent.getInstance(UiLocatorType.TAG, "option", null).getClass();
+        Class<WebGetElementListByLocatorParent> expected = WebGetElementListByLocatorParent.class;
+        Class actual = WebGetElementListByLocatorParent.getInstance(UiLocatorType.TAG, "option", null).getClass();
         Assert.assertEquals(actual, expected, "Failed to return an instance of WebGetListByLocatorParent");
     }
 }

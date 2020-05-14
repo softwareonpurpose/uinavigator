@@ -13,15 +13,15 @@ import java.util.Collection;
 public class WebGetListByLocatorOrdinalParentNonExistentTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
-        WebUiHost.quitInstance();
+        WebHost.quitInstance();
     }
 
     @Test
     public void testExecute_nonExistentOrdinal() {
         MockView.directNav();
         final int expected = 0;
-        final WebUiGetElementListByLocatorOrdinalParent getListBehavior =
-                WebUiGetElementListByLocatorOrdinalParent.getInstance(UiLocatorType.TAG, "body", 5, null);
+        final WebGetElementListByLocatorOrdinalParent getListBehavior =
+                WebGetElementListByLocatorOrdinalParent.getInstance(UiLocatorType.TAG, "body", 5, null);
         Collection<UiElement> actual = getListBehavior.execute();
         Assert.assertEquals(actual.size(), expected, "Failed to return an empty list for nonexistent ordinal");
     }

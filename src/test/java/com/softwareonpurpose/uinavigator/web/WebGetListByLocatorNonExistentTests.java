@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 public class WebGetListByLocatorNonExistentTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
-        WebUiHost.quitInstance();
+        WebHost.quitInstance();
     }
 
     @Test
@@ -17,8 +17,8 @@ public class WebGetListByLocatorNonExistentTests {
         String description = "Non Existent";
         int expected = 0;
         final String locatorValue = "nonexistent";
-        final WebUiGetElementListByLocator getElement =
-                WebUiGetElementListByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
+        final WebGetElementListByLocator getElement =
+                WebGetElementListByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
         int actual = getElement.execute().size();
         Assert.assertEquals(actual, expected, "Failed to return an empty Collection");
     }

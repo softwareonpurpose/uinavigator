@@ -1,7 +1,7 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.ElementGetText;
-import com.softwareonpurpose.uinavigator.ElementSet;
+import com.softwareonpurpose.uinavigator.UiElementGetText;
+import com.softwareonpurpose.uinavigator.UiElementSet;
 import com.softwareonpurpose.uinavigator.MockView;
 import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.testng.Assert;
@@ -12,17 +12,17 @@ import org.testng.annotations.Test;
 public class WebSelectSetTests {
     @AfterMethod
     public void terminate() {
-        WebUiHost.quitInstance();
+        WebHost.quitInstance();
     }
 
     @Test
     public void testExecute() {
         String description="Select";
         final String locatorValue = "pet-select";
-        WebUiElementGet getElement =
-                WebUiElementGetByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
-        ElementGetText getText = WebSelectGetText.getSelectInstance(getElement);
-        ElementSet setSelect = WebSelectSet.getSelectInstance(getElement);
+        WebElementGet getElement =
+                WebElementGetByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
+        UiElementGetText getText = WebSelectGetText.getSelectInstance(getElement);
+        UiElementSet setSelect = WebSelectSet.getSelectInstance(getElement);
         MockView.directNav();
         String expected = "Dog";
         setSelect.execute(expected);

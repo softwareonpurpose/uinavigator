@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 public class WebUiViewSwitchToTests {
     @AfterMethod
     public void terminate() {
-        WebUiHost.quitInstance();
+        WebHost.quitInstance();
     }
 
     @Test

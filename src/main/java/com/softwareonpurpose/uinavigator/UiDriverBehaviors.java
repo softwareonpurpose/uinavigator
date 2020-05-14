@@ -1,9 +1,9 @@
 package com.softwareonpurpose.uinavigator;
 
 public class UiDriverBehaviors {
-    private final DriverQuit quit;
+    private final UiDriverQuit quit;
 
-    public UiDriverBehaviors(DriverQuit quit) {
+    public UiDriverBehaviors(UiDriverQuit quit) {
         this.quit = WebDriverQuit.getInstance();
     }
 

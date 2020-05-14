@@ -10,14 +10,14 @@ import org.testng.annotations.Test;
 public class WebElementIsDisplayedTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
-        WebUiHost.quitInstance();
+        WebHost.quitInstance();
     }
 
     public void testExecute() {
         String description = "Label";
         final String locatorValue = "label";
-        final WebUiElementGetByLocator getBehavior =
-                WebUiElementGetByLocator.getInstance(description, UiLocatorType.TAG, locatorValue);
+        final WebElementGetByLocator getBehavior =
+                WebElementGetByLocator.getInstance(description, UiLocatorType.TAG, locatorValue);
         final WebElementIsDisplayed isDisplayed = WebElementIsDisplayed.getInstance(getBehavior);
         MockView.directNav();
         boolean actual = isDisplayed.execute();

@@ -10,15 +10,15 @@ import org.testng.annotations.Test;
 public class WebElementGetAttributeNonExistentElementTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
-        WebUiHost.quitInstance();
+        WebHost.quitInstance();
     }
 
     @Test
     public void testExecute_nonExistentElement() {
         final String description = "Bogus";
         final String locatorValue = "bogus";
-        WebUiElementGet getBehavior =
-                WebUiElementGetByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
+        WebElementGet getBehavior =
+                WebElementGetByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
         MockView.directNav();
         String actual = WebElementGetAttribute.getInstance(getBehavior).execute(null);
         Assert.assertNull(actual, "Failed to return null when element non-existent");

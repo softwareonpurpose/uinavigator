@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 public class WebGetListByLocatorAttributeOrdinalTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
-        WebUiHost.quitInstance();
+        WebHost.quitInstance();
     }
 
     public void testExecute() {
@@ -20,8 +20,8 @@ public class WebGetListByLocatorAttributeOrdinalTests {
         final String attributeValue = "select-element";
         final int ordinal = 2;
         final String locatorValue = "select";
-        final WebUiGetElementListByLocatorAttributeOrdinal getBehavior =
-                WebUiGetElementListByLocatorAttributeOrdinal.getInstance(
+        final WebGetElementListByLocatorAttributeOrdinal getBehavior =
+                WebGetElementListByLocatorAttributeOrdinal.getInstance(
                         UiLocatorType.TAG, locatorValue, attribute, attributeValue, ordinal);
         Class<UiElement> expected = UiElement.class;
         //noinspection rawtypes

@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 public class WebGetListByLocatorAttributeNonExistentTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
-        WebUiHost.quitInstance();
+        WebHost.quitInstance();
     }
 
     @Test
@@ -19,8 +19,8 @@ public class WebGetListByLocatorAttributeNonExistentTests {
         int expected = 0;
         final String attribute = "data-test";
         final String attributeValue = "not-there";
-        final WebUiGetElementListByLocatorAttribute getBehavior =
-                WebUiGetElementListByLocatorAttribute.getInstance(UiLocatorType.TAG, "select", attribute, attributeValue);
+        final WebGetElementListByLocatorAttribute getBehavior =
+                WebGetElementListByLocatorAttribute.getInstance(UiLocatorType.TAG, "select", attribute, attributeValue);
         final int actual = getBehavior.execute().size();
         Assert.assertEquals(actual, expected, "Failed to return null when element is non-existent");
     }

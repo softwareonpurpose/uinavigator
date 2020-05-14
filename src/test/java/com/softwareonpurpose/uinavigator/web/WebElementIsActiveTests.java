@@ -12,8 +12,8 @@ public class WebElementIsActiveTests {
         MockView.directNav();
         final String description = "Element";
         final String locatorValue = "user_name";
-        final WebUiElementGetByLocator getElement =
-                WebUiElementGetByLocator.getInstance(description, UiLocatorType.NAME, locatorValue);
+        final WebElementGetByLocator getElement =
+                WebElementGetByLocator.getInstance(description, UiLocatorType.NAME, locatorValue);
         final String attribute = null;
         final String value = "active";
         //noinspection ConstantConditions
@@ -26,8 +26,8 @@ public class WebElementIsActiveTests {
         MockView.directNav();
         final String description = "Element";
         final String locatorValue = "user_name";
-        final WebUiElementGetByLocator getElement =
-                WebUiElementGetByLocator.getInstance(description, UiLocatorType.NAME, locatorValue);
+        final WebElementGetByLocator getElement =
+                WebElementGetByLocator.getInstance(description, UiLocatorType.NAME, locatorValue);
         final String attribute = "data-active";
         final String value = null;
         //noinspection ConstantConditions

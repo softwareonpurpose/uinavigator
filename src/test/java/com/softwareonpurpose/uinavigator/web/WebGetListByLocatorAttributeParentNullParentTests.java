@@ -11,15 +11,15 @@ import org.testng.annotations.Test;
 public class WebGetListByLocatorAttributeParentNullParentTests {
     @AfterMethod(alwaysRun = true)
     public void terminate() {
-        WebUiHost.quitInstance();
+        WebHost.quitInstance();
     }
 
     @SuppressWarnings("rawtypes")
     public void testExecute_nullParent() {
         final String attribute = "data-test";
         final String attributeValue = "view-element";
-        final WebUiGetElementListByLocatorAttributeParent getBehavior =
-                WebUiGetElementListByLocatorAttributeParent.getInstance(UiLocatorType.TAG, "body", attribute, attributeValue, null);
+        final WebGetElementListByLocatorAttributeParent getBehavior =
+                WebGetElementListByLocatorAttributeParent.getInstance(UiLocatorType.TAG, "body", attribute, attributeValue, null);
         Class expected = UiElement.class;
         MockView.directNav();
         Class actual = getBehavior.execute().iterator().next().getClass();
