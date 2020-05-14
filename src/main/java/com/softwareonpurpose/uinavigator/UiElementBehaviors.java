@@ -182,7 +182,8 @@ public class UiElementBehaviors {
         try {
             setElement.execute(value);
         } catch (Exception e) {
-            final String errorMessage = String.format(message_unableToSet, getDescription(), value, this.toString());
+            final String thisToString = this.toString();
+            final String errorMessage = String.format(message_unableToSet, getDescription(), value, thisToString);
             reportException(e, errorMessage);
         }
     }

@@ -24,6 +24,7 @@ import java.util.List;
 public class WebElementGetByLocatorAttribute extends WebElementGet {
     private final String attribute;
     private final String attributeValue;
+    private transient WebElement element;
 
     private WebElementGetByLocatorAttribute(String description, By locator, String attribute, String attributeValue) {
         super(description, locator);
@@ -39,14 +40,17 @@ public class WebElementGetByLocatorAttribute extends WebElementGet {
 
     @Override
     public WebElement execute() {
-        List<WebElement> candidates = WebHost.getInstance().findUiElements(locator);
-        List<WebElement> elements = new ArrayList<>();
-        for (WebElement candidate : candidates) {
-            final String attributeValue = candidate.getAttribute(this.attribute);
-            if (attributeValue != null && attributeValue.equals(this.attributeValue)) {
-                elements.add(candidate);
+        if (element == null) {
+            List<WebElement> candidates = WebHost.getInstance().findUiElements(locator);
+            List<WebElement> elements = new ArrayList<>();
+            for (WebElement candidate : candidates) {
+                final String attributeValue = candidate.getAttribute(this.attribute);
+                if (attributeValue != null && attributeValue.equals(this.attributeValue)) {
+                    elements.add(candidate);
+                }
             }
+            element = elements.size() == 0 ? null : elements.get(0);
         }
-        return elements.size() == 0 ? null : elements.get(0);
+        return element;
     }
 }

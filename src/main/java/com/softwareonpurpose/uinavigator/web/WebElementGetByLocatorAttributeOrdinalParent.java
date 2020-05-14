@@ -25,6 +25,7 @@ public class WebElementGetByLocatorAttributeOrdinalParent extends WebElementGet 
     private final String attribute;
     private final Integer ordinal;
     private final WebElementGet getParent;
+    private transient WebElement element;
 
     private WebElementGetByLocatorAttributeOrdinalParent(
             String description, By locator, String attribute, String attributeValue,
@@ -46,22 +47,24 @@ public class WebElementGetByLocatorAttributeOrdinalParent extends WebElementGet 
 
     @Override
     public WebElement execute() {
-        List<WebElement> candidates;
-        if (getParent == null) {
-            candidates = WebHost.getInstance().findUiElements(locator);
-        } else {
-            candidates = ((WebElement) getParent.execute()).findElements(locator);
-        }
-        Integer ordinal = 0;
-        for (WebElement candidate : candidates) {
-            final String attributeValue = candidate.getAttribute(this.attribute);
-            if (attributeValue.equals(this.attributeValue)) {
-                ordinal += 1;
-                if (ordinal.equals(this.ordinal)) {
-                    return candidate;
+        if (element == null) {
+            List<WebElement> candidates;
+            if (getParent == null) {
+                candidates = WebHost.getInstance().findUiElements(locator);
+            } else {
+                candidates = ((WebElement) getParent.execute()).findElements(locator);
+            }
+            Integer ordinal = 0;
+            for (WebElement candidate : candidates) {
+                final String attributeValue = candidate.getAttribute(this.attribute);
+                if (attributeValue.equals(this.attributeValue)) {
+                    ordinal += 1;
+                    if (ordinal.equals(this.ordinal)) {
+                        element = candidate;
+                    }
                 }
             }
         }
-        return null;
+        return element;
     }
 }

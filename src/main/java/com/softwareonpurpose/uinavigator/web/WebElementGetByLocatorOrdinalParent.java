@@ -23,6 +23,7 @@ import java.util.List;
 public class WebElementGetByLocatorOrdinalParent extends WebElementGet {
     private final Integer ordinal;
     private final WebElementGet getParent;
+    private transient WebElement element;
 
     private WebElementGetByLocatorOrdinalParent(
             String description, By locator, Integer ordinal, WebElementGet getParent) {
@@ -40,12 +41,15 @@ public class WebElementGetByLocatorOrdinalParent extends WebElementGet {
 
     @Override
     public WebElement execute() {
-        List<WebElement> elements;
-        if (getParent == null) {
-            elements = WebHost.getInstance().findUiElements(locator);
-        } else {
-            elements = ((WebElement) getParent.execute()).findElements(locator);
+        if (element == null) {
+            List<WebElement> elements;
+            if (getParent == null) {
+                elements = WebHost.getInstance().findUiElements(locator);
+            } else {
+                elements = (getParent.execute()).findElements(locator);
+            }
+            element = elements.size() >= ordinal ? elements.get(ordinal - 1) : null;
         }
-        return elements.size() >= ordinal ? elements.get(ordinal - 1) : null;
+        return element;
     }
 }

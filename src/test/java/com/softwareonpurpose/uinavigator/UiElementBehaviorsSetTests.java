@@ -12,7 +12,7 @@ public class UiElementBehaviorsSetTests {
         WebHost.quitInstance();
     }
 
-    @Test
+    @Test(groups = "debug")
     public void testSet_loggingSuppressed() {
         String expected = "Value";
         MockView view = MockView.directNav();

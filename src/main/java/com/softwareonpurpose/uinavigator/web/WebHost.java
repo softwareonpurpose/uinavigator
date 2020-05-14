@@ -37,6 +37,7 @@ public class WebHost {
     private static UiNavigatorConfiguration config;
     private static UiDriverInstantiation driverInstantiation;
     private final Logger logger = LoggerFactory.getLogger("");
+    private final UiDriverBehaviors behaviors;
     private WebDriver driver;
 
     private WebHost() {
@@ -45,6 +46,7 @@ public class WebHost {
             setDriverInstantiation(ChromeDriverInstantiation.getInstance());
         }
         instantiateUiDriver();
+        behaviors = UiDriverBehaviors.getInstance();
     }
 
     /**
@@ -111,11 +113,11 @@ public class WebHost {
     /**
      * Navigate UI host to URI
      *
-     * @param uri String URI
+     * @param address String URI
      */
-    public void load(String uri) {
-        logger.info(String.format("Navigate browser to %s", uri));
-        driver.get(uri);
+    public void load(String address) {
+        logger.info(String.format("Navigate browser to %s", address));
+        behaviors.load(address);
     }
 
     /***

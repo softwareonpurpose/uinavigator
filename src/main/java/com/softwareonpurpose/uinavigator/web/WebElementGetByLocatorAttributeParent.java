@@ -24,6 +24,7 @@ public class WebElementGetByLocatorAttributeParent extends WebElementGet {
     private final String attribute;
     private final String attributeValue;
     private final WebElementGet getParent;
+    private transient WebElement element;
 
     private WebElementGetByLocatorAttributeParent(
             String description, By locator, String attribute, String attributeValue,
@@ -43,18 +44,20 @@ public class WebElementGetByLocatorAttributeParent extends WebElementGet {
 
     @Override
     public WebElement execute() {
-        List<WebElement> candidates;
-        if (getParent == null) {
-            candidates = WebHost.getInstance().findUiElements(locator);
-        } else {
-            candidates = ((WebElement) getParent.execute()).findElements(locator);
-        }
-        for (WebElement candidate : candidates) {
-            final String attributeValue = candidate.getAttribute(this.attribute);
-            if (attributeValue != null && attributeValue.equals(this.attributeValue)) {
-                return candidate;
+        if (element == null) {
+            List<WebElement> candidates;
+            if (getParent == null) {
+                candidates = WebHost.getInstance().findUiElements(locator);
+            } else {
+                candidates = (getParent.execute()).findElements(locator);
+            }
+            for (WebElement candidate : candidates) {
+                final String attributeValue = candidate.getAttribute(this.attribute);
+                if (attributeValue != null && attributeValue.equals(this.attributeValue)) {
+                    element = candidate;
+                }
             }
         }
-        return null;
+        return element;
     }
 }

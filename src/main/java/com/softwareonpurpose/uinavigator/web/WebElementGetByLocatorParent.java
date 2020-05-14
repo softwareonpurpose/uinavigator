@@ -22,6 +22,7 @@ import java.util.List;
 
 public class WebElementGetByLocatorParent extends WebElementGet {
     private final WebElementGet getParent;
+    private transient WebElement element;
 
     private WebElementGetByLocatorParent(String description, By locator, WebElementGet getParent) {
         super(description, locator);
@@ -36,12 +37,15 @@ public class WebElementGetByLocatorParent extends WebElementGet {
 
     @Override
     public WebElement execute() {
-        List<WebElement> elements;
-        if (getParent == null) {
-            elements = WebHost.getInstance().findUiElements(locator);
-        } else {
-            elements = ((WebElement) getParent.execute()).findElements(locator);
+        if (element == null) {
+            List<WebElement> elements;
+            if (getParent == null) {
+                elements = WebHost.getInstance().findUiElements(locator);
+            } else {
+                elements = (getParent.execute()).findElements(locator);
+            }
+            element = elements.size() == 0 ? null : elements.get(0);
         }
-        return elements.size() == 0 ? null : elements.get(0);
+        return element;
     }
 }

@@ -22,6 +22,7 @@ import java.util.List;
 
 public class WebElementGetByLocatorOrdinal extends WebElementGet {
     private final Integer ordinal;
+    private transient WebElement element;
 
     private WebElementGetByLocatorOrdinal(String description, By locator, Integer ordinal) {
         super(description, locator);
@@ -36,7 +37,10 @@ public class WebElementGetByLocatorOrdinal extends WebElementGet {
 
     @Override
     public WebElement execute() {
-        final List<WebElement> elements = WebHost.getInstance().findUiElements(locator);
-        return elements.size() >= ordinal ? elements.get(ordinal - 1) : null;
+        if (element == null) {
+            final List<WebElement> elements = WebHost.getInstance().findUiElements(locator);
+            element = elements.size() >= ordinal ? elements.get(ordinal - 1) : null;
+        }
+        return element;
     }
 }

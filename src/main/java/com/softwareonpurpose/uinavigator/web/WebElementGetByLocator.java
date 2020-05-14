@@ -19,7 +19,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class WebElementGetByLocator extends WebElementGet {
-    private WebElement element;
+    private transient WebElement element;
 
     private WebElementGetByLocator(String description, By locator) {
         super(description, locator);
