@@ -18,13 +18,13 @@ import com.softwareonpurpose.uinavigator.web.WebElementGetAttribute;
   limitations under the License.
  */
 public abstract class ElementGetAttribute {
-    protected final UiGetElement getBehavior;
+    protected final UiElementGet getBehavior;
 
-    protected ElementGetAttribute(UiGetElement getBehavior) {
+    protected ElementGetAttribute(UiElementGet getBehavior) {
         this.getBehavior = getBehavior;
     }
 
-    public static ElementGetAttribute getInstance(UiGetElement getElement) {
+    public static ElementGetAttribute getInstance(UiElementGet getElement) {
         return new WebElementGetAttribute(getElement);
     }
 

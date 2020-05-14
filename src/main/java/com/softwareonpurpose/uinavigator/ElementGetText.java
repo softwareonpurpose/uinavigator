@@ -1,6 +1,5 @@
 package com.softwareonpurpose.uinavigator;
 
-import com.softwareonpurpose.uinavigator.web.WebUiGetElement;
 import com.softwareonpurpose.uinavigator.web.WebElementGetText;
 import com.softwareonpurpose.uinavigator.web.WebSelectGetText;
 
@@ -20,17 +19,17 @@ import com.softwareonpurpose.uinavigator.web.WebSelectGetText;
   limitations under the License.
  */
 public abstract class ElementGetText {
-    protected final UiGetElement getBehavior;
+    protected final UiElementGet getBehavior;
 
-    protected ElementGetText(UiGetElement getBehavior) {
+    protected ElementGetText(UiElementGet getBehavior) {
         this.getBehavior = getBehavior;
     }
 
-    public static ElementGetText getSelectInstance(UiGetElement getElement) {
+    public static ElementGetText getSelectInstance(UiElementGet getElement) {
         return new WebSelectGetText(getElement);
     }
 
-    public static ElementGetText getInstance(UiGetElement getElementBehavior) {
+    public static ElementGetText getInstance(UiElementGet getElementBehavior) {
         return new WebElementGetText(getElementBehavior);
     }
 

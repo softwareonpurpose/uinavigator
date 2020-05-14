@@ -19,9 +19,9 @@ import org.openqa.selenium.WebElement;
   limitations under the License.
  */
 public class WebUiSwitchToFrame extends UiSwitchTo {
-    private final WebUiGetElement getElement;
+    private final WebUiElementGet getElement;
 
-    public WebUiSwitchToFrame(WebUiGetElement getElement) {
+    public WebUiSwitchToFrame(WebUiElementGet getElement) {
         this.getElement = getElement;
     }
 

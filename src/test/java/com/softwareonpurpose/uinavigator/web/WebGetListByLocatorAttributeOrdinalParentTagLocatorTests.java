@@ -18,8 +18,8 @@ public class WebGetListByLocatorAttributeOrdinalParentTagLocatorTests {
     public void testExecute_bodyTag() {
         String parentDescription = "Form";
         final String parentLocatorValue = "form";
-        WebUiGetElement getParent =
-                WebUiGetElementByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue);
+        WebUiElementGet getParent =
+                WebUiElementGetByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue);
         Class<UiElement> expected = UiElement.class;
         MockView.directNav();
         final String attribute = "data-test";

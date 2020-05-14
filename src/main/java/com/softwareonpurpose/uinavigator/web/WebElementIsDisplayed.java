@@ -16,15 +16,15 @@ package com.softwareonpurpose.uinavigator.web;
  */
 
 import com.softwareonpurpose.uinavigator.ElementState;
-import com.softwareonpurpose.uinavigator.UiGetElement;
+import com.softwareonpurpose.uinavigator.UiElementGet;
 import org.openqa.selenium.WebElement;
 
 public class WebElementIsDisplayed extends ElementState {
-    public WebElementIsDisplayed(UiGetElement getBehavior) {
+    public WebElementIsDisplayed(UiElementGet getBehavior) {
         super(getBehavior);
     }
 
-    public static WebElementIsDisplayed getInstance(WebUiGetElement getBehavior) {
+    public static WebElementIsDisplayed getInstance(WebUiElementGet getBehavior) {
         return new WebElementIsDisplayed(getBehavior);
     }
 

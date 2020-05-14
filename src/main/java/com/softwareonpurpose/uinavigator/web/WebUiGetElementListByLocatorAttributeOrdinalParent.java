@@ -28,13 +28,13 @@ public class WebUiGetElementListByLocatorAttributeOrdinalParent implements WebUi
     private final String attribute;
     private final String attributeValue;
     private final Integer ordinal;
-    private final WebUiGetElement getParent;
+    private final WebUiElementGet getParent;
     private final String locatorType;
     private final String locatorValue;
 
     private WebUiGetElementListByLocatorAttributeOrdinalParent(
             String locatorType, String locatorValue,
-            String attribute, String attributeValue, Integer ordinal, WebUiGetElement getParent) {
+            String attribute, String attributeValue, Integer ordinal, WebUiElementGet getParent) {
         this.attribute = attribute;
         this.attributeValue = attributeValue;
         this.ordinal = ordinal;
@@ -45,7 +45,7 @@ public class WebUiGetElementListByLocatorAttributeOrdinalParent implements WebUi
 
     public static WebUiGetElementListByLocatorAttributeOrdinalParent getInstance(
             String locatorType, String locatorValue,
-            String attribute, String attributeValue, Integer ordinal, WebUiGetElement getParent) {
+            String attribute, String attributeValue, Integer ordinal, WebUiElementGet getParent) {
         return new WebUiGetElementListByLocatorAttributeOrdinalParent(
                 locatorType, locatorValue, attribute, attributeValue, ordinal, getParent);
     }

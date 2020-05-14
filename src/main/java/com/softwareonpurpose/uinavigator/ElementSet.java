@@ -1,6 +1,5 @@
 package com.softwareonpurpose.uinavigator;
 
-import com.softwareonpurpose.uinavigator.web.WebUiGetElement;
 import com.softwareonpurpose.uinavigator.web.WebElementSet;
 import com.softwareonpurpose.uinavigator.web.WebSelectSet;
 
@@ -20,17 +19,17 @@ import com.softwareonpurpose.uinavigator.web.WebSelectSet;
   limitations under the License.
  */
 public abstract class ElementSet {
-    protected final UiGetElement getBehavior;
+    protected final UiElementGet getBehavior;
 
-    protected ElementSet(UiGetElement getBehavior) {
+    protected ElementSet(UiElementGet getBehavior) {
         this.getBehavior = getBehavior;
     }
 
-    public static ElementSet getSelectInstance(UiGetElement getBehavior) {
+    public static ElementSet getSelectInstance(UiElementGet getBehavior) {
         return new WebSelectSet(getBehavior);
     }
 
-    public static ElementSet getInstance(UiGetElement getBehavior) {
+    public static ElementSet getInstance(UiElementGet getBehavior) {
         return new WebElementSet(getBehavior);
     }
 

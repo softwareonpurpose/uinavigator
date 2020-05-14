@@ -17,8 +17,8 @@ public class WebElementGetAttributeNonExistentElementTests {
     public void testExecute_nonExistentElement() {
         final String description = "Bogus";
         final String locatorValue = "bogus";
-        WebUiGetElement getBehavior =
-                WebUiGetElementByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
+        WebUiElementGet getBehavior =
+                WebUiElementGetByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
         MockView.directNav();
         String actual = WebElementGetAttribute.getInstance(getBehavior).execute(null);
         Assert.assertNull(actual, "Failed to return null when element non-existent");

@@ -19,8 +19,8 @@ public class WebSelectSetTests {
     public void testExecute() {
         String description="Select";
         final String locatorValue = "pet-select";
-        WebUiGetElement getElement =
-                WebUiGetElementByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
+        WebUiElementGet getElement =
+                WebUiElementGetByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
         ElementGetText getText = WebSelectGetText.getSelectInstance(getElement);
         ElementSet setSelect = WebSelectSet.getSelectInstance(getElement);
         MockView.directNav();

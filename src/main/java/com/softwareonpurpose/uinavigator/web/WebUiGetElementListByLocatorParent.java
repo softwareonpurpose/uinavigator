@@ -25,18 +25,18 @@ import java.util.Collection;
 import java.util.List;
 
 public class WebUiGetElementListByLocatorParent implements WebUiGetElementList {
-    private final WebUiGetElement getParent;
+    private final WebUiElementGet getParent;
     private final String locatorType;
     private final String locatorValue;
 
-    private WebUiGetElementListByLocatorParent(String locatorType, String locatorValue, WebUiGetElement getParent) {
+    private WebUiGetElementListByLocatorParent(String locatorType, String locatorValue, WebUiElementGet getParent) {
         this.getParent = (UiLocatorType.TAG.equals(locatorType) && "body".equals(locatorValue)) ? null : getParent;
         this.locatorType = locatorType;
         this.locatorValue = locatorValue;
     }
 
     public static WebUiGetElementListByLocatorParent getInstance(
-            String locatorType, String locatorValue, WebUiGetElement getParent) {
+            String locatorType, String locatorValue, WebUiElementGet getParent) {
         return new WebUiGetElementListByLocatorParent(locatorType, locatorValue, getParent);
     }
 

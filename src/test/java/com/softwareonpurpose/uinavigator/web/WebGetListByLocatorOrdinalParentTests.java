@@ -34,8 +34,8 @@ public class WebGetListByLocatorOrdinalParentTests {
     public void testConstructor_bodyTagPrentInstance() {
         String parentDescription = "Select";
         final String parentLocatorValue = "select";
-        WebUiGetElement getParent =
-                WebUiGetElementByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue);
+        WebUiElementGet getParent =
+                WebUiElementGetByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue);
         Class<WebUiGetElementListByLocatorOrdinalParent> expected = WebUiGetElementListByLocatorOrdinalParent.class;
         final String locatorValue = "select";
         final int ordinal = 1;

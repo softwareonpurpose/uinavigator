@@ -4,17 +4,17 @@ import com.softwareonpurpose.uinavigator.web.WebElementIsActive;
 import com.softwareonpurpose.uinavigator.web.WebElementIsDisplayed;
 
 public abstract class ElementState {
-    protected final UiGetElement getElement;
+    protected final UiElementGet getElement;
 
-    protected ElementState(UiGetElement getElement) {
+    protected ElementState(UiElementGet getElement) {
         this.getElement = getElement;
     }
 
-    public static ElementState getIsActiveInstance(UiGetElement getElement, String attribute, String value) {
+    public static ElementState getIsActiveInstance(UiElementGet getElement, String attribute, String value) {
         return new WebElementIsActive(getElement, attribute, value);
     }
 
-    public static ElementState getIsDisplayedInstance(UiGetElement getElement) {
+    public static ElementState getIsDisplayedInstance(UiElementGet getElement) {
         return new WebElementIsDisplayed(getElement);
     }
 

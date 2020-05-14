@@ -46,7 +46,7 @@ public class WebUiGetElementListByLocator implements WebUiGetElementList {
         if (new By.ByTagName("body").equals(locator)) {
             webElements = WebUiHost.getInstance().findUiElements(locator);
         } else {
-            WebUiGetElementByLocator getParent = WebUiGetElementByLocator.getInstance(description, UiLocatorType.TAG, "body");
+            WebUiElementGetByLocator getParent = WebUiElementGetByLocator.getInstance(description, UiLocatorType.TAG, "body");
             webElements = getParent.execute().findElements(locator);
         }
         for (int elementOrdinal = 1; elementOrdinal <= webElements.size(); elementOrdinal += 1) {

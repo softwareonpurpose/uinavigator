@@ -2,7 +2,7 @@ package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.ElementClick;
 import com.softwareonpurpose.uinavigator.ElementBehaviors;
-import com.softwareonpurpose.uinavigator.UiGetElement;
+import com.softwareonpurpose.uinavigator.UiElementGet;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.slf4j.LoggerFactory;
@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import static com.softwareonpurpose.uinavigator.ElementBehaviors.reportException;
 
 public class WebElementClick extends ElementClick {
-    public WebElementClick(String description, UiGetElement getElement) {
+    public WebElementClick(String description, UiElementGet getElement) {
         super(description, getElement);
     }
 

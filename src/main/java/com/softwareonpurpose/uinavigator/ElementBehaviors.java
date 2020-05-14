@@ -2,15 +2,14 @@ package com.softwareonpurpose.uinavigator;
 
 import com.google.gson.Gson;
 import com.softwareonpurpose.uinavigator.web.*;
-import org.openqa.selenium.WebDriverException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ElementBehaviors {
     private transient static boolean isLoggingSuppressed = false;
     private final String description;
-    private final UiGetElement getElement;
-    private transient final UiGetElementList getList;
+    private final UiElementGet getElement;
+    private transient final UiElementGetList getList;
     private transient final ElementGetText getText;
     private transient final ElementSet setElement;
     private transient final ElementGetAttribute getAttribute;
@@ -21,7 +20,7 @@ public class ElementBehaviors {
     private transient ElementState isActive;
     private transient ElementState isSelected;
 
-    protected ElementBehaviors(String description, UiGetElement getElement, UiGetElementList getList, ElementGetText getText, ElementSet setElement, UiSwitchTo switchTo) {
+    protected ElementBehaviors(String description, UiElementGet getElement, UiElementGetList getList, ElementGetText getText, ElementSet setElement, UiSwitchTo switchTo) {
         this.description = description;
         this.getElement = getElement;
         this.getList = getList;
@@ -35,8 +34,8 @@ public class ElementBehaviors {
     }
 
     public static ElementBehaviors getInstanceByLocator(String description, String locatorType, String locatorValue) {
-        UiGetElement getBehavior = WebUiGetElementByLocator.getInstance(description, locatorType, locatorValue);
-        UiGetElementList getList = WebUiGetElementListByLocator.getInstance(description, locatorType, locatorValue);
+        UiElementGet getBehavior = WebUiElementGetByLocator.getInstance(description, locatorType, locatorValue);
+        UiElementGetList getList = WebUiGetElementListByLocator.getInstance(description, locatorType, locatorValue);
         ElementSet set = getSetBehavior(locatorType, locatorValue, getBehavior);
         ElementGetText getText = getGetTextBehavior(locatorType, locatorValue, getBehavior);
         UiSwitchTo switchTo = getSwitchToBehavior(locatorType, locatorValue, getBehavior);
@@ -45,8 +44,8 @@ public class ElementBehaviors {
 
     public static ElementBehaviors getInstanceByLocatorAttribute(
             String description, String locatorType, String locatorValue, String attribute, String attributeValue) {
-        WebUiGetElement getBehavior =
-                WebUiGetElementByLocatorAttribute.getInstance(description, locatorType, locatorValue, attribute, attributeValue);
+        WebUiElementGet getBehavior =
+                WebUiElementGetByLocatorAttribute.getInstance(description, locatorType, locatorValue, attribute, attributeValue);
         WebUiGetElementList getList =
                 WebUiGetElementListByLocatorAttribute.getInstance(locatorType, locatorValue, attribute, attributeValue);
         ElementSet set = getSetBehavior(locatorType, locatorValue, getBehavior);
@@ -57,7 +56,7 @@ public class ElementBehaviors {
 
     public static ElementBehaviors getInstanceByLocatorOrdinal(
             String description, String locatorType, String locatorValue, Integer ordinal) {
-        WebUiGetElement getBehavior = WebUiGetElementByLocatorOrdinal.getInstance(description, locatorType, locatorValue, ordinal);
+        WebUiElementGet getBehavior = WebUiElementGetByLocatorOrdinal.getInstance(description, locatorType, locatorValue, ordinal);
         WebUiGetElementList getList = WebUiGetElementListByLocatorOrdinal.getInstance(locatorType, locatorValue, ordinal);
         ElementSet set = getSetBehavior(locatorType, locatorValue, getBehavior);
         ElementGetText getText = getGetTextBehavior(locatorType, locatorValue, getBehavior);
@@ -66,9 +65,9 @@ public class ElementBehaviors {
     }
 
     public static ElementBehaviors getInstanceByLocatorParent(
-            String description, String locatorType, String locatorValue, UiGetElement getParent) {
-        WebUiGetElement getBehavior = WebUiGetElementByLocatorParent.getInstance(description, locatorType, locatorValue, (WebUiGetElement) getParent);
-        WebUiGetElementList getList = WebUiGetElementListByLocatorParent.getInstance(locatorType, locatorValue, (WebUiGetElement) getParent);
+            String description, String locatorType, String locatorValue, UiElementGet getParent) {
+        WebUiElementGet getBehavior = WebUiElementGetByLocatorParent.getInstance(description, locatorType, locatorValue, (WebUiElementGet) getParent);
+        WebUiGetElementList getList = WebUiGetElementListByLocatorParent.getInstance(locatorType, locatorValue, (WebUiElementGet) getParent);
         ElementSet set = getSetBehavior(locatorType, locatorValue, getBehavior);
         ElementGetText getText = getGetTextBehavior(locatorType, locatorValue, getBehavior);
         UiSwitchTo switchTo = getSwitchToBehavior(locatorType, locatorValue, getBehavior);
@@ -77,8 +76,8 @@ public class ElementBehaviors {
 
     public static ElementBehaviors getInstanceByLocatorAttributeOrdinal(
             String description, String locatorType, String locatorValue, String attribute, String attributeValue, Integer ordinal) {
-        WebUiGetElement getBehavior =
-                WebUiGetElementByLocatorAttributeOrdinal.getInstance(
+        WebUiElementGet getBehavior =
+                WebUiElementGetByLocatorAttributeOrdinal.getInstance(
                         description, locatorType, locatorValue, attribute, attributeValue, ordinal);
         WebUiGetElementList getList =
                 WebUiGetElementListByLocatorAttributeOrdinal.getInstance(locatorType, locatorValue, attribute, attributeValue, ordinal);
@@ -90,9 +89,9 @@ public class ElementBehaviors {
 
     public static ElementBehaviors getInstanceByLocatorAttributeParent(
             String description, String locatorType, String locatorValue,
-            String attribute, String attributeValue, WebUiGetElement getParent) {
-        WebUiGetElement getBehavior =
-                WebUiGetElementByLocatorAttributeParent.getInstance(description, locatorType, locatorValue, attribute, attributeValue, getParent);
+            String attribute, String attributeValue, WebUiElementGet getParent) {
+        WebUiElementGet getBehavior =
+                WebUiElementGetByLocatorAttributeParent.getInstance(description, locatorType, locatorValue, attribute, attributeValue, getParent);
         WebUiGetElementList getList =
                 WebUiGetElementListByLocatorAttributeParent.getInstance(locatorType, locatorValue, attribute, attributeValue, getParent);
         ElementSet set = getSetBehavior(locatorType, locatorValue, getBehavior);
@@ -103,9 +102,9 @@ public class ElementBehaviors {
 
     public static ElementBehaviors getInstanceByLocatorOrdinalParent(
             String description, String locatorType, String locatorValue,
-            Integer ordinal, WebUiGetElement getParent) {
-        WebUiGetElement getBehavior =
-                WebUiGetElementByLocatorOrdinalParent.getInstance(description, locatorType, locatorValue, ordinal, getParent);
+            Integer ordinal, WebUiElementGet getParent) {
+        WebUiElementGet getBehavior =
+                WebUiElementGetByLocatorOrdinalParent.getInstance(description, locatorType, locatorValue, ordinal, getParent);
         WebUiGetElementList getList =
                 WebUiGetElementListByLocatorOrdinalParent.getInstance(locatorType, locatorValue, ordinal, getParent);
         ElementSet set = getSetBehavior(locatorType, locatorValue, getBehavior);
@@ -116,9 +115,9 @@ public class ElementBehaviors {
 
     public static ElementBehaviors getInstanceByLocatorAttributeOrdinalParent(
             String description, String locatorType, String locatorValue,
-            String attribute, String attributeValue, Integer ordinal, WebUiGetElement getParent) {
-        WebUiGetElement getBehavior =
-                WebUiGetElementByLocatorAttributeOrdinalParent.getInstance(
+            String attribute, String attributeValue, Integer ordinal, WebUiElementGet getParent) {
+        WebUiElementGet getBehavior =
+                WebUiElementGetByLocatorAttributeOrdinalParent.getInstance(
                         description, locatorType, locatorValue, attribute, attributeValue, ordinal, getParent);
         WebUiGetElementList getList =
                 WebUiGetElementListByLocatorAttributeOrdinalParent.getInstance(
@@ -129,7 +128,7 @@ public class ElementBehaviors {
         return new ElementBehaviors(description, getBehavior, getList, getText, set, switchTo);
     }
 
-    private static UiSwitchTo getSwitchToBehavior(String locatorType, String locatorValue, UiGetElement getElement) {
+    private static UiSwitchTo getSwitchToBehavior(String locatorType, String locatorValue, UiElementGet getElement) {
         if (UiLocatorType.TAG.equals(locatorType) && "iframe".equals(locatorValue)) {
             return UiSwitchTo.getFrameInstance(getElement);
         } else {
@@ -138,7 +137,7 @@ public class ElementBehaviors {
     }
 
     private static ElementGetText getGetTextBehavior(
-            String locatorType, String locatorValue, UiGetElement getBehavior) {
+            String locatorType, String locatorValue, UiElementGet getBehavior) {
         if (UiLocatorType.TAG.equals(locatorType) && "select".equals(locatorValue)) {
             return ElementGetText.getSelectInstance(getBehavior);
         } else {
@@ -147,7 +146,7 @@ public class ElementBehaviors {
     }
 
     private static ElementSet getSetBehavior(
-            String locatorType, String locatorValue, UiGetElement getBehavior) {
+            String locatorType, String locatorValue, UiElementGet getBehavior) {
         if (UiLocatorType.TAG.equals(locatorType) && "select".equals(locatorValue)) {
             return ElementSet.getSelectInstance(getBehavior);
         } else {
@@ -240,7 +239,7 @@ public class ElementBehaviors {
         return new Gson().toJson(this);
     }
 
-    public UiGetElement getBehavior() {
+    public UiElementGet getBehavior() {
         return getElement;
     }
 

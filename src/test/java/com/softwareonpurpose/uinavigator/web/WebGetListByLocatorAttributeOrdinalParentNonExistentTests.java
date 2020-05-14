@@ -17,8 +17,8 @@ public class WebGetListByLocatorAttributeOrdinalParentNonExistentTests {
     public void testExecute_nonExistent() {
         String parentDescription = "Form";
         final String locatorValue = "form";
-        WebUiGetElement getParent =
-                WebUiGetElementByLocator.getInstance(parentDescription, UiLocatorType.TAG, locatorValue);
+        WebUiElementGet getParent =
+                WebUiElementGetByLocator.getInstance(parentDescription, UiLocatorType.TAG, locatorValue);
         MockView.directNav();
         final String attribute = "data-test";
         final String attributeValue = "select-element";

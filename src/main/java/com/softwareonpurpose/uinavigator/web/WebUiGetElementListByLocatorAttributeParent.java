@@ -27,13 +27,13 @@ import java.util.List;
 public class WebUiGetElementListByLocatorAttributeParent implements WebUiGetElementList {
     private final String attribute;
     private final String attributeValue;
-    private final WebUiGetElement getParent;
+    private final WebUiElementGet getParent;
     private final String locatorType;
     private final String locatorValue;
 
     private WebUiGetElementListByLocatorAttributeParent(
             String locatorType, String locatorValue,
-            String attribute, String attributeValue, WebUiGetElement getParent) {
+            String attribute, String attributeValue, WebUiElementGet getParent) {
         this.attribute = attribute;
         this.attributeValue = attributeValue;
         this.getParent = (UiLocatorType.TAG.equals(locatorType) && "body".equals(locatorValue)) ? null : getParent;
@@ -43,7 +43,7 @@ public class WebUiGetElementListByLocatorAttributeParent implements WebUiGetElem
 
     public static WebUiGetElementListByLocatorAttributeParent getInstance(
             String locatorType, String locatorValue,
-            String attribute, String attributeValue, WebUiGetElement getParent) {
+            String attribute, String attributeValue, WebUiElementGet getParent) {
         return new WebUiGetElementListByLocatorAttributeParent(locatorType, locatorValue, attribute, attributeValue, getParent);
     }
 

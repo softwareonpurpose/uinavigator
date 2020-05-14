@@ -16,6 +16,7 @@ package com.softwareonpurpose.uinavigator.web;
  */
 
 import com.softwareonpurpose.uinavigator.DriverInstantiation;
+import com.softwareonpurpose.uinavigator.UiDriverBehaviors;
 import com.softwareonpurpose.uinavigator.UiNavigatorConfiguration;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -36,6 +37,7 @@ public class WebUiHost {
     private static DriverInstantiation driverInstantiation;
     private final Logger logger = LoggerFactory.getLogger("");
     private WebDriver driver;
+    private static UiDriverBehaviors behaviors;
 
     private WebUiHost() {
         if (driverInstantiation == null) {
@@ -85,6 +87,7 @@ public class WebUiHost {
      * Quit WebUiHost
      */
     public static void quitInstance() {
+        behaviors.quit();
         if (webUiHost != null) {
             webUiHost.quit();
             webUiHost = null;

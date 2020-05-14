@@ -1,7 +1,7 @@
 package com.softwareonpurpose.uinavigator;
 
-import com.softwareonpurpose.uinavigator.web.WebUiGetElement;
-import com.softwareonpurpose.uinavigator.web.WebUiGetElementByLocator;
+import com.softwareonpurpose.uinavigator.web.WebUiElementGet;
+import com.softwareonpurpose.uinavigator.web.WebUiElementGetByLocator;
 import com.softwareonpurpose.uinavigator.web.WebUiHost;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -47,8 +47,8 @@ public class ElementBehaviorsTests {
     public void testGetInstanceByLocatorAttributeOrdinalParent() {
         final String description = "Form";
         final String locatorValue = "form";
-        WebUiGetElementByLocator getParent =
-                WebUiGetElementByLocator.getInstance(description, UiLocatorType.TAG, locatorValue);
+        WebUiElementGetByLocator getParent =
+                WebUiElementGetByLocator.getInstance(description, UiLocatorType.TAG, locatorValue);
         final String attribute = "data-test";
         final String attributeValue = "select-element";
         final int ordinal = 2;
@@ -87,8 +87,8 @@ public class ElementBehaviorsTests {
     public void testToString() {
         final String parentDescription = "Form";
         final String locatorValue = "form";
-        WebUiGetElement getParent =
-                WebUiGetElementByLocator.getInstance(parentDescription, UiLocatorType.TAG, locatorValue);
+        WebUiElementGet getParent =
+                WebUiElementGetByLocator.getInstance(parentDescription, UiLocatorType.TAG, locatorValue);
         final String description = "Element";
         final String attribute = "data-test";
         final String attributeValue = "select-element";

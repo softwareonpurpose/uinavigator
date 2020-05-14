@@ -18,7 +18,7 @@ public class WebSelectGetTextTests {
         String description="Select";
         String message = "Failed to return null when 'select' element has NO 'option' elements";
         final String locatorValue = "empty-select";
-        WebUiGetElement get = WebUiGetElementByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
+        WebUiElementGet get = WebUiElementGetByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
         ElementGetText getText = WebSelectGetText.getSelectInstance(get);
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
         String expected = null;

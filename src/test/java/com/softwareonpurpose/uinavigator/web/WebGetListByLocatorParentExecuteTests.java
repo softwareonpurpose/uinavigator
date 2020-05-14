@@ -21,8 +21,8 @@ public class WebGetListByLocatorParentExecuteTests {
         String parentDescription = "Select";
         MockView.directNav();
         final String parentLocatorValue = "select";
-        WebUiGetElement getParent =
-                WebUiGetElementByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue);
+        WebUiElementGet getParent =
+                WebUiElementGetByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue);
         Class<UiElement> expected = UiElement.class;
         final Collection<UiElement> getListBehavior =
                 WebUiGetElementListByLocatorParent.getInstance(UiLocatorType.TAG, "option", getParent).execute();

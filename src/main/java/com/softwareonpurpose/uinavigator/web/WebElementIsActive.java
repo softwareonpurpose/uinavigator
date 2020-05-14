@@ -1,14 +1,14 @@
 package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.ElementState;
-import com.softwareonpurpose.uinavigator.UiGetElement;
+import com.softwareonpurpose.uinavigator.UiElementGet;
 import org.openqa.selenium.WebElement;
 
 public class WebElementIsActive extends ElementState {
     private final String attribute;
     private final String value;
 
-    public WebElementIsActive(UiGetElement getElement, String attribute, String value) {
+    public WebElementIsActive(UiElementGet getElement, String attribute, String value) {
         super(getElement);
         this.attribute = attribute;
         this.value = value;

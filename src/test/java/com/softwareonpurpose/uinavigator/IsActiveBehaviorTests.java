@@ -1,10 +1,7 @@
 package com.softwareonpurpose.uinavigator;
 
-import com.softwareonpurpose.uinavigator.UiGetElement;
-import com.softwareonpurpose.uinavigator.ElementIsActive;
-import com.softwareonpurpose.uinavigator.UiLocatorType;
 import com.softwareonpurpose.uinavigator.web.WebElementIsActive;
-import com.softwareonpurpose.uinavigator.web.WebUiGetElementByLocator;
+import com.softwareonpurpose.uinavigator.web.WebUiElementGetByLocator;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -16,7 +13,7 @@ public class IsActiveBehaviorTests {
         Class expected = WebElementIsActive.class;
         final String description = "Pet Select";
         final String locatorValue = "pet-select";
-        UiGetElement getElement = WebUiGetElementByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
+        UiElementGet getElement = WebUiElementGetByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
         String attribute = "data-state";
         String value = "active";
         //noinspection rawtypes

@@ -15,12 +15,12 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
-import com.softwareonpurpose.uinavigator.UiGetElementList;
+import com.softwareonpurpose.uinavigator.UiElementGetList;
 import com.softwareonpurpose.uinavigator.UiElement;
 
 import java.util.Collection;
 
-public interface WebUiGetElementList extends UiGetElementList {
+public interface WebUiGetElementList extends UiElementGetList {
     @Override
     Collection<UiElement> execute();
 }

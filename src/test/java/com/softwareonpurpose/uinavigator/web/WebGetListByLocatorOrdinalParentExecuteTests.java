@@ -21,8 +21,8 @@ public class WebGetListByLocatorOrdinalParentExecuteTests {
         String parentDescription = "Select";
         MockView.directNav();
         final String locatorValue = "select";
-        WebUiGetElement getParent =
-                WebUiGetElementByLocator.getInstance(parentDescription, UiLocatorType.TAG, locatorValue);
+        WebUiElementGet getParent =
+                WebUiElementGetByLocator.getInstance(parentDescription, UiLocatorType.TAG, locatorValue);
         final int expected = 1;
         final int ordinal = 3;
         final WebUiGetElementListByLocatorOrdinalParent getListBehavior =
@@ -36,7 +36,7 @@ public class WebGetListByLocatorOrdinalParentExecuteTests {
         MockView.directNav();
         final int expected = 1;
         final int ordinal = 1;
-        final WebUiGetElement getParent = null;
+        final WebUiElementGet getParent = null;
         //noinspection ConstantConditions
         final WebUiGetElementListByLocatorOrdinalParent getListBehavior =
                 WebUiGetElementListByLocatorOrdinalParent.getInstance(UiLocatorType.TAG, "body", ordinal, getParent);

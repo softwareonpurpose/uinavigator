@@ -17,7 +17,7 @@ package com.softwareonpurpose.uinavigator;
 
 import com.google.gson.Gson;
 import com.softwareonpurpose.uinavigator.web.WebElementLocator;
-import com.softwareonpurpose.uinavigator.web.WebUiGetElement;
+import com.softwareonpurpose.uinavigator.web.WebUiElementGet;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
@@ -74,7 +74,7 @@ public class UiElement {
                                         UiElement parent) {
         ElementBehaviors behaviors =
                 ElementBehaviors.getInstanceByLocatorAttributeParent(description,
-                        locatorType, locatorValue, attribute, attributeValue, (WebUiGetElement) parent.getBehavior());
+                        locatorType, locatorValue, attribute, attributeValue, (WebUiElementGet) parent.getBehavior());
         return new UiElement(description, behaviors);
     }
 
@@ -83,7 +83,7 @@ public class UiElement {
                                         UiElement parent) {
         ElementBehaviors behaviors =
                 ElementBehaviors.getInstanceByLocatorOrdinalParent(
-                        description, locatorType, locatorValue, ordinal, (WebUiGetElement) parent.getBehavior());
+                        description, locatorType, locatorValue, ordinal, (WebUiElementGet) parent.getBehavior());
         return new UiElement(description, behaviors);
     }
 
@@ -93,7 +93,7 @@ public class UiElement {
                                         UiElement parent) {
         ElementBehaviors behaviors =
                 ElementBehaviors.getInstanceByLocatorAttributeOrdinalParent(description,
-                        locatorType, locatorValue, attribute, attributeValue, ordinal, (WebUiGetElement) parent.getBehavior());
+                        locatorType, locatorValue, attribute, attributeValue, ordinal, (WebUiElementGet) parent.getBehavior());
         return new UiElement(description, behaviors);
     }
 
@@ -117,7 +117,7 @@ public class UiElement {
         return ElementBehaviors.isLoggingSuppressed();
     }
 
-    private UiGetElement getBehavior() {
+    private UiElementGet getBehavior() {
         return behaviors.getBehavior();
     }
 

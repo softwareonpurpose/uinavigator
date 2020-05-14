@@ -26,11 +26,11 @@ import java.util.List;
 
 public class WebUiGetElementListByLocatorOrdinalParent implements WebUiGetElementList {
     private final Integer ordinal;
-    private final WebUiGetElement getParent;
+    private final WebUiElementGet getParent;
     private final String locatorType;
     private final String locatorValue;
 
-    private WebUiGetElementListByLocatorOrdinalParent(String locatorType, String locatorValue, Integer ordinal, WebUiGetElement getParent) {
+    private WebUiGetElementListByLocatorOrdinalParent(String locatorType, String locatorValue, Integer ordinal, WebUiElementGet getParent) {
         this.ordinal = ordinal;
         this.getParent = (UiLocatorType.TAG.equals(locatorType) && "body".equals(locatorValue)) ? null : getParent;
         this.locatorType = locatorType;
@@ -38,7 +38,7 @@ public class WebUiGetElementListByLocatorOrdinalParent implements WebUiGetElemen
     }
 
     public static WebUiGetElementListByLocatorOrdinalParent getInstance(
-            String locatorType, String locatorValue, Integer ordinal, WebUiGetElement getParent) {
+            String locatorType, String locatorValue, Integer ordinal, WebUiElementGet getParent) {
         return new WebUiGetElementListByLocatorOrdinalParent(locatorType, locatorValue, ordinal, getParent);
     }
 

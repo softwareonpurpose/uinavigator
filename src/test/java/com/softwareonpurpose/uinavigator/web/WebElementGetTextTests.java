@@ -17,8 +17,8 @@ public class WebElementGetTextTests {
     public void testExecute() {
         String description = "Non Existent";
         final String locatorValue = "nonexistent";
-        WebUiGetElement getElement =
-                WebUiGetElementByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
+        WebUiElementGet getElement =
+                WebUiElementGetByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
         ElementGetText getText = WebElementGetText.getInstance(getElement);
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
         String expected = null;
