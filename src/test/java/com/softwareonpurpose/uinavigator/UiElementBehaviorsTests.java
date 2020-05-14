@@ -4,16 +4,10 @@ import com.softwareonpurpose.uinavigator.web.WebElementGet;
 import com.softwareonpurpose.uinavigator.web.WebElementGetByLocator;
 import com.softwareonpurpose.uinavigator.web.WebHost;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
 public class UiElementBehaviorsTests {
-    @AfterMethod
-    public void terminate() {
-        WebHost.quitInstance();
-    }
-
     @Test
     public void testGetInstanceByLocator_tagSelect() {
         Class<UiElementBehaviors> expected = UiElementBehaviors.class;
@@ -70,6 +64,7 @@ public class UiElementBehaviorsTests {
                 UiElementBehaviors.getInstanceByLocatorAttribute("Label", UiLocatorType.TAG, "label", attribute, attributeValue);
         MockView.directNav();
         boolean actual = behaviors.isDisplayed();
+        WebHost.quitInstance();
         Assert.assertTrue(actual, "Failed to return 'true' for existing element");
     }
 

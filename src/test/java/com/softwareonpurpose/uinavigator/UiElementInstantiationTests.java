@@ -7,10 +7,6 @@ import org.testng.annotations.Test;
 
 @Test
 public class UiElementInstantiationTests {
-    @AfterMethod(alwaysRun = true)
-    public void terminate() {
-        WebHost.quitInstance();
-    }
 
     @Test
     public void testGetInstance_parent() {
@@ -18,6 +14,7 @@ public class UiElementInstantiationTests {
         Class<UiElement> expected = UiElement.class;
         final String description = "Element";
         final String locatorValue = "name";
+        //noinspection rawtypes
         Class actual = UiElement.getInstance(description, UiLocatorType.ID, locatorValue, parent).getClass();
         Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElement");
     }
@@ -31,6 +28,7 @@ public class UiElementInstantiationTests {
         final int ordinal = 1;
         final UiElement element =
                 UiElement.getInstance(description, UiLocatorType.ID, locatorValue, ordinal, parent);
+        //noinspection rawtypes
         Class actual = element.getClass();
         Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElement");
     }
@@ -46,6 +44,7 @@ public class UiElementInstantiationTests {
         final UiElement element =
                 UiElement.getInstance(
                         description, UiLocatorType.ID, locatorValue, attribute, attributeValue, parent);
+        //noinspection rawtypes
         Class actual = element.getClass();
         Assert.assertEquals(actual, expected, "Failed to return instance of WebUiElement");
     }
