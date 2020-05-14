@@ -167,7 +167,7 @@ public class ElementBehaviors {
         final String root = "";
         LoggerFactory.getLogger(root).error(errorMessage);
         e.printStackTrace();
-        throw new WebDriverException(errorMessage);
+        throw new UiElementException(errorMessage);
     }
 
     public String getText() {
