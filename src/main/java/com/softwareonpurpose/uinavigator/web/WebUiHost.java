@@ -16,7 +16,6 @@ package com.softwareonpurpose.uinavigator.web;
  */
 
 import com.softwareonpurpose.uinavigator.UiDriver;
-import com.softwareonpurpose.uinavigator.UiHost;
 import com.softwareonpurpose.uinavigator.UiNavigatorConfiguration;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -31,7 +30,7 @@ import java.util.List;
  * Host for application UI
  */
 @SuppressWarnings("WeakerAccess")
-public class WebUiHost implements UiHost {
+public class WebUiHost {
     private static WebUiHost webUiHost;
     private static UiNavigatorConfiguration config;
     private static UiDriver uiDriver;
