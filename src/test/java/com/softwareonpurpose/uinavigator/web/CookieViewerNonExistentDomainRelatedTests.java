@@ -19,7 +19,7 @@ public class CookieViewerNonExistentDomainRelatedTests {
 
     @Test
     public void testGetCookieValue_nameDomainQualifiedDomainOnly() {
-        driver = ChromeUiDriver.getInstance().instantiateDriver();
+        driver = (WebDriver) ChromeDriverInstantiation.getInstance().instantiateDriver();
         String uri = "http://www.google.com";
         driver.navigate().to(uri);
         JavascriptExecutor js = (JavascriptExecutor) driver;

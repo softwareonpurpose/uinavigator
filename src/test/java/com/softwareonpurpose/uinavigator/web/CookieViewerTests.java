@@ -19,15 +19,17 @@ public class CookieViewerTests {
 
     @Test
     public void testGetInstance() {
-        driver = ChromeUiDriver.getInstance().instantiateDriver();
+        driver = (WebDriver) ChromeDriverInstantiation.getInstance().instantiateDriver();
+        //noinspection rawtypes
         Class expected = CookieViewer.class;
+        //noinspection rawtypes
         Class actual = CookieViewer.getInstance(driver).getClass();
         Assert.assertEquals(actual, expected, "Failed to return an instance of CookieViewer");
     }
 
     @Test
     public void testGetCookieValue_nameQualified() {
-        driver = ChromeUiDriver.getInstance().instantiateDriver();
+        driver = (WebDriver) ChromeDriverInstantiation.getInstance().instantiateDriver();
         String uri = "http://www.google.com";
         driver.navigate().to(uri);
         JavascriptExecutor js = (JavascriptExecutor) driver;

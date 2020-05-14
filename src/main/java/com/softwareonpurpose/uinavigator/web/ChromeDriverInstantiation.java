@@ -15,31 +15,32 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
-import com.softwareonpurpose.uinavigator.UiDriver;
+import com.softwareonpurpose.uinavigator.DriverInstantiation;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.concurrent.TimeUnit;
 
-public class ChromeUiDriver extends UiDriver {
+public class ChromeDriverInstantiation extends DriverInstantiation {
 
     private static final String HOST_NAME = "chrome";
 
-    public static UiDriver getInstance() {
-        return new ChromeUiDriver();
+    public static DriverInstantiation getInstance() {
+        return new ChromeDriverInstantiation();
     }
 
     @Override
-    public org.openqa.selenium.chrome.ChromeDriver instantiateDriver() {
+    public ChromeDriver instantiateDriver() {
         System.setProperty("webdriver.chrome.driver", "./src/main/resources/chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless", "--disable-gpu", "--window-size=1920,1200", "--ignore-certificate-errors");
-        return new org.openqa.selenium.chrome.ChromeDriver(options);
+        return new ChromeDriver(options);
     }
 
     @Override
-    public void configureDriver(WebDriver driver) {
-        driver.manage().timeouts().implicitlyWait(getConfig().getTimeout(), TimeUnit.SECONDS);
+    public void configureDriver(Object driver) {
+        ((WebDriver) driver).manage().timeouts().implicitlyWait(getConfig().getTimeout(), TimeUnit.SECONDS);
     }
 
     @Override

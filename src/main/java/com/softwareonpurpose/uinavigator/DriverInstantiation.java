@@ -15,12 +15,10 @@ package com.softwareonpurpose.uinavigator;
   limitations under the License.
  */
 
-import org.openqa.selenium.WebDriver;
-
 /**
  * DriverInstantiation details, including specific driver executable and configuration properties
  */
-public abstract class UiDriver {
+public abstract class DriverInstantiation {
     private static UiNavigatorConfiguration config;
 
     /**
@@ -41,8 +39,8 @@ public abstract class UiDriver {
      *
      * @return WebDriver instance using Selenium interface
      */
-    public WebDriver execute() {
-        WebDriver driver = instantiateDriver();
+    public Object execute() {
+        Object driver = instantiateDriver();
         provideTimeForDriverToLoad();
         configureDriver(driver);
         return driver;
@@ -64,14 +62,14 @@ public abstract class UiDriver {
      *
      * @return WebDriver instance using Selenium interface
      */
-    public abstract WebDriver instantiateDriver();
+    public abstract Object instantiateDriver();
 
     /**
      * Implementation details of concrete DriverInstantiations
      *
      * @param driver WebDriver instance using Selenium interface
      */
-    public abstract void configureDriver(WebDriver driver);
+    public abstract void configureDriver(Object driver);
 
     /**
      * Arbitrary name of the instantiated WebUiHost
