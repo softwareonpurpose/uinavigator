@@ -15,8 +15,9 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
-import com.softwareonpurpose.uinavigator.UiDriverInstantiation;
 import com.softwareonpurpose.uinavigator.UiDriverBehaviors;
+import com.softwareonpurpose.uinavigator.UiDriverGet;
+import com.softwareonpurpose.uinavigator.UiDriverInstantiation;
 import com.softwareonpurpose.uinavigator.UiNavigatorConfiguration;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -37,9 +38,9 @@ public class WebHost {
     private static UiDriverInstantiation driverInstantiation;
     private final Logger logger = LoggerFactory.getLogger("");
     private WebDriver driver;
-    private static UiDriverBehaviors behaviors;
 
     private WebHost() {
+        UiDriverBehaviors.getInstance();
         if (driverInstantiation == null) {
             setDriverInstantiation(ChromeDriverInstantiation.getInstance());
         }
@@ -52,6 +53,9 @@ public class WebHost {
      * @return WebUiHost instance
      */
     public static WebHost getInstance() {
+        if (driverInstantiation == null) {
+            setDriverInstantiation(ChromeDriverInstantiation.getInstance());
+        }
         if (webHost == null) {
             webHost = new WebHost();
         }
@@ -87,7 +91,7 @@ public class WebHost {
      * Quit WebUiHost
      */
     public static void quitInstance() {
-        behaviors.quit();
+        UiDriverGet.quit();
         if (webHost != null) {
             webHost.quit();
             webHost = null;
@@ -101,6 +105,7 @@ public class WebHost {
      */
     public static void setDriverInstantiation(UiDriverInstantiation driverInstantiation) {
         WebHost.driverInstantiation = driverInstantiation;
+        UiDriverGet.setBehaviors(driverInstantiation, WebDriverQuit.getInstance());
     }
 
     /**

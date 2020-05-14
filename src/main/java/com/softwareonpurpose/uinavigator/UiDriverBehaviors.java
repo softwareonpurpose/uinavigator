@@ -1,13 +1,13 @@
 package com.softwareonpurpose.uinavigator;
 
-public class UiDriverBehaviors {
-    private final UiDriverQuit quit;
+import com.softwareonpurpose.uinavigator.web.WebDriverBehaviors;
 
-    public UiDriverBehaviors(UiDriverQuit quit) {
-        this.quit = WebDriverQuit.getInstance();
+public abstract class UiDriverBehaviors {
+    public UiDriverBehaviors() {
+
     }
 
-    public void quit() {
-        quit.execute();
+    public static UiDriverBehaviors getInstance() {
+        return new WebDriverBehaviors();
     }
 }
