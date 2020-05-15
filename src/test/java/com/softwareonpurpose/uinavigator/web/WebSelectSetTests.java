@@ -1,29 +1,20 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.UiElementGetText;
-import com.softwareonpurpose.uinavigator.UiElementSet;
-import com.softwareonpurpose.uinavigator.MockView;
-import com.softwareonpurpose.uinavigator.UiLocatorType;
+import com.softwareonpurpose.uinavigator.*;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class WebSelectSetTests {
-    @AfterMethod
-    public void terminate() {
-        WebHost.quitInstance();
-    }
-
-    @Test
+public class WebSelectSetTests extends TestClass {@Test
     public void testExecute() {
-        String description="Select";
+        String description = "Select";
         final String locatorValue = "pet-select";
         WebElementGet getElement =
-                WebElementGetByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
+                WebElementGetByLocator.getInstance(description, UiLocatorType.ID, locatorValue, UiDriverGet.getInstance());
         UiElementGetText getText = WebSelectGetText.getSelectInstance(getElement);
         UiElementSet setSelect = WebSelectSet.getSelectInstance(getElement);
-        MockView.directNav();
+        MockView.directNav(host);
         String expected = "Dog";
         setSelect.execute(expected);
         String actual = getText.execute();

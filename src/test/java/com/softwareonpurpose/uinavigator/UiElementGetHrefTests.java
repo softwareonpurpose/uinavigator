@@ -1,21 +1,15 @@
 package com.softwareonpurpose.uinavigator;
 
-import com.softwareonpurpose.uinavigator.web.WebHost;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class UiElementGetHrefTests {
-    @AfterMethod(alwaysRun = true)
-    public void terminate() {
-        WebHost.quitInstance();
-    }
-
+public class UiElementGetHrefTests extends TestClass {
     @Test
     public void testGetHref() {
+        host = UiHost.getInstance();
         String expected = "http://www.google.com/";
-        MockView.directNav();
+        MockView.directNav(host);
         String actual = UiElement.getInstance("'Link' element", UiLocatorType.TAG, "a").getHref();
         Assert.assertEquals(actual, expected, "Failed to return HREF of element");
     }

@@ -1,27 +1,20 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.MockView;
-import com.softwareonpurpose.uinavigator.UiLocatorType;
-import com.softwareonpurpose.uinavigator.UiElement;
+import com.softwareonpurpose.uinavigator.*;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class WebGetListByLocatorAttributeTests {
-    @AfterMethod(alwaysRun = true)
-    public void terminate() {
-        WebHost.quitInstance();
-    }
-
+public class WebGetListByLocatorAttributeTests extends TestClass {
     @Test
     public void testExecute() {
-        MockView.directNav();
+        host = UiHost.getInstance();
+        MockView.directNav(host);
         Class<UiElement> expected = UiElement.class;
         final String attribute = "data-test";
         final String attributeValue = "select-element";
         final WebGetElementListByLocatorAttribute getBehavior =
-                WebGetElementListByLocatorAttribute.getInstance(UiLocatorType.TAG, "select", attribute, attributeValue);
+                WebGetElementListByLocatorAttribute.getInstance(UiLocatorType.TAG, "select", attribute, attributeValue, UiDriverGet.getInstance());
         //noinspection rawtypes
         Class actual = getBehavior.execute().iterator().next().getClass();
         Assert.assertEquals(actual, expected, "Failed to return a list of at least one WebUiElement");

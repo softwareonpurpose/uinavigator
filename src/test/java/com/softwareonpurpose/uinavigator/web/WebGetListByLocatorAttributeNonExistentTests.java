@@ -1,26 +1,20 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.MockView;
-import com.softwareonpurpose.uinavigator.UiLocatorType;
+import com.softwareonpurpose.uinavigator.*;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class WebGetListByLocatorAttributeNonExistentTests {
-    @AfterMethod(alwaysRun = true)
-    public void terminate() {
-        WebHost.quitInstance();
-    }
-
+public class WebGetListByLocatorAttributeNonExistentTests extends TestClass {
     @Test
     public void testExecute_nonExistent() {
-        MockView.directNav();
+        host = UiHost.getInstance();
+        MockView.directNav(host);
         int expected = 0;
         final String attribute = "data-test";
         final String attributeValue = "not-there";
         final WebGetElementListByLocatorAttribute getBehavior =
-                WebGetElementListByLocatorAttribute.getInstance(UiLocatorType.TAG, "select", attribute, attributeValue);
+                WebGetElementListByLocatorAttribute.getInstance(UiLocatorType.TAG, "select", attribute, attributeValue, UiDriverGet.getInstance());
         final int actual = getBehavior.execute().size();
         Assert.assertEquals(actual, expected, "Failed to return null when element is non-existent");
     }

@@ -17,6 +17,12 @@ package com.softwareonpurpose.uinavigator;
 
 import java.util.Collection;
 
-public interface UiElementGetList {
-    Collection<UiElement> execute();
+public abstract class UiElementGetList {
+    protected final UiDriverGet getDriver;
+
+    protected UiElementGetList(UiDriverGet getDriver) {
+        this.getDriver = getDriver;
+    }
+
+    protected abstract Collection<UiElement> execute();
 }

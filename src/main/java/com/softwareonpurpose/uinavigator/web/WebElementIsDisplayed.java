@@ -15,21 +15,22 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
-import com.softwareonpurpose.uinavigator.UiElementState;
+import com.softwareonpurpose.uinavigator.UiDriverGet;
+import com.softwareonpurpose.uinavigator.UiDriverWaitUntilVisible;
 import com.softwareonpurpose.uinavigator.UiElementGet;
-import org.openqa.selenium.WebElement;
+import com.softwareonpurpose.uinavigator.UiElementState;
 
 public class WebElementIsDisplayed extends UiElementState {
-    public WebElementIsDisplayed(UiElementGet getBehavior) {
-        super(getBehavior);
+    public WebElementIsDisplayed(UiElementGet getBehavior, UiDriverGet getDriver) {
+        super(getBehavior, getDriver);
     }
 
-    public static WebElementIsDisplayed getInstance(WebElementGet getBehavior) {
-        return new WebElementIsDisplayed(getBehavior);
+    public static WebElementIsDisplayed getInstance(WebElementGet getBehavior, UiDriverGet getDriver) {
+        return new WebElementIsDisplayed(getBehavior, getDriver);
     }
 
     @Override
     public boolean execute() {
-        return WebHost.getInstance().waitUntilVisible((WebElement) getElement.execute());
+        return UiDriverWaitUntilVisible.getInstance(getDriver).execute(getElement.execute());
     }
 }

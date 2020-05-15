@@ -37,6 +37,7 @@ test {
 
 task debug(type: Test) {
     description = 'Tests being debugged'
+    maxParallelForks = 12
 
     def groupsToInclude = []
     groupsToInclude.add('debug')

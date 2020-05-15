@@ -15,6 +15,7 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
+import com.softwareonpurpose.uinavigator.UiDriverGet;
 import com.softwareonpurpose.uinavigator.UiElementGet;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -23,7 +24,8 @@ public abstract class WebElementGet extends UiElementGet {
     protected final By locator;
     private final String description;
 
-    WebElementGet(String description, By locator) {
+    WebElementGet(String description, By locator, UiDriverGet getDriver) {
+        super(getDriver);
         this.description = description;
         this.locator = locator;
     }

@@ -1,26 +1,18 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.MockRegion;
-import com.softwareonpurpose.uinavigator.UiLocatorType;
-import com.softwareonpurpose.uinavigator.UiRegion;
-import com.softwareonpurpose.uinavigator.UiElement;
+import com.softwareonpurpose.uinavigator.*;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class WebUiRegionTests {
-    @AfterMethod
-    public void terminate() {
-        WebHost.quitInstance();
-    }
-
+public class WebUiRegionTests extends TestClass {
     @Test
     public void testGetElement() {
+        host = UiHost.getInstance();
         UiElement expected = UiElement.getInstance("Form", UiLocatorType.TAG, "form");
         UiRegion region = MockRegion.getInstance(expected);
         String uri = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
-        WebHost.getInstance().load(uri);
+        host.load(uri);
         UiElement actual = region.getElement();
         Assert.assertEquals(actual, expected, "Failed to return expected WebUiElement");
     }

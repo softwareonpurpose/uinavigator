@@ -17,122 +17,132 @@ public class UiElementBehaviors {
     private transient final UiElementClick click;
     private transient final UiElementAttributeSet setAttribute;
     private transient final UiSwitchTo switchTo;
+    transient final UiDriverGet getDriver;
     private transient UiElementState isActive;
     private transient UiElementState isSelected;
 
-    protected UiElementBehaviors(String description, UiElementGet getElement, UiElementGetList getList, UiElementGetText getText, UiElementSet setElement, UiSwitchTo switchTo) {
+    protected UiElementBehaviors(String description, UiElementGet getElement, UiElementGetList getList, UiElementGetText getText, UiElementSet setElement, UiSwitchTo switchTo, UiDriverGet getDriver) {
+        this.getDriver = getDriver;
         this.description = description;
         this.getElement = getElement;
         this.getList = getList;
         this.getText = getText;
         this.setElement = setElement;
         this.getAttribute = UiElementGetAttribute.getInstance(getElement);
-        this.isDisplayed = UiElementState.getIsDisplayedInstance(getElement);
+        this.isDisplayed = UiElementState.getIsDisplayedInstance(getElement, getDriver);
         this.switchTo = switchTo;
         this.click = UiElementClick.getInstance(description, getElement);
-        this.setAttribute = UiElementAttributeSet.getInstance(getElement);
+        this.setAttribute = UiElementAttributeSet.getInstance(getElement, getDriver);
     }
 
     public static UiElementBehaviors getInstanceByLocator(String description, String locatorType, String locatorValue) {
-        UiElementGet getBehavior = WebElementGetByLocator.getInstance(description, locatorType, locatorValue);
-        UiElementGetList getList = WebGetElementListByLocator.getInstance(description, locatorType, locatorValue);
+        UiDriverGet getDriver = UiDriverGet.getInstance();
+        UiElementGet getBehavior = WebElementGetByLocator.getInstance(description, locatorType, locatorValue, getDriver);
+        UiElementGetList getList = WebGetElementListByLocator.getInstance(description, locatorType, locatorValue, getDriver);
         UiElementSet set = getSetBehavior(locatorType, locatorValue, getBehavior);
         UiElementGetText getText = getGetTextBehavior(locatorType, locatorValue, getBehavior);
-        UiSwitchTo switchTo = getSwitchToBehavior(locatorType, locatorValue, getBehavior);
-        return new UiElementBehaviors(description, getBehavior, getList, getText, set, switchTo);
+        UiSwitchTo switchTo = getSwitchToBehavior(locatorType, locatorValue, getBehavior, getDriver);
+        return new UiElementBehaviors(description, getBehavior, getList, getText, set, switchTo, getDriver);
     }
 
     public static UiElementBehaviors getInstanceByLocatorAttribute(
             String description, String locatorType, String locatorValue, String attribute, String attributeValue) {
+        UiDriverGet getDriver = UiDriverGet.getInstance();
         WebElementGet getBehavior =
-                WebElementGetByLocatorAttribute.getInstance(description, locatorType, locatorValue, attribute, attributeValue);
-        WebGetElementList getList =
-                WebGetElementListByLocatorAttribute.getInstance(locatorType, locatorValue, attribute, attributeValue);
+                WebElementGetByLocatorAttribute.getInstance(description, locatorType, locatorValue, attribute, attributeValue, getDriver);
+        UiElementGetList getList =
+                WebGetElementListByLocatorAttribute.getInstance(locatorType, locatorValue, attribute, attributeValue, getDriver);
         UiElementSet set = getSetBehavior(locatorType, locatorValue, getBehavior);
         UiElementGetText getText = getGetTextBehavior(locatorType, locatorValue, getBehavior);
-        UiSwitchTo switchTo = getSwitchToBehavior(locatorType, locatorValue, getBehavior);
-        return new UiElementBehaviors(description, getBehavior, getList, getText, set, switchTo);
+        UiSwitchTo switchTo = getSwitchToBehavior(locatorType, locatorValue, getBehavior, getDriver);
+        return new UiElementBehaviors(description, getBehavior, getList, getText, set, switchTo, getDriver);
     }
 
     public static UiElementBehaviors getInstanceByLocatorOrdinal(
             String description, String locatorType, String locatorValue, Integer ordinal) {
-        WebElementGet getBehavior = WebElementGetByLocatorOrdinal.getInstance(description, locatorType, locatorValue, ordinal);
-        WebGetElementList getList = WebGetElementListByLocatorOrdinal.getInstance(locatorType, locatorValue, ordinal);
+        UiDriverGet getDriver = UiDriverGet.getInstance();
+        WebElementGet getBehavior = WebElementGetByLocatorOrdinal.getInstance(description, locatorType, locatorValue, ordinal, getDriver);
+        UiElementGetList getList = WebGetElementListByLocatorOrdinal.getInstance(locatorType, locatorValue, ordinal, getDriver);
         UiElementSet set = getSetBehavior(locatorType, locatorValue, getBehavior);
         UiElementGetText getText = getGetTextBehavior(locatorType, locatorValue, getBehavior);
-        UiSwitchTo switchTo = getSwitchToBehavior(locatorType, locatorValue, getBehavior);
-        return new UiElementBehaviors(description, getBehavior, getList, getText, set, switchTo);
+        UiSwitchTo switchTo = getSwitchToBehavior(locatorType, locatorValue, getBehavior, getDriver);
+        return new UiElementBehaviors(description, getBehavior, getList, getText, set, switchTo, getDriver);
     }
 
     public static UiElementBehaviors getInstanceByLocatorParent(
             String description, String locatorType, String locatorValue, UiElementGet getParent) {
-        WebElementGet getBehavior = WebElementGetByLocatorParent.getInstance(description, locatorType, locatorValue, (WebElementGet) getParent);
-        WebGetElementList getList = WebGetElementListByLocatorParent.getInstance(locatorType, locatorValue, (WebElementGet) getParent);
+        UiDriverGet getDriver = UiDriverGet.getInstance();
+        WebElementGet getBehavior = WebElementGetByLocatorParent.getInstance(description, locatorType, locatorValue, (WebElementGet) getParent, getDriver);
+        UiElementGetList getList = WebGetElementListByLocatorParent.getInstance(locatorType, locatorValue, getParent, getDriver);
         UiElementSet set = getSetBehavior(locatorType, locatorValue, getBehavior);
         UiElementGetText getText = getGetTextBehavior(locatorType, locatorValue, getBehavior);
-        UiSwitchTo switchTo = getSwitchToBehavior(locatorType, locatorValue, getBehavior);
-        return new UiElementBehaviors(description, getBehavior, getList, getText, set, switchTo);
+        UiSwitchTo switchTo = getSwitchToBehavior(locatorType, locatorValue, getBehavior, getDriver);
+        return new UiElementBehaviors(description, getBehavior, getList, getText, set, switchTo, getDriver);
     }
 
     public static UiElementBehaviors getInstanceByLocatorAttributeOrdinal(
             String description, String locatorType, String locatorValue, String attribute, String attributeValue, Integer ordinal) {
+        UiDriverGet getDriver = UiDriverGet.getInstance();
         WebElementGet getBehavior =
                 WebElementGetByLocatorAttributeOrdinal.getInstance(
-                        description, locatorType, locatorValue, attribute, attributeValue, ordinal);
-        WebGetElementList getList =
-                WebGetElementListByLocatorAttributeOrdinal.getInstance(locatorType, locatorValue, attribute, attributeValue, ordinal);
+                        description, locatorType, locatorValue, attribute, attributeValue, ordinal, getDriver);
+        UiElementGetList getList =
+                WebGetElementListByLocatorAttributeOrdinal.getInstance(locatorType, locatorValue, attribute, attributeValue, ordinal, getDriver);
         UiElementSet set = getSetBehavior(locatorType, locatorValue, getBehavior);
         UiElementGetText getText = getGetTextBehavior(locatorType, locatorValue, getBehavior);
-        UiSwitchTo switchTo = getSwitchToBehavior(locatorType, locatorValue, getBehavior);
-        return new UiElementBehaviors(description, getBehavior, getList, getText, set, switchTo);
+        UiSwitchTo switchTo = getSwitchToBehavior(locatorType, locatorValue, getBehavior, getDriver);
+        return new UiElementBehaviors(description, getBehavior, getList, getText, set, switchTo, getDriver);
     }
 
     public static UiElementBehaviors getInstanceByLocatorAttributeParent(
             String description, String locatorType, String locatorValue,
             String attribute, String attributeValue, WebElementGet getParent) {
+        UiDriverGet getDriver = UiDriverGet.getInstance();
         WebElementGet getBehavior =
-                WebElementGetByLocatorAttributeParent.getInstance(description, locatorType, locatorValue, attribute, attributeValue, getParent);
-        WebGetElementList getList =
-                WebGetElementListByLocatorAttributeParent.getInstance(locatorType, locatorValue, attribute, attributeValue, getParent);
+                WebElementGetByLocatorAttributeParent.getInstance(description, locatorType, locatorValue, attribute, attributeValue, getParent, getDriver);
+        UiElementGetList getList =
+                WebGetElementListByLocatorAttributeParent.getInstance(locatorType, locatorValue, attribute, attributeValue, getParent, getDriver);
         UiElementSet set = getSetBehavior(locatorType, locatorValue, getBehavior);
         UiElementGetText getText = getGetTextBehavior(locatorType, locatorValue, getBehavior);
-        UiSwitchTo switchTo = getSwitchToBehavior(locatorType, locatorValue, getBehavior);
-        return new UiElementBehaviors(description, getBehavior, getList, getText, set, switchTo);
+        UiSwitchTo switchTo = getSwitchToBehavior(locatorType, locatorValue, getBehavior, getDriver);
+        return new UiElementBehaviors(description, getBehavior, getList, getText, set, switchTo, getDriver);
     }
 
     public static UiElementBehaviors getInstanceByLocatorOrdinalParent(
             String description, String locatorType, String locatorValue,
             Integer ordinal, WebElementGet getParent) {
+        UiDriverGet getDriver = UiDriverGet.getInstance();
         WebElementGet getBehavior =
-                WebElementGetByLocatorOrdinalParent.getInstance(description, locatorType, locatorValue, ordinal, getParent);
-        WebGetElementList getList =
-                WebGetElementListByLocatorOrdinalParent.getInstance(locatorType, locatorValue, ordinal, getParent);
+                WebElementGetByLocatorOrdinalParent.getInstance(description, locatorType, locatorValue, ordinal, getParent, getDriver);
+        UiElementGetList getList =
+                WebGetElementListByLocatorOrdinalParent.getInstance(locatorType, locatorValue, ordinal, getParent, getDriver);
         UiElementSet set = getSetBehavior(locatorType, locatorValue, getBehavior);
         UiElementGetText getText = getGetTextBehavior(locatorType, locatorValue, getBehavior);
-        UiSwitchTo switchTo = getSwitchToBehavior(locatorType, locatorValue, getBehavior);
-        return new UiElementBehaviors(description, getBehavior, getList, getText, set, switchTo);
+        UiSwitchTo switchTo = getSwitchToBehavior(locatorType, locatorValue, getBehavior, getDriver);
+        return new UiElementBehaviors(description, getBehavior, getList, getText, set, switchTo, getDriver);
     }
 
     public static UiElementBehaviors getInstanceByLocatorAttributeOrdinalParent(
             String description, String locatorType, String locatorValue,
             String attribute, String attributeValue, Integer ordinal, WebElementGet getParent) {
+        UiDriverGet getDriver = UiDriverGet.getInstance();
         WebElementGet getBehavior =
                 WebElementGetByLocatorAttributeOrdinalParent.getInstance(
-                        description, locatorType, locatorValue, attribute, attributeValue, ordinal, getParent);
-        WebGetElementList getList =
+                        description, locatorType, locatorValue, attribute, attributeValue, ordinal, getParent, getDriver);
+        UiElementGetList getList =
                 WebGetElementListByLocatorAttributeOrdinalParent.getInstance(
-                        locatorType, locatorValue, attribute, attributeValue, ordinal, getParent);
+                        locatorType, locatorValue, attribute, attributeValue, ordinal, getParent, getDriver);
         UiElementSet set = getSetBehavior(locatorType, locatorValue, getBehavior);
         UiElementGetText getText = getGetTextBehavior(locatorType, locatorValue, getBehavior);
-        UiSwitchTo switchTo = getSwitchToBehavior(locatorType, locatorValue, getBehavior);
-        return new UiElementBehaviors(description, getBehavior, getList, getText, set, switchTo);
+        UiSwitchTo switchTo = getSwitchToBehavior(locatorType, locatorValue, getBehavior, getDriver);
+        return new UiElementBehaviors(description, getBehavior, getList, getText, set, switchTo, getDriver);
     }
 
-    private static UiSwitchTo getSwitchToBehavior(String locatorType, String locatorValue, UiElementGet getElement) {
+    private static UiSwitchTo getSwitchToBehavior(String locatorType, String locatorValue, UiElementGet getElement, UiDriverGet getDriver) {
         if (UiLocatorType.TAG.equals(locatorType) && "iframe".equals(locatorValue)) {
-            return UiSwitchTo.getFrameInstance(getElement);
+            return UiSwitchTo.getFrameInstance(getElement, getDriver);
         } else {
-            return UiSwitchTo.getViewInstance();
+            return UiSwitchTo.getViewInstance(getDriver);
         }
     }
 
@@ -197,11 +207,11 @@ public class UiElementBehaviors {
     }
 
     public void setActiveBehavior(String attribute, String value) {
-        isActive = UiElementState.getIsActiveInstance(getElement, attribute, value);
+        isActive = UiElementState.getIsStateInstance(getElement, attribute, value, getDriver);
     }
 
     public void setSelectedBehavior(String attribute, String value) {
-        isSelected = UiElementState.getIsActiveInstance(getElement, attribute, value);
+        isSelected = UiElementState.getIsStateInstance(getElement, attribute, value, getDriver);
     }
 
     private Logger getLogger() {

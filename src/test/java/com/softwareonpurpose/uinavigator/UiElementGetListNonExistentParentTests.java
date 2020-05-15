@@ -1,22 +1,16 @@
 package com.softwareonpurpose.uinavigator;
 
-import com.softwareonpurpose.uinavigator.web.WebHost;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class UiElementGetListNonExistentParentTests {
-    @AfterMethod(alwaysRun = true)
-    public void terminate() {
-        WebHost.quitInstance();
-    }
-
+public class UiElementGetListNonExistentParentTests extends TestClass {
     @Test
     public void testGetList_nonExistentParent() {
+        host = UiHost.getInstance();
         int expected = 0;
         UiElement parent = UiElement.getInstance("Parent", UiLocatorType.TAG, "bogus");
-        MockView.directNav();
+        MockView.directNav(host);
         final String description = "Element List";
         final String locatorValue = "select";
         int actual = UiElement.getList(description, UiLocatorType.TAG, locatorValue, parent).size();

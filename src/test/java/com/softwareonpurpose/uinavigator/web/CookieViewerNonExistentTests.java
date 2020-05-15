@@ -1,32 +1,13 @@
 package com.softwareonpurpose.uinavigator.web;
 
+import com.softwareonpurpose.uinavigator.TestClass;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class CookieViewerNonExistentTests {
-    private WebDriver driver;
-
-    @AfterMethod
-    public void terminate() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
-
-    @Test
-    public void testGetCookieValue_nonexistent() {
-        driver = (WebDriver) ChromeDriverInstantiation.getInstance().instantiateDriver();
-        String expected = null;
-        CookieViewer viewer = CookieViewer.getInstance(driver);
-        String actual = viewer.getCookieValue("unknown", "domain", "path");
-        //noinspection ConstantConditions
-        Assert.assertEquals(actual, expected, "Failed to return an instance of CookieViewer");
-    }
-
+public class CookieViewerNonExistentTests extends TestClass {
     @Test
     public void testGetCookieValue_nameQualifiedNonExistent() {
         driver = (WebDriver) ChromeDriverInstantiation.getInstance().instantiateDriver();

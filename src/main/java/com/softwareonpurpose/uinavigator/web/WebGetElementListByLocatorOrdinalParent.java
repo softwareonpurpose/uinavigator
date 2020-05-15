@@ -15,22 +15,21 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
-import com.softwareonpurpose.uinavigator.UiLocatorType;
-import com.softwareonpurpose.uinavigator.UiElement;
+import com.softwareonpurpose.uinavigator.*;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class WebGetElementListByLocatorOrdinalParent implements WebGetElementList {
+public class WebGetElementListByLocatorOrdinalParent extends UiElementGetList {
     private final Integer ordinal;
     private final WebElementGet getParent;
     private final String locatorType;
     private final String locatorValue;
 
-    private WebGetElementListByLocatorOrdinalParent(String locatorType, String locatorValue, Integer ordinal, WebElementGet getParent) {
+    private WebGetElementListByLocatorOrdinalParent(String locatorType, String locatorValue, Integer ordinal, WebElementGet getParent, UiDriverGet getDriver) {
+        super(getDriver);
         this.ordinal = ordinal;
         this.getParent = (UiLocatorType.TAG.equals(locatorType) && "body".equals(locatorValue)) ? null : getParent;
         this.locatorType = locatorType;
@@ -38,19 +37,19 @@ public class WebGetElementListByLocatorOrdinalParent implements WebGetElementLis
     }
 
     public static WebGetElementListByLocatorOrdinalParent getInstance(
-            String locatorType, String locatorValue, Integer ordinal, WebElementGet getParent) {
-        return new WebGetElementListByLocatorOrdinalParent(locatorType, locatorValue, ordinal, getParent);
+            String locatorType, String locatorValue, Integer ordinal, UiElementGet getParent, UiDriverGet getDriver) {
+        return new WebGetElementListByLocatorOrdinalParent(locatorType, locatorValue, ordinal, (WebElementGet) getParent, getDriver);
     }
 
     @Override
     public Collection<UiElement> execute() {
         List<UiElement> elements = new ArrayList<>();
-        List<WebElement> candidates;
+        List<Object> candidates = new ArrayList<>();
         By locator = WebElementLocator.getInstance(locatorType, locatorValue);
         if (getParent == null) {
-            candidates = WebHost.getInstance().findUiElements(locator);
+            candidates.addAll(UiDriverFindElements.getInstance(getDriver).execute(locator));
         } else {
-            candidates = (getParent.execute()).findElements(locator);
+            candidates.addAll((getParent.execute()).findElements(locator));
         }
         if (candidates.size() >= ordinal) {
             elements.add(UiElement.getInstance(String.format("#%d", ordinal), locatorType, locatorValue, ordinal));

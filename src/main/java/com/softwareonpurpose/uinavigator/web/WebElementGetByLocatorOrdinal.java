@@ -15,6 +15,8 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
+import com.softwareonpurpose.uinavigator.UiDriverFindElements;
+import com.softwareonpurpose.uinavigator.UiDriverGet;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -24,22 +26,22 @@ public class WebElementGetByLocatorOrdinal extends WebElementGet {
     private final Integer ordinal;
     private transient WebElement element;
 
-    private WebElementGetByLocatorOrdinal(String description, By locator, Integer ordinal) {
-        super(description, locator);
+    private WebElementGetByLocatorOrdinal(String description, By locator, Integer ordinal, UiDriverGet getDriver) {
+        super(description, locator, getDriver);
         this.ordinal = ordinal;
     }
 
     public static WebElementGet getInstance(
-            String description, String locatorType, String locatorValue, Integer ordinal) {
+            String description, String locatorType, String locatorValue, Integer ordinal, UiDriverGet getDriver) {
         return new WebElementGetByLocatorOrdinal(
-                description, WebElementLocator.getInstance(locatorType, locatorValue), ordinal);
+                description, WebElementLocator.getInstance(locatorType, locatorValue), ordinal, getDriver);
     }
 
     @Override
     public WebElement execute() {
         if (element == null) {
-            final List<WebElement> elements = WebHost.getInstance().findUiElements(locator);
-            element = elements.size() >= ordinal ? elements.get(ordinal - 1) : null;
+            final List<Object> elements = UiDriverFindElements.getInstance(getDriver).execute(locator);
+            element = elements.size() >= ordinal ? (WebElement) elements.get(ordinal - 1) : null;
         }
         return element;
     }

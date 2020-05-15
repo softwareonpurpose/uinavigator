@@ -15,6 +15,8 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
+import com.softwareonpurpose.uinavigator.UiDriverFindElements;
+import com.softwareonpurpose.uinavigator.UiDriverGet;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -26,8 +28,8 @@ public class WebElementGetByLocatorAttributeOrdinal extends WebElementGet {
     private final Integer ordinal;
     private transient WebElement element;
 
-    private WebElementGetByLocatorAttributeOrdinal(String description, By locator, String attribute, String attributeValue, Integer ordinal) {
-        super(description, locator);
+    private WebElementGetByLocatorAttributeOrdinal(String description, By locator, String attribute, String attributeValue, Integer ordinal, UiDriverGet getDriver) {
+        super(description, locator, getDriver);
         this.attribute = attribute;
         this.attributeValue = attributeValue;
         this.ordinal = ordinal;
@@ -35,22 +37,23 @@ public class WebElementGetByLocatorAttributeOrdinal extends WebElementGet {
 
     public static WebElementGetByLocatorAttributeOrdinal getInstance(
             String description, String locatorType, String locatorValue,
-            String attribute, String attributeValue, Integer ordinal) {
+            String attribute, String attributeValue, Integer ordinal, UiDriverGet getDriver) {
         return new WebElementGetByLocatorAttributeOrdinal(
-                description, WebElementLocator.getInstance(locatorType, locatorValue), attribute, attributeValue, ordinal);
+                description, WebElementLocator.getInstance(locatorType, locatorValue), attribute, attributeValue, ordinal, getDriver);
     }
 
     @Override
     public WebElement execute() {
         if (element == null) {
-            List<WebElement> candidates = WebHost.getInstance().findUiElements(locator);
+            List<Object> candidates = UiDriverFindElements.getInstance(getDriver).execute(locator);
             Integer ordinal = 0;
-            for (WebElement candidate : candidates) {
-                final String attributeValue = candidate.getAttribute(this.attribute);
+            for (Object candidate : candidates) {
+                final WebElement webCandidate = (WebElement) candidate;
+                final String attributeValue = webCandidate.getAttribute(this.attribute);
                 if (attributeValue.equals(this.attributeValue)) {
                     ordinal += 1;
                     if (ordinal.equals(this.ordinal)) {
-                        element = candidate;
+                        element = webCandidate;
                     }
                 }
             }

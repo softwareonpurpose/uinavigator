@@ -15,9 +15,12 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
+import com.softwareonpurpose.uinavigator.UiDriverFindElements;
+import com.softwareonpurpose.uinavigator.UiDriverGet;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WebElementGetByLocatorAttributeParent extends WebElementGet {
@@ -28,8 +31,8 @@ public class WebElementGetByLocatorAttributeParent extends WebElementGet {
 
     private WebElementGetByLocatorAttributeParent(
             String description, By locator, String attribute, String attributeValue,
-            WebElementGet getParent) {
-        super(description, locator);
+            WebElementGet getParent, UiDriverGet getDriver) {
+        super(description, locator, getDriver);
         this.attribute = attribute;
         this.attributeValue = attributeValue;
         this.getParent = (new By.ByTagName("body").equals(locator)) ? null : getParent;
@@ -37,24 +40,25 @@ public class WebElementGetByLocatorAttributeParent extends WebElementGet {
 
     public static WebElementGetByLocatorAttributeParent getInstance(
             String description, String locatorType, String locatorValue,
-            String attribute, String attributeValue, WebElementGet getParent) {
+            String attribute, String attributeValue, WebElementGet getParent, UiDriverGet getDriver) {
         return new WebElementGetByLocatorAttributeParent(
-                description, WebElementLocator.getInstance(locatorType, locatorValue), attribute, attributeValue, getParent);
+                description, WebElementLocator.getInstance(locatorType, locatorValue), attribute, attributeValue, getParent, getDriver);
     }
 
     @Override
     public WebElement execute() {
         if (element == null) {
-            List<WebElement> candidates;
+            List<Object> candidates = new ArrayList<>();
             if (getParent == null) {
-                candidates = WebHost.getInstance().findUiElements(locator);
+                candidates.addAll(UiDriverFindElements.getInstance(getDriver).execute(locator));
             } else {
-                candidates = (getParent.execute()).findElements(locator);
+                candidates.addAll((getParent.execute()).findElements(locator));
             }
-            for (WebElement candidate : candidates) {
-                final String attributeValue = candidate.getAttribute(this.attribute);
+            for (Object candidate : candidates) {
+                final WebElement webCandidate = (WebElement) candidate;
+                final String attributeValue = webCandidate.getAttribute(this.attribute);
                 if (attributeValue != null && attributeValue.equals(this.attributeValue)) {
-                    element = candidate;
+                    element = webCandidate;
                 }
             }
         }

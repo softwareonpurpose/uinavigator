@@ -1,21 +1,15 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.MockView;
-import com.softwareonpurpose.uinavigator.UiLocatorType;
+import com.softwareonpurpose.uinavigator.*;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class WebElementGetByLocatorAttributeOrdinalParentNullParentTests {
-    @AfterMethod(alwaysRun = true)
-    public void terminate() {
-        WebHost.quitInstance();
-    }
-
+public class WebElementGetByLocatorAttributeOrdinalParentNullParentTests extends TestClass {
     @Test
     public void testExecute_parentNull() {
+        host = UiHost.getInstance();
         String description = "View";
         final String attribute = "data-test";
         final String attributeValue = "view-element";
@@ -27,8 +21,8 @@ public class WebElementGetByLocatorAttributeOrdinalParentNullParentTests {
         final WebElementGetByLocatorAttributeOrdinalParent getBehavior =
                 WebElementGetByLocatorAttributeOrdinalParent
                         .getInstance(description, UiLocatorType.TAG, locatorValue,
-                                attribute, attributeValue, ordinal, getParent);
-        MockView.directNav();
+                                attribute, attributeValue, ordinal, getParent, UiDriverGet.getInstance());
+        MockView.directNav(host);
         //noinspection rawtypes
         Class actual = getBehavior.execute().getClass();
         Assert.assertEquals(actual, expected, "Failed to return an instance of WebElement");

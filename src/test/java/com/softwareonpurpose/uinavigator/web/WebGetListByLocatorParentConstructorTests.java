@@ -1,23 +1,18 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.MockView;
-import com.softwareonpurpose.uinavigator.UiLocatorType;
+import com.softwareonpurpose.uinavigator.*;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class WebGetListByLocatorParentConstructorTests {
-    @AfterMethod(alwaysRun = true)
-    public void terminate() {
-        WebHost.quitInstance();
-    }
-
+public class WebGetListByLocatorParentConstructorTests extends TestClass {
     @Test
     public void testConstructor_optionTagParentNull() {
-        MockView.directNav();
+        host = UiHost.getInstance();
+        MockView.directNav(host);
         Class<WebGetElementListByLocatorParent> expected = WebGetElementListByLocatorParent.class;
-        Class actual = WebGetElementListByLocatorParent.getInstance(UiLocatorType.TAG, "option", null).getClass();
+        //noinspection rawtypes
+        Class actual = WebGetElementListByLocatorParent.getInstance(UiLocatorType.TAG, "option", null, UiDriverGet.getInstance()).getClass();
         Assert.assertEquals(actual, expected, "Failed to return an instance of WebGetListByLocatorParent");
     }
 }

@@ -15,9 +15,12 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
+import com.softwareonpurpose.uinavigator.UiDriverFindElements;
+import com.softwareonpurpose.uinavigator.UiDriverGet;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WebElementGetByLocatorOrdinalParent extends WebElementGet {
@@ -26,29 +29,29 @@ public class WebElementGetByLocatorOrdinalParent extends WebElementGet {
     private transient WebElement element;
 
     private WebElementGetByLocatorOrdinalParent(
-            String description, By locator, Integer ordinal, WebElementGet getParent) {
-        super(description, locator);
+            String description, By locator, Integer ordinal, WebElementGet getParent, UiDriverGet getDriver) {
+        super(description, locator, getDriver);
         this.ordinal = ordinal;
         this.getParent = (new By.ByTagName("body").equals(locator)) ? null : getParent;
     }
 
     public static WebElementGetByLocatorOrdinalParent getInstance(
             String description, String locatorType, String locatorValue,
-            Integer ordinal, WebElementGet getParent) {
+            Integer ordinal, WebElementGet getParent, UiDriverGet getDriver) {
         return new WebElementGetByLocatorOrdinalParent(
-                description, WebElementLocator.getInstance(locatorType, locatorValue), ordinal, getParent);
+                description, WebElementLocator.getInstance(locatorType, locatorValue), ordinal, getParent, getDriver);
     }
 
     @Override
     public WebElement execute() {
         if (element == null) {
-            List<WebElement> elements;
+            List<Object> elements = new ArrayList<>();
             if (getParent == null) {
-                elements = WebHost.getInstance().findUiElements(locator);
+                elements.addAll(UiDriverFindElements.getInstance(getDriver).execute(locator));
             } else {
-                elements = (getParent.execute()).findElements(locator);
+                elements.addAll((getParent.execute()).findElements(locator));
             }
-            element = elements.size() >= ordinal ? elements.get(ordinal - 1) : null;
+            element = elements.size() >= ordinal ? (WebElement) elements.get(ordinal - 1) : null;
         }
         return element;
     }

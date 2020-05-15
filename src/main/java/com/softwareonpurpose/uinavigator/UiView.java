@@ -15,7 +15,6 @@ package com.softwareonpurpose.uinavigator;
   limitations under the License.
  */
 
-import com.softwareonpurpose.uinavigator.web.WebHost;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
@@ -27,33 +26,35 @@ public abstract class UiView {
     private final UiElement viewElement;
 
     private final String address;
+    private final UiHost host;
 
-    protected UiView(String viewAddress, UiElement viewElement) {
+    protected UiView(String viewAddress, UiElement viewElement, UiHost host) {
         this.address = viewAddress;
         this.viewElement = viewElement;
+        this.host = host;
     }
 
-    public static <T extends UiView> T expect(Class<T> viewClass) {
+    public static <T extends UiView> T expect(Class<T> viewClass, UiHost host) {
         String invalidCharacters =
                 String.format("%s|%s|%s", "(?<=[A-Z])(?=[A-Z][a-z])", "(?<=[^A-Z])(?=[A-Z])", "(?<=[A-Za-z])(?=[^A-Za-z])");
         final String viewClassName = viewClass.getSimpleName().replaceAll(invalidCharacters, " ");
         LoggerFactory.getLogger("").info(String.format("Expect '%s'", viewClassName));
-        T view = construct(viewClass);
+        T view = construct(viewClass, host);
         if (!view.confirmElementStates()) {
             String messageFormat = "Unable to confirm the state of '%s'";
             String message = String.format(messageFormat, viewClassName);
             LoggerFactory.getLogger("").info(message);
         }
-        return construct(viewClass);
+        return construct(viewClass, host);
     }
 
-    protected static <T extends UiView> T construct(Class<T> viewClass) {
+    protected static <T extends UiView> T construct(Class<T> viewClass, UiHost host) {
         T view = null;
         try {
             Constructor<T> constructor;
             try {
-                constructor = viewClass.getConstructor();
-                view = constructor.newInstance();
+                constructor = viewClass.getConstructor(UiHost.class);
+                view = constructor.newInstance(host);
             } catch (NoSuchMethodException | InvocationTargetException e) {
                 LoggerFactory.getLogger(viewClass).error(ERROR_CONSTRUCTOR_SCOPE);
                 e.printStackTrace();
@@ -66,14 +67,14 @@ public abstract class UiView {
     }
 
     protected void load() {
-        WebHost.getInstance().load(address);
+        host.load(address);
         getElement().switchTo();
     }
 
     protected void load(String relativeUri) {
         relativeUri = relativeUri.startsWith("?") ? relativeUri : String.format("/%s", relativeUri);
         String explicitUri = String.format("%s%s", address, relativeUri);
-        WebHost.getInstance().load(explicitUri);
+        host.load(explicitUri);
         getElement().switchTo();
     }
 

@@ -1,22 +1,13 @@
 package com.softwareonpurpose.uinavigator.web;
 
+import com.softwareonpurpose.uinavigator.TestClass;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class CookieViewerNameDomainQualifiedNameOnlyTests {
-    private WebDriver driver;
-
-    @AfterMethod
-    public void terminate() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
-
+public class CookieViewerNameDomainQualifiedNameOnlyTests extends TestClass {
     @Test
     public void testGetCookieValue_nameDomainQualifiedNameOnly() {
         driver = (WebDriver) ChromeDriverInstantiation.getInstance().instantiateDriver();

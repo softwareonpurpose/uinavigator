@@ -1,17 +1,10 @@
 package com.softwareonpurpose.uinavigator;
 
-import com.softwareonpurpose.uinavigator.web.WebHost;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class UiElementIsActiveTests {
-    @AfterMethod(alwaysRun = true)
-    public void terminate() {
-        WebHost.quitInstance();
-    }
-
+public class UiElementIsActiveTests extends TestClass {
     @Test
     public void testSetActiveBehavior() {
         String activeValue = "active";
@@ -25,12 +18,13 @@ public class UiElementIsActiveTests {
 
     @Test
     public void testIsActive() {
+        host = UiHost.getInstance();
         UiElement element = UiElement.getInstance("Element", UiLocatorType.ID, "empty-select");
         String attribute = "data-test";
         String value = "active";
         element.setActiveBehavior(attribute, value);
         boolean expected = true;
-        MockView.directNav();
+        MockView.directNav(host);
         boolean actual = element.isActive();
         //noinspection ConstantConditions
         Assert.assertEquals(actual, expected, "Failed to return expected state");

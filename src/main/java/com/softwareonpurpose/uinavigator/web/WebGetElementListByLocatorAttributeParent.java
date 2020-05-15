@@ -15,8 +15,7 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
-import com.softwareonpurpose.uinavigator.UiLocatorType;
-import com.softwareonpurpose.uinavigator.UiElement;
+import com.softwareonpurpose.uinavigator.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -24,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class WebGetElementListByLocatorAttributeParent implements WebGetElementList {
+public class WebGetElementListByLocatorAttributeParent extends UiElementGetList {
     private final String attribute;
     private final String attributeValue;
     private final WebElementGet getParent;
@@ -33,7 +32,8 @@ public class WebGetElementListByLocatorAttributeParent implements WebGetElementL
 
     private WebGetElementListByLocatorAttributeParent(
             String locatorType, String locatorValue,
-            String attribute, String attributeValue, WebElementGet getParent) {
+            String attribute, String attributeValue, WebElementGet getParent, UiDriverGet getDriver) {
+        super(getDriver);
         this.attribute = attribute;
         this.attributeValue = attributeValue;
         this.getParent = (UiLocatorType.TAG.equals(locatorType) && "body".equals(locatorValue)) ? null : getParent;
@@ -43,27 +43,30 @@ public class WebGetElementListByLocatorAttributeParent implements WebGetElementL
 
     public static WebGetElementListByLocatorAttributeParent getInstance(
             String locatorType, String locatorValue,
-            String attribute, String attributeValue, WebElementGet getParent) {
-        return new WebGetElementListByLocatorAttributeParent(locatorType, locatorValue, attribute, attributeValue, getParent);
+            String attribute, String attributeValue, WebElementGet getParent, UiDriverGet getDriver) {
+        return new WebGetElementListByLocatorAttributeParent(locatorType, locatorValue, attribute, attributeValue, getParent, getDriver);
     }
 
     @Override
     public Collection<UiElement> execute() {
         List<UiElement> elements = new ArrayList<>();
-        List<WebElement> candidates;
+        List<Object> candidates = new ArrayList<>();
         By locator = WebElementLocator.getInstance(locatorType, locatorValue);
         if (getParent == null) {
-            candidates = WebHost.getInstance().findUiElements(locator);
+            candidates.addAll(UiDriverFindElements.getInstance(getDriver).execute(locator));
         } else {
-            candidates = (getParent.execute()).findElements(locator);
+            candidates.addAll((getParent.execute()).findElements(locator));
         }
         int ordinal = 0;
-        for (WebElement candidate : candidates) {
-            final String attributeValue = candidate.getAttribute(this.attribute);
+        for (Object candidate : candidates) {
+            final WebElement webCandidate = (WebElement) candidate;
+            final String attributeValue = webCandidate.getAttribute(this.attribute);
             if (attributeValue.equals(this.attributeValue)) {
                 ordinal += 1;
                 final String description = String.format("#%d", ordinal);
-                elements.add(UiElement.getInstance(description, locatorType, locatorValue, this.attribute, this.attributeValue));
+                elements.add(
+                        UiElement.getInstance(
+                                description, locatorType, locatorValue, this.attribute, this.attributeValue));
             }
         }
         return elements;

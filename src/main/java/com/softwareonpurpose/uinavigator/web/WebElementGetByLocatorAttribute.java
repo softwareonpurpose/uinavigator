@@ -15,6 +15,8 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
+import com.softwareonpurpose.uinavigator.UiDriverFindElements;
+import com.softwareonpurpose.uinavigator.UiDriverGet;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -26,27 +28,28 @@ public class WebElementGetByLocatorAttribute extends WebElementGet {
     private final String attributeValue;
     private transient WebElement element;
 
-    private WebElementGetByLocatorAttribute(String description, By locator, String attribute, String attributeValue) {
-        super(description, locator);
+    private WebElementGetByLocatorAttribute(String description, By locator, String attribute, String attributeValue, UiDriverGet getDriver) {
+        super(description, locator, getDriver);
         this.attribute = attribute;
         this.attributeValue = attributeValue;
     }
 
     public static WebElementGetByLocatorAttribute getInstance(
-            String description, String locatorType, String locatorValue, String attribute, String attributeValue) {
+            String description, String locatorType, String locatorValue, String attribute, String attributeValue, UiDriverGet getDriver) {
         return new WebElementGetByLocatorAttribute(
-                description, WebElementLocator.getInstance(locatorType, locatorValue), attribute, attributeValue);
+                description, WebElementLocator.getInstance(locatorType, locatorValue), attribute, attributeValue, getDriver);
     }
 
     @Override
     public WebElement execute() {
         if (element == null) {
-            List<WebElement> candidates = WebHost.getInstance().findUiElements(locator);
+            List<Object> candidates = UiDriverFindElements.getInstance(getDriver).execute(locator);
             List<WebElement> elements = new ArrayList<>();
-            for (WebElement candidate : candidates) {
-                final String attributeValue = candidate.getAttribute(this.attribute);
+            for (Object candidate : candidates) {
+                final WebElement webCandidate = (WebElement) candidate;
+                final String attributeValue = webCandidate.getAttribute(this.attribute);
                 if (attributeValue != null && attributeValue.equals(this.attributeValue)) {
-                    elements.add(candidate);
+                    elements.add(webCandidate);
                 }
             }
             element = elements.size() == 0 ? null : elements.get(0);

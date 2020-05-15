@@ -1,6 +1,8 @@
 package com.softwareonpurpose.uinavigator.web;
 
+import com.softwareonpurpose.uinavigator.UiDriverGet;
 import com.softwareonpurpose.uinavigator.UiSwitchTo;
+import org.openqa.selenium.WebDriver;
 
 /*
   Copyright 2020 Craig A. Stockton
@@ -18,11 +20,12 @@ import com.softwareonpurpose.uinavigator.UiSwitchTo;
   limitations under the License.
  */
 public class WebSwitchToView extends UiSwitchTo {
-    public WebSwitchToView() {
+    public WebSwitchToView(UiDriverGet getDriver) {
+        super(getDriver);
     }
 
     @Override
     public void execute() {
-        WebHost.getInstance().switchTo();
+        ((WebDriver) getDriver.execute()).switchTo().defaultContent();
     }
 }

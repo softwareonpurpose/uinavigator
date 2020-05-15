@@ -15,9 +15,12 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
+import com.softwareonpurpose.uinavigator.UiDriverFindElements;
+import com.softwareonpurpose.uinavigator.UiDriverGet;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WebElementGetByLocatorAttributeOrdinalParent extends WebElementGet {
@@ -29,8 +32,8 @@ public class WebElementGetByLocatorAttributeOrdinalParent extends WebElementGet 
 
     private WebElementGetByLocatorAttributeOrdinalParent(
             String description, By locator, String attribute, String attributeValue,
-            Integer ordinal, WebElementGet getParent) {
-        super(description, locator);
+            Integer ordinal, WebElementGet getParent, UiDriverGet getDriver) {
+        super(description, locator, getDriver);
         this.attributeValue = attributeValue;
         this.attribute = attribute;
         this.ordinal = ordinal;
@@ -39,28 +42,29 @@ public class WebElementGetByLocatorAttributeOrdinalParent extends WebElementGet 
 
     public static WebElementGetByLocatorAttributeOrdinalParent getInstance(
             String description, String locatorType, String locatorValue,
-            String attribute, String attributeValue, Integer ordinal, WebElementGet getParent) {
+            String attribute, String attributeValue, Integer ordinal, WebElementGet getParent, UiDriverGet getDriver) {
         return new WebElementGetByLocatorAttributeOrdinalParent(
                 description, WebElementLocator.getInstance(locatorType, locatorValue),
-                attribute, attributeValue, ordinal, getParent);
+                attribute, attributeValue, ordinal, getParent, getDriver);
     }
 
     @Override
     public WebElement execute() {
         if (element == null) {
-            List<WebElement> candidates;
+            List<Object> candidates = new ArrayList<>();
             if (getParent == null) {
-                candidates = WebHost.getInstance().findUiElements(locator);
+                candidates.addAll(UiDriverFindElements.getInstance(getDriver).execute(locator));
             } else {
-                candidates = ((WebElement) getParent.execute()).findElements(locator);
+                candidates.addAll((getParent.execute()).findElements(locator));
             }
             Integer ordinal = 0;
-            for (WebElement candidate : candidates) {
-                final String attributeValue = candidate.getAttribute(this.attribute);
+            for (Object candidate : candidates) {
+                final WebElement webCandidate = (WebElement) candidate;
+                final String attributeValue = webCandidate.getAttribute(this.attribute);
                 if (attributeValue.equals(this.attributeValue)) {
                     ordinal += 1;
                     if (ordinal.equals(this.ordinal)) {
-                        element = candidate;
+                        element = webCandidate;
                     }
                 }
             }

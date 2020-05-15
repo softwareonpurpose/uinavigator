@@ -5,11 +5,12 @@ import com.softwareonpurpose.uinavigator.UiDriverLoad;
 import org.openqa.selenium.WebDriver;
 
 public class WebDriverLoad extends UiDriverLoad {
-    public WebDriverLoad() {
+    public WebDriverLoad(UiDriverGet getDriver) {
+        super(getDriver);
     }
 
     @Override
     public void execute(String address) {
-        ((WebDriver) UiDriverGet.execute()).get(address);
+        ((WebDriver) getDriver.execute()).get(address);
     }
 }

@@ -1,7 +1,8 @@
 package com.softwareonpurpose.uinavigator.web;
 
+import com.softwareonpurpose.uinavigator.UiDriverGet;
 import com.softwareonpurpose.uinavigator.UiSwitchTo;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WebDriver;
 
 /*
   Copyright 2020 Craig A. Stockton
@@ -21,12 +22,13 @@ import org.openqa.selenium.WebElement;
 public class WebSwitchToFrame extends UiSwitchTo {
     private final WebElementGet getElement;
 
-    public WebSwitchToFrame(WebElementGet getElement) {
+    public WebSwitchToFrame(WebElementGet getElement, UiDriverGet getDriver) {
+        super(getDriver);
         this.getElement = getElement;
     }
 
     @Override
     public void execute() {
-        WebHost.getInstance().switchTo((WebElement) getElement.execute());
+        ((WebDriver) getDriver).switchTo().frame(getElement.execute());
     }
 }

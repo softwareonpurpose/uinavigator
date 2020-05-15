@@ -16,6 +16,12 @@ package com.softwareonpurpose.uinavigator;
  */
 
 public abstract class UiElementGet {
+    protected final UiDriverGet getDriver;
+
+    protected UiElementGet(UiDriverGet getDriver) {
+        this.getDriver = getDriver;
+    }
+
     public abstract Object execute();
 
     @Override

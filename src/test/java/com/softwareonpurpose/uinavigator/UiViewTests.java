@@ -1,24 +1,18 @@
 package com.softwareonpurpose.uinavigator;
 
-import com.softwareonpurpose.uinavigator.web.WebHost;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class UiViewTests {
-    @AfterMethod
-    public void terminate() {
-        WebHost.quitInstance();
-    }
-
+public class UiViewTests extends TestClass {
     @Test
     public void testExpect() {
+        host = UiHost.getInstance();
         //noinspection rawtypes
         Class expected = MockView.class;
-        UiView view = MockView.directNav();
+        UiView view = MockView.directNav(host);
         //noinspection rawtypes
-        Class actual = UiView.expect(view.getClass()).getClass();
+        Class actual = UiView.expect(view.getClass(), host).getClass();
         Assert.assertEquals(actual, expected, "Failed to return an instance of WebUiElement");
     }
 }

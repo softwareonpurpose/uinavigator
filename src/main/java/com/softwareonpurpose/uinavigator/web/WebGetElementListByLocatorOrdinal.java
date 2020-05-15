@@ -15,34 +15,37 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
+import com.softwareonpurpose.uinavigator.UiDriverFindElements;
+import com.softwareonpurpose.uinavigator.UiDriverGet;
 import com.softwareonpurpose.uinavigator.UiElement;
+import com.softwareonpurpose.uinavigator.UiElementGetList;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class WebGetElementListByLocatorOrdinal implements WebGetElementList {
+public class WebGetElementListByLocatorOrdinal extends UiElementGetList {
     private final Integer ordinal;
     private final String locatorType;
     private final String locatorValue;
 
-    private WebGetElementListByLocatorOrdinal(String locatorType, String locatorValue, Integer ordinal) {
+    private WebGetElementListByLocatorOrdinal(String locatorType, String locatorValue, Integer ordinal, UiDriverGet getDriver) {
+        super(getDriver);
         this.ordinal = ordinal;
         this.locatorValue = locatorValue;
         this.locatorType = locatorType;
     }
 
-    public static WebGetElementListByLocatorOrdinal getInstance(String locatorType, String locatorValue, Integer ordinal) {
-        return new WebGetElementListByLocatorOrdinal(locatorType, locatorValue, ordinal);
+    public static WebGetElementListByLocatorOrdinal getInstance(String locatorType, String locatorValue, Integer ordinal, UiDriverGet getDriver) {
+        return new WebGetElementListByLocatorOrdinal(locatorType, locatorValue, ordinal, getDriver);
     }
 
     @Override
     public Collection<UiElement> execute() {
         List<UiElement> elements = new ArrayList<>();
         By locator = WebElementLocator.getInstance(locatorType, locatorValue);
-        List<WebElement> candidates = WebHost.getInstance().findUiElements(locator);
+        List<Object> candidates = new ArrayList<>(UiDriverFindElements.getInstance(getDriver).execute(locator));
         if (candidates.size() >= ordinal) {
             elements.add(UiElement.getInstance(String.format("#%d", ordinal), locatorType, locatorValue, ordinal));
         }

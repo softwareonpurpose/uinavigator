@@ -1,8 +1,8 @@
 package com.softwareonpurpose.uinavigator.web;
 
+import com.softwareonpurpose.uinavigator.UiDriverGet;
 import com.softwareonpurpose.uinavigator.UiElementAttributeSet;
 import com.softwareonpurpose.uinavigator.UiElementGet;
-import org.openqa.selenium.WebElement;
 
 /*
   Copyright 2020 Craig A. Stockton
@@ -20,15 +20,16 @@ import org.openqa.selenium.WebElement;
   limitations under the License.
  */
 public class WebElementAttributeSet extends UiElementAttributeSet {
-    public WebElementAttributeSet(UiElementGet getBehavior) {
-        super(getBehavior);
+    public WebElementAttributeSet(UiElementGet getBehavior, UiDriverGet getDriver) {
+        super(getBehavior, getDriver);
     }
 
-    public static WebElementAttributeSet getInstance(UiElementGet getBehavior) {
-        return new WebElementAttributeSet(getBehavior);
+    public static WebElementAttributeSet getInstance(UiElementGet getBehavior, UiDriverGet getDriver) {
+        return new WebElementAttributeSet(getBehavior, getDriver);
     }
 
     public void execute(String attribute, String value) {
-        WebHost.getInstance().setAttribute((WebElement) getBehavior.execute(), attribute, value);
+        Object[] arguments = {getBehavior.execute(), attribute, value};
+        WebDriverScriptExecute.getInstance(getDriver).execute("arguments[0].setAttribute(arguments[1], arguments[2]);", arguments);
     }
 }

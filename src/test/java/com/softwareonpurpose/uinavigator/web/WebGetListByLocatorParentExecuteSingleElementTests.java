@@ -1,25 +1,19 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.MockView;
-import com.softwareonpurpose.uinavigator.UiLocatorType;
-import com.softwareonpurpose.uinavigator.UiElement;
+import com.softwareonpurpose.uinavigator.*;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class WebGetListByLocatorParentExecuteSingleElementTests {
-    @AfterMethod(alwaysRun = true)
-    public void terminate() {
-        WebHost.quitInstance();
-    }
-
+public class WebGetListByLocatorParentExecuteSingleElementTests extends TestClass {
     @Test
     public void testExecute_parentNull() {
-        MockView.directNav();
+        host = UiHost.getInstance();
+        MockView.directNav(host);
         Class<UiElement> expected = UiElement.class;
         final WebGetElementListByLocatorParent getListBehavior =
-                WebGetElementListByLocatorParent.getInstance(UiLocatorType.TAG, "body", null);
+                WebGetElementListByLocatorParent.getInstance(UiLocatorType.TAG, "body", null, UiDriverGet.getInstance());
+        //noinspection rawtypes
         Class actual = getListBehavior.execute().iterator().next().getClass();
         Assert.assertEquals(actual, expected, "Failed to return a list of WebUiElements");
     }

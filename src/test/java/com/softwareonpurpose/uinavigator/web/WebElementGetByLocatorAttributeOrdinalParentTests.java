@@ -1,25 +1,19 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.MockView;
-import com.softwareonpurpose.uinavigator.UiLocatorType;
+import com.softwareonpurpose.uinavigator.*;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class WebElementGetByLocatorAttributeOrdinalParentTests {
-    @AfterMethod(alwaysRun = true)
-    public void terminate() {
-        WebHost.quitInstance();
-    }
-
+public class WebElementGetByLocatorAttributeOrdinalParentTests extends TestClass {
     @Test
     public void testExecute() {
+        host = UiHost.getInstance();
         String parentDescription = "Form";
         final String parentLocatorValue = "form";
         WebElementGet getParent =
-                WebElementGetByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue);
+                WebElementGetByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue, UiDriverGet.getInstance());
         String description = "Select";
         final String attribute = "data-test";
         final String attributeValue = "select-element";
@@ -27,9 +21,9 @@ public class WebElementGetByLocatorAttributeOrdinalParentTests {
         final String locatorValue = "select";
         final WebElementGetByLocatorAttributeOrdinalParent getBehavior =
                 WebElementGetByLocatorAttributeOrdinalParent.getInstance(
-                        description, UiLocatorType.TAG, locatorValue, attribute, attributeValue, ordinal, getParent);
+                        description, UiLocatorType.TAG, locatorValue, attribute, attributeValue, ordinal, getParent, UiDriverGet.getInstance());
         Class<RemoteWebElement> expected = RemoteWebElement.class;
-        MockView.directNav();
+        MockView.directNav(host);
         //noinspection rawtypes
         Class actual = getBehavior.execute().getClass();
         Assert.assertEquals(actual, expected, "Failed to return an instance of WebElement");

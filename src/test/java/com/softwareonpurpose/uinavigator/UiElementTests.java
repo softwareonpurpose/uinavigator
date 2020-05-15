@@ -1,21 +1,15 @@
 package com.softwareonpurpose.uinavigator;
 
-import com.softwareonpurpose.uinavigator.web.WebHost;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class UiElementTests {
-    @AfterMethod(alwaysRun = true)
-    public void terminate() {
-        WebHost.quitInstance();
-    }
-
+public class UiElementTests extends TestClass {
     @Test
     public void testGetText() {
+        host = UiHost.getInstance();
         String expected = "google";
-        MockView.directNav();
+        MockView.directNav(host);
         String actual = UiElement.getInstance("Element", UiLocatorType.TAG, "a").getText();
         Assert.assertEquals(actual, expected, "Failed to return text value of WebUiElement");
     }
@@ -49,6 +43,7 @@ public class UiElementTests {
                 UiElement.getInstance(
                         description, UiLocatorType.TAG, locatorValue, attribute, attributeValue, ordinal, parent);
         Class<UiElement> expected = UiElement.class;
+        //noinspection rawtypes
         Class actual = element.getClass();
         Assert.assertEquals(actual, expected, "Failed to return an instance of WebUiElement");
     }

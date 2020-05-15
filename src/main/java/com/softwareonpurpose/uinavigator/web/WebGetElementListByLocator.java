@@ -15,39 +15,38 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
-import com.softwareonpurpose.uinavigator.UiLocatorType;
-import com.softwareonpurpose.uinavigator.UiElement;
+import com.softwareonpurpose.uinavigator.*;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class WebGetElementListByLocator implements WebGetElementList {
+public class WebGetElementListByLocator extends UiElementGetList {
     private final String locatorType;
     private final String locatorValue;
     private final String description;
 
-    private WebGetElementListByLocator(String description, String locatorType, String locatorValue) {
+    private WebGetElementListByLocator(String description, String locatorType, String locatorValue, UiDriverGet getDriver) {
+        super(getDriver);
         this.description = description;
         this.locatorValue = locatorValue;
         this.locatorType = locatorType;
     }
 
-    public static WebGetElementListByLocator getInstance(String description, String locatorType, String locatorValue) {
-        return new WebGetElementListByLocator(description, locatorType, locatorValue);
+    public static WebGetElementListByLocator getInstance(String description, String locatorType, String locatorValue, UiDriverGet getDriver) {
+        return new WebGetElementListByLocator(description, locatorType, locatorValue, getDriver);
     }
 
     @Override
     public Collection<UiElement> execute() {
         Collection<UiElement> elements = new ArrayList<>();
-        Collection<WebElement> webElements;
+        Collection<Object> webElements = new ArrayList<>();
         By locator = WebElementLocator.getInstance(locatorType, locatorValue);
         if (new By.ByTagName("body").equals(locator)) {
-            webElements = WebHost.getInstance().findUiElements(locator);
+            webElements.addAll(UiDriverFindElements.getInstance(getDriver).execute(locator));
         } else {
-            WebElementGetByLocator getParent = WebElementGetByLocator.getInstance(description, UiLocatorType.TAG, "body");
-            webElements = getParent.execute().findElements(locator);
+            WebElementGetByLocator getParent = WebElementGetByLocator.getInstance(description, UiLocatorType.TAG, "body", getDriver);
+            webElements.addAll(getParent.execute().findElements(locator));
         }
         for (int elementOrdinal = 1; elementOrdinal <= webElements.size(); elementOrdinal += 1) {
             String elementDescription = String.format("#%d", elementOrdinal);

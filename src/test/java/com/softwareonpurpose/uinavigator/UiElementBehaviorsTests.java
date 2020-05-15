@@ -2,12 +2,11 @@ package com.softwareonpurpose.uinavigator;
 
 import com.softwareonpurpose.uinavigator.web.WebElementGet;
 import com.softwareonpurpose.uinavigator.web.WebElementGetByLocator;
-import com.softwareonpurpose.uinavigator.web.WebHost;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 @Test
-public class UiElementBehaviorsTests {
+public class UiElementBehaviorsTests extends TestClass {
     @Test
     public void testGetInstanceByLocator_tagSelect() {
         Class<UiElementBehaviors> expected = UiElementBehaviors.class;
@@ -42,7 +41,7 @@ public class UiElementBehaviorsTests {
         final String description = "Form";
         final String locatorValue = "form";
         WebElementGetByLocator getParent =
-                WebElementGetByLocator.getInstance(description, UiLocatorType.TAG, locatorValue);
+                WebElementGetByLocator.getInstance(description, UiLocatorType.TAG, locatorValue, UiDriverGet.getInstance());
         final String attribute = "data-test";
         final String attributeValue = "select-element";
         final int ordinal = 2;
@@ -58,13 +57,14 @@ public class UiElementBehaviorsTests {
 
     @Test
     public void testIsDisplayed() {
+        host = UiHost.getInstance();
         final String attribute = "for";
         final String attributeValue = "name";
         final UiElementBehaviors behaviors =
                 UiElementBehaviors.getInstanceByLocatorAttribute("Label", UiLocatorType.TAG, "label", attribute, attributeValue);
-        MockView.directNav();
+        MockView.directNav(host);
         boolean actual = behaviors.isDisplayed();
-        WebHost.quitInstance();
+        host.quit();
         Assert.assertTrue(actual, "Failed to return 'true' for existing element");
     }
 
@@ -83,7 +83,7 @@ public class UiElementBehaviorsTests {
         final String parentDescription = "Form";
         final String locatorValue = "form";
         WebElementGet getParent =
-                WebElementGetByLocator.getInstance(parentDescription, UiLocatorType.TAG, locatorValue);
+                WebElementGetByLocator.getInstance(parentDescription, UiLocatorType.TAG, locatorValue, UiDriverGet.getInstance());
         final String description = "Element";
         final String attribute = "data-test";
         final String attributeValue = "select-element";

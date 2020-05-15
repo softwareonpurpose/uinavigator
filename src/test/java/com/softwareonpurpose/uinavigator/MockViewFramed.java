@@ -6,14 +6,14 @@ public class MockViewFramed extends UiView {
     private static final String LOCATOR_VALUE = "iframe";
     private static final String DESCRIPTION = "'Framed' view";
 
-    public MockViewFramed() {
-        super(VIEW_URI, UiElement.getInstance(DESCRIPTION, UiLocatorType.TAG, LOCATOR_VALUE));
+    public MockViewFramed(UiHost host) {
+        super(VIEW_URI, UiElement.getInstance(DESCRIPTION, UiLocatorType.TAG, LOCATOR_VALUE), host);
     }
 
-    public static MockViewFramed directNav() {
-        MockViewFramed view = construct(MockViewFramed.class);
+    public static MockViewFramed directNav(UiHost host) {
+        MockViewFramed view = construct(MockViewFramed.class, host);
         view.load();
-        return UiView.expect(view.getClass());
+        return UiView.expect(view.getClass(), host);
     }
 
     @Override

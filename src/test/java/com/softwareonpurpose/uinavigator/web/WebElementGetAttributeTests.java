@@ -1,27 +1,20 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.MockView;
-import com.softwareonpurpose.uinavigator.UiLocatorType;
+import com.softwareonpurpose.uinavigator.*;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 @Test
-public class WebElementGetAttributeTests {
-    @AfterMethod(alwaysRun = true)
-    public void terminate() {
-        WebHost.quitInstance();
-    }
-
+public class WebElementGetAttributeTests extends TestClass {
     @Test
     public void testExecute() {
         final String locatorValue = "empty-select-two";
         final String description = "Select";
-        WebElementGet getBehavior =
-                WebElementGetByLocator.getInstance(description, UiLocatorType.ID, locatorValue);
+        UiElementGet getBehavior =
+                WebElementGetByLocator.getInstance(description, UiLocatorType.ID, locatorValue, UiDriverGet.getInstance());
         String expected = "bogus";
-        MockView.directNav();
-        String actual = WebElementGetAttribute.getInstance(getBehavior).execute("data-test");
+        MockView.directNav(host);
+        String actual = UiElementGetAttribute.getInstance(getBehavior).execute("data-test");
         Assert.assertEquals(actual, expected, "Failed to return attribute value");
     }
 }
