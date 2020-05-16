@@ -8,20 +8,20 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 @Test
-public class WebElementIsActiveTests extends TestClass {
+public class WebElementIsActiveNullAttributeValueTests extends TestClass {
     @Test
-    public void testExecute_nullAttribute() {
+    public void testExecute_nullValue() {
         UiHost host = UiHost.getInstance();
         MockView.directNav(host);
         final String description = "Element";
         final String locatorValue = "user_name";
         final WebElementGetByLocator getElement =
                 WebElementGetByLocator.getInstance(description, UiLocatorType.NAME, locatorValue, host);
-        final String attribute = null;
-        final String value = "active";
+        final String attribute = "data-active";
+        final String value = null;
         //noinspection ConstantConditions
         boolean actual = WebElementIsActive.getIsStateInstance(getElement, attribute, value).execute();
         host.quit();
-        Assert.assertFalse(actual, "Failed to return false when attribute null");
+        Assert.assertFalse(actual, "Failed to return false when value null");
     }
 }

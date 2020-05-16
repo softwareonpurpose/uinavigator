@@ -35,7 +35,7 @@ public class ChromeDriverInstantiation extends UiDriverInstantiation {
         System.setProperty("webdriver.chrome.driver", "./src/main/resources/chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--window-size=1920,1200", "--ignore-certificate-errors", "--disable-gpu");
-//        options.addArguments("--headless");
+        options.addArguments("--headless");
         return new ChromeDriver(options);
     }
 

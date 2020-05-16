@@ -9,25 +9,6 @@ import org.testng.annotations.Test;
 @Test
 public class WebElementGetByLocatorOrdinalParentTests extends TestClass {
     @Test
-    public void testConstructor_bodyTagParentNull() {
-        UiHost host = UiHost.getInstance();
-        String parentDescription = "Body";
-        final String locatorValue = "body";
-        final int ordinal = 2;
-        final WebElementGet getParent = null;
-        //noinspection ConstantConditions
-        final WebElementGetByLocatorOrdinalParent getElement =
-                WebElementGetByLocatorOrdinalParent
-                        .getInstance(parentDescription, UiLocatorType.TAG, locatorValue, ordinal, getParent, host);
-        Class<WebElementGetByLocatorOrdinalParent> expected = WebElementGetByLocatorOrdinalParent.class;
-        //noinspection rawtypes
-        Class actual = getElement.getClass();
-        final String message = "Failed to return an instance of WebGetElementByLocatorOrdinalParent";
-        host.quit();
-        Assert.assertEquals(actual, expected, message);
-    }
-
-    @Test
     public void testConstructor_bodyTag() {
         UiHost host = UiHost.getInstance();
         String parentDescription = "Username";
@@ -44,25 +25,6 @@ public class WebElementGetByLocatorOrdinalParentTests extends TestClass {
         //noinspection rawtypes
         Class actual;
         actual = getElement.getClass();
-        final String message = "Failed to return an instance of WebGetElementByLocatorOrdinalParent";
-        host.quit();
-        Assert.assertEquals(actual, expected, message);
-    }
-
-    @Test
-    public void testConstructor_labelTagParentNull() {
-        UiHost host = UiHost.getInstance();
-        String description = "Label";
-        final String locatorValue = "label";
-        final int ordinal = 2;
-        final WebElementGet getParent = null;
-        //noinspection ConstantConditions
-        final WebElementGetByLocatorOrdinalParent getElement =
-                WebElementGetByLocatorOrdinalParent
-                        .getInstance(description, UiLocatorType.NAME, locatorValue, ordinal, getParent, host);
-        Class<WebElementGetByLocatorOrdinalParent> expected = WebElementGetByLocatorOrdinalParent.class;
-        //noinspection rawtypes
-        Class actual = getElement.getClass();
         final String message = "Failed to return an instance of WebGetElementByLocatorOrdinalParent";
         host.quit();
         Assert.assertEquals(actual, expected, message);

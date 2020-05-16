@@ -7,21 +7,6 @@ import org.testng.annotations.Test;
 public class UiElementGetInstanceWithParentTests extends TestClass {
     @SuppressWarnings("rawtypes")
     @Test
-    public void testGetInstance_parent() {
-        UiHost host = UiHost.getInstance();
-        final String locatorValue = "select";
-        MockView.directNav(host);
-        UiElement parent = UiElement.getInstance("Parent", UiLocatorType.TAG, locatorValue, host);
-        Class expected = UiElement.class;
-        final UiElement element =
-                UiElement.getInstance("Option", UiLocatorType.TAG, "option", parent, host);
-        Class actual = element.getClass();
-        host.quit();
-        Assert.assertEquals(actual, expected, "Failed to return an instance of WebUiElement");
-    }
-
-    @SuppressWarnings("rawtypes")
-    @Test
     public void testGetInstance_ordinalParent() {
         UiHost host = UiHost.getInstance();
         final String locatorValue = "select";
