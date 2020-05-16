@@ -26,6 +26,7 @@ public class WebElementGetByLocatorOrdinalParent extends WebElementGet {
     private final Integer ordinal;
     private final WebElementGet getParent;
     private transient WebElement element;
+    private Boolean isParentOutOfScope;
 
     private WebElementGetByLocatorOrdinalParent(
             String description, By locator, Integer ordinal, WebElementGet getParent, UiHost host) {
@@ -45,13 +46,23 @@ public class WebElementGetByLocatorOrdinalParent extends WebElementGet {
     public WebElement execute() {
         if (element == null) {
             List<Object> elements = new ArrayList<>();
-            if (getParent == null) {
+            if (getParent() == null) {
                 elements.addAll(host.findElements(locator));
             } else {
-                elements.addAll((getParent.execute()).findElements(locator));
+                elements.addAll((getParent().execute()).findElements(locator));
             }
             element = elements.size() >= ordinal ? (WebElement) elements.get(ordinal - 1) : null;
         }
         return element;
+    }
+
+    private WebElementGet getParent() {
+        if (isParentOutOfScope == null) {
+            final boolean isLocatorBodyTag = new By.ByTagName("body").equals(locator);
+            final WebElement parent = (getParent == null) ? null : (WebElement) getParent.execute();
+            final boolean isParentIFrame = (parent != null) && "iframe".equals(parent.getTagName());
+            isParentOutOfScope = isLocatorBodyTag || isParentIFrame;
+        }
+        return isParentOutOfScope ? null : getParent;
     }
 }

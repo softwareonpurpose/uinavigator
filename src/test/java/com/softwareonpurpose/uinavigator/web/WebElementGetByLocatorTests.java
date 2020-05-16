@@ -67,38 +67,6 @@ public class WebElementGetByLocatorTests extends TestClass {
     }
 
     @Test
-    public void testConstructor_nullType() {
-        UiHost host = UiHost.getInstance();
-        String description = "Body";
-        Class<WebElementGet> expected = WebElementGet.class;
-        final String locatorType = null;
-        final String locatorValue = "body";
-        //noinspection ConstantConditions
-        final WebElementGetByLocator getElement =
-                WebElementGetByLocator.getInstance(description, locatorType, locatorValue, host);
-        //noinspection rawtypes
-        Class actual = getElement.getClass().getSuperclass();
-        host.quit();
-        Assert.assertEquals(actual, expected, "Failed:  constructor threw exception");
-    }
-
-    @Test
-    public void testConstructor_nullValue() {
-        UiHost host = UiHost.getInstance();
-        String description = "NULL";
-        Class<WebElementGet> expected = WebElementGet.class;
-        final String locatorType = UiLocatorType.TAG;
-        final String locatorValue = null;
-        //noinspection ConstantConditions
-        final WebElementGetByLocator getElement =
-                WebElementGetByLocator.getInstance(description, locatorType, locatorValue, host);
-        //noinspection rawtypes
-        Class actual = getElement.getClass().getSuperclass();
-        host.quit();
-        Assert.assertEquals(actual, expected, "Failed:  constructor threw exception");
-    }
-
-    @Test
     public void testExecute_iFrame() {
         UiHost host = UiHost.getInstance();
         String description = "IFrame";

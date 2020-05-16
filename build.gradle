@@ -31,13 +31,13 @@ jar {
 }
 
 test {
-    maxParallelForks = 12
+    maxParallelForks = 8
     useTestNG()
 }
 
 task debug(type: Test) {
     description = 'Tests being debugged'
-    maxParallelForks = 12
+    maxParallelForks = 8
 
     def groupsToInclude = []
     groupsToInclude.add('debug')
