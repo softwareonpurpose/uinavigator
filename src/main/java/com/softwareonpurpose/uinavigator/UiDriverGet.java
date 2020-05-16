@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 
 public class UiDriverGet {
     private static UiDriverInstantiation instantiation;
-    private static UiDriverGet getDriver;
     private Object driver;
 
     private UiDriverGet(UiDriverInstantiation instantiation) {
@@ -13,10 +12,7 @@ public class UiDriverGet {
     }
 
     public static UiDriverGet getInstance() {
-        if (getDriver == null) {
-            getDriver = new UiDriverGet(null);
-        }
-        return getDriver;
+        return new UiDriverGet(null);
     }
 
     public static UiDriverGet getInstance(UiDriverInstantiation instantiation) {
@@ -28,8 +24,8 @@ public class UiDriverGet {
         UiDriverGet.instantiation = instantiation;
     }
 
-    public static void quit() {
-        UiDriverQuit.getInstance(getInstance()).execute();
+    public void quit() {
+        UiDriverQuit.getInstance(this).execute();
     }
 
     public Object execute() {

@@ -8,15 +8,16 @@ import org.testng.annotations.Test;
 public class WebGetListByLocatorAttributeTests extends TestClass {
     @Test
     public void testExecute() {
-        host = UiHost.getInstance();
+        UiHost host = UiHost.getInstance();
         MockView.directNav(host);
         Class<UiElement> expected = UiElement.class;
         final String attribute = "data-test";
         final String attributeValue = "select-element";
         final WebGetElementListByLocatorAttribute getBehavior =
-                WebGetElementListByLocatorAttribute.getInstance(UiLocatorType.TAG, "select", attribute, attributeValue, UiDriverGet.getInstance());
+                WebGetElementListByLocatorAttribute.getInstance(UiLocatorType.TAG, "select", attribute, attributeValue, host);
         //noinspection rawtypes
         Class actual = getBehavior.execute().iterator().next().getClass();
+        host.quit();
         Assert.assertEquals(actual, expected, "Failed to return a list of at least one WebUiElement");
     }
 }

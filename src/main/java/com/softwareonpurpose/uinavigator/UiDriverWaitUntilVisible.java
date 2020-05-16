@@ -13,5 +13,5 @@ public abstract class UiDriverWaitUntilVisible {
         return new WebDriverWaitUntilVisible(getDriver);
     }
 
-    public abstract boolean execute(Object element);
+    public abstract boolean execute(UiElementGet getElement);
 }

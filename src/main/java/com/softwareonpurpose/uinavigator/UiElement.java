@@ -16,8 +16,8 @@ package com.softwareonpurpose.uinavigator;
  */
 
 import com.google.gson.Gson;
-import com.softwareonpurpose.uinavigator.web.WebElementLocator;
 import com.softwareonpurpose.uinavigator.web.WebElementGet;
+import com.softwareonpurpose.uinavigator.web.WebElementLocator;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
@@ -32,68 +32,68 @@ public class UiElement {
         this.behaviors = behaviors;
     }
 
-    public static UiElement getInstance(String description, String locatorType, String locatorValue) {
+    public static UiElement getInstance(String description, String locatorType, String locatorValue, UiHost host) {
         UiElementBehaviors behaviors =
-                UiElementBehaviors.getInstanceByLocator(description, locatorType, locatorValue);
+                UiElementBehaviors.getInstanceByLocator(description, locatorType, locatorValue, host);
         return new UiElement(description, behaviors);
     }
 
     public static UiElement getInstance(String description, String locatorType, String locatorValue,
-                                        String attribute, String attributeValue) {
+                                        String attribute, String attributeValue, UiHost host) {
         UiElementBehaviors behaviors =
                 UiElementBehaviors.getInstanceByLocatorAttribute(
-                        description, locatorType, locatorValue, attribute, attributeValue);
+                        description, locatorType, locatorValue, attribute, attributeValue, host);
         return new UiElement(description, behaviors);
     }
 
     public static UiElement getInstance(String description, String locatorType, String locatorValue,
-                                        Integer ordinal) {
+                                        Integer ordinal, UiHost host) {
         UiElementBehaviors behaviors =
-                UiElementBehaviors.getInstanceByLocatorOrdinal(description, locatorType, locatorValue, ordinal);
+                UiElementBehaviors.getInstanceByLocatorOrdinal(description, locatorType, locatorValue, ordinal, host);
         return new UiElement(description, behaviors);
     }
 
     public static UiElement getInstance(String description, String locatorType, String locatorValue,
-                                        UiElement parent) {
+                                        UiElement parent, UiHost host) {
         UiElementBehaviors behaviors =
-                UiElementBehaviors.getInstanceByLocatorParent(description, locatorType, locatorValue, parent.getBehavior());
+                UiElementBehaviors.getInstanceByLocatorParent(description, locatorType, locatorValue, parent.getBehavior(), host);
         return new UiElement(description, behaviors);
     }
 
     public static UiElement getInstance(String description, String locatorType, String locatorValue,
                                         String attribute, String attributeValue,
-                                        Integer ordinal) {
+                                        Integer ordinal, UiHost host) {
         UiElementBehaviors behaviors =
                 UiElementBehaviors.getInstanceByLocatorAttributeOrdinal(description,
-                        locatorType, locatorValue, attribute, attributeValue, ordinal);
+                        locatorType, locatorValue, attribute, attributeValue, ordinal, host);
         return new UiElement(description, behaviors);
     }
 
     public static UiElement getInstance(String description, String locatorType, String locatorValue,
                                         String attribute, String attributeValue,
-                                        UiElement parent) {
+                                        UiElement parent, UiHost host) {
         UiElementBehaviors behaviors =
                 UiElementBehaviors.getInstanceByLocatorAttributeParent(description,
-                        locatorType, locatorValue, attribute, attributeValue, (WebElementGet) parent.getBehavior());
+                        locatorType, locatorValue, attribute, attributeValue, (WebElementGet) parent.getBehavior(), host);
         return new UiElement(description, behaviors);
     }
 
     public static UiElement getInstance(String description, String locatorType, String locatorValue,
                                         Integer ordinal,
-                                        UiElement parent) {
+                                        UiElement parent, UiHost host) {
         UiElementBehaviors behaviors =
                 UiElementBehaviors.getInstanceByLocatorOrdinalParent(
-                        description, locatorType, locatorValue, ordinal, (WebElementGet) parent.getBehavior());
+                        description, locatorType, locatorValue, ordinal, (WebElementGet) parent.getBehavior(), host);
         return new UiElement(description, behaviors);
     }
 
     public static UiElement getInstance(String description, String locatorType, String locatorValue,
                                         String attribute, String attributeValue,
                                         Integer ordinal,
-                                        UiElement parent) {
+                                        UiElement parent, UiHost host) {
         UiElementBehaviors behaviors =
                 UiElementBehaviors.getInstanceByLocatorAttributeOrdinalParent(description,
-                        locatorType, locatorValue, attribute, attributeValue, ordinal, (WebElementGet) parent.getBehavior());
+                        locatorType, locatorValue, attribute, attributeValue, ordinal, (WebElementGet) parent.getBehavior(), host);
         return new UiElement(description, behaviors);
     }
 
@@ -101,14 +101,14 @@ public class UiElement {
         UiElementBehaviors.suppressLogging(suppressLogging);
     }
 
-    public static List<UiElement> getList(String description, String locatorType, String locatorValue, UiElement parent) {
+    public static List<UiElement> getList(String description, String locatorType, String locatorValue, UiElement parent, UiHost host) {
         List<UiElement> elements = new ArrayList<>();
         WebElement parentElement = (WebElement) (parent.getBehavior()).execute();
         List<WebElement> webElements = parentElement != null ? parentElement
                 .findElements(WebElementLocator.getInstance(locatorType, locatorValue)) : new ArrayList<>();
         for (int elementOrdinal = 1; elementOrdinal <= webElements.size(); elementOrdinal++) {
             String elementDescription = String.format("%s #%d", description, elementOrdinal);
-            elements.add(UiElement.getInstance(elementDescription, locatorType, locatorValue, elementOrdinal, parent));
+            elements.add(UiElement.getInstance(elementDescription, locatorType, locatorValue, elementOrdinal, parent, host));
         }
         return elements;
     }
@@ -175,20 +175,12 @@ public class UiElement {
         return this;
     }
 
-    public void switchTo() {
-        behaviors.switchTo();
-    }
-
     @Override
     public String toString() {
         return new Gson().toJson(this);
     }
 
-    @Deprecated
-    public static class LocatorType {
-        public static final String CLASS = "class";
-        public static final String ID = "id";
-        public static final String NAME = "name";
-        public static final String TAG = "tag";
+    public UiElementGet getLocator() {
+        return getBehavior();
     }
 }

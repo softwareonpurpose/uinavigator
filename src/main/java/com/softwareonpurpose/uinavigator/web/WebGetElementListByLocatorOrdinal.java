@@ -15,10 +15,9 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
-import com.softwareonpurpose.uinavigator.UiDriverFindElements;
-import com.softwareonpurpose.uinavigator.UiDriverGet;
 import com.softwareonpurpose.uinavigator.UiElement;
 import com.softwareonpurpose.uinavigator.UiElementGetList;
+import com.softwareonpurpose.uinavigator.UiHost;
 import org.openqa.selenium.By;
 
 import java.util.ArrayList;
@@ -30,24 +29,24 @@ public class WebGetElementListByLocatorOrdinal extends UiElementGetList {
     private final String locatorType;
     private final String locatorValue;
 
-    private WebGetElementListByLocatorOrdinal(String locatorType, String locatorValue, Integer ordinal, UiDriverGet getDriver) {
-        super(getDriver);
+    private WebGetElementListByLocatorOrdinal(String locatorType, String locatorValue, Integer ordinal, UiHost host) {
+        super(host);
         this.ordinal = ordinal;
         this.locatorValue = locatorValue;
         this.locatorType = locatorType;
     }
 
-    public static WebGetElementListByLocatorOrdinal getInstance(String locatorType, String locatorValue, Integer ordinal, UiDriverGet getDriver) {
-        return new WebGetElementListByLocatorOrdinal(locatorType, locatorValue, ordinal, getDriver);
+    public static WebGetElementListByLocatorOrdinal getInstance(String locatorType, String locatorValue, Integer ordinal, UiHost host) {
+        return new WebGetElementListByLocatorOrdinal(locatorType, locatorValue, ordinal, host);
     }
 
     @Override
     public Collection<UiElement> execute() {
         List<UiElement> elements = new ArrayList<>();
         By locator = WebElementLocator.getInstance(locatorType, locatorValue);
-        List<Object> candidates = new ArrayList<>(UiDriverFindElements.getInstance(getDriver).execute(locator));
+        List<Object> candidates = new ArrayList<>(host.findElements(locator));
         if (candidates.size() >= ordinal) {
-            elements.add(UiElement.getInstance(String.format("#%d", ordinal), locatorType, locatorValue, ordinal));
+            elements.add(UiElement.getInstance(String.format("#%d", ordinal), locatorType, locatorValue, ordinal, host));
         }
         return elements;
     }

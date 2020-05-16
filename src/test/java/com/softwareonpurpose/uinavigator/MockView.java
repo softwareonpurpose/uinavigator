@@ -1,11 +1,14 @@
 package com.softwareonpurpose.uinavigator;
 
 public class MockView extends UiView {
-
+    private static final String DESCRIPTION = "'Mock' view";
+    private static final String LOCATOR_VALUE = "body";
     private static final String VIEW_URI = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
+    private final UiHost host;
 
     public MockView(UiHost host) {
-        super(VIEW_URI, UiElement.getInstance("'Mock' view", UiLocatorType.TAG, "body"), host);
+        super(VIEW_URI, UiElement.getInstance(DESCRIPTION, UiLocatorType.TAG, LOCATOR_VALUE, host), host);
+        this.host = host;
     }
 
     public static MockView directNav(UiHost host) {
@@ -27,7 +30,7 @@ public class MockView extends UiView {
     private UiElement getButtonElement() {
         final String description = "Button";
         final String locatorValue = "button-1";
-        return UiElement.getInstance(description, UiLocatorType.ID, locatorValue, this.getElement());
+        return UiElement.getInstance(description, UiLocatorType.ID, locatorValue, this.getElement(), host);
     }
 
     @Override
@@ -40,7 +43,7 @@ public class MockView extends UiView {
     }
 
     private UiElement getUsernameElement() {
-        return UiElement.getInstance("Username", UiLocatorType.NAME, "user_name", this.getElement());
+        return UiElement.getInstance("Username", UiLocatorType.NAME, "user_name", this.getElement(), host);
     }
 
     public String getUsernameText() {

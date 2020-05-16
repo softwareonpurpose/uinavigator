@@ -1,6 +1,9 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.*;
+import com.softwareonpurpose.uinavigator.MockView;
+import com.softwareonpurpose.uinavigator.TestClass;
+import com.softwareonpurpose.uinavigator.UiHost;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -9,6 +12,7 @@ import org.testng.annotations.Test;
 public class WebElementGetByLocatorAttributeParentTests extends TestClass {
     @Test
     public void testConstructor_bodyTagParentNull() {
+        UiHost host = UiHost.getInstance();
         String description = "View";
         final String attribute = "data-test";
         final String attributeValue = "view-element";
@@ -17,16 +21,18 @@ public class WebElementGetByLocatorAttributeParentTests extends TestClass {
         //noinspection ConstantConditions
         final WebElementGetByLocatorAttributeParent getBehavior =
                 WebElementGetByLocatorAttributeParent.getInstance(
-                        description, UiLocatorType.TAG, locatorValue, attribute, attributeValue, getParent, UiDriverGet.getInstance());
+                        description, UiLocatorType.TAG, locatorValue, attribute, attributeValue, getParent, host);
         Class<WebElementGetByLocatorAttributeParent> expected = WebElementGetByLocatorAttributeParent.class;
         //noinspection rawtypes
         Class actual = getBehavior.getClass();
         final String message = "Failed to return an instance of WebGetElementByLocatorAttributeParent";
+        host.quit();
         Assert.assertEquals(actual, expected, message);
     }
 
     @Test
     public void testConstructor_idParentNull() {
+        UiHost host = UiHost.getInstance();
         String description = "View";
         final String attribute = "data-test";
         final String attributeValue = "view-element";
@@ -35,31 +41,33 @@ public class WebElementGetByLocatorAttributeParentTests extends TestClass {
         //noinspection ConstantConditions
         final WebElementGetByLocatorAttributeParent getBehavior =
                 WebElementGetByLocatorAttributeParent.getInstance(
-                        description, UiLocatorType.ID, locatorValue, attribute, attributeValue, getParent, UiDriverGet.getInstance());
+                        description, UiLocatorType.ID, locatorValue, attribute, attributeValue, getParent, host);
         Class<WebElementGetByLocatorAttributeParent> expected = WebElementGetByLocatorAttributeParent.class;
         //noinspection rawtypes
         Class actual = getBehavior.getClass();
         final String message = "Failed to return an instance of WebGetElementByLocatorAttributeParent";
+        host.quit();
         Assert.assertEquals(actual, expected, message);
     }
 
     @Test
     public void testExecute_parentInstance() {
-        host = UiHost.getInstance();
+        UiHost host = UiHost.getInstance();
         String parentDescription = "Form";
         final String attribute = "data-test";
         final String attributeValue = "initial";
-        WebElementGet getParent = WebElementGetByLocator.getInstance(parentDescription, UiLocatorType.TAG, "form", UiDriverGet.getInstance());
+        WebElementGet getParent = WebElementGetByLocator.getInstance(parentDescription, UiLocatorType.TAG, "form", host);
         String description = "Name";
         final String locatorValue = "name";
         final WebElementGetByLocatorAttributeParent getBehavior =
                 WebElementGetByLocatorAttributeParent.getInstance(
-                        description, UiLocatorType.ID, locatorValue, attribute, attributeValue, getParent, UiDriverGet.getInstance());
+                        description, UiLocatorType.ID, locatorValue, attribute, attributeValue, getParent, host);
         Class<RemoteWebElement> expected = RemoteWebElement.class;
         MockView.directNav(host);
         //noinspection rawtypes
         Class actual = getBehavior.execute().getClass();
         final String message = "Failed to return an instance of WebElement";
+        host.quit();
         Assert.assertEquals(actual, expected, message);
     }
 }

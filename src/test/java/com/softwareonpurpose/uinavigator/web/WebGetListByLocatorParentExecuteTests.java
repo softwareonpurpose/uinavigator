@@ -10,17 +10,18 @@ import java.util.Collection;
 public class WebGetListByLocatorParentExecuteTests extends TestClass {
     @Test
     public void testExecute() {
-        host = UiHost.getInstance();
+        UiHost host = UiHost.getInstance();
         String parentDescription = "Select";
         MockView.directNav(host);
         final String parentLocatorValue = "select";
         WebElementGet getParent =
-                WebElementGetByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue, UiDriverGet.getInstance());
+                WebElementGetByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue, host);
         Class<UiElement> expected = UiElement.class;
         final Collection<UiElement> getListBehavior =
-                WebGetElementListByLocatorParent.getInstance(UiLocatorType.TAG, "option", getParent, UiDriverGet.getInstance()).execute();
+                WebGetElementListByLocatorParent.getInstance(UiLocatorType.TAG, "option", getParent, host).execute();
         //noinspection rawtypes
         Class actual = getListBehavior.iterator().next().getClass();
+        host.quit();
         Assert.assertEquals(actual, expected, "Failed to return a list of WebUiElements");
     }
 }

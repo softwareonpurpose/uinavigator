@@ -11,7 +11,7 @@ public class WebDriverState extends UiDriverState {
 
     @Override
     public String execute(String[] identifiers) {
-        final WebDriver driver = (WebDriver) getDriver;
+        final WebDriver driver = (WebDriver) getDriver.execute();
         return CookieViewer.getInstance(driver).getCookieValue(identifiers[0], identifiers[1], identifiers[2]);
     }
 }

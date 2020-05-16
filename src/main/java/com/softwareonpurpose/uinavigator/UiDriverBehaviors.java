@@ -5,7 +5,6 @@ import org.openqa.selenium.By;
 import java.util.List;
 
 public class UiDriverBehaviors {
-    private static UiDriverBehaviors behaviors;
     public final UiDriverGetAddress getAddress;
     private final UiDriverWaitUntilVisible waitUntilVisible;
     private final UiDriverLoad load;
@@ -15,8 +14,9 @@ public class UiDriverBehaviors {
     private final UiDriverQuit quit;
     private final UiDriverState state;
     private final UiDriverGet getDriver;
+    private final UiDriverSwitchTo switchTo;
 
-    public UiDriverBehaviors() {
+    private UiDriverBehaviors() {
         getDriver = UiDriverGet.getInstance();
         load = UiDriverLoad.getInstance(getDriver);
         executeScript = UiDriverScriptExecute.getInstance(getDriver);
@@ -26,13 +26,11 @@ public class UiDriverBehaviors {
         waitUntilVisible = UiDriverWaitUntilVisible.getInstance(getDriver);
         quit = UiDriverQuit.getInstance(getDriver);
         state = UiDriverState.getInstance(getDriver);
+        switchTo = UiDriverSwitchTo.getInstance(getDriver);
     }
 
     public static UiDriverBehaviors getInstance() {
-        if (behaviors == null) {
-            behaviors = new UiDriverBehaviors();
-        }
-        return behaviors;
+        return new UiDriverBehaviors();
     }
 
     public void load(String address) {
@@ -51,8 +49,8 @@ public class UiDriverBehaviors {
         return findElement.execute(locator);
     }
 
-    public boolean waitUntilVisible(Object element) {
-        return waitUntilVisible.execute(element);
+    public boolean waitUntilVisible(UiElementGet getElement) {
+        return waitUntilVisible.execute(getElement);
     }
 
     public String getName() {
@@ -65,5 +63,9 @@ public class UiDriverBehaviors {
 
     public String state(String[] identifiers) {
         return state.execute(identifiers);
+    }
+
+    public void switchTo(UiElement element) {
+        switchTo.execute(element);
     }
 }

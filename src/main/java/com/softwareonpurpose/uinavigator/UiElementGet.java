@@ -16,10 +16,10 @@ package com.softwareonpurpose.uinavigator;
  */
 
 public abstract class UiElementGet {
-    protected final UiDriverGet getDriver;
+    protected transient final UiHost host;
 
-    protected UiElementGet(UiDriverGet getDriver) {
-        this.getDriver = getDriver;
+    protected UiElementGet(UiHost host) {
+        this.host = host;
     }
 
     public abstract Object execute();

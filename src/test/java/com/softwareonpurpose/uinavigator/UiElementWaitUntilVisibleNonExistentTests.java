@@ -7,10 +7,11 @@ import org.testng.annotations.Test;
 public class UiElementWaitUntilVisibleNonExistentTests extends TestClass {
     @Test
     public void testWaitUntilVisible_nonexistent() {
-        host = UiHost.getInstance();
+        UiHost host = UiHost.getInstance();
         MockView.directNav(host);
-        UiElement element = UiElement.getInstance("element", UiLocatorType.ID, "nonexistent");
+        UiElement element = UiElement.getInstance("element", UiLocatorType.ID, "nonexistent", host);
         boolean actual = element.waitUntilVisible();
+        host.quit();
         Assert.assertFalse(actual, "Failed to return false when element is nonexistent");
     }
 }

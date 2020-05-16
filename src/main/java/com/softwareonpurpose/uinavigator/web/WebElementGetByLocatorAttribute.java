@@ -15,8 +15,7 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
-import com.softwareonpurpose.uinavigator.UiDriverFindElements;
-import com.softwareonpurpose.uinavigator.UiDriverGet;
+import com.softwareonpurpose.uinavigator.UiHost;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -28,22 +27,22 @@ public class WebElementGetByLocatorAttribute extends WebElementGet {
     private final String attributeValue;
     private transient WebElement element;
 
-    private WebElementGetByLocatorAttribute(String description, By locator, String attribute, String attributeValue, UiDriverGet getDriver) {
-        super(description, locator, getDriver);
+    private WebElementGetByLocatorAttribute(String description, By locator, String attribute, String attributeValue, UiHost host) {
+        super(description, locator, host);
         this.attribute = attribute;
         this.attributeValue = attributeValue;
     }
 
     public static WebElementGetByLocatorAttribute getInstance(
-            String description, String locatorType, String locatorValue, String attribute, String attributeValue, UiDriverGet getDriver) {
+            String description, String locatorType, String locatorValue, String attribute, String attributeValue, UiHost host) {
         return new WebElementGetByLocatorAttribute(
-                description, WebElementLocator.getInstance(locatorType, locatorValue), attribute, attributeValue, getDriver);
+                description, WebElementLocator.getInstance(locatorType, locatorValue), attribute, attributeValue, host);
     }
 
     @Override
     public WebElement execute() {
         if (element == null) {
-            List<Object> candidates = UiDriverFindElements.getInstance(getDriver).execute(locator);
+            List<Object> candidates = host.findElements(locator);
             List<WebElement> elements = new ArrayList<>();
             for (Object candidate : candidates) {
                 final WebElement webCandidate = (WebElement) candidate;

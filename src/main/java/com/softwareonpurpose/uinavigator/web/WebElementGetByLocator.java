@@ -15,26 +15,25 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
-import com.softwareonpurpose.uinavigator.UiDriverFindElement;
-import com.softwareonpurpose.uinavigator.UiDriverGet;
+import com.softwareonpurpose.uinavigator.UiHost;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class WebElementGetByLocator extends WebElementGet {
     private transient WebElement element;
 
-    private WebElementGetByLocator(String description, By locator, UiDriverGet getDriver) {
-        super(description, locator, getDriver);
+    private WebElementGetByLocator(String description, By locator, UiHost host) {
+        super(description, locator, host);
     }
 
-    public static WebElementGetByLocator getInstance(String description, String locatorType, String locatorValue, UiDriverGet getDriver) {
-        return new WebElementGetByLocator(description, WebElementLocator.getInstance(locatorType, locatorValue), getDriver);
+    public static WebElementGetByLocator getInstance(String description, String locatorType, String locatorValue, UiHost host) {
+        return new WebElementGetByLocator(description, WebElementLocator.getInstance(locatorType, locatorValue), host);
     }
 
     @Override
     public WebElement execute() {
         if (element == null) {
-            element = (WebElement) UiDriverFindElement.getInstance(getDriver).execute(super.locator);
+            element = (WebElement) host.findElement(super.locator);
         }
         return element;
     }

@@ -2,6 +2,7 @@ package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiDriverGet;
 import com.softwareonpurpose.uinavigator.UiDriverWaitUntilVisible;
+import com.softwareonpurpose.uinavigator.UiElementGet;
 import com.softwareonpurpose.uinavigator.UiNavigatorConfiguration;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
@@ -16,12 +17,12 @@ public class WebDriverWaitUntilVisible extends UiDriverWaitUntilVisible {
     }
 
     @Override
-    public boolean execute(Object element) {
+    public boolean execute(UiElementGet getElement) {
         final long timeout = UiNavigatorConfiguration.getInstance().getTimeout();
         try {
             WebDriver driver = (WebDriver) getDriver.execute();
             new WebDriverWait(driver, timeout)
-                    .until(ExpectedConditions.visibilityOf((WebElement) element));
+                    .until(ExpectedConditions.visibilityOf((WebElement) getElement.execute()));
         } catch (WebDriverException | NullPointerException e) {
             String warningMessageFormat = "WARNING: WebElement failed to be displayed within %d seconds";
             final String message = String.format(warningMessageFormat, timeout);

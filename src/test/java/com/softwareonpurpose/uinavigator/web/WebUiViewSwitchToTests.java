@@ -10,10 +10,11 @@ import org.testng.annotations.Test;
 public class WebUiViewSwitchToTests extends TestClass {
     @Test
     public void testSwitchTo_iFrame() {
-        host = UiHost.getInstance();
+        UiHost host = UiHost.getInstance();
         final MockViewFramed view = MockViewFramed.directNav(host);
         String expected = "Life Reconciled";
         String actual = view.getSiteTitle();
+        host.quit();
         Assert.assertEquals(actual, expected, "Failed to successfully switch to iframe");
     }
 }

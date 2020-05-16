@@ -6,7 +6,7 @@ public class MockViewRelativePath extends UiView {
 
     public MockViewRelativePath(UiHost host) {
         super(VIEW_URI,
-                UiElement.getInstance("'Relative Path Mock' view", UiLocatorType.TAG, LOCATOR_VALUE), host);
+                UiElement.getInstance("'Relative Path Mock' view", UiLocatorType.TAG, LOCATOR_VALUE, host), host);
     }
 
     public static MockViewRelativePath directNav(UiHost host) {

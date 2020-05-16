@@ -27,16 +27,16 @@ public class WebGetElementListByLocatorParent extends UiElementGetList {
     private final String locatorType;
     private final String locatorValue;
 
-    private WebGetElementListByLocatorParent(String locatorType, String locatorValue, UiElementGet getParent, UiDriverGet getDriver) {
-        super(getDriver);
+    private WebGetElementListByLocatorParent(String locatorType, String locatorValue, UiElementGet getParent, UiHost host) {
+        super(host);
         this.getParent = (UiLocatorType.TAG.equals(locatorType) && "body".equals(locatorValue)) ? null : getParent;
         this.locatorType = locatorType;
         this.locatorValue = locatorValue;
     }
 
     public static WebGetElementListByLocatorParent getInstance(
-            String locatorType, String locatorValue, UiElementGet getParent, UiDriverGet getDriver) {
-        return new WebGetElementListByLocatorParent(locatorType, locatorValue, getParent, getDriver);
+            String locatorType, String locatorValue, UiElementGet getParent, UiHost host) {
+        return new WebGetElementListByLocatorParent(locatorType, locatorValue, getParent, host);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class WebGetElementListByLocatorParent extends UiElementGetList {
         List<Object> candidates = new ArrayList<>();
         By locator = WebElementLocator.getInstance(locatorType, locatorValue);
         if (getParent == null) {
-            candidates.addAll(UiDriverFindElements.getInstance(getDriver).execute(locator));
+            candidates.addAll(host.findElements(locator));
         } else {
             candidates.addAll(((WebElementGet) getParent).execute().findElements(locator));
         }
@@ -53,7 +53,7 @@ public class WebGetElementListByLocatorParent extends UiElementGetList {
         //noinspection unused
         for (Object candidate : candidates) {
             ordinal += 1;
-            elements.add(UiElement.getInstance(String.format("#%d", ordinal), locatorType, locatorValue));
+            elements.add(UiElement.getInstance(String.format("#%d", ordinal), locatorType, locatorValue, host));
         }
         return elements;
     }

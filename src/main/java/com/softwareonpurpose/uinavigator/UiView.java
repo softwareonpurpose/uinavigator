@@ -40,6 +40,8 @@ public abstract class UiView {
         final String viewClassName = viewClass.getSimpleName().replaceAll(invalidCharacters, " ");
         LoggerFactory.getLogger("").info(String.format("Expect '%s'", viewClassName));
         T view = construct(viewClass, host);
+        host.switchTo(view.getElement());
+        view = construct(viewClass, host);
         if (!view.confirmElementStates()) {
             String messageFormat = "Unable to confirm the state of '%s'";
             String message = String.format(messageFormat, viewClassName);
@@ -68,14 +70,12 @@ public abstract class UiView {
 
     protected void load() {
         host.load(address);
-        getElement().switchTo();
     }
 
     protected void load(String relativeUri) {
         relativeUri = relativeUri.startsWith("?") ? relativeUri : String.format("/%s", relativeUri);
         String explicitUri = String.format("%s%s", address, relativeUri);
         host.load(explicitUri);
-        getElement().switchTo();
     }
 
     protected UiElement getElement() {

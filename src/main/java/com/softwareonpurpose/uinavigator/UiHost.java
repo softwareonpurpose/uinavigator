@@ -27,28 +27,33 @@ import java.util.List;
 @SuppressWarnings("WeakerAccess")
 public class UiHost {
     private static final Logger logger = LoggerFactory.getLogger("");
+    private final UiDriverBehaviors behaviors;
 
-    static Object findUiElement(By locator) {
-        return UiDriverBehaviors.getInstance().findElement(locator);
-    }
-
-    static List<Object> findUiElements(By locator) {
-        return UiDriverBehaviors.getInstance().findElements(locator);
-    }
-
-    static boolean waitUntilVisible(Object element) {
-        return UiDriverBehaviors.getInstance().waitUntilVisible(element);
+    private UiHost() {
+        behaviors = UiDriverBehaviors.getInstance();
     }
 
     public static UiHost getInstance() {
         return new UiHost();
     }
 
+    public Object findElement(By locator) {
+        return behaviors.findElement(locator);
+    }
+
+    public List<Object> findElements(By locator) {
+        return behaviors.findElements(locator);
+    }
+
+    boolean waitUntilVisible(UiElementGet element) {
+        return behaviors.waitUntilVisible(element);
+    }
+
     /***
      * Quit WebUiHost
      */
     public void quit() {
-        UiDriverBehaviors.getInstance().quit();
+        behaviors.quit();
     }
 
     /**
@@ -58,7 +63,7 @@ public class UiHost {
      */
     public void load(String address) {
         logger.info(String.format("Navigate browser to %s", address));
-        UiDriverBehaviors.getInstance().load(address);
+        behaviors.load(address);
     }
 
     /***
@@ -67,12 +72,12 @@ public class UiHost {
      * @param script String to execute
      */
     @SuppressWarnings("unused")
-    public void execute(String script, Object... args) {
-        UiDriverBehaviors.getInstance().executeScript(script, args);
+    public void executeScript(String script, Object... args) {
+        behaviors.executeScript(script, args);
     }
 
     void setAttribute(Object element, String attribute, String value) {
-        execute("arguments[0].setAttribute(arguments[1], arguments[2]);", element, attribute, value);
+        executeScript("arguments[0].setAttribute(arguments[1], arguments[2]);", element, attribute, value);
     }
 
     /**
@@ -81,7 +86,7 @@ public class UiHost {
      * @return String URI
      */
     public String getAddress() {
-        return UiDriverBehaviors.getInstance().getAddress.execute();
+        return behaviors.getAddress.execute();
     }
 
     /**
@@ -90,10 +95,18 @@ public class UiHost {
      * @return String name of driver
      */
     public String getDriverName() {
-        return UiDriverBehaviors.getInstance().getName();
+        return behaviors.getName();
     }
 
     public String getState(String... identifiers) {
-        return UiDriverBehaviors.getInstance().state(identifiers);
+        return behaviors.state(identifiers);
+    }
+
+    public UiDriverBehaviors getBehaviors() {
+        return behaviors;
+    }
+
+    public void switchTo(UiElement element) {
+        behaviors.switchTo(element);
     }
 }

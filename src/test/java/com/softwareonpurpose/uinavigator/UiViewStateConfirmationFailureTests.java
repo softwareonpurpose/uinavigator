@@ -7,9 +7,10 @@ import org.testng.annotations.Test;
 public class UiViewStateConfirmationFailureTests extends TestClass {
     @Test
     public void testConfirmElementStates_failure() {
-        host = UiHost.getInstance();
+        UiHost host = UiHost.getInstance();
         final MockViewConfirmationFailure actual = MockViewConfirmationFailure.directNav(host);
         final String message = "Failed to return an instance of UiView when state confirmation fails";
+        host.quit();
         Assert.assertNotNull(actual, message);
     }
 }

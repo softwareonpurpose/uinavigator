@@ -18,10 +18,10 @@ package com.softwareonpurpose.uinavigator;
 import java.util.Collection;
 
 public abstract class UiElementGetList {
-    protected final UiDriverGet getDriver;
+    protected final UiHost host;
 
-    protected UiElementGetList(UiDriverGet getDriver) {
-        this.getDriver = getDriver;
+    protected UiElementGetList(UiHost host) {
+        this.host = host;
     }
 
     protected abstract Collection<UiElement> execute();

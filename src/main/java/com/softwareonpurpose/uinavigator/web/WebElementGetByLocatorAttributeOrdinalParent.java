@@ -15,8 +15,7 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
-import com.softwareonpurpose.uinavigator.UiDriverFindElements;
-import com.softwareonpurpose.uinavigator.UiDriverGet;
+import com.softwareonpurpose.uinavigator.UiHost;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -32,8 +31,8 @@ public class WebElementGetByLocatorAttributeOrdinalParent extends WebElementGet 
 
     private WebElementGetByLocatorAttributeOrdinalParent(
             String description, By locator, String attribute, String attributeValue,
-            Integer ordinal, WebElementGet getParent, UiDriverGet getDriver) {
-        super(description, locator, getDriver);
+            Integer ordinal, WebElementGet getParent, UiHost host) {
+        super(description, locator, host);
         this.attributeValue = attributeValue;
         this.attribute = attribute;
         this.ordinal = ordinal;
@@ -42,10 +41,10 @@ public class WebElementGetByLocatorAttributeOrdinalParent extends WebElementGet 
 
     public static WebElementGetByLocatorAttributeOrdinalParent getInstance(
             String description, String locatorType, String locatorValue,
-            String attribute, String attributeValue, Integer ordinal, WebElementGet getParent, UiDriverGet getDriver) {
+            String attribute, String attributeValue, Integer ordinal, WebElementGet getParent, UiHost host) {
         return new WebElementGetByLocatorAttributeOrdinalParent(
                 description, WebElementLocator.getInstance(locatorType, locatorValue),
-                attribute, attributeValue, ordinal, getParent, getDriver);
+                attribute, attributeValue, ordinal, getParent, host);
     }
 
     @Override
@@ -53,7 +52,7 @@ public class WebElementGetByLocatorAttributeOrdinalParent extends WebElementGet 
         if (element == null) {
             List<Object> candidates = new ArrayList<>();
             if (getParent == null) {
-                candidates.addAll(UiDriverFindElements.getInstance(getDriver).execute(locator));
+                candidates.addAll(host.findElements(locator));
             } else {
                 candidates.addAll((getParent.execute()).findElements(locator));
             }

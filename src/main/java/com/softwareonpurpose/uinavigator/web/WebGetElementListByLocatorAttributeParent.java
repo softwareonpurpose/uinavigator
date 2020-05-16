@@ -15,7 +15,10 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
-import com.softwareonpurpose.uinavigator.*;
+import com.softwareonpurpose.uinavigator.UiElement;
+import com.softwareonpurpose.uinavigator.UiElementGetList;
+import com.softwareonpurpose.uinavigator.UiHost;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -32,8 +35,8 @@ public class WebGetElementListByLocatorAttributeParent extends UiElementGetList 
 
     private WebGetElementListByLocatorAttributeParent(
             String locatorType, String locatorValue,
-            String attribute, String attributeValue, WebElementGet getParent, UiDriverGet getDriver) {
-        super(getDriver);
+            String attribute, String attributeValue, WebElementGet getParent, UiHost host) {
+        super(host);
         this.attribute = attribute;
         this.attributeValue = attributeValue;
         this.getParent = (UiLocatorType.TAG.equals(locatorType) && "body".equals(locatorValue)) ? null : getParent;
@@ -43,8 +46,8 @@ public class WebGetElementListByLocatorAttributeParent extends UiElementGetList 
 
     public static WebGetElementListByLocatorAttributeParent getInstance(
             String locatorType, String locatorValue,
-            String attribute, String attributeValue, WebElementGet getParent, UiDriverGet getDriver) {
-        return new WebGetElementListByLocatorAttributeParent(locatorType, locatorValue, attribute, attributeValue, getParent, getDriver);
+            String attribute, String attributeValue, WebElementGet getParent, UiHost host) {
+        return new WebGetElementListByLocatorAttributeParent(locatorType, locatorValue, attribute, attributeValue, getParent, host);
     }
 
     @Override
@@ -53,7 +56,7 @@ public class WebGetElementListByLocatorAttributeParent extends UiElementGetList 
         List<Object> candidates = new ArrayList<>();
         By locator = WebElementLocator.getInstance(locatorType, locatorValue);
         if (getParent == null) {
-            candidates.addAll(UiDriverFindElements.getInstance(getDriver).execute(locator));
+            candidates.addAll(host.findElements(locator));
         } else {
             candidates.addAll((getParent.execute()).findElements(locator));
         }
@@ -66,7 +69,7 @@ public class WebGetElementListByLocatorAttributeParent extends UiElementGetList 
                 final String description = String.format("#%d", ordinal);
                 elements.add(
                         UiElement.getInstance(
-                                description, locatorType, locatorValue, this.attribute, this.attributeValue));
+                                description, locatorType, locatorValue, this.attribute, this.attributeValue, host));
             }
         }
         return elements;

@@ -15,8 +15,8 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
-import com.softwareonpurpose.uinavigator.UiDriverFindElements;
-import com.softwareonpurpose.uinavigator.UiDriverGet;
+import com.softwareonpurpose.uinavigator.UiElementGet;
+import com.softwareonpurpose.uinavigator.UiHost;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -27,15 +27,19 @@ public class WebElementGetByLocatorParent extends WebElementGet {
     private final WebElementGet getParent;
     private transient WebElement element;
 
-    private WebElementGetByLocatorParent(String description, By locator, WebElementGet getParent, UiDriverGet getDriver) {
-        super(description, locator, getDriver);
-        this.getParent = (new By.ByTagName("body").equals(locator)) ? null : getParent;
+    private WebElementGetByLocatorParent(String description, By locator, UiElementGet getParent, UiHost host) {
+        super(description, locator, host);
+        final boolean isLocatorBodyTag = new By.ByTagName("body").equals(locator);
+        final WebElement parent = (getParent == null) ? null : (WebElement) getParent.execute();
+        final boolean isParentIFrame = (parent != null) && "iframe".equals(parent.getTagName());
+        final boolean hasInvalidParent = isLocatorBodyTag || isParentIFrame;
+        this.getParent = hasInvalidParent ? null : (WebElementGet) getParent;
     }
 
     public static WebElementGetByLocatorParent getInstance(
-            String description, String locatorType, String locatorValue, WebElementGet getParent, UiDriverGet getDriver) {
+            String description, String locatorType, String locatorValue, WebElementGet getParent, UiHost host) {
         return new WebElementGetByLocatorParent(
-                description, WebElementLocator.getInstance(locatorType, locatorValue), getParent, getDriver);
+                description, WebElementLocator.getInstance(locatorType, locatorValue), getParent, host);
     }
 
     @Override
@@ -43,7 +47,7 @@ public class WebElementGetByLocatorParent extends WebElementGet {
         if (element == null) {
             List<Object> elements = new ArrayList<>();
             if (getParent == null) {
-                elements.addAll(UiDriverFindElements.getInstance(getDriver).execute(locator));
+                elements.addAll(host.findElements(locator));
             } else {
                 elements.addAll((getParent.execute()).findElements(locator));
             }

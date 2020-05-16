@@ -7,10 +7,12 @@ import org.testng.annotations.Test;
 public class UiElementBehaviorsGetTextTests extends TestClass {
     @Test
     public void testGetText() {
-        UiElementBehaviors behaviors = UiElementBehaviors.getInstanceByLocator("Page", UiLocatorType.TAG, "body");
+        UiHost host = UiHost.getInstance();
+        UiElementBehaviors behaviors = UiElementBehaviors.getInstanceByLocator("Page", UiLocatorType.TAG, "body", host);
         String expected = "";
         String actual = behaviors.getText();
         String message = "Failed to return expected text";
+        host.quit();
         Assert.assertEquals(actual, expected, message);
     }
 }

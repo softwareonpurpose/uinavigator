@@ -7,14 +7,15 @@ import org.testng.annotations.Test;
 public class UiElementBehaviorsSetNullTests extends TestClass {
     @Test
     public void testSet_null() {
-        host = UiHost.getInstance();
+        UiHost host = UiHost.getInstance();
         String address = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
         host.load(address);
-        UiElement element = UiElement.getInstance("Element", UiLocatorType.NAME, "user_name");
+        UiElement element = UiElement.getInstance("Element", UiLocatorType.NAME, "user_name", host);
         element.set(null);
         String expected = "";
         String actual = element.getText();
         String message = "Failed to return expected text";
+        host.quit();
         Assert.assertEquals(actual, expected, message);
     }
 }

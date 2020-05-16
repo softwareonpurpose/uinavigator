@@ -15,8 +15,8 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
-import com.softwareonpurpose.uinavigator.UiDriverFindElements;
-import com.softwareonpurpose.uinavigator.UiDriverGet;
+import com.softwareonpurpose.uinavigator.UiDriverBehaviors;
+import com.softwareonpurpose.uinavigator.UiHost;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -28,8 +28,8 @@ public class WebElementGetByLocatorAttributeOrdinal extends WebElementGet {
     private final Integer ordinal;
     private transient WebElement element;
 
-    private WebElementGetByLocatorAttributeOrdinal(String description, By locator, String attribute, String attributeValue, Integer ordinal, UiDriverGet getDriver) {
-        super(description, locator, getDriver);
+    private WebElementGetByLocatorAttributeOrdinal(String description, By locator, String attribute, String attributeValue, Integer ordinal, UiHost host) {
+        super(description, locator, host);
         this.attribute = attribute;
         this.attributeValue = attributeValue;
         this.ordinal = ordinal;
@@ -37,15 +37,15 @@ public class WebElementGetByLocatorAttributeOrdinal extends WebElementGet {
 
     public static WebElementGetByLocatorAttributeOrdinal getInstance(
             String description, String locatorType, String locatorValue,
-            String attribute, String attributeValue, Integer ordinal, UiDriverGet getDriver) {
+            String attribute, String attributeValue, Integer ordinal, UiHost host) {
         return new WebElementGetByLocatorAttributeOrdinal(
-                description, WebElementLocator.getInstance(locatorType, locatorValue), attribute, attributeValue, ordinal, getDriver);
+                description, WebElementLocator.getInstance(locatorType, locatorValue), attribute, attributeValue, ordinal, host);
     }
 
     @Override
     public WebElement execute() {
         if (element == null) {
-            List<Object> candidates = UiDriverFindElements.getInstance(getDriver).execute(locator);
+            List<Object> candidates = host.findElements(locator);
             Integer ordinal = 0;
             for (Object candidate : candidates) {
                 final WebElement webCandidate = (WebElement) candidate;

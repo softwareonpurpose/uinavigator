@@ -10,17 +10,19 @@ import org.testng.annotations.Test;
 public class UiHostDriverRelatedTests extends TestClass {
     @Test
     public void testGetUri() {
-        host = UiHost.getInstance();
+        UiHost host = UiHost.getInstance();
         String expected = MockView.directNav(host).getAddress();
         String actual = host.getAddress();
+        host.quit();
         Assert.assertEquals(actual, expected, "Failed to return expected URI");
     }
 
     @Test
     public void testGetDriverName() {
-        host = UiHost.getInstance();
+        UiHost host = UiHost.getInstance();
         String expected = "ChromeDriver";
         String actual = host.getDriverName();
+        host.quit();
         Assert.assertTrue(actual.endsWith(expected), "Failed to return correct driver name");
     }
 }

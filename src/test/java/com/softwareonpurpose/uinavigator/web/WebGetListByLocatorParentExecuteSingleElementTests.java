@@ -8,13 +8,14 @@ import org.testng.annotations.Test;
 public class WebGetListByLocatorParentExecuteSingleElementTests extends TestClass {
     @Test
     public void testExecute_parentNull() {
-        host = UiHost.getInstance();
+        UiHost host = UiHost.getInstance();
         MockView.directNav(host);
         Class<UiElement> expected = UiElement.class;
         final WebGetElementListByLocatorParent getListBehavior =
-                WebGetElementListByLocatorParent.getInstance(UiLocatorType.TAG, "body", null, UiDriverGet.getInstance());
+                WebGetElementListByLocatorParent.getInstance(UiLocatorType.TAG, "body", null, host);
         //noinspection rawtypes
         Class actual = getListBehavior.execute().iterator().next().getClass();
+        host.quit();
         Assert.assertEquals(actual, expected, "Failed to return a list of WebUiElements");
     }
 }

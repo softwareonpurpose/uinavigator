@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 @Test
 public class WebGetListByLocatorAttributeOrdinalTests extends TestClass {
     public void testExecute() {
-        host = UiHost.getInstance();
+        UiHost host = UiHost.getInstance();
         MockView.directNav(host);
         final String attribute = "data-test";
         final String attributeValue = "select-element";
@@ -15,10 +15,11 @@ public class WebGetListByLocatorAttributeOrdinalTests extends TestClass {
         final String locatorValue = "select";
         final WebGetElementListByLocatorAttributeOrdinal getBehavior =
                 WebGetElementListByLocatorAttributeOrdinal.getInstance(
-                        UiLocatorType.TAG, locatorValue, attribute, attributeValue, ordinal, UiDriverGet.getInstance());
+                        UiLocatorType.TAG, locatorValue, attribute, attributeValue, ordinal, host);
         Class<UiElement> expected = UiElement.class;
         //noinspection rawtypes
         Class actual = getBehavior.execute().iterator().next().getClass();
+        host.quit();
         Assert.assertEquals(actual, expected, "Failed to return an instance of WebElement");
     }
 }

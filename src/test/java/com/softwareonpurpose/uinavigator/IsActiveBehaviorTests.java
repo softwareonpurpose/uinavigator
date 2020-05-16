@@ -9,16 +9,17 @@ import org.testng.annotations.Test;
 public class IsActiveBehaviorTests {
     @Test
     public void testGetInstance() {
+        UiHost host = UiHost.getInstance();
         //noinspection rawtypes
         Class expected = WebElementIsActive.class;
         final String description = "Pet Select";
         final String locatorValue = "pet-select";
-        final UiDriverGet getDriver = UiDriverGet.getInstance();
-        UiElementGet getElement = WebElementGetByLocator.getInstance(description, UiLocatorType.ID, locatorValue, getDriver);
+        UiElementGet getElement = WebElementGetByLocator.getInstance(description, UiLocatorType.ID, locatorValue, host);
         String attribute = "data-state";
         String value = "active";
         //noinspection rawtypes
-        Class actual = UiElementIsActive.getInstance(getElement, attribute, value, getDriver).getClass();
+        Class actual = UiElementIsActive.getInstance(getElement, attribute, value).getClass();
+        host.quit();
         Assert.assertEquals(actual, expected, "Failed to instantiate an instance of IsActiveBehavior");
     }
 }

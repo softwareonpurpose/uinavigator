@@ -28,8 +28,8 @@ public class WebGetElementListByLocatorOrdinalParent extends UiElementGetList {
     private final String locatorType;
     private final String locatorValue;
 
-    private WebGetElementListByLocatorOrdinalParent(String locatorType, String locatorValue, Integer ordinal, WebElementGet getParent, UiDriverGet getDriver) {
-        super(getDriver);
+    private WebGetElementListByLocatorOrdinalParent(String locatorType, String locatorValue, Integer ordinal, WebElementGet getParent, UiHost host) {
+        super(host);
         this.ordinal = ordinal;
         this.getParent = (UiLocatorType.TAG.equals(locatorType) && "body".equals(locatorValue)) ? null : getParent;
         this.locatorType = locatorType;
@@ -37,8 +37,8 @@ public class WebGetElementListByLocatorOrdinalParent extends UiElementGetList {
     }
 
     public static WebGetElementListByLocatorOrdinalParent getInstance(
-            String locatorType, String locatorValue, Integer ordinal, UiElementGet getParent, UiDriverGet getDriver) {
-        return new WebGetElementListByLocatorOrdinalParent(locatorType, locatorValue, ordinal, (WebElementGet) getParent, getDriver);
+            String locatorType, String locatorValue, Integer ordinal, UiElementGet getParent, UiHost host) {
+        return new WebGetElementListByLocatorOrdinalParent(locatorType, locatorValue, ordinal, (WebElementGet) getParent, host);
     }
 
     @Override
@@ -47,12 +47,12 @@ public class WebGetElementListByLocatorOrdinalParent extends UiElementGetList {
         List<Object> candidates = new ArrayList<>();
         By locator = WebElementLocator.getInstance(locatorType, locatorValue);
         if (getParent == null) {
-            candidates.addAll(UiDriverFindElements.getInstance(getDriver).execute(locator));
+            candidates.addAll(host.findElements(locator));
         } else {
             candidates.addAll((getParent.execute()).findElements(locator));
         }
         if (candidates.size() >= ordinal) {
-            elements.add(UiElement.getInstance(String.format("#%d", ordinal), locatorType, locatorValue, ordinal));
+            elements.add(UiElement.getInstance(String.format("#%d", ordinal), locatorType, locatorValue, ordinal, host));
         }
         return elements;
     }

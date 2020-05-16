@@ -3,9 +3,11 @@ package com.softwareonpurpose.uinavigator;
 public class MockViewConfirmationFailure extends UiView {
 
     private static final String VIEW_URI = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
+    private final UiHost host;
 
     public MockViewConfirmationFailure(UiHost host) {
-        super(VIEW_URI, UiElement.getInstance("'Mock' view", UiLocatorType.TAG, "body"), host);
+        super(VIEW_URI, UiElement.getInstance("'Mock' view", UiLocatorType.TAG, "body", host), host);
+        this.host = host;
     }
 
     public static MockViewConfirmationFailure directNav(UiHost host) {
@@ -28,6 +30,6 @@ public class MockViewConfirmationFailure extends UiView {
     }
 
     private UiElement getNonExistentElement() {
-        return UiElement.getInstance("Non Existent", UiLocatorType.ID, "non-existent", this.getElement());
+        return UiElement.getInstance("Non Existent", UiLocatorType.ID, "non-existent", this.getElement(), host);
     }
 }

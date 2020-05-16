@@ -15,8 +15,7 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
-import com.softwareonpurpose.uinavigator.UiDriverFindElements;
-import com.softwareonpurpose.uinavigator.UiDriverGet;
+import com.softwareonpurpose.uinavigator.UiHost;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -29,17 +28,17 @@ public class WebElementGetByLocatorOrdinalParent extends WebElementGet {
     private transient WebElement element;
 
     private WebElementGetByLocatorOrdinalParent(
-            String description, By locator, Integer ordinal, WebElementGet getParent, UiDriverGet getDriver) {
-        super(description, locator, getDriver);
+            String description, By locator, Integer ordinal, WebElementGet getParent, UiHost host) {
+        super(description, locator, host);
         this.ordinal = ordinal;
         this.getParent = (new By.ByTagName("body").equals(locator)) ? null : getParent;
     }
 
     public static WebElementGetByLocatorOrdinalParent getInstance(
             String description, String locatorType, String locatorValue,
-            Integer ordinal, WebElementGet getParent, UiDriverGet getDriver) {
+            Integer ordinal, WebElementGet getParent, UiHost host) {
         return new WebElementGetByLocatorOrdinalParent(
-                description, WebElementLocator.getInstance(locatorType, locatorValue), ordinal, getParent, getDriver);
+                description, WebElementLocator.getInstance(locatorType, locatorValue), ordinal, getParent, host);
     }
 
     @Override
@@ -47,7 +46,7 @@ public class WebElementGetByLocatorOrdinalParent extends WebElementGet {
         if (element == null) {
             List<Object> elements = new ArrayList<>();
             if (getParent == null) {
-                elements.addAll(UiDriverFindElements.getInstance(getDriver).execute(locator));
+                elements.addAll(host.findElements(locator));
             } else {
                 elements.addAll((getParent.execute()).findElements(locator));
             }

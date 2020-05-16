@@ -5,9 +5,11 @@ public class MockViewFramed extends UiView {
     private static final String VIEW_URI = "file:///C:/Users/craig/Documents/git/uinavigator/src/test/resources/MockPage.html";
     private static final String LOCATOR_VALUE = "iframe";
     private static final String DESCRIPTION = "'Framed' view";
+    private final UiHost host;
 
     public MockViewFramed(UiHost host) {
-        super(VIEW_URI, UiElement.getInstance(DESCRIPTION, UiLocatorType.TAG, LOCATOR_VALUE), host);
+        super(VIEW_URI, UiElement.getInstance(DESCRIPTION, UiLocatorType.TAG, LOCATOR_VALUE, host), host);
+        this.host = host;
     }
 
     public static MockViewFramed directNav(UiHost host) {
@@ -18,9 +20,7 @@ public class MockViewFramed extends UiView {
 
     @Override
     protected boolean confirmElementStates() {
-        boolean confirmed = this.getElement().waitUntilVisible();
-        confirmed &= getSiteTitleElement().waitUntilVisible();
-        return confirmed;
+        return getSiteTitleElement().waitUntilVisible();
     }
 
     public String getSiteTitle() {
@@ -28,6 +28,6 @@ public class MockViewFramed extends UiView {
     }
 
     private UiElement getSiteTitleElement() {
-        return UiElement.getInstance("Site Title", UiLocatorType.CLASS, "site-title");
+        return UiElement.getInstance("Site Title", UiLocatorType.CLASS, "site-title", this.getElement(), host);
     }
 }

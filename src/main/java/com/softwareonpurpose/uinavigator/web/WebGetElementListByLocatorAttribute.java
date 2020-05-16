@@ -15,10 +15,9 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
-import com.softwareonpurpose.uinavigator.UiDriverFindElements;
-import com.softwareonpurpose.uinavigator.UiDriverGet;
 import com.softwareonpurpose.uinavigator.UiElement;
 import com.softwareonpurpose.uinavigator.UiElementGetList;
+import com.softwareonpurpose.uinavigator.UiHost;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -32,8 +31,8 @@ public class WebGetElementListByLocatorAttribute extends UiElementGetList {
     private final String locatorType;
     private final String locatorValue;
 
-    private WebGetElementListByLocatorAttribute(String locatorType, String locatorValue, String attribute, String attributeValue, UiDriverGet getDriver) {
-        super(getDriver);
+    private WebGetElementListByLocatorAttribute(String locatorType, String locatorValue, String attribute, String attributeValue, UiHost host) {
+        super(host);
         this.attribute = attribute;
         this.attributeValue = attributeValue;
         this.locatorType = locatorType;
@@ -41,15 +40,15 @@ public class WebGetElementListByLocatorAttribute extends UiElementGetList {
     }
 
     public static WebGetElementListByLocatorAttribute getInstance(
-            String locatorType, String locatorValue, String attribute, String attributeValue, UiDriverGet getDriver) {
-        return new WebGetElementListByLocatorAttribute(locatorType, locatorValue, attribute, attributeValue, getDriver);
+            String locatorType, String locatorValue, String attribute, String attributeValue, UiHost host) {
+        return new WebGetElementListByLocatorAttribute(locatorType, locatorValue, attribute, attributeValue, host);
     }
 
     @Override
     public Collection<UiElement> execute() {
         List<UiElement> elements = new ArrayList<>();
         By locator = WebElementLocator.getInstance(locatorType, locatorValue);
-        List<Object> candidates = UiDriverFindElements.getInstance(getDriver).execute(locator);
+        List<Object> candidates = host.findElements(locator);
         int ordinal = 0;
         for (Object candidate : candidates) {
             final WebElement webCandidate = (WebElement) candidate;
@@ -59,7 +58,7 @@ public class WebGetElementListByLocatorAttribute extends UiElementGetList {
                 final String description = String.format("#%d", ordinal);
                 final UiElement element =
                         UiElement.getInstance(
-                                description, locatorType, locatorValue, this.attribute, this.attributeValue);
+                                description, locatorType, locatorValue, this.attribute, this.attributeValue, host);
                 elements.add(element);
             }
         }
