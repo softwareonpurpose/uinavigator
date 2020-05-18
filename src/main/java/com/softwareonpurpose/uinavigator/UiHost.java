@@ -102,10 +102,6 @@ public class UiHost {
         return behaviors.state(identifiers);
     }
 
-    public UiDriverBehaviors getBehaviors() {
-        return behaviors;
-    }
-
     public void switchTo(UiElement element) {
         behaviors.switchTo(element);
     }

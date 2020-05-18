@@ -50,7 +50,6 @@ public class WebElementGetByLocatorAttributeParent extends WebElementGet {
         if (element == null) {
             List<Object> candidates = new ArrayList<>();
             if (getParent() == null) {
-                host.findElements(locator);
                 candidates.addAll(host.findElements(locator));
             } else {
                 candidates.addAll(getParent().execute().findElements(locator));
@@ -69,7 +68,7 @@ public class WebElementGetByLocatorAttributeParent extends WebElementGet {
     private WebElementGet getParent() {
         if (isParentOutOfScope == null) {
             final boolean isLocatorBodyTag = new By.ByTagName("body").equals(locator);
-            final WebElement parent = (getParent == null) ? null : (WebElement) getParent.execute();
+            final WebElement parent = (getParent == null) ? null : getParent.execute();
             final boolean isParentIFrame = (parent != null) && "iframe".equals(parent.getTagName());
             isParentOutOfScope = isLocatorBodyTag || isParentIFrame;
         }

@@ -28,4 +28,24 @@ public class WebElementGetByLocatorAttributeOrdinalTests extends TestClass {
         host.quit();
         Assert.assertEquals(actual, expected, "Failed to return an instance of WebElement");
     }
+
+    @Test
+    public void testExecute_instantiated() {
+        UiHost host = UiHost.getInstance();
+        String description = "Select";
+        final String attribute = "data-test";
+        final String attributeValue = "select-element";
+        final int ordinal = 2;
+        final String locatorValue = "select";
+        final WebElementGetByLocatorAttributeOrdinal getBehavior =
+                WebElementGetByLocatorAttributeOrdinal.getInstance(
+                        description, UiLocatorType.TAG, locatorValue, attribute, attributeValue, ordinal, host);
+        Class<RemoteWebElement> expected = RemoteWebElement.class;
+        MockView.directNav(host);
+        getBehavior.execute();
+        //noinspection rawtypes
+        Class actual = getBehavior.execute().getClass();
+        host.quit();
+        Assert.assertEquals(actual, expected, "Failed to return an instance of WebElement");
+    }
 }

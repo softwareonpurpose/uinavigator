@@ -16,8 +16,9 @@ public class WebElementGetByLocatorTests extends TestClass {
         String description = "IFrame";
         MockView.directNav(host);
         final String locatorValue = "iframe";
-        WebElement actual = WebElementGetByLocator.getInstance(description, UiLocatorType.TAG, locatorValue, host).execute();
+        WebElement actual =
+                WebElementGetByLocator.getInstance(description, UiLocatorType.TAG, locatorValue, host).execute();
         host.quit();
-        Assert.assertNotNull(actual, "Failed to return instance of iframe WebElement");
+        Assert.assertNotNull(actual, "Failed to return instance of 'iframe' WebElement");
     }
 }

@@ -3,16 +3,16 @@ package com.softwareonpurpose.uinavigator;
 import com.softwareonpurpose.uinavigator.web.WebElementAttributeSet;
 
 public abstract class UiElementAttributeSet {
+    protected final UiHost host;
     protected final UiElementGet getBehavior;
-    protected final UiDriverGet getDriver;
 
-    protected UiElementAttributeSet(UiElementGet getBehavior, UiDriverGet getDriver) {
+    protected UiElementAttributeSet(UiElementGet getBehavior, UiHost host) {
         this.getBehavior = getBehavior;
-        this.getDriver = getDriver;
+        this.host = host;
     }
 
-    public static UiElementAttributeSet getInstance(UiElementGet getElement, UiDriverGet getDriver) {
-        return new WebElementAttributeSet(getElement, getDriver);
+    public static UiElementAttributeSet getInstance(UiElementGet getElement, UiHost host) {
+        return new WebElementAttributeSet(getElement, host);
     }
 
     public abstract void execute(String attribute, String value);
