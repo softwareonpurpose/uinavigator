@@ -15,12 +15,10 @@ public class WebDriverScriptExecute extends UiDriverScriptExecute {
     @Override
     public void execute(String script, Object[] args) {
         final WebDriver driver = (WebDriver) getDriver.execute();
-        if (driver instanceof JavascriptExecutor) {
-            try {
-                ((JavascriptExecutor) driver).executeScript(script, args);
-            } catch (JavascriptException e) {
-                LoggerFactory.getLogger(this.getClass()).warn(String.format("Unable to execute javascript: [%s]", script));
-            }
+        try {
+            ((JavascriptExecutor) driver).executeScript(script, args);
+        } catch (JavascriptException e) {
+            LoggerFactory.getLogger(this.getClass()).warn(String.format("Unable to execute javascript: [%s]", script));
         }
     }
 }

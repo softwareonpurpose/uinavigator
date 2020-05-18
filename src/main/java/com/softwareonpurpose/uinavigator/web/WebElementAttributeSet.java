@@ -24,10 +24,6 @@ public class WebElementAttributeSet extends UiElementAttributeSet {
         super(getBehavior, host);
     }
 
-    public static WebElementAttributeSet getInstance(UiElementGet getBehavior, UiHost host) {
-        return new WebElementAttributeSet(getBehavior, host);
-    }
-
     public void execute(String attribute, String value) {
         Object[] arguments = {getBehavior.execute(), attribute, value};
         final String script = "arguments[0].setAttribute(arguments[1], arguments[2]);";

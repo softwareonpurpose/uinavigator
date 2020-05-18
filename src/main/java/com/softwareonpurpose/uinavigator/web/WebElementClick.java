@@ -1,7 +1,7 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.UiElementClick;
 import com.softwareonpurpose.uinavigator.UiElementBehaviors;
+import com.softwareonpurpose.uinavigator.UiElementClick;
 import com.softwareonpurpose.uinavigator.UiElementGet;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
@@ -18,7 +18,7 @@ public class WebElementClick extends UiElementClick {
         WebElement element = (WebElement) getElement.execute();
         final String message = "BLOCKED: Unable to click %s using hierarchy %s";
         final String errorMessage = String.format(message, description, getElement.toString());
-        if (element == null || "".equals(element.getTagName())) {
+        if (element == null) {
             if (UiElementBehaviors.isLoggingSuppressed()) {
                 final String root = "";
                 LoggerFactory.getLogger(root).error(errorMessage);

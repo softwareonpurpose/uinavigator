@@ -9,9 +9,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 @Test
-public class WebElementGetByLocatorAttributeOrdinalTests extends TestClass {
+public class WebElementGetByLocatorAttributeOrdinalInstantiatedTests extends TestClass {
     @Test
-    public void testExecute() {
+    public void testExecute_instantiated() {
         UiHost host = UiHost.getInstance();
         String description = "Select";
         final String attribute = "data-test";
@@ -23,6 +23,7 @@ public class WebElementGetByLocatorAttributeOrdinalTests extends TestClass {
                         description, UiLocatorType.TAG, locatorValue, attribute, attributeValue, ordinal, host);
         Class<RemoteWebElement> expected = RemoteWebElement.class;
         MockView.directNav(host);
+        getBehavior.execute();
         //noinspection rawtypes
         Class actual = getBehavior.execute().getClass();
         host.quit();

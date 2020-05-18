@@ -8,14 +8,14 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 @Test
-public class WebGetListByLocatorOrdinalTests extends TestClass {
+public class WebGetListByLocatorOrdinalNonExistentTests extends TestClass {
     @Test
-    public void testExecute() {
+    public void testExecute_nonExistent() {
         UiHost host = UiHost.getInstance();
         MockView.directNav(host);
-        Integer expected = 1;
-        Integer actual = WebGetElementListByLocatorOrdinal.getInstance(UiLocatorType.TAG, "option", 3, host).execute().size();
+        Integer expected = 0;
+        Integer actual = WebGetElementListByLocatorOrdinal.getInstance(UiLocatorType.TAG, "label", 3, host).execute().size();
         host.quit();
-        Assert.assertEquals(actual, expected, "Failed to return list of one instance of WebUiElement");
+        Assert.assertEquals(actual, expected, "Failed to return empty list of WebUiElement");
     }
 }

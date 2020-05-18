@@ -6,24 +6,23 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 @Test
-public class WebElementGetByLocatorParentTests extends TestClass {
+public class WebElementGetByLocatorParentExecuteTests extends TestClass {
     @Test
-    public void testExecute_parentIFrame() {
+    public void testExecute() {
         UiHost host = UiHost.getInstance();
-        MockViewFramed.directNav(host);
-        String parentDescription = "IFrame";
-        final String parentLocatorValue = "iframe";
+        MockView.directNav(host);
+        String parentDescription = "Form";
+        final String parentLocatorValue = "form";
         WebElementGet getParent =
                 WebElementGetByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue, host);
-        String description = "Title";
-        final String locatorValue = "site-title";
+        String description = "Username";
+        final String locatorValue = "user_name";
         final WebElementGetByLocatorParent getElement =
-                WebElementGetByLocatorParent
-                        .getInstance(description, UiLocatorType.CLASS, locatorValue, getParent, host);
+                WebElementGetByLocatorParent.getInstance(description, UiLocatorType.NAME, locatorValue, getParent, host);
         Class<RemoteWebElement> expected = RemoteWebElement.class;
         //noinspection rawtypes
         Class actual = getElement.execute().getClass();
-        final String message = "Failed to return new instance with parent 'iframe' tag";
+        final String message = "Failed to return new instance with parent 'null' and locator is 'body' tag";
         host.quit();
         Assert.assertEquals(actual, expected, message);
     }

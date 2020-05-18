@@ -9,23 +9,23 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 @Test
-public class WebElementGetByLocatorAttributeOrdinalTests extends TestClass {
+public class WebElementGetByLocatorAttributeInstantiatedTests extends TestClass {
     @Test
-    public void testExecute() {
+    public void testExecute_instantiated() {
         UiHost host = UiHost.getInstance();
-        String description = "Select";
+        String description = "Name";
+        final String locatorValue = "name";
         final String attribute = "data-test";
-        final String attributeValue = "select-element";
-        final int ordinal = 2;
-        final String locatorValue = "select";
-        final WebElementGetByLocatorAttributeOrdinal getBehavior =
-                WebElementGetByLocatorAttributeOrdinal.getInstance(
-                        description, UiLocatorType.TAG, locatorValue, attribute, attributeValue, ordinal, host);
+        final String attributeValue = "initial";
+        final WebElementGetByLocatorAttribute getBehavior =
+                WebElementGetByLocatorAttribute
+                        .getInstance(description, UiLocatorType.ID, locatorValue, attribute, attributeValue, host);
         Class<RemoteWebElement> expected = RemoteWebElement.class;
         MockView.directNav(host);
+        getBehavior.execute();
         //noinspection rawtypes
         Class actual = getBehavior.execute().getClass();
         host.quit();
-        Assert.assertEquals(actual, expected, "Failed to return an instance of WebElement");
+        Assert.assertEquals(actual, expected, "Failed to return a WebElement instance");
     }
 }

@@ -27,23 +27,4 @@ public class WebElementGetByLocatorAttributeTests extends TestClass {
         host.quit();
         Assert.assertEquals(actual, expected, "Failed to return a WebElement instance");
     }
-
-    @Test
-    public void testExecute_instantiated() {
-        UiHost host = UiHost.getInstance();
-        String description = "Name";
-        final String locatorValue = "name";
-        final String attribute = "data-test";
-        final String attributeValue = "initial";
-        final WebElementGetByLocatorAttribute getBehavior =
-                WebElementGetByLocatorAttribute
-                        .getInstance(description, UiLocatorType.ID, locatorValue, attribute, attributeValue, host);
-        Class<RemoteWebElement> expected = RemoteWebElement.class;
-        MockView.directNav(host);
-        getBehavior.execute();
-        //noinspection rawtypes
-        Class actual = getBehavior.execute().getClass();
-        host.quit();
-        Assert.assertEquals(actual, expected, "Failed to return a WebElement instance");
-    }
 }
