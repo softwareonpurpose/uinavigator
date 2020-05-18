@@ -6,16 +6,6 @@ import org.testng.annotations.Test;
 @Test
 public class UiElementTests extends TestClass {
     @Test
-    public void testGetText() {
-        UiHost host = UiHost.getInstance();
-        String expected = "google";
-        MockView.directNav(host);
-        String actual = UiElement.getInstance("Element", UiLocatorType.TAG, "a", host).getText();
-        host.quit();
-        Assert.assertEquals(actual, expected, "Failed to return text value of WebUiElement");
-    }
-
-    @Test
     public void testSuppressLogging() {
         boolean expected = true;
         UiElement.suppressLogging(true);
