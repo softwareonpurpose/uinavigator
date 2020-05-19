@@ -15,7 +15,10 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
-import com.softwareonpurpose.uinavigator.*;
+import com.softwareonpurpose.uinavigator.UiElement;
+import com.softwareonpurpose.uinavigator.UiElementGetList;
+import com.softwareonpurpose.uinavigator.UiHost;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -28,11 +31,11 @@ public class WebGetElementListByLocatorAttributeOrdinalParent extends UiElementG
     private final String attributeValue;
     private final Integer ordinal;
     private final WebElementGet getParent;
-    private final String locatorType;
+    private final UiLocatorType locatorType;
     private final String locatorValue;
 
     private WebGetElementListByLocatorAttributeOrdinalParent(
-            String locatorType, String locatorValue,
+            UiLocatorType locatorType, String locatorValue,
             String attribute, String attributeValue, Integer ordinal, WebElementGet getParent, UiHost host) {
         super(host);
         this.attribute = attribute;
@@ -44,7 +47,7 @@ public class WebGetElementListByLocatorAttributeOrdinalParent extends UiElementG
     }
 
     public static WebGetElementListByLocatorAttributeOrdinalParent getInstance(
-            String locatorType, String locatorValue,
+            UiLocatorType locatorType, String locatorValue,
             String attribute, String attributeValue, Integer ordinal, WebElementGet getParent, UiHost host) {
         return new WebGetElementListByLocatorAttributeOrdinalParent(
                 locatorType, locatorValue, attribute, attributeValue, ordinal, getParent, host);

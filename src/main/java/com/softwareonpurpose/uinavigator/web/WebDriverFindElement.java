@@ -3,7 +3,6 @@ package com.softwareonpurpose.uinavigator.web;
 import com.softwareonpurpose.uinavigator.UiDriverFindElement;
 import com.softwareonpurpose.uinavigator.UiDriverFindElements;
 import com.softwareonpurpose.uinavigator.UiDriverGet;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.slf4j.LoggerFactory;
 
@@ -15,8 +14,9 @@ public class WebDriverFindElement extends UiDriverFindElement {
     }
 
     @Override
-    public WebElement execute(By locator) {
-        List<Object> elements = UiDriverFindElements.getInstance(getDriver).execute(locator);
+    public WebElement execute(Object locator) {
+        List<Object> elements =
+                UiDriverFindElements.getInstance(getDriver).execute(locator);
         if (elements.size() == 0) {
             final String message = String.format("WARNING: Unable to find any element %s", locator.toString());
             LoggerFactory.getLogger(this.getClass()).warn(message);

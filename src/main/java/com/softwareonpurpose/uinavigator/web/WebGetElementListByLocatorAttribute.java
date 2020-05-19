@@ -18,6 +18,7 @@ package com.softwareonpurpose.uinavigator.web;
 import com.softwareonpurpose.uinavigator.UiElement;
 import com.softwareonpurpose.uinavigator.UiElementGetList;
 import com.softwareonpurpose.uinavigator.UiHost;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -28,10 +29,10 @@ import java.util.List;
 public class WebGetElementListByLocatorAttribute extends UiElementGetList {
     private final String attribute;
     private final String attributeValue;
-    private final String locatorType;
+    private final UiLocatorType locatorType;
     private final String locatorValue;
 
-    private WebGetElementListByLocatorAttribute(String locatorType, String locatorValue, String attribute, String attributeValue, UiHost host) {
+    private WebGetElementListByLocatorAttribute(UiLocatorType locatorType, String locatorValue, String attribute, String attributeValue, UiHost host) {
         super(host);
         this.attribute = attribute;
         this.attributeValue = attributeValue;
@@ -40,7 +41,7 @@ public class WebGetElementListByLocatorAttribute extends UiElementGetList {
     }
 
     public static WebGetElementListByLocatorAttribute getInstance(
-            String locatorType, String locatorValue, String attribute, String attributeValue, UiHost host) {
+            UiLocatorType locatorType, String locatorValue, String attribute, String attributeValue, UiHost host) {
         return new WebGetElementListByLocatorAttribute(locatorType, locatorValue, attribute, attributeValue, host);
     }
 

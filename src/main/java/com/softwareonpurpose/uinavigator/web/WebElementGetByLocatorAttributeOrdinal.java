@@ -15,9 +15,8 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
-import com.softwareonpurpose.uinavigator.UiDriverBehaviors;
 import com.softwareonpurpose.uinavigator.UiHost;
-import org.openqa.selenium.By;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -28,18 +27,18 @@ public class WebElementGetByLocatorAttributeOrdinal extends WebElementGet {
     private final Integer ordinal;
     private transient WebElement element;
 
-    private WebElementGetByLocatorAttributeOrdinal(String description, By locator, String attribute, String attributeValue, Integer ordinal, UiHost host) {
-        super(description, locator, host);
+    private WebElementGetByLocatorAttributeOrdinal(String description, UiLocatorType locatorType, String locatorValue, String attribute, String attributeValue, Integer ordinal, UiHost host) {
+        super(description, locatorType, locatorValue, host);
         this.attribute = attribute;
         this.attributeValue = attributeValue;
         this.ordinal = ordinal;
     }
 
     public static WebElementGetByLocatorAttributeOrdinal getInstance(
-            String description, String locatorType, String locatorValue,
+            String description, UiLocatorType locatorType, String locatorValue,
             String attribute, String attributeValue, Integer ordinal, UiHost host) {
         return new WebElementGetByLocatorAttributeOrdinal(
-                description, WebElementLocator.getInstance(locatorType, locatorValue), attribute, attributeValue, ordinal, host);
+                description, locatorType, locatorValue, attribute, attributeValue, ordinal, host);
     }
 
     @Override

@@ -16,10 +16,10 @@ public class WebDriverFindElements extends UiDriverFindElements {
     }
 
     @Override
-    public List<Object> execute(By locator) {
+    public List<Object> execute(Object locator) {
         List<Object> elements = new ArrayList<>();
         try {
-            elements.addAll(((WebDriver) getDriver.execute()).findElements(locator));
+            elements.addAll(((WebDriver) getDriver.execute()).findElements((By) locator));
         } catch (WebDriverException e) {
             LoggerFactory.getLogger(this.getClass()).warn(String.format("WARNING: Unable to find any element %s", locator.toString()));
         }

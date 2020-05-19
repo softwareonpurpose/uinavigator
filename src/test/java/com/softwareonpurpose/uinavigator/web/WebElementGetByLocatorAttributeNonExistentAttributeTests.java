@@ -15,7 +15,7 @@ public class WebElementGetByLocatorAttributeNonExistentAttributeTests extends Te
         final String locatorValue = "name";
         final String attribute = "data-nonexistent";
         final String attributeValue = "non-existent";
-        UiDriverBehaviors driverBehaviors = UiDriverBehaviors.getInstance();
+        UiDriver driverBehaviors = UiDriver.getInstance();
         final WebElementGetByLocatorAttribute getBehavior = WebElementGetByLocatorAttribute.getInstance(
                 description, UiLocatorType.ID, locatorValue, attribute, attributeValue, host);
         WebElement actual = getBehavior.execute();

@@ -1,4 +1,5 @@
 package com.softwareonpurpose.uinavigator;
+
 /*
   Copyright 2020 Craig A. Stockton
   <p/>
@@ -15,9 +16,5 @@ package com.softwareonpurpose.uinavigator;
   limitations under the License.
  */
 public enum UiLocatorType {
-    ;
-    public static final String CLASS = "class";
-    public static final String ID = "id";
-    public static final String NAME = "name";
-    public static final String TAG = "tag";
+    CLASS, ID, NAME, TAG
 }

@@ -18,7 +18,7 @@ public class UiElementTests extends TestClass {
     public void testToString() {
         UiHost host = UiHost.getInstance();
         String expected =
-                "{\"description\":\"Element\",\"behaviors\":{\"description\":\"Element\",\"getElement\":{\"locator\":{\"tagName\":\"body\"},\"description\":\"Element\"}}}";
+                "{\"description\":\"Element\",\"behaviors\":{\"description\":\"Element\",\"getElement\":{\"description\":\"Element\",\"locator\":{\"tagName\":\"body\"}}}}";
         String actual = UiElement.getInstance("Element", UiLocatorType.TAG, "body", host).toString();
         host.quit();
         Assert.assertEquals(actual, expected, "Failed to return the String description");

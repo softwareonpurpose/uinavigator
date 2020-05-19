@@ -16,7 +16,7 @@ package com.softwareonpurpose.uinavigator.web;
  */
 
 import com.softwareonpurpose.uinavigator.UiHost;
-import org.openqa.selenium.By;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
@@ -27,16 +27,16 @@ public class WebElementGetByLocatorAttribute extends WebElementGet {
     private final String attributeValue;
     private transient WebElement element;
 
-    private WebElementGetByLocatorAttribute(String description, By locator, String attribute, String attributeValue, UiHost host) {
-        super(description, locator, host);
+    private WebElementGetByLocatorAttribute(String description, UiLocatorType locatorType, String locatorValue, String attribute, String attributeValue, UiHost host) {
+        super(description, locatorType, locatorValue, host);
         this.attribute = attribute;
         this.attributeValue = attributeValue;
     }
 
     public static WebElementGetByLocatorAttribute getInstance(
-            String description, String locatorType, String locatorValue, String attribute, String attributeValue, UiHost host) {
+            String description, UiLocatorType locatorType, String locatorValue, String attribute, String attributeValue, UiHost host) {
         return new WebElementGetByLocatorAttribute(
-                description, WebElementLocator.getInstance(locatorType, locatorValue), attribute, attributeValue, host);
+                description, locatorType, locatorValue, attribute, attributeValue, host);
     }
 
     @Override

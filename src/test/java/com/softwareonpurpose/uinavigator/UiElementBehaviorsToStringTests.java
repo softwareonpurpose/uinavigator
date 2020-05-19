@@ -21,7 +21,7 @@ public class UiElementBehaviorsToStringTests extends TestClass {
         final UiElementBehaviors behaviors =
                 UiElementBehaviors.getInstanceByLocatorAttributeOrdinalParent(
                         description, UiLocatorType.TAG, "select", attribute, attributeValue, ordinal, getParent, host);
-        String expected = "{\"description\":\"Element\",\"getElement\":{\"attributeValue\":\"select-element\",\"attribute\":\"data-test\",\"ordinal\":2,\"getParent\":{\"locator\":{\"tagName\":\"form\"},\"description\":\"Form\"},\"locator\":{\"tagName\":\"select\"},\"description\":\"Element\"}}";
+        String expected = "{\"description\":\"Element\",\"getElement\":{\"attributeValue\":\"select-element\",\"attribute\":\"data-test\",\"ordinal\":2,\"getParent\":{\"description\":\"Form\",\"locator\":{\"tagName\":\"form\"}},\"description\":\"Element\",\"locator\":{\"tagName\":\"select\"}}}";
         String actual = behaviors.toString();
         host.quit();
         Assert.assertEquals(actual, expected, "Failed to return description via toString()");

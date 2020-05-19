@@ -17,9 +17,13 @@ package com.softwareonpurpose.uinavigator;
 
 public abstract class UiElementGet {
     protected transient final UiHost host;
+    private final String description;
+    protected Object locator;
 
-    protected UiElementGet(UiHost host) {
+    protected UiElementGet(String description, Object locator, UiHost host) {
+        this.description = description;
         this.host = host;
+        this.locator = locator;
     }
 
     public abstract Object execute();
@@ -29,5 +33,7 @@ public abstract class UiElementGet {
         return elementToString();
     }
 
-    protected abstract String elementToString();
+    protected String elementToString() {
+        return String.format("%s - %s", description, locator.toString());
+    }
 }

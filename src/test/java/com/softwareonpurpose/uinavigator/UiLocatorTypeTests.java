@@ -7,8 +7,8 @@ import org.testng.annotations.Test;
 public class UiLocatorTypeTests {
     @Test
     public void testLocatorType_class() {
-        String expected = "class";
-        String actual = UiLocatorType.CLASS;
+        String expected = "CLASS";
+        String actual = UiLocatorType.CLASS.toString();
         Assert.assertEquals(actual, expected, "Failed: UiLocatorType.CLASS set to unexpected value");
     }
 }

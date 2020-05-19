@@ -18,6 +18,7 @@ package com.softwareonpurpose.uinavigator.web;
 import com.softwareonpurpose.uinavigator.UiElement;
 import com.softwareonpurpose.uinavigator.UiElementGetList;
 import com.softwareonpurpose.uinavigator.UiHost;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -29,10 +30,10 @@ public class WebGetElementListByLocatorAttributeOrdinal extends UiElementGetList
     private final String attribute;
     private final String attributeValue;
     private final Integer ordinal;
-    private final String locatorType;
+    private final UiLocatorType locatorType;
     private final String locatorValue;
 
-    private WebGetElementListByLocatorAttributeOrdinal(String locatorType, String locatorValue, String attribute, String attributeValue, Integer ordinal, UiHost host) {
+    private WebGetElementListByLocatorAttributeOrdinal(UiLocatorType locatorType, String locatorValue, String attribute, String attributeValue, Integer ordinal, UiHost host) {
         super(host);
         this.attribute = attribute;
         this.attributeValue = attributeValue;
@@ -42,7 +43,7 @@ public class WebGetElementListByLocatorAttributeOrdinal extends UiElementGetList
     }
 
     public static WebGetElementListByLocatorAttributeOrdinal getInstance(
-            String locatorType, String locatorValue, String attribute, String attributeValue, Integer ordinal, UiHost host) {
+            UiLocatorType locatorType, String locatorValue, String attribute, String attributeValue, Integer ordinal, UiHost host) {
         return new WebGetElementListByLocatorAttributeOrdinal(locatorType, locatorValue, attribute, attributeValue, ordinal, host);
     }
 

@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 @Test
 public class WebElementClickNonExistentTests {
-    @Test(groups = "debug")
+    @Test
     public void execute_nonExistent() {
         UiHost host = UiHost.getInstance();
         final String description = "Non-existent";

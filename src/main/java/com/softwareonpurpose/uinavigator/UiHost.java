@@ -27,21 +27,17 @@ import java.util.List;
 @SuppressWarnings("WeakerAccess")
 public class UiHost {
     private static final Logger logger = LoggerFactory.getLogger("");
-    private final UiDriverBehaviors behaviors;
+    private final UiDriver behaviors;
 
     private UiHost() {
-        behaviors = UiDriverBehaviors.getInstance();
+        behaviors = UiDriver.getInstance();
     }
 
     public static UiHost getInstance() {
         return new UiHost();
     }
 
-    public Object findElement(By locator) {
-        return behaviors.findElement(locator);
-    }
-
-    public List<Object> findElements(By locator) {
+    public List<Object> findElements(Object locator) {
         return behaviors.findElements(locator);
     }
 
@@ -104,5 +100,9 @@ public class UiHost {
 
     public void switchTo(UiElement element) {
         behaviors.switchTo(element);
+    }
+
+    public Object findElement(Object locator) {
+        return behaviors.findElement(locator);
     }
 }

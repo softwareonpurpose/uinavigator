@@ -17,6 +17,7 @@ package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiElementGet;
 import com.softwareonpurpose.uinavigator.UiHost;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -28,15 +29,15 @@ public class WebElementGetByLocatorParent extends WebElementGet {
     private transient WebElement element;
     private Boolean isParentOutOfScope;
 
-    private WebElementGetByLocatorParent(String description, By locator, UiElementGet getParent, UiHost host) {
-        super(description, locator, host);
+    private WebElementGetByLocatorParent(String description, UiLocatorType locatorType, String locatorValue, UiElementGet getParent, UiHost host) {
+        super(description, locatorType, locatorValue, host);
         this.getParent = (WebElementGet) getParent;
     }
 
     public static WebElementGetByLocatorParent getInstance(
-            String description, String locatorType, String locatorValue, WebElementGet getParent, UiHost host) {
+            String description, UiLocatorType locatorType, String locatorValue, WebElementGet getParent, UiHost host) {
         return new WebElementGetByLocatorParent(
-                description, WebElementLocator.getInstance(locatorType, locatorValue), getParent, host);
+                description, locatorType, locatorValue, getParent, host);
     }
 
     @Override
@@ -46,7 +47,7 @@ public class WebElementGetByLocatorParent extends WebElementGet {
             if (getParent() == null) {
                 elements.addAll(host.findElements(locator));
             } else {
-                elements.addAll((getParent()).execute().findElements(locator));
+                elements.addAll((getParent()).execute().findElements((By) locator));
             }
             element = elements.size() == 0 ? null : (WebElement) elements.get(0);
         }
@@ -56,7 +57,7 @@ public class WebElementGetByLocatorParent extends WebElementGet {
     private WebElementGet getParent() {
         if (isParentOutOfScope == null) {
             final boolean isLocatorBodyTag = new By.ByTagName("body").equals(locator);
-            final WebElement parent = (getParent == null) ? null : (WebElement) getParent.execute();
+            final WebElement parent = (getParent == null) ? null : getParent.execute();
             final boolean isParentIFrame = (parent != null) && "iframe".equals(parent.getTagName());
             isParentOutOfScope = isLocatorBodyTag || isParentIFrame;
         }

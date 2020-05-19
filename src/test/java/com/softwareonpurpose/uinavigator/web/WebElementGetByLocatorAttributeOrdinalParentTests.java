@@ -20,7 +20,7 @@ public class WebElementGetByLocatorAttributeOrdinalParentTests extends TestClass
         WebElementGet getParent =
                 WebElementGetByLocator.getInstance(parentDescription, UiLocatorType.TAG, parentLocatorValue, host);
         String description = "Title Link";
-        final String locatorType = UiLocatorType.TAG;
+        final UiLocatorType locatorType = UiLocatorType.TAG;
         final String locatorValue = "a";
         final String attribute = "rel";
         final String attributeValue = "home";

@@ -16,18 +16,18 @@ package com.softwareonpurpose.uinavigator.web;
  */
 
 import com.softwareonpurpose.uinavigator.UiHost;
-import org.openqa.selenium.By;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.openqa.selenium.WebElement;
 
 public class WebElementGetByLocator extends WebElementGet {
     private transient WebElement element;
 
-    private WebElementGetByLocator(String description, By locator, UiHost host) {
-        super(description, locator, host);
+    private WebElementGetByLocator(String description, UiLocatorType locatorType, String locatorValue, UiHost host) {
+        super(description, locatorType, locatorValue, host);
     }
 
-    public static WebElementGetByLocator getInstance(String description, String locatorType, String locatorValue, UiHost host) {
-        return new WebElementGetByLocator(description, WebElementLocator.getInstance(locatorType, locatorValue), host);
+    public static WebElementGetByLocator getInstance(String description, UiLocatorType locatorType, String locatorValue, UiHost host) {
+        return new WebElementGetByLocator(description, locatorType, locatorValue, host);
     }
 
     @Override

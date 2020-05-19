@@ -15,8 +15,8 @@ package com.softwareonpurpose.uinavigator.web;
   limitations under the License.
  */
 
-import com.softwareonpurpose.uinavigator.UiElementGet;
 import com.softwareonpurpose.uinavigator.UiHost;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -32,9 +32,9 @@ public class WebElementGetByLocatorAttributeOrdinalParent extends WebElementGet 
     private Boolean isParentOutOfScope;
 
     private WebElementGetByLocatorAttributeOrdinalParent(
-            String description, By locator, String attribute, String attributeValue,
+            String description, UiLocatorType locatorType, String locatorValue, String attribute, String attributeValue,
             Integer ordinal, WebElementGet getParent, UiHost host) {
-        super(description, locator, host);
+        super(description, locatorType, locatorValue, host);
         this.attributeValue = attributeValue;
         this.attribute = attribute;
         this.ordinal = ordinal;
@@ -42,10 +42,10 @@ public class WebElementGetByLocatorAttributeOrdinalParent extends WebElementGet 
     }
 
     public static WebElementGetByLocatorAttributeOrdinalParent getInstance(
-            String description, String locatorType, String locatorValue,
+            String description, UiLocatorType locatorType, String locatorValue,
             String attribute, String attributeValue, Integer ordinal, WebElementGet getParent, UiHost host) {
         return new WebElementGetByLocatorAttributeOrdinalParent(
-                description, WebElementLocator.getInstance(locatorType, locatorValue),
+                description, locatorType, locatorValue,
                 attribute, attributeValue, ordinal, getParent, host);
     }
 
@@ -56,7 +56,7 @@ public class WebElementGetByLocatorAttributeOrdinalParent extends WebElementGet 
             if (getParent() == null) {
                 candidates.addAll(host.findElements(locator));
             } else {
-                candidates.addAll(getParent().execute().findElements(locator));
+                candidates.addAll(getParent().execute().findElements((By) locator));
             }
             Integer ordinal = 0;
             for (Object candidate : candidates) {
@@ -76,7 +76,7 @@ public class WebElementGetByLocatorAttributeOrdinalParent extends WebElementGet 
     private WebElementGet getParent() {
         if (isParentOutOfScope == null) {
             final boolean isLocatorBodyTag = new By.ByTagName("body").equals(locator);
-            final WebElement parent = (getParent == null) ? null : (WebElement) getParent.execute();
+            final WebElement parent = (getParent == null) ? null : getParent.execute();
             final boolean isParentIFrame = (parent != null) && "iframe".equals(parent.getTagName());
             isParentOutOfScope = isLocatorBodyTag || isParentIFrame;
         }

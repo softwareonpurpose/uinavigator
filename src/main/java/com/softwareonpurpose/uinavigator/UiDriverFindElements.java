@@ -16,5 +16,5 @@ public abstract class UiDriverFindElements {
         return new WebDriverFindElements(getDriver);
     }
 
-    public abstract List<Object> execute(By locator);
+    public abstract List<Object> execute(Object locator);
 }

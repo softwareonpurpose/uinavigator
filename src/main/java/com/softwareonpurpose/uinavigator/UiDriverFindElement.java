@@ -14,5 +14,5 @@ public abstract class UiDriverFindElement {
         return new WebDriverFindElement(getDriver);
     }
 
-    public abstract Object execute(By locator);
+    public abstract Object execute(Object locator);
 }

@@ -1,10 +1,8 @@
 package com.softwareonpurpose.uinavigator.web;
 
-import com.softwareonpurpose.uinavigator.MockView;
 import com.softwareonpurpose.uinavigator.TestClass;
 import com.softwareonpurpose.uinavigator.UiHost;
 import com.softwareonpurpose.uinavigator.UiLocatorType;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -16,7 +14,7 @@ public class WebElementGetByLocatorNullTests extends TestClass {
         UiHost host = UiHost.getInstance();
         String description = "Body";
         Class<WebElementGet> expected = WebElementGet.class;
-        final String locatorType = null;
+        final UiLocatorType locatorType = null;
         final String locatorValue = "body";
         //noinspection ConstantConditions
         final WebElementGetByLocator getElement =
@@ -32,7 +30,7 @@ public class WebElementGetByLocatorNullTests extends TestClass {
         UiHost host = UiHost.getInstance();
         String description = "NULL";
         Class<WebElementGet> expected = WebElementGet.class;
-        final String locatorType = UiLocatorType.TAG;
+        final UiLocatorType locatorType = UiLocatorType.TAG;
         final String locatorValue = null;
         //noinspection ConstantConditions
         final WebElementGetByLocator getElement =

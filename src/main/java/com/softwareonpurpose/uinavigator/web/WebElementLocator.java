@@ -20,20 +20,20 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ByIdOrName;
 
 public class WebElementLocator {
-    public static By getInstance(String locatorType, String locatorValue) {
+    public static By getInstance(UiLocatorType locatorType, String locatorValue) {
         if (locatorType == null || locatorValue == null) {
             return null;
         }
         By locator;
         switch (locatorType) {
-            case UiLocatorType.CLASS:
+            case CLASS:
                 locator = new By.ByClassName(locatorValue);
                 break;
-            case UiLocatorType.TAG:
+            case TAG:
                 locator = new By.ByTagName(locatorValue);
                 break;
-            case UiLocatorType.ID:
-            case UiLocatorType.NAME:
+            case ID:
+            case NAME:
             default:
                 locator = new ByIdOrName(locatorValue);
         }

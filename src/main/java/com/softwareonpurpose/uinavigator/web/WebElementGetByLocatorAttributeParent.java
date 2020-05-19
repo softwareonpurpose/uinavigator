@@ -16,6 +16,7 @@ package com.softwareonpurpose.uinavigator.web;
  */
 
 import com.softwareonpurpose.uinavigator.UiHost;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -30,19 +31,19 @@ public class WebElementGetByLocatorAttributeParent extends WebElementGet {
     private Boolean isParentOutOfScope;
 
     private WebElementGetByLocatorAttributeParent(
-            String description, By locator, String attribute, String attributeValue,
+            String description, UiLocatorType locatorType, String locatorValue, String attribute, String attributeValue,
             WebElementGet getParent, UiHost host) {
-        super(description, locator, host);
+        super(description, locatorType, locatorValue, host);
         this.attribute = attribute;
         this.attributeValue = attributeValue;
         this.getParent = (new By.ByTagName("body").equals(locator)) ? null : getParent;
     }
 
     public static WebElementGetByLocatorAttributeParent getInstance(
-            String description, String locatorType, String locatorValue,
+            String description, UiLocatorType locatorType, String locatorValue,
             String attribute, String attributeValue, WebElementGet getParent, UiHost host) {
         return new WebElementGetByLocatorAttributeParent(
-                description, WebElementLocator.getInstance(locatorType, locatorValue), attribute, attributeValue, getParent, host);
+                description, locatorType, locatorValue, attribute, attributeValue, getParent, host);
     }
 
     @Override
@@ -52,7 +53,7 @@ public class WebElementGetByLocatorAttributeParent extends WebElementGet {
             if (getParent() == null) {
                 candidates.addAll(host.findElements(locator));
             } else {
-                candidates.addAll(getParent().execute().findElements(locator));
+                candidates.addAll(getParent().execute().findElements((By) locator));
             }
             for (Object candidate : candidates) {
                 final WebElement webCandidate = (WebElement) candidate;

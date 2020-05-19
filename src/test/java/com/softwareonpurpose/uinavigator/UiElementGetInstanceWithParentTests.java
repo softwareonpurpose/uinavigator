@@ -26,7 +26,7 @@ public class UiElementGetInstanceWithParentTests extends TestClass {
         final String parentLocatorValue = "form";
         UiElement parent = UiElement.getInstance("Parent", UiLocatorType.TAG, parentLocatorValue, host);
         final String description = "Select";
-        final String locatorType = UiLocatorType.TAG;
+        final UiLocatorType locatorType = UiLocatorType.TAG;
         final String locatorValue = "option";
         final String attribute = "data-test";
         final String attributeValue = "select-element";

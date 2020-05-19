@@ -32,13 +32,13 @@ public class UiElement {
         this.behaviors = behaviors;
     }
 
-    public static UiElement getInstance(String description, String locatorType, String locatorValue, UiHost host) {
+    public static UiElement getInstance(String description, UiLocatorType locatorType, String locatorValue, UiHost host) {
         UiElementBehaviors behaviors =
                 UiElementBehaviors.getInstanceByLocator(description, locatorType, locatorValue, host);
         return new UiElement(description, behaviors);
     }
 
-    public static UiElement getInstance(String description, String locatorType, String locatorValue,
+    public static UiElement getInstance(String description, UiLocatorType locatorType, String locatorValue,
                                         String attribute, String attributeValue, UiHost host) {
         UiElementBehaviors behaviors =
                 UiElementBehaviors.getInstanceByLocatorAttribute(
@@ -46,21 +46,21 @@ public class UiElement {
         return new UiElement(description, behaviors);
     }
 
-    public static UiElement getInstance(String description, String locatorType, String locatorValue,
+    public static UiElement getInstance(String description, UiLocatorType locatorType, String locatorValue,
                                         Integer ordinal, UiHost host) {
         UiElementBehaviors behaviors =
                 UiElementBehaviors.getInstanceByLocatorOrdinal(description, locatorType, locatorValue, ordinal, host);
         return new UiElement(description, behaviors);
     }
 
-    public static UiElement getInstance(String description, String locatorType, String locatorValue,
+    public static UiElement getInstance(String description, UiLocatorType locatorType, String locatorValue,
                                         UiElement parent, UiHost host) {
         UiElementBehaviors behaviors =
                 UiElementBehaviors.getInstanceByLocatorParent(description, locatorType, locatorValue, parent.getBehavior(), host);
         return new UiElement(description, behaviors);
     }
 
-    public static UiElement getInstance(String description, String locatorType, String locatorValue,
+    public static UiElement getInstance(String description, UiLocatorType locatorType, String locatorValue,
                                         String attribute, String attributeValue,
                                         Integer ordinal, UiHost host) {
         UiElementBehaviors behaviors =
@@ -69,7 +69,7 @@ public class UiElement {
         return new UiElement(description, behaviors);
     }
 
-    public static UiElement getInstance(String description, String locatorType, String locatorValue,
+    public static UiElement getInstance(String description, UiLocatorType locatorType, String locatorValue,
                                         String attribute, String attributeValue,
                                         UiElement parent, UiHost host) {
         UiElementBehaviors behaviors =
@@ -78,7 +78,7 @@ public class UiElement {
         return new UiElement(description, behaviors);
     }
 
-    public static UiElement getInstance(String description, String locatorType, String locatorValue,
+    public static UiElement getInstance(String description, UiLocatorType locatorType, String locatorValue,
                                         Integer ordinal,
                                         UiElement parent, UiHost host) {
         UiElementBehaviors behaviors =
@@ -87,7 +87,7 @@ public class UiElement {
         return new UiElement(description, behaviors);
     }
 
-    public static UiElement getInstance(String description, String locatorType, String locatorValue,
+    public static UiElement getInstance(String description, UiLocatorType locatorType, String locatorValue,
                                         String attribute, String attributeValue,
                                         Integer ordinal,
                                         UiElement parent, UiHost host) {
@@ -101,7 +101,7 @@ public class UiElement {
         UiElementBehaviors.suppressLogging(suppressLogging);
     }
 
-    public static List<UiElement> getList(String description, String locatorType, String locatorValue, UiElement parent, UiHost host) {
+    public static List<UiElement> getList(String description, UiLocatorType locatorType, String locatorValue, UiElement parent, UiHost host) {
         List<UiElement> elements = new ArrayList<>();
         WebElement parentElement = (WebElement) (parent.getBehavior()).execute();
         List<WebElement> webElements = parentElement != null ? parentElement

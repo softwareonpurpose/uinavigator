@@ -17,23 +17,14 @@ package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiElementGet;
 import com.softwareonpurpose.uinavigator.UiHost;
-import org.openqa.selenium.By;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.openqa.selenium.WebElement;
 
 public abstract class WebElementGet extends UiElementGet {
-    protected final By locator;
-    private final String description;
-
-    WebElementGet(String description, By locator, UiHost host) {
-        super(host);
-        this.description = description;
-        this.locator = locator;
+    WebElementGet(String description, UiLocatorType locatorType, String locatorValue, UiHost host) {
+        super(description, WebElementLocator.getInstance(locatorType, locatorValue), host);
     }
 
     @Override
     public abstract WebElement execute();
-
-    protected String elementToString() {
-        return String.format("%s - %s", description, locator.toString());
-    }
 }

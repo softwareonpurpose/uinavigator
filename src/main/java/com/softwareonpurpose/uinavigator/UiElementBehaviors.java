@@ -29,7 +29,7 @@ public class UiElementBehaviors {
         this.click = UiElementClick.getInstance(description, getElement);
     }
 
-    public static UiElementBehaviors getInstanceByLocator(String description, String locatorType, String locatorValue, UiHost host) {
+    public static UiElementBehaviors getInstanceByLocator(String description, UiLocatorType locatorType, String locatorValue, UiHost host) {
         UiElementGet getBehavior = WebElementGetByLocator.getInstance(description, locatorType, locatorValue, host);
         UiElementGetList getList = WebGetElementListByLocator.getInstance(description, locatorType, locatorValue, host);
         UiElementSet set = getSetBehavior(locatorType, locatorValue, getBehavior);
@@ -38,7 +38,7 @@ public class UiElementBehaviors {
     }
 
     public static UiElementBehaviors getInstanceByLocatorAttribute(
-            String description, String locatorType, String locatorValue, String attribute, String attributeValue, UiHost host) {
+            String description, UiLocatorType locatorType, String locatorValue, String attribute, String attributeValue, UiHost host) {
         WebElementGet getBehavior =
                 WebElementGetByLocatorAttribute.getInstance(description, locatorType, locatorValue, attribute, attributeValue, host);
         UiElementGetList getList =
@@ -49,7 +49,7 @@ public class UiElementBehaviors {
     }
 
     public static UiElementBehaviors getInstanceByLocatorOrdinal(
-            String description, String locatorType, String locatorValue, Integer ordinal, UiHost host) {
+            String description, UiLocatorType locatorType, String locatorValue, Integer ordinal, UiHost host) {
         WebElementGet getBehavior = WebElementGetByLocatorOrdinal.getInstance(description, locatorType, locatorValue, ordinal, host);
         UiElementGetList getList = WebGetElementListByLocatorOrdinal.getInstance(locatorType, locatorValue, ordinal, host);
         UiElementSet set = getSetBehavior(locatorType, locatorValue, getBehavior);
@@ -58,7 +58,7 @@ public class UiElementBehaviors {
     }
 
     public static UiElementBehaviors getInstanceByLocatorParent(
-            String description, String locatorType, String locatorValue, UiElementGet getParent, UiHost host) {
+            String description, UiLocatorType locatorType, String locatorValue, UiElementGet getParent, UiHost host) {
         WebElementGet getBehavior = WebElementGetByLocatorParent.getInstance(description, locatorType, locatorValue, (WebElementGet) getParent, host);
         UiElementGetList getList = WebGetElementListByLocatorParent.getInstance(locatorType, locatorValue, getParent, host);
         UiElementSet set = getSetBehavior(locatorType, locatorValue, getBehavior);
@@ -67,7 +67,7 @@ public class UiElementBehaviors {
     }
 
     public static UiElementBehaviors getInstanceByLocatorAttributeOrdinal(
-            String description, String locatorType, String locatorValue, String attribute, String attributeValue, Integer ordinal, UiHost host) {
+            String description, UiLocatorType locatorType, String locatorValue, String attribute, String attributeValue, Integer ordinal, UiHost host) {
         WebElementGet getBehavior =
                 WebElementGetByLocatorAttributeOrdinal.getInstance(
                         description, locatorType, locatorValue, attribute, attributeValue, ordinal, host);
@@ -79,7 +79,7 @@ public class UiElementBehaviors {
     }
 
     public static UiElementBehaviors getInstanceByLocatorAttributeParent(
-            String description, String locatorType, String locatorValue,
+            String description, UiLocatorType locatorType, String locatorValue,
             String attribute, String attributeValue, WebElementGet getParent, UiHost host) {
         WebElementGet getBehavior =
                 WebElementGetByLocatorAttributeParent.getInstance(description, locatorType, locatorValue, attribute, attributeValue, getParent, host);
@@ -91,7 +91,7 @@ public class UiElementBehaviors {
     }
 
     public static UiElementBehaviors getInstanceByLocatorOrdinalParent(
-            String description, String locatorType, String locatorValue,
+            String description, UiLocatorType locatorType, String locatorValue,
             Integer ordinal, WebElementGet getParent, UiHost host) {
         WebElementGet getBehavior =
                 WebElementGetByLocatorOrdinalParent.getInstance(description, locatorType, locatorValue, ordinal, getParent, host);
@@ -103,7 +103,7 @@ public class UiElementBehaviors {
     }
 
     public static UiElementBehaviors getInstanceByLocatorAttributeOrdinalParent(
-            String description, String locatorType, String locatorValue,
+            String description, UiLocatorType locatorType, String locatorValue,
             String attribute, String attributeValue, Integer ordinal, WebElementGet getParent, UiHost host) {
         WebElementGet getBehavior =
                 WebElementGetByLocatorAttributeOrdinalParent.getInstance(
@@ -117,7 +117,7 @@ public class UiElementBehaviors {
     }
 
     private static UiElementGetText getGetTextBehavior(
-            String locatorType, String locatorValue, UiElementGet getBehavior) {
+            UiLocatorType locatorType, String locatorValue, UiElementGet getBehavior) {
         if (UiLocatorType.TAG.equals(locatorType) && "select".equals(locatorValue)) {
             return UiElementGetText.getSelectInstance(getBehavior);
         } else {
@@ -126,7 +126,7 @@ public class UiElementBehaviors {
     }
 
     private static UiElementSet getSetBehavior(
-            String locatorType, String locatorValue, UiElementGet getBehavior) {
+            UiLocatorType locatorType, String locatorValue, UiElementGet getBehavior) {
         if (UiLocatorType.TAG.equals(locatorType) && "select".equals(locatorValue)) {
             return UiElementSet.getSelectInstance(getBehavior);
         } else {

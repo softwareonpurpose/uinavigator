@@ -10,7 +10,7 @@ public class UiElementGetInstanceAttributeOrdinalTests {
     public void testGetInstance_attributeOrdinal() {
         UiHost host = UiHost.getInstance();
         final String description = "Select";
-        final String locatorType = UiLocatorType.TAG;
+        final UiLocatorType locatorType = UiLocatorType.TAG;
         final String locatorValue = "option";
         final String attribute = "data-test";
         final String attributeValue = "select-element";

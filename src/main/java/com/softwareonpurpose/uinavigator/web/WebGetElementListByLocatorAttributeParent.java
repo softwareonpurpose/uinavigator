@@ -30,11 +30,11 @@ public class WebGetElementListByLocatorAttributeParent extends UiElementGetList 
     private final String attribute;
     private final String attributeValue;
     private final WebElementGet getParent;
-    private final String locatorType;
+    private final UiLocatorType locatorType;
     private final String locatorValue;
 
     private WebGetElementListByLocatorAttributeParent(
-            String locatorType, String locatorValue,
+            UiLocatorType locatorType, String locatorValue,
             String attribute, String attributeValue, WebElementGet getParent, UiHost host) {
         super(host);
         this.attribute = attribute;
@@ -45,7 +45,7 @@ public class WebGetElementListByLocatorAttributeParent extends UiElementGetList 
     }
 
     public static WebGetElementListByLocatorAttributeParent getInstance(
-            String locatorType, String locatorValue,
+            UiLocatorType locatorType, String locatorValue,
             String attribute, String attributeValue, WebElementGet getParent, UiHost host) {
         return new WebGetElementListByLocatorAttributeParent(locatorType, locatorValue, attribute, attributeValue, getParent, host);
     }

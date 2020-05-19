@@ -16,7 +16,7 @@ package com.softwareonpurpose.uinavigator.web;
  */
 
 import com.softwareonpurpose.uinavigator.UiHost;
-import org.openqa.selenium.By;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -25,15 +25,15 @@ public class WebElementGetByLocatorOrdinal extends WebElementGet {
     private final Integer ordinal;
     private transient WebElement element;
 
-    private WebElementGetByLocatorOrdinal(String description, By locator, Integer ordinal, UiHost host) {
-        super(description, locator, host);
+    private WebElementGetByLocatorOrdinal(String description, UiLocatorType locatorType, String locatorValue, Integer ordinal, UiHost host) {
+        super(description, locatorType, locatorValue, host);
         this.ordinal = ordinal;
     }
 
     public static WebElementGet getInstance(
-            String description, String locatorType, String locatorValue, Integer ordinal, UiHost host) {
+            String description, UiLocatorType locatorType, String locatorValue, Integer ordinal, UiHost host) {
         return new WebElementGetByLocatorOrdinal(
-                description, WebElementLocator.getInstance(locatorType, locatorValue), ordinal, host);
+                description, locatorType, locatorValue, ordinal, host);
     }
 
     @Override

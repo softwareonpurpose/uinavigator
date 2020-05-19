@@ -25,18 +25,18 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class WebGetElementListByLocator extends UiElementGetList {
-    private final String locatorType;
+    private final UiLocatorType locatorType;
     private final String locatorValue;
     private final String description;
 
-    private WebGetElementListByLocator(String description, String locatorType, String locatorValue, UiHost host) {
+    private WebGetElementListByLocator(String description, UiLocatorType locatorType, String locatorValue, UiHost host) {
         super(host);
         this.description = description;
         this.locatorValue = locatorValue;
         this.locatorType = locatorType;
     }
 
-    public static WebGetElementListByLocator getInstance(String description, String locatorType, String locatorValue, UiHost host) {
+    public static WebGetElementListByLocator getInstance(String description, UiLocatorType locatorType, String locatorValue, UiHost host) {
         return new WebGetElementListByLocator(description, locatorType, locatorValue, host);
     }
 

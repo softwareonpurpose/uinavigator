@@ -18,6 +18,7 @@ package com.softwareonpurpose.uinavigator.web;
 import com.softwareonpurpose.uinavigator.UiElement;
 import com.softwareonpurpose.uinavigator.UiElementGetList;
 import com.softwareonpurpose.uinavigator.UiHost;
+import com.softwareonpurpose.uinavigator.UiLocatorType;
 import org.openqa.selenium.By;
 
 import java.util.ArrayList;
@@ -26,17 +27,17 @@ import java.util.List;
 
 public class WebGetElementListByLocatorOrdinal extends UiElementGetList {
     private final Integer ordinal;
-    private final String locatorType;
+    private final UiLocatorType locatorType;
     private final String locatorValue;
 
-    private WebGetElementListByLocatorOrdinal(String locatorType, String locatorValue, Integer ordinal, UiHost host) {
+    private WebGetElementListByLocatorOrdinal(UiLocatorType locatorType, String locatorValue, Integer ordinal, UiHost host) {
         super(host);
         this.ordinal = ordinal;
         this.locatorValue = locatorValue;
         this.locatorType = locatorType;
     }
 
-    public static WebGetElementListByLocatorOrdinal getInstance(String locatorType, String locatorValue, Integer ordinal, UiHost host) {
+    public static WebGetElementListByLocatorOrdinal getInstance(UiLocatorType locatorType, String locatorValue, Integer ordinal, UiHost host) {
         return new WebGetElementListByLocatorOrdinal(locatorType, locatorValue, ordinal, host);
     }
 
