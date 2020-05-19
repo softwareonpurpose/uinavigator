@@ -20,6 +20,13 @@ package com.softwareonpurpose.uinavigator;
  */
 public abstract class UiDriverInstantiation {
     private static UiNavigatorConfiguration config;
+    private final String name;
+    private final String type;
+
+    protected UiDriverInstantiation(String name, String type) {
+        this.name = name;
+        this.type = type;
+    }
 
     /**
      * Get UiNavigatorConfiguration details used to instantiate UI driver
@@ -77,5 +84,11 @@ public abstract class UiDriverInstantiation {
      * @return String name of WebUiHost
      */
     @SuppressWarnings("unused")
-    public abstract String getHostName();
+    public String getHostName() {
+        return name;
+    }
+
+    public String getHostType() {
+        return type;
+    }
 }

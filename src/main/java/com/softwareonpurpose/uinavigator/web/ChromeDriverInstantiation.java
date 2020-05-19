@@ -23,8 +23,14 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import java.util.concurrent.TimeUnit;
 
 public class ChromeDriverInstantiation extends UiDriverInstantiation {
+    private final String driverPath;
 
-    private static final String HOST_NAME = "chrome";
+    public ChromeDriverInstantiation() {
+        super("chrome", "browser");
+        final boolean isWindows = System.getProperty("os.name").toLowerCase().contains("windows");
+        String driverExecutable = isWindows ? "chromedriver.exe" : "chromedriver";
+        this.driverPath = String.format("./src/main/resources/%s", driverExecutable);
+    }
 
     public static UiDriverInstantiation getInstance() {
         return new ChromeDriverInstantiation();
@@ -32,7 +38,7 @@ public class ChromeDriverInstantiation extends UiDriverInstantiation {
 
     @Override
     public ChromeDriver instantiateDriver() {
-        System.setProperty("webdriver.chrome.driver", "./src/main/resources/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", driverPath);
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--window-size=1920,1200", "--ignore-certificate-errors", "--disable-gpu");
         options.addArguments("--headless");
@@ -42,10 +48,5 @@ public class ChromeDriverInstantiation extends UiDriverInstantiation {
     @Override
     public void configureDriver(Object driver) {
         ((WebDriver) driver).manage().timeouts().implicitlyWait(getConfig().getTimeout(), TimeUnit.SECONDS);
-    }
-
-    @Override
-    public String getHostName() {
-        return HOST_NAME;
     }
 }
