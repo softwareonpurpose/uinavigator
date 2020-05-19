@@ -23,13 +23,13 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import java.util.concurrent.TimeUnit;
 
 public class ChromeDriverInstantiation extends UiDriverInstantiation {
-    private final String driverPath;
+    private final String driverFilePathname;
 
     public ChromeDriverInstantiation() {
         super("chrome", "browser");
         final boolean isWindows = System.getProperty("os.name").toLowerCase().contains("windows");
         String driverExecutable = isWindows ? "chromedriver.exe" : "chromedriver";
-        this.driverPath = String.format("./src/main/resources/%s", driverExecutable);
+        this.driverFilePathname = String.format("%s/%s", getConfig().getDriverPath(), driverExecutable);
     }
 
     public static UiDriverInstantiation getInstance() {
@@ -38,7 +38,7 @@ public class ChromeDriverInstantiation extends UiDriverInstantiation {
 
     @Override
     public ChromeDriver instantiateDriver() {
-        System.setProperty("webdriver.chrome.driver", driverPath);
+        System.setProperty("webdriver.chrome.driver", driverFilePathname);
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--window-size=1920,1200", "--ignore-certificate-errors", "--disable-gpu");
         options.addArguments("--headless");

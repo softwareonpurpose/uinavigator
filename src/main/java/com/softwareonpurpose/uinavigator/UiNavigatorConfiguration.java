@@ -14,6 +14,7 @@ package com.softwareonpurpose.uinavigator;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
+
 import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
@@ -21,8 +22,11 @@ import java.util.Properties;
 
 public class UiNavigatorConfiguration {
 
+    private static final int DEFAULT_TIMEOUT = 3;
+    private static final String DEFAULT_DRIVER_PATH = "./src/main/resources";
     private static UiNavigatorConfiguration config;
     private final long timeout;
+    private final String driverPath;
 
     UiNavigatorConfiguration(String propertiesFilename) {
         Properties prop = new Properties();
@@ -36,7 +40,9 @@ public class UiNavigatorConfiguration {
             LoggerFactory.getLogger(this.getClass()).warn(String.format(message, propertiesFilename));
         }
         String configurationTimeout = prop.getProperty("timeout");
-        this.timeout = configurationTimeout == null ? 3 : Integer.parseInt(configurationTimeout);
+        String configurationDriverPath = prop.getProperty("driver_path");
+        this.timeout = configurationTimeout == null ? DEFAULT_TIMEOUT : Integer.parseInt(configurationTimeout);
+        this.driverPath = (configurationDriverPath == null) ? DEFAULT_DRIVER_PATH : configurationDriverPath;
     }
 
     /**
@@ -57,5 +63,9 @@ public class UiNavigatorConfiguration {
      */
     public long getTimeout() {
         return timeout;
+    }
+
+    public String getDriverPath() {
+        return driverPath;
     }
 }
