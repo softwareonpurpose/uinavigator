@@ -1,7 +1,7 @@
 package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.TestClass;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -15,10 +15,32 @@ public class ChromeDriverInstantiationTests extends TestClass {
     }
 
     @Test
-    public void testInstantiateDriver() {
+    public void testInstantiateDriver_default() {
         //noinspection rawtypes
         Class expected = org.openqa.selenium.chrome.ChromeDriver.class;
-        WebDriver chromeDriver = (WebDriver) ChromeDriverInstantiation.getInstance().instantiateDriver();
+        ChromeDriver chromeDriver = ChromeDriverInstantiation.getInstance().instantiateDriver();
+        //noinspection rawtypes
+        Class actual = chromeDriver.getClass();
+        chromeDriver.quit();
+        Assert.assertEquals(actual, expected, "Failed to return expected WebDriver class");
+    }
+
+    @Test
+    public void testInstantiateDriver_headed() {
+        //noinspection rawtypes
+        Class expected = org.openqa.selenium.chrome.ChromeDriver.class;
+        ChromeDriver chromeDriver = ChromeDriverInstantiation.getInstance(false).instantiateDriver();
+        //noinspection rawtypes
+        Class actual = chromeDriver.getClass();
+        chromeDriver.quit();
+        Assert.assertEquals(actual, expected, "Failed to return expected WebDriver class");
+    }
+
+    @Test
+    public void testInstantiateDriver_headless() {
+        //noinspection rawtypes
+        Class expected = org.openqa.selenium.chrome.ChromeDriver.class;
+        ChromeDriver chromeDriver = ChromeDriverInstantiation.getInstance(true).instantiateDriver();
         //noinspection rawtypes
         Class actual = chromeDriver.getClass();
         chromeDriver.quit();

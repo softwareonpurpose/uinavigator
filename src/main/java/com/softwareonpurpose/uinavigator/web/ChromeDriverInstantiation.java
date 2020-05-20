@@ -24,16 +24,22 @@ import java.util.concurrent.TimeUnit;
 
 public class ChromeDriverInstantiation extends UiDriverInstantiation {
     private final String driverFilePathname;
+    private final boolean isHeadless;
 
-    public ChromeDriverInstantiation() {
+    public ChromeDriverInstantiation(boolean isHeadless) {
         super("chrome", "browser");
         final boolean isWindows = System.getProperty("os.name").toLowerCase().contains("windows");
         String driverExecutable = isWindows ? "chromedriver.exe" : "chromedriver";
         this.driverFilePathname = String.format("%s/%s", getConfig().getDriverPath(), driverExecutable);
+        this.isHeadless = isHeadless;
     }
 
-    public static UiDriverInstantiation getInstance() {
-        return new ChromeDriverInstantiation();
+    public static ChromeDriverInstantiation getInstance() {
+        return new ChromeDriverInstantiation(true);
+    }
+
+    public static ChromeDriverInstantiation getInstance(boolean isHeadless) {
+        return new ChromeDriverInstantiation(isHeadless);
     }
 
     @Override
@@ -41,7 +47,9 @@ public class ChromeDriverInstantiation extends UiDriverInstantiation {
         System.setProperty("webdriver.chrome.driver", driverFilePathname);
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--window-size=1920,1200", "--ignore-certificate-errors", "--disable-gpu");
-        options.addArguments("--headless");
+        if (isHeadless) {
+            options.addArguments("--headless");
+        }
         return new ChromeDriver(options);
     }
 
