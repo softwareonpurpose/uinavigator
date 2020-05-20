@@ -1,7 +1,5 @@
 package com.softwareonpurpose.uinavigator;
 
-import org.openqa.selenium.By;
-
 import java.util.List;
 
 public class UiDriver {
@@ -50,7 +48,7 @@ public class UiDriver {
     }
 
     public String getName() {
-        return getDriver.execute().getClass().getName();
+        return getDriver.execute().getClass().getSimpleName();
     }
 
     public void quit() {

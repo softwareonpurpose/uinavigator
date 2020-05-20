@@ -8,7 +8,9 @@ public class UiDriverGet {
     private Object driver;
 
     private UiDriverGet(UiDriverInstantiation instantiation) {
-        UiDriverGet.instantiation = instantiation == null ? ChromeDriverInstantiation.getInstance() : instantiation;
+        if (UiDriverGet.instantiation == null) {
+            UiDriverGet.instantiation = instantiation == null ? ChromeDriverInstantiation.getInstance() : instantiation;
+        }
     }
 
     public static UiDriverGet getInstance() {

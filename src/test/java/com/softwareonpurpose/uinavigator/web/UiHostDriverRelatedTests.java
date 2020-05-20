@@ -20,10 +20,12 @@ public class UiHostDriverRelatedTests extends TestClass {
     @Test
     public void testGetDriverName() {
         UiHost host = UiHost.getInstance();
-        String expected = "ChromeDriver";
+        String expected = "RemoteWebDriver";
         String actual = host.getDriverName();
         host.quit();
-        Assert.assertTrue(actual.endsWith(expected), "Failed to return correct driver name");
+        final String messageFormat = "Failed to return correct driver name, expected: [%s], actual: [%s}";
+        final String message = String.format(messageFormat, expected, actual);
+        Assert.assertTrue(actual.endsWith(expected), message);
     }
 }
 

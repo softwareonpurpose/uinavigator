@@ -15,7 +15,6 @@ package com.softwareonpurpose.uinavigator;
   limitations under the License.
  */
 
-import org.openqa.selenium.By;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,10 +26,10 @@ import java.util.List;
 @SuppressWarnings("WeakerAccess")
 public class UiHost {
     private static final Logger logger = LoggerFactory.getLogger("");
-    private final UiDriver behaviors;
+    private final UiDriver driver;
 
     private UiHost() {
-        behaviors = UiDriver.getInstance();
+        driver = UiDriver.getInstance();
     }
 
     public static UiHost getInstance() {
@@ -38,18 +37,18 @@ public class UiHost {
     }
 
     public List<Object> findElements(Object locator) {
-        return behaviors.findElements(locator);
+        return driver.findElements(locator);
     }
 
     boolean waitUntilVisible(UiElementGet element) {
-        return behaviors.waitUntilVisible(element);
+        return driver.waitUntilVisible(element);
     }
 
     /***
      * Quit WebUiHost
      */
     public void quit() {
-        behaviors.quit();
+        driver.quit();
     }
 
     /**
@@ -59,7 +58,7 @@ public class UiHost {
      */
     public void load(String address) {
         logger.info(String.format("Navigate browser to %s", address));
-        behaviors.load(address);
+        driver.load(address);
     }
 
     /***
@@ -69,7 +68,7 @@ public class UiHost {
      */
     @SuppressWarnings("unused")
     public void executeScript(String script, Object... args) {
-        behaviors.executeScript(script, args);
+        driver.executeScript(script, args);
     }
 
     void setAttribute(Object element, String attribute, String value) {
@@ -82,7 +81,7 @@ public class UiHost {
      * @return String URI
      */
     public String getAddress() {
-        return behaviors.getAddress.execute();
+        return driver.getAddress.execute();
     }
 
     /**
@@ -91,18 +90,18 @@ public class UiHost {
      * @return String name of driver
      */
     public String getDriverName() {
-        return behaviors.getName();
+        return driver.getName();
     }
 
     public String getState(String... identifiers) {
-        return behaviors.state(identifiers);
+        return driver.state(identifiers);
     }
 
     public void switchTo(UiElement element) {
-        behaviors.switchTo(element);
+        driver.switchTo(element);
     }
 
     public Object findElement(Object locator) {
-        return behaviors.findElement(locator);
+        return driver.findElement(locator);
     }
 }
