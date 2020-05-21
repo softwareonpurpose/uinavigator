@@ -19,25 +19,14 @@ package com.softwareonpurpose.uinavigator;
  * DriverInstantiation details, including specific driver executable and configuration properties
  */
 public abstract class UiDriverService {
-    private static UiNavigatorConfiguration config;
+    protected static UiNavigatorConfiguration config;
     private final String name;
     private final String type;
 
     protected UiDriverService(String name, String type) {
         this.name = name;
         this.type = type;
-    }
-
-    /**
-     * Get UiNavigatorConfiguration details used to instantiate UI driver
-     *
-     * @return UiNavigatorConfiguration details
-     */
-    protected static UiNavigatorConfiguration getConfig() {
-        if (config == null) {
-            config = UiNavigatorConfiguration.getInstance();
-        }
-        return config;
+        config = UiNavigatorConfiguration.getInstance();
     }
 
     /**

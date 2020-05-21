@@ -31,7 +31,7 @@ public class ChromeUiDriverService extends UiDriverService {
         super("chrome", "browser");
         final boolean isWindows = System.getProperty("os.name").toLowerCase().contains("windows");
         String driverExecutable = isWindows ? "chromedriver.exe" : "chromedriver";
-        this.driverFilePathname = String.format("%s/%s", getConfig().getDriverPath(), driverExecutable);
+        this.driverFilePathname = String.format("%s/%s", config.getDriverPath(), driverExecutable);
         options = new ChromeOptions();
         options.addArguments("--window-size=1920,1200", "--ignore-certificate-errors", "--disable-gpu");
         if (isHeadless) {
