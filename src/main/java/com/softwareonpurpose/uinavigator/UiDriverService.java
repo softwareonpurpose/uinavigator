@@ -18,12 +18,12 @@ package com.softwareonpurpose.uinavigator;
 /**
  * DriverInstantiation details, including specific driver executable and configuration properties
  */
-public abstract class UiDriverInstantiation {
+public abstract class UiDriverService {
     private static UiNavigatorConfiguration config;
     private final String name;
     private final String type;
 
-    protected UiDriverInstantiation(String name, String type) {
+    protected UiDriverService(String name, String type) {
         this.name = name;
         this.type = type;
     }
@@ -46,37 +46,7 @@ public abstract class UiDriverInstantiation {
      *
      * @return WebDriver instance using Selenium interface
      */
-    public Object execute() {
-        Object driver = instantiateDriver();
-        provideTimeForDriverToLoad();
-        configureDriver(driver);
-        return driver;
-    }
-
-    /**
-     * For use by concrete implementations of DriverInstantiation, when necessary
-     */
-    protected void provideTimeForDriverToLoad() {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Implementation details of concrete DriverInstantiations
-     *
-     * @return WebDriver instance using Selenium interface
-     */
-    public abstract Object instantiateDriver();
-
-    /**
-     * Implementation details of concrete DriverInstantiations
-     *
-     * @param driver WebDriver instance using Selenium interface
-     */
-    public abstract void configureDriver(Object driver);
+    public abstract Object getDriver();
 
     /**
      * Arbitrary name of the instantiated WebUiHost
@@ -84,11 +54,13 @@ public abstract class UiDriverInstantiation {
      * @return String name of WebUiHost
      */
     @SuppressWarnings("unused")
-    public String getHostName() {
+    public String getName() {
         return name;
     }
 
-    public String getHostType() {
+    public String getType() {
         return type;
     }
+
+    public abstract void quit();
 }

@@ -14,22 +14,20 @@ package com.softwareonpurpose.uinavigator.web;
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import com.softwareonpurpose.uinavigator.UiDriverInstantiation;
-import org.openqa.selenium.WebDriver;
+import com.softwareonpurpose.uinavigator.UiDriverService;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
-public class ChromeDriverInstantiation extends UiDriverInstantiation {
+public class ChromeUiDriverService extends UiDriverService {
     private static ChromeOptions options;
     private static ChromeDriverService service;
     private final String driverFilePathname;
 
-    public ChromeDriverInstantiation(boolean isHeadless) {
+    public ChromeUiDriverService(boolean isHeadless) {
         super("chrome", "browser");
         final boolean isWindows = System.getProperty("os.name").toLowerCase().contains("windows");
         String driverExecutable = isWindows ? "chromedriver.exe" : "chromedriver";
@@ -41,17 +39,12 @@ public class ChromeDriverInstantiation extends UiDriverInstantiation {
         }
     }
 
-    public static ChromeDriverInstantiation getInstance() {
-        return new ChromeDriverInstantiation(true);
+    public static ChromeUiDriverService getInstance() {
+        return new ChromeUiDriverService(true);
     }
 
-    public static ChromeDriverInstantiation getInstance(boolean isHeadless) {
-        return new ChromeDriverInstantiation(isHeadless);
-    }
-
-    @Override
-    public RemoteWebDriver instantiateDriver() {
-        return new RemoteWebDriver(getService().getUrl(), options);
+    public static ChromeUiDriverService getInstance(boolean isHeadless) {
+        return new ChromeUiDriverService(isHeadless);
     }
 
     private ChromeDriverService getService() {
@@ -70,7 +63,12 @@ public class ChromeDriverInstantiation extends UiDriverInstantiation {
     }
 
     @Override
-    public void configureDriver(Object driver) {
-        ((WebDriver) driver).manage().timeouts().implicitlyWait(getConfig().getTimeout(), TimeUnit.SECONDS);
+    public RemoteWebDriver getDriver() {
+        return new RemoteWebDriver(getService().getUrl(), options);
+    }
+
+    @Override
+    public void quit() {
+        service.stop();
     }
 }

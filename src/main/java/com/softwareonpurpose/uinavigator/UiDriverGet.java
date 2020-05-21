@@ -1,15 +1,15 @@
 package com.softwareonpurpose.uinavigator;
 
-import com.softwareonpurpose.uinavigator.web.ChromeDriverInstantiation;
+import com.softwareonpurpose.uinavigator.web.ChromeUiDriverService;
 import org.slf4j.LoggerFactory;
 
 public class UiDriverGet {
-    private static UiDriverInstantiation instantiation;
+    private static UiDriverService instantiation;
     private Object driver;
 
-    private UiDriverGet(UiDriverInstantiation instantiation) {
+    private UiDriverGet(UiDriverService instantiation) {
         if (UiDriverGet.instantiation == null) {
-            UiDriverGet.instantiation = instantiation == null ? ChromeDriverInstantiation.getInstance() : instantiation;
+            UiDriverGet.instantiation = instantiation == null ? ChromeUiDriverService.getInstance() : instantiation;
         }
     }
 
@@ -17,12 +17,12 @@ public class UiDriverGet {
         return new UiDriverGet(null);
     }
 
-    public static UiDriverGet getInstance(UiDriverInstantiation instantiation) {
+    public static UiDriverGet getInstance(UiDriverService instantiation) {
         setInstantiation(instantiation);
         return getInstance();
     }
 
-    public static void setInstantiation(UiDriverInstantiation instantiation) {
+    public static void setInstantiation(UiDriverService instantiation) {
         UiDriverGet.instantiation = instantiation;
     }
 
@@ -33,7 +33,7 @@ public class UiDriverGet {
     public Object execute() {
         if (driver == null) {
             try {
-                driver = instantiation.execute();
+                driver = instantiation.getDriver();
             } catch (NullPointerException e) {
                 final String message =
                         "No driver instantiation available.  Initialize with UiDriverGet.setInstantiation";
