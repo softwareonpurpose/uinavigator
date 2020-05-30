@@ -47,7 +47,7 @@ public class WebElementGetByLocatorAttribute extends WebElementGet {
             for (Object candidate : candidates) {
                 final WebElement webCandidate = (WebElement) candidate;
                 final String attributeValue = webCandidate.getAttribute(this.attribute);
-                if (attributeValue != null && attributeValue.equals(this.attributeValue)) {
+                if (attributeValue.equals(this.attributeValue)) {
                     elements.add(webCandidate);
                 }
             }

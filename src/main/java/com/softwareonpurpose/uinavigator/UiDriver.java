@@ -1,69 +1,31 @@
 package com.softwareonpurpose.uinavigator;
 
+import com.softwareonpurpose.uinavigator.web.WebUiDriver;
+
 import java.util.List;
 
-public class UiDriver {
-    public final UiDriverGetAddress getAddress;
-    private final UiDriverWaitUntilVisible waitUntilVisible;
-    private final UiDriverLoad load;
-    private final UiDriverScriptExecute executeScript;
-    private final UiDriverFindElements findElements;
-    private final UiDriverFindElement findElement;
-    private final UiDriverQuit quit;
-    private final UiDriverState state;
-    private final UiDriverGet getDriver;
-    private final UiDriverSwitchTo switchTo;
-
-    private UiDriver() {
-        getDriver = UiDriverGet.getInstance();
-        load = UiDriverLoad.getInstance(getDriver);
-        executeScript = UiDriverScriptExecute.getInstance(getDriver);
-        getAddress = UiDriverGetAddress.getInstance(getDriver);
-        findElements = UiDriverFindElements.getInstance(getDriver);
-        findElement = UiDriverFindElement.getInstance(getDriver);
-        waitUntilVisible = UiDriverWaitUntilVisible.getInstance(getDriver);
-        quit = UiDriverQuit.getInstance(getDriver);
-        state = UiDriverState.getInstance(getDriver);
-        switchTo = UiDriverSwitchTo.getInstance(getDriver);
+public interface UiDriver {
+    static UiDriver getInstance() {
+        return new WebUiDriver();
     }
 
-    public static UiDriver getInstance() {
-        return new UiDriver();
-    }
+    void load(String address);
 
-    public void load(String address) {
-        load.execute(address);
-    }
+    void executeScript(String script, Object[] args);
 
-    public void executeScript(String script, Object[] args) {
-        this.executeScript.execute(script, args);
-    }
+    List<Object> findElements(Object locator);
 
-    public List<Object> findElements(Object locator) {
-        return findElements.execute(locator);
-    }
+    boolean waitUntilVisible(UiElementGet getElement);
 
-    public boolean waitUntilVisible(UiElementGet getElement) {
-        return waitUntilVisible.execute(getElement);
-    }
+    String getName();
 
-    public String getName() {
-        return getDriver.execute().getClass().getSimpleName();
-    }
+    void quit();
 
-    public void quit() {
-        quit.execute();
-    }
+    String getState(String[] identifiers);
 
-    public String state(String[] identifiers) {
-        return state.execute(identifiers);
-    }
+    void switchTo(UiElement element);
 
-    public void switchTo(UiElement element) {
-        switchTo.execute(element);
-    }
+    Object findElement(Object locator);
 
-    public Object findElement(Object locator) {
-        return findElement.execute(locator);
-    }
+    String getAddress();
 }

@@ -23,16 +23,16 @@ import java.io.File;
 import java.io.IOException;
 
 public class ChromeUiDriverService extends UiDriverService {
-    private static ChromeOptions options;
-    private static ChromeDriverService service;
+    private static ChromeUiDriverService uiDriverService;
     private final String driverFilePathname;
+    private final ChromeOptions options = new ChromeOptions();
+    private ChromeDriverService service;
 
     public ChromeUiDriverService(boolean isHeadless) {
         super("chrome", "browser");
         final boolean isWindows = System.getProperty("os.name").toLowerCase().contains("windows");
         String driverExecutable = isWindows ? "chromedriver.exe" : "chromedriver";
         this.driverFilePathname = String.format("%s/%s", config.getDriverPath(), driverExecutable);
-        options = new ChromeOptions();
         options.addArguments("--window-size=1920,1200", "--ignore-certificate-errors", "--disable-gpu");
         if (isHeadless) {
             options.addArguments("--headless");
@@ -69,6 +69,8 @@ public class ChromeUiDriverService extends UiDriverService {
 
     @Override
     public void quit() {
-        service.stop();
+        if (service != null) {
+            service.stop();
+        }
     }
 }

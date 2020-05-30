@@ -15,6 +15,8 @@ package com.softwareonpurpose.uinavigator;
   limitations under the License.
  */
 
+import com.softwareonpurpose.uinavigator.web.ChromeUiDriverService;
+
 /**
  * DriverInstantiation details, including specific driver executable and configuration properties
  */
@@ -29,6 +31,10 @@ public abstract class UiDriverService {
         config = UiNavigatorConfiguration.getInstance();
     }
 
+    public static UiDriverService getInstance() {
+        return ChromeUiDriverService.getInstance();
+    }
+
     /**
      * Execute the instantiation of Selenium WebDriver.
      * Note: tightly couples DriverInstantiation to Selenium WebDriver, while informing future decoupling
@@ -37,12 +43,6 @@ public abstract class UiDriverService {
      */
     public abstract Object getDriver();
 
-    /**
-     * Arbitrary name of the instantiated WebUiHost
-     *
-     * @return String name of WebUiHost
-     */
-    @SuppressWarnings("unused")
     public String getName() {
         return name;
     }

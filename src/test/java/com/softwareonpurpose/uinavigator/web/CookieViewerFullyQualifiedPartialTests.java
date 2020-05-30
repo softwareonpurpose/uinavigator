@@ -2,6 +2,7 @@ package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.TestClass;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -9,7 +10,7 @@ import org.testng.annotations.Test;
 public class CookieViewerFullyQualifiedPartialTests extends TestClass {
     @Test
     public void testGetCookieValue_fullyQualifiedNamePath() {
-        driver = ChromeUiDriverService.getInstance().getDriver();
+        driver = (WebDriver) getService().getDriver();
         String uri = "http://www.google.com";
         driver.navigate().to(uri);
         JavascriptExecutor js = (JavascriptExecutor) driver;

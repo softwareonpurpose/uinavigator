@@ -8,7 +8,6 @@ import org.testng.annotations.Test;
 
 @Test
 public class WebElementGetByLocatorNullTests extends TestClass {
-
     @Test
     public void testConstructor_nullType() {
         UiHost host = UiHost.getInstance();

@@ -81,7 +81,7 @@ public class UiHost {
      * @return String URI
      */
     public String getAddress() {
-        return driver.getAddress.execute();
+        return driver.getAddress();
     }
 
     /**
@@ -94,7 +94,7 @@ public class UiHost {
     }
 
     public String getState(String... identifiers) {
-        return driver.state(identifiers);
+        return driver.getState(identifiers);
     }
 
     public void switchTo(UiElement element) {

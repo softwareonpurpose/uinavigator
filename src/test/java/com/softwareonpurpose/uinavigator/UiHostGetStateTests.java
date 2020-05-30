@@ -1,8 +1,5 @@
-package com.softwareonpurpose.uinavigator.web;
+package com.softwareonpurpose.uinavigator;
 
-import com.softwareonpurpose.uinavigator.MockViewRelativePath;
-import com.softwareonpurpose.uinavigator.TestClass;
-import com.softwareonpurpose.uinavigator.UiHost;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

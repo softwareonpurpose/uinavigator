@@ -11,9 +11,10 @@ public class WebElementClickTests {
         UiHost host = UiHost.getInstance();
         final String description = "Button";
         final String locatorValue = "button-1";
-        UiElementGet nonExistentElement =
+        UiElementGet element =
                 UiElement.getInstance(description, UiLocatorType.ID, locatorValue, host).getLocator();
-        new WebElementClick(description, nonExistentElement).execute();
+        new WebElementClick(description, element).execute();
         UiElementBehaviors.suppressLogging(false);
+        host.quit();
     }
 }

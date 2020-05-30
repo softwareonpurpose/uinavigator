@@ -1,7 +1,9 @@
 package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.TestClass;
+import com.softwareonpurpose.uinavigator.UiDriver;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -9,7 +11,7 @@ import org.testng.annotations.Test;
 public class CookieViewerFullyQualifiedMatchTests extends TestClass {
     @Test
     public void testGetCookieValue_fullyQualifiedMatch() {
-        driver = ChromeUiDriverService.getInstance().getDriver();
+        driver = (WebDriver) getService().getDriver();
         String uri = "http://www.google.com";
         driver.navigate().to(uri);
         JavascriptExecutor js = (JavascriptExecutor) driver;
