@@ -24,3 +24,6 @@ hs_err_pid*
 
 # Executable Files #
 *.exe
+
+#driver for Mac
+/src/main/resources/chromedriver

@@ -1,10 +1,10 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
 group 'com.softwareonpurpose'
 
 apply plugin: 'java'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-version = '2.0.4'
+version = '2.0.5'
 
 repositories {
     mavenCentral()
@@ -15,25 +15,17 @@ configurations {
 }
 
 dependencies {
-    compile 'com.google.code.gson:gson:2.8.+'
-    compile 'ch.qos.logback:logback-core:1.2.+'
-    compile 'ch.qos.logback:logback-classic:1.2.+'
-    compile 'org.slf4j:slf4j-api:1.7.+'
-    compile 'org.seleniumhq.selenium:selenium-java:3.+'
-    testCompile 'org.testng:testng:6.14.+'
-    compile files('./src/test/resources/indentmanager-1.0.6.jar')
-    compile files('./src/test/resources/calibrator4test-1.4.4.jar')
-    asciidoclet 'org.asciidoctor:asciidoclet:1.+'
+    implementation 'com.google.code.gson:gson:2.9.+'
+    implementation 'org.apache.logging.log4j:log4j-core:2.17.+'
+    implementation 'org.seleniumhq.selenium:selenium-java:4.1.2'
+    implementation 'org.testng:testng:7.5'
+    implementation files('./src/test/resources/indentmanager-1.0.6.jar')
+    implementation files('./src/test/resources/calibrator4test-1.4.4.jar')
+    asciidoclet 'org.asciidoctor:asciidoclet:1.5.6'
 }
 
 wrapper() {
-    gradleVersion = '5.3.1'
-}
-
-jar {
-    manifest {
-        attributes 'Implementation-Title': 'calibrator4test', 'Implementation-Version': version
-    }
+    version = '7.3'
 }
 
 task configureJavadoc {
@@ -50,7 +42,21 @@ javadoc {
 }
 
 test {
-    systemProperties['webdriver.chrome.driver'] = System.properties["/src/test/resources/chromedriver.exe"]
-    maxParallelForks = 4
     useTestNG()
+    String driverPath ="$projectDir/src/main/resources/chromedriver"
+    systemProperty "webdriver.chrome.driver", Os.isFamily(Os.FAMILY_WINDOWS)? String.format("%s.exe",driverPath): driverPath
+}
+
+tasks.withType(Test) {
+    maxParallelForks = (Runtime.runtime.availableProcessors() - 2)
+}
+
+task testing(type: Test) {
+    useTestNG()
+    var String driverPath ="/src/test/resources/chromedriver"
+    driverPath += Os.isFamily(Os.FAMILY_WINDOWS)? String.format("%s.exe",driverPath): driverPath 
+    systemProperties['webdriver.chrome.driver'] = System.properties[driverPath]
+    doLast {
+        println(driverPath)
+    }
 }
