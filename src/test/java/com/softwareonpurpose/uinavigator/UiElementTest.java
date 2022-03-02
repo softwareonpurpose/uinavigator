@@ -130,7 +130,7 @@ public class UiElementTest extends TestBase {
     public void setAttribute() {
         String expected = "Bogus Alt Text";
         UiHost.getInstance().load("http://www.google.com");
-        UiElement element = UiElement.getInstance("Logo", UiElement.LocatorType.ID, "hplogo");
+        UiElement element = UiElement.getInstance("Logo", UiElement.LocatorType.CLASS, "lnXdpd");
         element.setAttribute("alt", expected);
         String actual = element.getAttribute("alt");
         confirm(StringCalibrator.construct("Attribute value", expected, actual).calibrate());
