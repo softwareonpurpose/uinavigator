@@ -43,20 +43,10 @@ javadoc {
 
 test {
     useTestNG()
-    String driverPath ="$projectDir/src/main/resources/chromedriver"
-    systemProperty "webdriver.chrome.driver", Os.isFamily(Os.FAMILY_WINDOWS)? String.format("%s.exe",driverPath): driverPath
+    String chromeDriverPath ="$projectDir/src/main/resources/chromedriver"
+    systemProperty "webdriver.chrome.driver", Os.isFamily(Os.FAMILY_WINDOWS)? String.format("%s.exe",chromeDriverPath): chromeDriverPath
 }
 
 tasks.withType(Test) {
     maxParallelForks = (Runtime.runtime.availableProcessors() - 2)
-}
-
-task testing(type: Test) {
-    useTestNG()
-    var String driverPath ="/src/test/resources/chromedriver"
-    driverPath += Os.isFamily(Os.FAMILY_WINDOWS)? String.format("%s.exe",driverPath): driverPath 
-    systemProperties['webdriver.chrome.driver'] = System.properties[driverPath]
-    doLast {
-        println(driverPath)
-    }
 }

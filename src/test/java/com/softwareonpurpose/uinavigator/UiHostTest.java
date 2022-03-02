@@ -101,6 +101,7 @@ public class UiHostTest extends TestBase {
                 "Messages"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "redirector"), "Redirect Link"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "download_secure"), "Secure File Download"));
+        expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "shadowdom"), "Shadow DOM"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "shifting_content"), "Shifting Content"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "slow"), "Slow Resources"));
         expected.add(composeExpectedAnchor(String.format("%s/%s", uri, "tables"), "Sortable Data Tables"));
