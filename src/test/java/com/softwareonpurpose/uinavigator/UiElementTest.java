@@ -85,12 +85,12 @@ public class UiElementTest extends TestBase {
         confirm(ClassCalibrator.getInstance(expected, actual).calibrate());
     }
 
-    @Test(dependsOnMethods = "getRootInstance")
+    @Test//(dependsOnMethods = "getRootInstance")
     public void getChildOrdinalGetText() {
-        String expected = "Settings";
+        String expected = "About";
         UiHost.getInstance().load("http://www.google.com");
-        UiElement parent = UiElement.getInstance("Parent UiElement", UiElement.LocatorType.ID, "gsr");
-        final UiElement child = UiElement.getInstance("Child UiElement", UiElement.LocatorType.CLASS, "ctr-p", 3, parent);
+        UiElement parent = UiElement.getInstance("Parent UiElement", UiElement.LocatorType.CLASS, "L3eUgb");
+        final UiElement child = UiElement.getInstance("Child UiElement", UiElement.LocatorType.CLASS, "MV3Tnb", 1, parent);
         String actual = child.getText();
         confirm(StringCalibrator.construct("Text of child by ordinal", expected, actual).calibrate());
     }
