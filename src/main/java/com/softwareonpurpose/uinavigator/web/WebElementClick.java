@@ -3,9 +3,9 @@ package com.softwareonpurpose.uinavigator.web;
 import com.softwareonpurpose.uinavigator.ElementClick;
 import com.softwareonpurpose.uinavigator.ElementBehaviors;
 import com.softwareonpurpose.uinavigator.UiGetElement;
+import org.apache.logging.log4j.LogManager;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
-import org.slf4j.LoggerFactory;
 
 import static com.softwareonpurpose.uinavigator.ElementBehaviors.reportException;
 
@@ -21,7 +21,7 @@ public class WebElementClick extends ElementClick {
         if (element == null || "".equals(element.getTagName())) {
             if (ElementBehaviors.isLoggingSuppressed()) {
                 final String root = "";
-                LoggerFactory.getLogger(root).error(errorMessage);
+                LogManager.getLogger(root).error(errorMessage);
             }
         } else {
             try {

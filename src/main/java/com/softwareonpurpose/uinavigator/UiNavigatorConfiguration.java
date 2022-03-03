@@ -14,7 +14,8 @@ package com.softwareonpurpose.uinavigator;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-import org.slf4j.LoggerFactory;
+
+import org.apache.logging.log4j.LogManager;
 
 import java.io.InputStream;
 import java.util.Properties;
@@ -33,7 +34,7 @@ public class UiNavigatorConfiguration {
             }
         } catch (Exception e) {
             final String message = "Unable to load configuration file %s";
-            LoggerFactory.getLogger(this.getClass()).warn(String.format(message, propertiesFilename));
+            LogManager.getLogger(this.getClass()).warn(String.format(message, propertiesFilename));
         }
         String configurationTimeout = prop.getProperty("timeout");
         this.timeout = configurationTimeout == null ? 3 : Integer.parseInt(configurationTimeout);

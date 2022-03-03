@@ -1,6 +1,7 @@
 package com.softwareonpurpose.uinavigator;
 
-import org.slf4j.LoggerFactory;
+
+import org.apache.logging.log4j.LogManager;
 
 /*
   Copyright 2020 Craig A. Stockton
@@ -24,7 +25,7 @@ public abstract class UiRegion {
     protected UiRegion(UiElement regionElement) {
         this.regionElement = regionElement;
         if (!suppressLogging)
-            LoggerFactory.getLogger("").info(String.format("In %s...", getDescription()));
+            LogManager.getLogger("").info(String.format("In %s...", getDescription()));
     }
 
     public static void suppressConstructionLogging(boolean suppress) {
