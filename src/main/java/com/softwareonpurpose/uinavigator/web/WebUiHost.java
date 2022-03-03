@@ -17,11 +17,11 @@ package com.softwareonpurpose.uinavigator.web;
 
 import com.softwareonpurpose.uinavigator.UiDriver;
 import com.softwareonpurpose.uinavigator.UiNavigatorConfiguration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ public class WebUiHost {
     private static WebUiHost webUiHost;
     private static UiNavigatorConfiguration config;
     private static UiDriver uiDriver;
-    private final Logger logger = LoggerFactory.getLogger("");
+    private final Logger logger = LogManager.getLogger("");
     private WebDriver driver;
 
     private WebUiHost() {

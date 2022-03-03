@@ -2,9 +2,9 @@ package com.softwareonpurpose.uinavigator;
 
 import com.google.gson.Gson;
 import com.softwareonpurpose.uinavigator.web.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriverException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class ElementBehaviors {
     private transient static boolean isLoggingSuppressed = false;
@@ -165,7 +165,7 @@ public class ElementBehaviors {
 
     public static void reportException(Exception e, String errorMessage) {
         final String root = "";
-        LoggerFactory.getLogger(root).error(errorMessage);
+        LogManager.getLogger(root).error(errorMessage);
         e.printStackTrace();
         throw new WebDriverException(errorMessage);
     }
@@ -205,7 +205,7 @@ public class ElementBehaviors {
     }
 
     private Logger getLogger() {
-        return LoggerFactory.getLogger("");
+        return LogManager.getLogger("");
     }
 
     private String getIndentation() {
