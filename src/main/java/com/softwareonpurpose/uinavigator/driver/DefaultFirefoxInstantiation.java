@@ -19,7 +19,7 @@ import com.softwareonpurpose.uinavigator.DriverInstantiation;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 public class DefaultFirefoxInstantiation extends DriverInstantiation {
 
@@ -34,14 +34,12 @@ public class DefaultFirefoxInstantiation extends DriverInstantiation {
 
     @Override
     protected WebDriver instantiateDriver() {
-        //noinspection SpellCheckingInspection
-        System.setProperty("webdriver.gecko.driver", "./src/main/resources/geckodriver.exe");
         return new FirefoxDriver();
     }
 
     @Override
     protected void configureDriver(WebDriver driver) {
-        driver.manage().timeouts().implicitlyWait(getConfig().getTimeout(), TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(getConfig().getTimeout()));
     }
 
     @Override
