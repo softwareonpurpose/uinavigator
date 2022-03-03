@@ -22,6 +22,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -209,7 +210,7 @@ public class UiHost {
     boolean waitUntilVisible(String locatorType, String locatorValue) {
         By locator = constructLocator(locatorType, locatorValue);
         try {
-            new WebDriverWait(driver, getConfig().getTimeout())
+            new WebDriverWait(driver, Duration.ofSeconds(getConfig().getTimeout()))
                     .until(ExpectedConditions.visibilityOfElementLocated(locator));
         } catch (WebDriverException e) {
             String warningMessageFormat = "WARNING: UiElement '%s' failed to be displayed within %d seconds";
