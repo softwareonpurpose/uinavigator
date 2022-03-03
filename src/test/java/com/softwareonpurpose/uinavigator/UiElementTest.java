@@ -85,7 +85,7 @@ public class UiElementTest extends TestBase {
         confirm(ClassCalibrator.getInstance(expected, actual).calibrate());
     }
 
-    @Test//(dependsOnMethods = "getRootInstance")
+    @Test(dependsOnMethods = "getRootInstance")
     public void getChildOrdinalGetText() {
         String expected = "About";
         UiHost.getInstance().load("http://www.google.com");

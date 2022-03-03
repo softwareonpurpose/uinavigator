@@ -17,7 +17,7 @@ configurations {
 dependencies {
     implementation 'com.google.code.gson:gson:2.9.+'
     implementation 'org.seleniumhq.selenium:selenium-java:4.1.2'
-    implementation 'org.testng:testng:7.5'
+    testImplementation 'org.testng:testng:7.5'
     implementation files('./src/test/resources/indentmanager-1.0.6.jar')
     implementation files('./src/test/resources/calibrator4test-1.4.4.jar')
     asciidoclet 'org.asciidoctor:asciidoclet:1.5.6'
@@ -47,5 +47,5 @@ test {
 }
 
 tasks.withType(Test) {
-    maxParallelForks = (Runtime.runtime.availableProcessors() - 2)
+    maxParallelForks = Runtime.runtime.availableProcessors() < 2 ? 1 : Runtime.runtime.availableProcessors() - 2
 }

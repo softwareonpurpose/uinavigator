@@ -31,7 +31,6 @@ public class DefaultChromeInstantiation extends DriverInstantiation {
 
     @Override
     protected ChromeDriver instantiateDriver() {
-        var example =System.getProperty("webdriver.chrome.driver");
         return new ChromeDriver();
     }
 

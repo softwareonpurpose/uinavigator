@@ -22,8 +22,8 @@ hs_err_pid*
 # Git #
 .git
 
-# Executable Files #
+# Windows Executable Files #
 *.exe
 
-#driver for Mac
+# Mac/Linux Executable Files #
 /src/main/resources/chromedriver
