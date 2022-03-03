@@ -87,10 +87,10 @@ public class UiElementTest extends TestBase {
 
     @Test(dependsOnMethods = "getRootInstance")
     public void getChildOrdinalGetText() {
-        String expected = "Settings";
+        String expected = "About";
         UiHost.getInstance().load("http://www.google.com");
-        UiElement parent = UiElement.getInstance("Parent UiElement", UiElement.LocatorType.ID, "gsr");
-        final UiElement child = UiElement.getInstance("Child UiElement", UiElement.LocatorType.CLASS, "ctr-p", 3, parent);
+        UiElement parent = UiElement.getInstance("Parent UiElement", UiElement.LocatorType.CLASS, "L3eUgb");
+        final UiElement child = UiElement.getInstance("Child UiElement", UiElement.LocatorType.CLASS, "MV3Tnb", 1, parent);
         String actual = child.getText();
         confirm(StringCalibrator.construct("Text of child by ordinal", expected, actual).calibrate());
     }
@@ -130,7 +130,7 @@ public class UiElementTest extends TestBase {
     public void setAttribute() {
         String expected = "Bogus Alt Text";
         UiHost.getInstance().load("http://www.google.com");
-        UiElement element = UiElement.getInstance("Logo", UiElement.LocatorType.ID, "hplogo");
+        UiElement element = UiElement.getInstance("Logo", UiElement.LocatorType.CLASS, "lnXdpd");
         element.setAttribute("alt", expected);
         String actual = element.getAttribute("alt");
         confirm(StringCalibrator.construct("Attribute value", expected, actual).calibrate());
