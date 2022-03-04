@@ -43,12 +43,12 @@ javadoc {
 
 test {
     useTestNG()
-    String chromeDriverPath ="$projectDir/src/main/resources/chromedriver"
-    String firefoxDriverPath ="$projectDir/src/main/resources/geckodriver"
-    String edgeDriverPath ="$projectDir/src/main/resources/msedgedriver"
-    systemProperty "webdriver.chrome.driver", Os.isFamily(Os.FAMILY_WINDOWS)? String.format("%s.exe",chromeDriverPath): chromeDriverPath
-    systemProperty "webdriver.firefox.driver", Os.isFamily(Os.FAMILY_WINDOWS)? String.format("%s.exe",firefoxDriverPath): firefoxDriverPath
-    systemProperty "webdriver.edge.driver", Os.isFamily(Os.FAMILY_WINDOWS)? String.format("%s.exe",edgeDriverPath): edgeDriverPath
+    String chromeDriverPath = "$projectDir/src/main/resources/chromedriver"
+    String firefoxDriverPath = "$projectDir/src/main/resources/geckodriver"
+    String edgeDriverPath = "$projectDir/src/main/resources/msedgedriver"
+    systemProperty "webdriver.chrome.driver", Os.isFamily(Os.FAMILY_WINDOWS) ? String.format("%s.exe", chromeDriverPath) : chromeDriverPath
+    systemProperty "webdriver.firefox.driver", Os.isFamily(Os.FAMILY_WINDOWS) ? String.format("%s.exe", firefoxDriverPath) : firefoxDriverPath
+    systemProperty "webdriver.edge.driver", Os.isFamily(Os.FAMILY_WINDOWS) ? String.format("%s.exe", edgeDriverPath) : edgeDriverPath
 }
 
 tasks.withType(Test) {
