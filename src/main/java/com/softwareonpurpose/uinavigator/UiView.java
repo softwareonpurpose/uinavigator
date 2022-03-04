@@ -1,5 +1,6 @@
+package com.softwareonpurpose.uinavigator;
 /*
-  Copyright 2019 Craig A. Stockton
+  Copyright 2020 Craig A. Stockton
   <p/>
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -13,51 +14,39 @@
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-package com.softwareonpurpose.uinavigator;
 
-import org.slf4j.LoggerFactory;
+import com.softwareonpurpose.uinavigator.web.WebUiHost;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import org.apache.logging.log4j.LogManager;
 
-/**
- * UI View (e.g. page)
- */
-@SuppressWarnings("unused")
 public abstract class UiView {
-    private final static String ERROR_CONSTRUCTOR_SCOPE = "Unable to access View constructor; ensure it is parameter-less and has 'public' scope";
+    private final static String ERROR_CONSTRUCTOR_SCOPE =
+            "Unable to access View constructor; ensure it is parameter-less and has 'public' scope";
     private final UiElement viewElement;
-    private final String viewUri;
 
-    protected UiView(String viewUri, UiElement viewElement) {
-        this.viewUri = viewUri;
+    private final String address;
+
+    protected UiView(String viewAddress, UiElement viewElement) {
+        this.address = viewAddress;
         this.viewElement = viewElement;
     }
 
-    /***
-     * Confirm existence of and return expected UI view
-     *
-     * @param viewClass Class of expected view
-     * @param <T> Class extending UiView
-     * @return UiView instance
-     */
     public static <T extends UiView> T expect(Class<T> viewClass) {
         String invalidCharacters =
                 String.format("%s|%s|%s", "(?<=[A-Z])(?=[A-Z][a-z])", "(?<=[^A-Z])(?=[A-Z])", "(?<=[A-Za-z])(?=[^A-Za-z])");
-        LoggerFactory.getLogger("").info(String.format("Expect '%s'", viewClass.getSimpleName().replaceAll(invalidCharacters, " ")));
+        final String viewClassName = viewClass.getSimpleName().replaceAll(invalidCharacters, " ");
+        LogManager.getLogger("").info(String.format("Expect '%s'", viewClassName));
         T view = construct(viewClass);
-        view.confirmElementStates();
+        if (!view.confirmElementStates()) {
+            String messageFormat = "Unable to confirm the state of '%s'";
+            String message = String.format(messageFormat, viewClassName);
+            LogManager.getLogger("").info(message);
+        }
         return construct(viewClass);
     }
 
-    /***
-     * Construct a concrete instance of UiView
-     *
-     * @param viewClass Class extension of UI view
-     * @param <T> Class extending UiView
-     * @return UiView object
-     */
-    @SuppressWarnings("WeakerAccess")
     protected static <T extends UiView> T construct(Class<T> viewClass) {
         T view = null;
         try {
@@ -66,48 +55,35 @@ public abstract class UiView {
                 constructor = viewClass.getConstructor();
                 view = constructor.newInstance();
             } catch (NoSuchMethodException | InvocationTargetException e) {
-                LoggerFactory.getLogger(viewClass).error(ERROR_CONSTRUCTOR_SCOPE);
+                LogManager.getLogger(viewClass).error(ERROR_CONSTRUCTOR_SCOPE);
                 e.printStackTrace();
             }
         } catch (InstantiationException | IllegalAccessException e) {
-            LoggerFactory.getLogger(viewClass).error(ERROR_CONSTRUCTOR_SCOPE);
+            LogManager.getLogger(viewClass).error(ERROR_CONSTRUCTOR_SCOPE);
             e.printStackTrace();
         }
         return view;
     }
 
-    /***
-     * View-specific logic confirming the state of key elements in a UI view
-     *
-     * @return boolean confirmation result
-     */
-    @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
-    protected abstract boolean confirmElementStates();
-
-    /***
-     * Load UI view in UI host (e.g. browser)
-     */
     protected void load() {
-        UiHost.getInstance().load(viewUri);
+        WebUiHost.getInstance().load(address);
+        getElement().switchTo();
     }
 
-    /***
-     * Load UI view in UI host appending relative path to URI of view
-     *
-     * @param relativeUri String relative path OR query string beginning with "?"
-     */
     protected void load(String relativeUri) {
-        relativeUri = relativeUri.substring(0, 1).equals("?") ? relativeUri : String.format("/%s", relativeUri);
-        String explicitUri = String.format("%s%s", viewUri, relativeUri);
-        UiHost.getInstance().load(explicitUri);
+        relativeUri = relativeUri.startsWith("?") ? relativeUri : String.format("/%s", relativeUri);
+        String explicitUri = String.format("%s%s", address, relativeUri);
+        WebUiHost.getInstance().load(explicitUri);
+        getElement().switchTo();
     }
 
-    /**
-     * UI element defining UI view
-     *
-     * @return The UiElement that fully contains the displayed content of the view (web page)
-     */
     protected UiElement getElement() {
         return viewElement;
+    }
+
+    protected abstract boolean confirmElementStates();
+
+    public String getAddress() {
+        return address;
     }
 }

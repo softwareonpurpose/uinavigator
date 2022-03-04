@@ -16,15 +16,16 @@ configurations {
 
 dependencies {
     implementation 'com.google.code.gson:gson:2.9.+'
-    implementation 'org.seleniumhq.selenium:selenium-java:4.1.2'
+    implementation 'org.seleniumhq.selenium:selenium-java:3.+'
     testImplementation 'org.testng:testng:7.5'
     implementation files('./src/test/resources/indentmanager-1.0.6.jar')
     implementation files('./src/test/resources/calibrator4test-1.4.4.jar')
+    implementation 'org.apache.logging.log4j:log4j-core:2.17.2'
     asciidoclet 'org.asciidoctor:asciidoclet:1.5.6'
 }
 
 wrapper() {
-    version = '7.3'
+    gradleVersion = '7.3'
 }
 
 task configureJavadoc {
