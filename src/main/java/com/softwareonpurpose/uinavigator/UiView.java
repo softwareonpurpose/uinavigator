@@ -1,6 +1,6 @@
 package com.softwareonpurpose.uinavigator;
 /*
-  Copyright 2020 Craig A. Stockton
+  Copyright 2020 - 2022 Craig A. Stockton
   <p/>
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -16,10 +16,10 @@ package com.softwareonpurpose.uinavigator;
  */
 
 import com.softwareonpurpose.uinavigator.web.WebUiHost;
+import org.apache.logging.log4j.LogManager;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import org.apache.logging.log4j.LogManager;
 
 public abstract class UiView {
     private final static String ERROR_CONSTRUCTOR_SCOPE =

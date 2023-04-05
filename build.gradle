@@ -17,7 +17,7 @@ configurations {
 dependencies {
     implementation 'com.google.code.gson:gson:2.9.+'
     implementation 'org.seleniumhq.selenium:selenium-java:3.+'
-    testImplementation 'org.testng:testng:7.5'
+    testImplementation 'org.testng:testng:7.7.0'
     implementation files('./src/test/resources/indentmanager-1.0.6.jar')
     implementation files('./src/test/resources/calibrator4test-1.4.4.jar')
     implementation 'org.apache.logging.log4j:log4j-core:2.17.2'
@@ -28,7 +28,7 @@ wrapper() {
     gradleVersion = '7.3'
 }
 
-task configureJavadoc {
+tasks.register('configureJavadoc') {
     doLast {
         javadoc {
             options.doclet = 'org.asciidoctor.Asciidoclet'
@@ -43,14 +43,14 @@ javadoc {
 
 test {
     useTestNG()
-    String chromeDriverPath ="$projectDir/src/main/resources/chromedriver"
-    String firefoxDriverPath ="$projectDir/src/main/resources/geckodriver"
-    String edgeDriverPath ="$projectDir/src/main/resources/msedgedriver"
-    systemProperty "webdriver.chrome.driver", Os.isFamily(Os.FAMILY_WINDOWS)? String.format("%s.exe",chromeDriverPath): chromeDriverPath
-    systemProperty "webdriver.firefox.driver", Os.isFamily(Os.FAMILY_WINDOWS)? String.format("%s.exe",firefoxDriverPath): firefoxDriverPath
-    systemProperty "webdriver.edge.driver", Os.isFamily(Os.FAMILY_WINDOWS)? String.format("%s.exe",edgeDriverPath): edgeDriverPath
+    String chromeDriverPath = "$projectDir/src/main/resources/chromedriver"
+    String firefoxDriverPath = "$projectDir/src/main/resources/geckodriver"
+    String edgeDriverPath = "$projectDir/src/main/resources/msedgedriver"
+    systemProperty "webdriver.chrome.driver", Os.isFamily(Os.FAMILY_WINDOWS) ? String.format("%s.exe", chromeDriverPath) : chromeDriverPath
+    systemProperty "webdriver.firefox.driver", Os.isFamily(Os.FAMILY_WINDOWS) ? String.format("%s.exe", firefoxDriverPath) : firefoxDriverPath
+    systemProperty "webdriver.edge.driver", Os.isFamily(Os.FAMILY_WINDOWS) ? String.format("%s.exe", edgeDriverPath) : edgeDriverPath
 }
 
-tasks.withType(Test) {
+tasks.withType(Test).configureEach {
     maxParallelForks = Runtime.runtime.availableProcessors() < 2 ? 1 : Runtime.runtime.availableProcessors() - 2
 }
