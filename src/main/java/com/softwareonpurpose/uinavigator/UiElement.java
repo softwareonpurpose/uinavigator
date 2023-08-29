@@ -18,6 +18,7 @@ package com.softwareonpurpose.uinavigator;
 import com.google.gson.Gson;
 import com.softwareonpurpose.uinavigator.web.WebElementLocator;
 import com.softwareonpurpose.uinavigator.web.WebUiGetElement;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
@@ -26,16 +27,24 @@ import java.util.List;
 public class UiElement {
     private final String description;
     private final ElementBehaviors behaviors;
+    private final By locator;
 
     private UiElement(String description, ElementBehaviors behaviors) {
         this.description = description;
         this.behaviors = behaviors;
+        locator = null;
+    }
+
+    public UiElement(String description, String locatorType, String locatorValue) {
+        String cssType = "#";
+        String selector = String.format("%s%s", cssType, locatorValue);
+        this.description = description;
+        locator = By.cssSelector(selector);
+        behaviors = null;
     }
 
     public static UiElement getInstance(String description, String locatorType, String locatorValue) {
-        ElementBehaviors behaviors =
-                ElementBehaviors.getInstanceByLocator(description, locatorType, locatorValue);
-        return new UiElement(description, behaviors);
+        return new UiElement(description, locatorType, locatorValue);
     }
 
     public static UiElement getInstance(String description, String locatorType, String locatorValue,
