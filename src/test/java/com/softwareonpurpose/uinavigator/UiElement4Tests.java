@@ -9,7 +9,7 @@ public class UiElement4Tests {
     public void isDisplayed() {
         boolean expected = true;
         UiNavigator.load("https://www.w3schools.com/html/tryit.asp?filename=tryhtml_basic_document");
-        boolean actual = UiNavigator.getElement("'Tutorials' nav button", UiLocatorType4.TAG, "body").isDisplayed();
+        boolean actual = UiElement4.getInstance("'Tutorials' nav button", UiLocatorType4.TAG, "body").isDisplayed();
         Assert.assertEquals(actual, expected);
         UiNavigator.quitInstance();
     }
