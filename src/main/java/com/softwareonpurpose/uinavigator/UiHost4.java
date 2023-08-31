@@ -3,8 +3,11 @@ package com.softwareonpurpose.uinavigator;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class UiHost4 {
+    private final ChromeDriver driver;
     
-    private final ChromeDriver driver = UiNavigator.getDriver();
+    private UiHost4() {
+        driver = UiNavigator.getDriver();
+    }
     
     public static UiHost4 getInstance() {
         return new UiHost4();
