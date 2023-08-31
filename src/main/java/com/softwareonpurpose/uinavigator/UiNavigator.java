@@ -5,7 +5,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class UiNavigator {
     private static UiNavigator navigator;
-    private ChromeDriver driver = new ChromeDriver(new ChromeOptions());
+    private ChromeDriver driver;
     
     public static UiNavigator getInstance() {
         if (navigator == null) {
@@ -14,7 +14,7 @@ public class UiNavigator {
         return navigator;
     }
     
-    public void quitInstance() {
+    public void quitDriver() {
         driver.quit();
         driver = null;
     }
@@ -24,6 +24,9 @@ public class UiNavigator {
     }
     
     ChromeDriver getDriver() {
+        if (driver == null) {
+            driver = new ChromeDriver(new ChromeOptions());
+        }
         return driver;
     }
     

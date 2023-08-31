@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 public class UiHost4Tests {
     @AfterMethod
     public void terminate() {
-        UiNavigator.getInstance().quitInstance();
+        UiNavigator.getInstance().quitDriver();
     }
 
     @Test

@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 public class UiElement4Tests {
     @AfterMethod
     public void terminate() {
-        UiNavigator.getInstance().quitInstance();
+        UiNavigator.getInstance().quitDriver();
     }
 
     @Test
