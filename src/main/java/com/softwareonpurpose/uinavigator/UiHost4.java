@@ -1,16 +1,20 @@
 package com.softwareonpurpose.uinavigator;
 
-public class UiHost4 {
+import org.openqa.selenium.chrome.ChromeDriver;
 
+public class UiHost4 {
+    
+    private final ChromeDriver driver = UiNavigator.getDriver();
+    
     public static UiHost4 getInstance() {
         return new UiHost4();
     }
-
+    
     public void load(String url) {
-        UiNavigator.getDriver().get(url);
+        driver.get(url);
     }
-
+    
     public String getCurrentUrl() {
-        return UiNavigator.getDriver().getCurrentUrl();
+        return driver.getCurrentUrl();
     }
 }
