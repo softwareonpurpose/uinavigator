@@ -9,4 +9,8 @@ public class UiHost4 {
     public void load(String url) {
         UiNavigator.getDriver().get(url);
     }
+
+    public String getCurrentUrl() {
+        return UiNavigator.getDriver().getCurrentUrl();
+    }
 }
