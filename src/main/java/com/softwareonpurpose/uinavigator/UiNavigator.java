@@ -5,7 +5,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class UiNavigator {
     private static ChromeDriver driver = new ChromeDriver(new ChromeOptions());
-    
+    private static UiNavigator navigator;
+
     public static void quitInstance() {
         driver.quit();
         driver = null;
@@ -17,5 +18,17 @@ public class UiNavigator {
     
     public static ChromeDriver getDriver() {
         return driver;
+    }
+
+    public static UiNavigator getInstance() {
+        if (navigator == null){
+            navigator = new UiNavigator();
+        }
+        return navigator;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s@%s", getClass().getSimpleName(), Integer.toHexString(hashCode()));
     }
 }
