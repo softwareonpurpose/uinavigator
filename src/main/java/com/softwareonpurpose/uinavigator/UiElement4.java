@@ -6,7 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class UiElement4 {
     private final By.ByCssSelector locator;
-    private final ChromeDriver driver = UiNavigator.getDriver();
+    private final ChromeDriver driver = UiNavigator.getInstance().getDriver();
     private final String description;
 
     private UiElement4(String description, String locatorType, String locatorValue) {
