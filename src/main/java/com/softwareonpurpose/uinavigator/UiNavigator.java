@@ -15,12 +15,10 @@ public class UiNavigator {
     }
     
     public void quitDriver() {
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
         driver = null;
-    }
-    
-    public void load(String url) {
-        driver.get(url);
     }
     
     ChromeDriver getDriver() {
