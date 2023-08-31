@@ -6,7 +6,7 @@ public class UiHost4 {
     private final ChromeDriver driver;
     
     private UiHost4() {
-        driver = UiNavigator.getDriver();
+        driver = UiNavigator.getInstance().getDriver();
     }
     
     public static UiHost4 getInstance() {

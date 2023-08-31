@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 public class UiNavigatorTests {
     @AfterMethod
     public void terminate() {
-        UiNavigator.quitInstance();
+        UiNavigator.getInstance().quitInstance();
     }
 
     @Test
