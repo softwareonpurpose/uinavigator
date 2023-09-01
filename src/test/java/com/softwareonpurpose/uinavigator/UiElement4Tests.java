@@ -9,11 +9,14 @@ import org.testng.annotations.Test;
 public class UiElement4Tests {
     @DataProvider
     public static Object[][] tags() {
+        String body = "body";
+        String heading_1 = "h1";
+        String paragraph = "p";
         return new Object[][]
                 {
-                        {"body"}
-                        , {"h1"}
-                        , {"p"}
+                        {UiElement4.getInstance("'Tutorials' nav button", UiLocatorType4.TAG, body)}
+                        , {UiElement4.getInstance("'Tutorials' nav button", UiLocatorType4.TAG, heading_1)}
+                        , {UiElement4.getInstance("'Tutorials' nav button", UiLocatorType4.TAG, paragraph)}
                 };
     }
 
@@ -23,12 +26,11 @@ public class UiElement4Tests {
     }
 
     @Test(dataProvider = "tags")
-    public void isDisplayed(String tag) {
-        ;
+    public void isDisplayed(UiElement4 element) {
         String url = "file:///D:/git/uinavigator/src/test/resources/basic.html";
         UiHost4.getInstance().load(url);
         boolean expected = true;
-        boolean actual = UiElement4.getInstance("'Tutorials' nav button", UiLocatorType4.TAG, tag).isDisplayed();
+        boolean actual = element.isDisplayed();
         Assert.assertEquals(actual, expected);
     }
 }
