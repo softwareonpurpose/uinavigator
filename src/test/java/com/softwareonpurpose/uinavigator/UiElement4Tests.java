@@ -12,9 +12,10 @@ public class UiElement4Tests {
     public static Object[][] tags() {
         return new Object[][]
                 {
-                        {"body"}
-                        , {"h1"}
-                        , {"p"}
+                        {"body", "My First Heading\n" +
+                                "My first paragraph."}
+                        , {"h1", "My First Heading"}
+                        , {"p", "My first paragraph."}
                 };
     }
     
@@ -24,7 +25,7 @@ public class UiElement4Tests {
     }
     
     @Test(dataProvider = "tags")
-    public void isDisplayed(String tag) {
+    public void isDisplayed(String tag, String text) {
         String url = getClass().getResource("/basic.html").toString();
         UiHost4.getInstance().load(url);
         boolean expected = true;
@@ -32,12 +33,11 @@ public class UiElement4Tests {
         Assert.assertEquals(actual, expected);
     }
     
-    @Test
-    public void getText() {
+    @Test(dataProvider = "tags")
+    public void getText(String tag, String expected) {
         String url = getClass().getResource("/basic.html").toString();
         UiHost4.getInstance().load(url);
-        String expected = "My First Heading";
-        String actual = UiElement4.getInstance("'Heading' tag", UiLocatorType4.TAG, "h1").getText();
+        String actual = UiElement4.getInstance("'Heading' tag", UiLocatorType4.TAG, tag).getText();
         Assert.assertEquals(actual, expected);
     }
 }
