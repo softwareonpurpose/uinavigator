@@ -67,16 +67,18 @@ public class UiElement4Tests {
 
     @Test(dataProvider = "scenarios_isDisplayed")
     public void isDisplayed(String page, UiElement4 element, boolean expected) {
-        String url = String.format("file:///D:/git/uinavigator/src/test/resources/%s.html", page);
-        UiHost4.getInstance().load(url);
+        UiHost4.getInstance().load(getPageUrl(page));
         boolean actual = element.isDisplayed();
         Assert.assertEquals(actual, expected);
     }
 
+    private String getPageUrl(String page) {
+        return getClass().getResource(String.format("/%s.html", page)).toString();
+    }
+
     @Test(dataProvider = "scenarios_getText")
     public void getText(String tag, String expected) {
-        String url = getClass().getResource("/basic.html").toString();
-        UiHost4.getInstance().load(url);
+        UiHost4.getInstance().load(getPageUrl("basic"));
         String actual = UiElement4.getInstance("'" + tag + "' tag", UiLocatorType4.TAG, tag).getText();
         Assert.assertEquals(actual, expected);
     }
