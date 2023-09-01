@@ -37,7 +37,7 @@ public class UiElement4Tests {
     public void getText(String tag, String expected) {
         String url = getClass().getResource("/basic.html").toString();
         UiHost4.getInstance().load(url);
-        String actual = UiElement4.getInstance("'Heading' tag", UiLocatorType4.TAG, tag).getText();
+        String actual = UiElement4.getInstance("'" + tag + "' tag", UiLocatorType4.TAG, tag).getText();
         Assert.assertEquals(actual, expected);
     }
 }
