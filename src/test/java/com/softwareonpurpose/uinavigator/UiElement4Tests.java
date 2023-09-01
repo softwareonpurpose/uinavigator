@@ -27,12 +27,24 @@ public class UiElement4Tests {
 
     @SuppressWarnings("rawtypes")
     @Test
-    public void getInstance(){
+    public void getInstance() {
         Class expected = UiElement4.class;
         String description = "'body' element";
         String locatorType = UiLocatorType4.TAG;
         String locatorValue = "body";
         Class actual = UiElement4.getInstance(description, locatorType, locatorValue).getClass();
+        Assert.assertEquals(actual, expected);
+    }
+
+    @SuppressWarnings("rawtypes")
+    @Test
+    public void getInstance_ordinal() {
+        Class expected = UiElement4.class;
+        String description = "'paragraph' element";
+        String locatorType = UiLocatorType4.TAG;
+        String locatorValue = "p";
+        Integer ordinal = 2;
+        Class actual = UiElement4.getInstance(description, locatorType, locatorValue, ordinal).getClass();
         Assert.assertEquals(actual, expected);
     }
 

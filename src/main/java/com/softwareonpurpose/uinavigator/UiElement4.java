@@ -9,15 +9,20 @@ public class UiElement4 {
     @SuppressWarnings("FieldCanBeLocal")
     private final String description;
 
-    private UiElement4(String description, String locatorType, String locatorValue) {
+    private UiElement4(String description, String locatorType, String locatorValue, Integer ordinal) {
         this.description = description;
         String cssSymbol = UiLocatorType4.ID.equals(locatorType) ? "#" : "";
-        String css = String.format("%s%s", cssSymbol, locatorValue);
+        String cssOrdinal = ordinal == null ? "" : String.format(":nth-child(%d)", ordinal);
+        String css = String.format("%s%s%s", cssSymbol, locatorValue, cssOrdinal);
         locator = new By.ByCssSelector(css);
     }
 
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue) {
-        return new UiElement4(description, locatorType, locatorValue);
+        return new UiElement4(description, locatorType, locatorValue, null);
+    }
+
+    public static UiElement4 getInstance(String description, String locatorType, String locatorValue, Integer ordinal) {
+        return new UiElement4(description, locatorType, locatorValue, ordinal);
     }
 
     public boolean isDisplayed() {
