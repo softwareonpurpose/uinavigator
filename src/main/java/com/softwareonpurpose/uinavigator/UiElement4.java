@@ -8,7 +8,7 @@ public class UiElement4 {
     private final By.ByCssSelector locator;
     private final ChromeDriver driver = UiNavigator.getInstance().getDriver();
     private final String description;
-
+    
     private UiElement4(String description, String locatorType, String locatorValue) {
         this.description = description;
         String cssSymbol = UiLocatorType4.ID.equals(locatorType) ? "#" : "";
@@ -23,7 +23,11 @@ public class UiElement4 {
     public boolean isDisplayed() {
         return getElement().isDisplayed();
     }
-
+    
+    public String getText() {
+        return getElement().getText();
+    }
+    
     private WebElement getElement() {
         return driver.findElement(locator);
     }
