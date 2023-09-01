@@ -13,6 +13,7 @@ public class UiElement4 {
         this.description = description;
         String cssSymbol = UiLocatorType4.ID.equals(locatorType) ? "#" : "";
         String css = String.format("%s%s", cssSymbol, locatorValue);
+        System.out.println(css);
         locator = new By.ByCssSelector(css);
     }
     
@@ -22,6 +23,10 @@ public class UiElement4 {
     
     public boolean isDisplayed() {
         return getElement().isDisplayed();
+    }
+    
+    public String getText() {
+        return getElement().getText();
     }
     
     private WebElement getElement() {

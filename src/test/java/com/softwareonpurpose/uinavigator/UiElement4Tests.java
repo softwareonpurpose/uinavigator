@@ -32,4 +32,12 @@ public class UiElement4Tests {
         Assert.assertEquals(actual, expected);
     }
     
+    @Test
+    public void getText() {
+        String url = getClass().getResource("/basic.html").toString();
+        UiHost4.getInstance().load(url);
+        String expected = "My First Heading";
+        String actual = UiElement4.getInstance("'Heading' tag", UiLocatorType4.TAG, "h1").getText();
+        Assert.assertEquals(actual, expected);
+    }
 }
