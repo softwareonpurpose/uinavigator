@@ -33,7 +33,12 @@ public class UiElement4 {
         WebElement element = getElement();
         return element != null && element.isDisplayed();
     }
-
+    
+    public String getText() {
+        WebElement element = getElement();
+        return element == null ? null : getElement().getText();
+    }
+    
     private WebElement getElement() {
         int index = ordinal - 1;
         ChromeDriver driver = UiNavigator.getInstance().getDriver();

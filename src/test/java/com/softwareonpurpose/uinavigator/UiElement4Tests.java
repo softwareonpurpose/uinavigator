@@ -5,6 +5,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+@SuppressWarnings("ConstantConditions")
 @Test
 public class UiElement4Tests {
     @DataProvider
@@ -22,6 +23,18 @@ public class UiElement4Tests {
                         , {"basic", UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, paragraph, second), isNotDisplayed}
                         , {"paragraphs", UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, paragraph, second), isDisplayed}
                 };
+    }
+
+    @DataProvider
+    public static Object[][] scenarios_getText() {
+        String firstHeading = "My First Heading";
+        String firstParagraph = "My first paragraph.";
+        String fullBody = String.format("%s\n%s", firstHeading, firstParagraph);
+        return new Object[][]{
+                {"h1", firstHeading}
+                , {"p", firstParagraph}
+                , {"body", fullBody}
+        };
     }
 
     @AfterMethod
@@ -57,6 +70,14 @@ public class UiElement4Tests {
         String url = String.format("file:///D:/git/uinavigator/src/test/resources/%s.html", page);
         UiHost4.getInstance().load(url);
         boolean actual = element.isDisplayed();
+        Assert.assertEquals(actual, expected);
+    }
+
+    @Test(dataProvider = "scenarios_getText")
+    public void getText(String tag, String expected) {
+        String url = getClass().getResource("/basic.html").toString();
+        UiHost4.getInstance().load(url);
+        String actual = UiElement4.getInstance("'" + tag + "' tag", UiLocatorType4.TAG, tag).getText();
         Assert.assertEquals(actual, expected);
     }
 }
