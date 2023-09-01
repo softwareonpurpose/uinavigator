@@ -24,7 +24,6 @@ public class UiElement4Tests {
 
     @Test(dataProvider = "tags")
     public void isDisplayed(String tag) {
-        ;
         String url = "file:///D:/git/uinavigator/src/test/resources/basic.html";
         UiHost4.getInstance().load(url);
         boolean expected = true;
