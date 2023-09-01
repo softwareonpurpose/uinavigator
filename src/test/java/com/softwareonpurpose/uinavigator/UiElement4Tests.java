@@ -14,15 +14,26 @@ public class UiElement4Tests {
         String paragraph = "p";
         return new Object[][]
                 {
-                        {UiElement4.getInstance("'Tutorials' nav button", UiLocatorType4.TAG, body)}
-                        , {UiElement4.getInstance("'Tutorials' nav button", UiLocatorType4.TAG, heading_1)}
-                        , {UiElement4.getInstance("'Tutorials' nav button", UiLocatorType4.TAG, paragraph)}
+                        {UiElement4.getInstance("'body' element'", UiLocatorType4.TAG, body)}
+                        , {UiElement4.getInstance("'heading' element'", UiLocatorType4.TAG, heading_1)}
+                        , {UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, paragraph)}
                 };
     }
 
     @AfterMethod
     public void terminate() {
         UiNavigator.getInstance().quitDriver();
+    }
+
+    @SuppressWarnings("rawtypes")
+    @Test
+    public void getInstance(){
+        Class expected = UiElement4.class;
+        String description = "'body' element";
+        String locatorType = UiLocatorType4.TAG;
+        String locatorValue = "body";
+        Class actual = UiElement4.getInstance(description, locatorType, locatorValue).getClass();
+        Assert.assertEquals(actual, expected);
     }
 
     @Test(dataProvider = "tags")
