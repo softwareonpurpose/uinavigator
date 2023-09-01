@@ -3,17 +3,21 @@ package com.softwareonpurpose.uinavigator;
 import com.google.gson.Gson;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.util.List;
 
 public class UiElement4 {
     private final By.ByCssSelector locator;
     @SuppressWarnings("FieldCanBeLocal")
     private final String description;
+    private final int ordinal;
 
     private UiElement4(String description, String locatorType, String locatorValue, Integer ordinal) {
         this.description = description;
         String cssSymbol = UiLocatorType4.ID.equals(locatorType) ? "#" : "";
-        String cssOrdinal = ordinal == null ? "" : String.format(":nth-child(%d)", ordinal);
-        String css = String.format("%s%s%s", cssSymbol, locatorValue, cssOrdinal);
+        this.ordinal = ordinal == null ? 1 : ordinal;
+        String css = String.format("%s%s", cssSymbol, locatorValue);
         locator = new By.ByCssSelector(css);
     }
 
@@ -26,11 +30,19 @@ public class UiElement4 {
     }
 
     public boolean isDisplayed() {
-        return getElement().isDisplayed();
+        WebElement element = getElement();
+        return element != null && element.isDisplayed();
     }
 
     private WebElement getElement() {
-        return UiNavigator.getInstance().getDriver().findElement(locator);
+        int index = ordinal - 1;
+        ChromeDriver driver = UiNavigator.getInstance().getDriver();
+        if (ordinal == 1) {
+            return driver.findElement(locator);
+        } else {
+            List<WebElement> elements = driver.findElements(locator);
+            return ordinal <= elements.size() ? elements.get(index) : null;
+        }
     }
 
     @Override

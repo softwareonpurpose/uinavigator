@@ -8,15 +8,19 @@ import org.testng.annotations.Test;
 @Test
 public class UiElement4Tests {
     @DataProvider
-    public static Object[][] tags() {
+    public static Object[][] scenarios_isDisplayed() {
         String body = "body";
         String heading_1 = "h1";
         String paragraph = "p";
+        Integer second = 2;
+        boolean isDisplayed = true;
+        boolean isNotDisplayed = false;
         return new Object[][]
                 {
-                        {UiElement4.getInstance("'body' element'", UiLocatorType4.TAG, body)}
-                        , {UiElement4.getInstance("'heading' element'", UiLocatorType4.TAG, heading_1)}
-                        , {UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, paragraph)}
+                        {"basic", UiElement4.getInstance("'body' element'", UiLocatorType4.TAG, body), isDisplayed}
+                        , {"basic", UiElement4.getInstance("'heading' element'", UiLocatorType4.TAG, heading_1), isDisplayed}
+                        , {"basic", UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, paragraph, second), isNotDisplayed}
+//                        , {"paragraphs", UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, paragraph, second), isDisplayed}
                 };
     }
 
@@ -48,11 +52,10 @@ public class UiElement4Tests {
         Assert.assertEquals(actual, expected);
     }
 
-    @Test(dataProvider = "tags")
-    public void isDisplayed(UiElement4 element) {
-        String url = "file:///D:/git/uinavigator/src/test/resources/basic.html";
+    @Test(dataProvider = "scenarios_isDisplayed")
+    public void isDisplayed(String page, UiElement4 element, boolean expected) {
+        String url = String.format("file:///D:/git/uinavigator/src/test/resources/%s.html", page);
         UiHost4.getInstance().load(url);
-        boolean expected = true;
         boolean actual = element.isDisplayed();
         Assert.assertEquals(actual, expected);
     }
