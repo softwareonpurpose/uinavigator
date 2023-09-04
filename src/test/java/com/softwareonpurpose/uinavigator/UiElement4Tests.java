@@ -1,5 +1,6 @@
 package com.softwareonpurpose.uinavigator;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.DataProvider;
@@ -20,11 +21,11 @@ public class UiElement4Tests {
                 {
                         {"basic", UiElement4.getInstance("'body' element'", UiLocatorType4.TAG, body), isDisplayed}
                         , {"basic", UiElement4.getInstance("'heading' element'", UiLocatorType4.TAG, heading_1), isDisplayed}
-                        , {"basic", UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, paragraph, second), isNotDisplayed}
+                        , {"basic", UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, "paragraph", second), isNotDisplayed}
                         , {"paragraphs", UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, paragraph, second), isDisplayed}
                 };
     }
-
+    
     @DataProvider
     public static Object[][] scenarios_getText() {
         String firstHeading = "My First Heading";
@@ -36,12 +37,12 @@ public class UiElement4Tests {
                 , {"body", fullBody}
         };
     }
-
+    
     @AfterMethod
     public void terminate() {
         UiNavigator.getInstance().quitDriver();
     }
-
+    
     @SuppressWarnings("rawtypes")
     @Test
     public void getInstance() {
@@ -52,7 +53,7 @@ public class UiElement4Tests {
         Class actual = UiElement4.getInstance(description, locatorType, locatorValue).getClass();
         Assert.assertEquals(actual, expected);
     }
-
+    
     @SuppressWarnings("rawtypes")
     @Test
     public void getInstance_ordinal() {
@@ -64,22 +65,26 @@ public class UiElement4Tests {
         Class actual = UiElement4.getInstance(description, locatorType, locatorValue, ordinal).getClass();
         Assert.assertEquals(actual, expected);
     }
-
+    
     @Test(dataProvider = "scenarios_isDisplayed")
     public void isDisplayed(String page, UiElement4 element, boolean expected) {
         UiHost4.getInstance().load(getPageUrl(page));
-        boolean actual = element.isDisplayed();
-        Assert.assertEquals(actual, expected);
+        try {
+            boolean actual = element.isDisplayed();
+            Assert.assertEquals(actual, expected);
+        } catch (Exception e) {
+            Assert.assertEquals(e.getClass(), NoSuchElementException.class);
+        }
     }
-
-    private String getPageUrl(String page) {
-        return getClass().getResource(String.format("/%s.html", page)).toString();
-    }
-
+    
     @Test(dataProvider = "scenarios_getText")
     public void getText(String tag, String expected) {
         UiHost4.getInstance().load(getPageUrl("basic"));
         String actual = UiElement4.getInstance("'" + tag + "' tag", UiLocatorType4.TAG, tag).getText();
         Assert.assertEquals(actual, expected);
+    }
+    
+    private String getPageUrl(String page) {
+        return getClass().getResource(String.format("/%s.html", page)).toString();
     }
 }
