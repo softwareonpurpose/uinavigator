@@ -12,8 +12,7 @@ public class UiElement4 {
     
     private UiElement4(String description, String locatorType, String locatorValue, Integer ordinal) {
         this.description = description;
-        String cssSymbol = UiLocatorType4.ID.equals(locatorType) ? "#" : "";
-        String css = ordinal == null ? String.format("%s%s", cssSymbol, locatorValue) : String.format("%s%s:nth-of-type(%s)", cssSymbol, locatorValue, ordinal);
+        String css = ordinal == null ? String.format("%s%s", locatorType, locatorValue) : String.format("%s%s:nth-of-type(%s)", locatorType, locatorValue, ordinal);
         locator = new By.ByCssSelector(css);
     }
     
