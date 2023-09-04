@@ -26,13 +26,11 @@ public class UiElement4 {
     }
     
     public boolean isDisplayed() {
-        WebElement element = getElement();
-        return element != null && element.isDisplayed();
+        return getElement().isDisplayed();
     }
     
     public String getText() {
-        WebElement element = getElement();
-        return element == null ? null : getElement().getText();
+        return getElement().getText();
     }
     
     private WebElement getElement() {
