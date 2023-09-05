@@ -13,6 +13,7 @@ public class UiElement4Tests {
         String body = "body";
         String heading_1 = "h1";
         String paragraph = "p";
+        String anchor = "a";
         Integer second = 2;
         boolean isDisplayed = true;
         boolean isNotDisplayed = false;
@@ -22,6 +23,7 @@ public class UiElement4Tests {
                         , {"basic", UiElement4.getInstance("'heading' element'", UiLocatorType4.TAG, heading_1), isDisplayed}
                         , {"basic", UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, "paragraph", second), isNotDisplayed}
                         , {"paragraphs", UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, paragraph, second), isDisplayed}
+                        , {"link", UiElement4.getInstance("'anchor' element", UiLocatorType4.TAG, anchor), isDisplayed}
                 };
     }
 
