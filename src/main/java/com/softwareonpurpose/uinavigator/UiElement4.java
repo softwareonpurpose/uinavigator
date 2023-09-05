@@ -55,4 +55,9 @@ public class UiElement4 {
     public String toString() {
         return String.format("UiElement: %s", new Gson().toJson(this));
     }
+
+    public String getHref() {
+        WebElement element = getElement();
+        return element == null ? null : element.getAttribute("href");
+    }
 }

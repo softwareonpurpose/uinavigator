@@ -85,6 +85,14 @@ public class UiElement4Tests {
         Assert.assertEquals(actual, expected);
     }
 
+    @Test
+    public void getHref() {
+        UiHost4.getInstance().load(getPageUrl("link"));
+        String expected = "https://www.w3schools.com/";
+        String actual = UiElement4.getInstance("'Anchor' tag", UiLocatorType4.TAG, "a").getHref();
+        Assert.assertEquals(actual, expected);
+    }
+
     private String getPageUrl(String page) {
         return getClass().getResource(String.format("/%s.html", page)).toString();
     }
