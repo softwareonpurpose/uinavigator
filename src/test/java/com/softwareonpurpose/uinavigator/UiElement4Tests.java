@@ -52,6 +52,15 @@ public class UiElement4Tests {
         };
     }
 
+    @DataProvider
+    public static Object[][] scenarios_click() {
+        return new Object[][]{
+                {"link", UiElement4.getInstance("'This is a link' anchor", UiLocatorType4.TAG, "a"), "https://www.w3schools.com/"}
+                , {"basic", UiElement4.getInstance("'This is a link' anchor", UiLocatorType4.TAG, "a"), "file:///D:/git/uinavigator/build/resources/test/basic.html"}
+                , {"basic", UiElement4.getInstance("'heading' element'", UiLocatorType4.TAG, "h1"), "file:///D:/git/uinavigator/build/resources/test/basic.html"}
+        };
+    }
+
     @AfterMethod
     public void terminate() {
         UiNavigator.getInstance().quitDriver();
@@ -98,6 +107,14 @@ public class UiElement4Tests {
     public void getHref(String page, UiElement4 element, String expected) {
         UiHost4.getInstance().load(getPageUrl(page));
         String actual = element.getHref();
+        Assert.assertEquals(actual, expected);
+    }
+
+    @Test(dataProvider = "scenarios_click")
+    public void click(String page, UiElement4 element, String expected) {
+        UiHost4.getInstance().load(getPageUrl(page));
+        element.click();
+        String actual = UiHost4.getInstance().getCurrentUrl();
         Assert.assertEquals(actual, expected);
     }
 
