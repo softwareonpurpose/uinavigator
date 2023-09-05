@@ -34,6 +34,7 @@ public class UiElement4Tests {
                 {"h1", firstHeading}
                 , {"p", firstParagraph}
                 , {"body", fullBody}
+                , {"div", null}
         };
     }
 

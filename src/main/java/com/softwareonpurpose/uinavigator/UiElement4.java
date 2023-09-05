@@ -30,7 +30,8 @@ public class UiElement4 {
     }
 
     public String getText() {
-        return getElement().getText();
+        WebElement element = getElement();
+        return element == null ? null : element.getText();
     }
 
     private WebElement getElement() {
