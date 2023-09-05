@@ -43,6 +43,15 @@ public class UiElement4Tests {
         };
     }
 
+    @DataProvider
+    public static Object[][] scenarios_getHref() {
+        return new Object[][]{
+                {"link", UiElement4.getInstance("'Anchor' tag", UiLocatorType4.TAG, "a"), "https://www.w3schools.com/"}
+                , {"basic", UiElement4.getInstance("'Anchor' tag", UiLocatorType4.TAG, "a"), null}
+                , {"link", UiElement4.getInstance("'Paragraph' tag", UiLocatorType4.TAG, "p"), null}
+        };
+    }
+
     @AfterMethod
     public void terminate() {
         UiNavigator.getInstance().quitDriver();
@@ -85,11 +94,10 @@ public class UiElement4Tests {
         Assert.assertEquals(actual, expected);
     }
 
-    @Test
-    public void getHref() {
-        UiHost4.getInstance().load(getPageUrl("link"));
-        String expected = "https://www.w3schools.com/";
-        String actual = UiElement4.getInstance("'Anchor' tag", UiLocatorType4.TAG, "a").getHref();
+    @Test(dataProvider = "scenarios_getHref")
+    public void getHref(String page, UiElement4 element, String expected) {
+        UiHost4.getInstance().load(getPageUrl(page));
+        String actual = element.getHref();
         Assert.assertEquals(actual, expected);
     }
 
