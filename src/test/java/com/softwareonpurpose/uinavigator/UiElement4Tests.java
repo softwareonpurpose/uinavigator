@@ -27,13 +27,17 @@ public class UiElement4Tests {
 
     @DataProvider
     public static Object[][] scenarios_getText() {
+        String basicPage = "basic";
+        String basicLink = "link";
         String firstHeading = "My First Heading";
         String firstParagraph = "My first paragraph.";
         String fullBody = String.format("%s\n%s", firstHeading, firstParagraph);
         return new Object[][]{
-                {"h1", firstHeading}
-                , {"p", firstParagraph}
-                , {"body", fullBody}
+                {basicPage, "h1", firstHeading}
+                , {basicPage, "p", firstParagraph}
+                , {basicPage, "body", fullBody}
+                , {basicPage, "div", null}
+                , {basicLink, "a", "This is a link"}
         };
     }
 
@@ -77,8 +81,8 @@ public class UiElement4Tests {
     }
 
     @Test(dataProvider = "scenarios_getText")
-    public void getText(String tag, String expected) {
-        UiHost4.getInstance().load(getPageUrl("basic"));
+    public void getText(String page, String tag, String expected) {
+        UiHost4.getInstance().load(getPageUrl(page));
         String actual = UiElement4.getInstance("'" + tag + "' tag", UiLocatorType4.TAG, tag).getText();
         Assert.assertEquals(actual, expected);
     }
