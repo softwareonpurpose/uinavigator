@@ -12,8 +12,13 @@ public class UiElement4 {
 
     private UiElement4(String description, String locatorType, String locatorValue, Integer ordinal) {
         this.description = description;
-        String css = ordinal == null ? String.format("%s%s", locatorType, locatorValue) : String.format("%s%s:nth-of-type(%s)", locatorType, locatorValue, ordinal);
-        locator = new By.ByCssSelector(css);
+        locator = new By.ByCssSelector(composeCss(locatorType, locatorValue, ordinal));
+    }
+
+    private static String composeCss(String locatorType, String locatorValue, Integer ordinal) {
+        String css = String.format("%s%s", locatorType, locatorValue);
+        css += ordinal == null ? "" : String.format(":nth-of-type(%s)", ordinal);
+        return css;
     }
 
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue) {
