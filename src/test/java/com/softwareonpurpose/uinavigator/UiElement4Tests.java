@@ -20,7 +20,7 @@ public class UiElement4Tests {
                 {
                         {"basic", UiElement4.getInstance("'body' element'", UiLocatorType4.TAG, body), isDisplayed}
                         , {"basic", UiElement4.getInstance("'heading' element'", UiLocatorType4.TAG, heading_1), isDisplayed}
-                        , {"basic", UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, paragraph, second), isNotDisplayed}
+                        , {"basic", UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, "paragraph", second), isNotDisplayed}
                         , {"paragraphs", UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, paragraph, second), isDisplayed}
                 };
     }
@@ -76,14 +76,14 @@ public class UiElement4Tests {
         Assert.assertEquals(actual, expected);
     }
 
-    private String getPageUrl(String page) {
-        return getClass().getResource(String.format("/%s.html", page)).toString();
-    }
-
     @Test(dataProvider = "scenarios_getText")
     public void getText(String page, String tag, String expected) {
         UiHost4.getInstance().load(getPageUrl(page));
         String actual = UiElement4.getInstance("'" + tag + "' tag", UiLocatorType4.TAG, tag).getText();
         Assert.assertEquals(actual, expected);
+    }
+
+    private String getPageUrl(String page) {
+        return getClass().getResource(String.format("/%s.html", page)).toString();
     }
 }
