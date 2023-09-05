@@ -6,7 +6,7 @@ public class BasicView extends UiView4 {
     }
 
     @Override
-    protected boolean confirmElementStates() {
+    protected boolean confirmState() {
         return false;
     }
 }

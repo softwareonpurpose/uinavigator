@@ -16,7 +16,7 @@ public abstract class UiView4 {
         LogManager.getLogger("").info(String.format("Expect '%s'", viewClassName));
         T view = construct(viewClass);
         //  TODO:  Reconsider this logic
-        if (!view.confirmElementStates()) {
+        if (!view.confirmState()) {
             String messageFormat = "Unable to confirm the state of '%s'";
             String message = String.format(messageFormat, viewClassName);
             LogManager.getLogger("").info(message);
@@ -44,5 +44,5 @@ public abstract class UiView4 {
         return view;
     }
 
-    protected abstract boolean confirmElementStates();
+    protected abstract boolean confirmState();
 }
