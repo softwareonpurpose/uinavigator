@@ -23,7 +23,7 @@ public class UiNavigator {
     
     ChromeDriver getDriver() {
         if (driver == null) {
-            driver = new ChromeDriver(new ChromeOptions());
+            driver = new ChromeDriver(new ChromeOptions().addArguments("--headless=new"));
         }
         return driver;
     }
