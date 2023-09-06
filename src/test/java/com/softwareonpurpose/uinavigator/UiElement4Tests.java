@@ -61,6 +61,19 @@ public class UiElement4Tests {
         };
     }
 
+    @DataProvider
+    public static Object[][] scenarios_getAttribute() {
+        UiElement4 imageElement =
+                UiElement4.getInstance("'Image' element", UiLocatorType4.TAG, "img");
+        UiElement4 nonExistentElement =
+                UiElement4.getInstance("'Bogus' element", UiLocatorType4.ID, "bogus");
+        return new Object[][]{
+                {"image", imageElement, "src", "https://www.w3schools.com/html/w3schools.jpg"}
+                , {"image", imageElement, "bogus", null}
+                , {"image", nonExistentElement, "src", null}
+        };
+    }
+
     @AfterMethod
     public void terminate() {
         UiNavigator.getInstance().quitDriver();
@@ -118,11 +131,10 @@ public class UiElement4Tests {
         Assert.assertEquals(actual, expected);
     }
 
-    @Test
-    public void getAttribute() {
-        String expected = "https://www.w3schools.com/html/w3schools.jpg";
-        UiHost4.getInstance().load(getPageUrl("image"));
-        String actual = UiElement4.getInstance("'Image' element", UiLocatorType4.TAG, "img").getAttribute("src");
+    @Test(dataProvider = "scenarios_getAttribute")
+    public void getAttribute(String page, UiElement4 element, String attribute, String expected) {
+        UiHost4.getInstance().load(getPageUrl(page));
+        String actual = element.getAttribute(attribute);
         Assert.assertEquals(actual, expected);
     }
 

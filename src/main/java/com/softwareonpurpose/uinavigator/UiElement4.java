@@ -72,6 +72,7 @@ public class UiElement4 {
     }
 
     public String getAttribute(String attribute) {
-        return getElement().getAttribute(attribute);
+        WebElement element = getElement();
+        return element == null ? null : element.getAttribute(attribute);
     }
 }
