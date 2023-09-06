@@ -41,7 +41,6 @@ public class UiElement4Tests {
         String firstHeading = "My First Heading";
         String firstParagraph = "My first paragraph.";
         String fullBody = String.format("%s\n%s", firstHeading, firstParagraph);
-        UiElement4 parent = UiElement4.getInstance("'unordered list' element", UiLocatorType4.TAG, "ul");
         return new Object[][]{
                 {basicPage, headingElement, firstHeading}
                 , {basicPage, paragraphElement, firstParagraph}
@@ -65,8 +64,8 @@ public class UiElement4Tests {
     public static Object[][] scenarios_click() {
         return new Object[][]{
                 {"link", UiElement4.getInstance("'This is a link' anchor", UiLocatorType4.TAG, "a"), "https://www.w3schools.com/"}
-                , {"basic", UiElement4.getInstance("'This is a link' anchor", UiLocatorType4.TAG, "a"), "file:///D:/git/uinavigator/build/resources/test/basic.html"}
-                , {"basic", UiElement4.getInstance("'heading' element'", UiLocatorType4.TAG, "h1"), "file:///D:/git/uinavigator/build/resources/test/basic.html"}
+                , {"basic", UiElement4.getInstance("'This is a link' anchor", UiLocatorType4.TAG, "a"), "basic"}
+                , {"basic", UiElement4.getInstance("'heading' element'", UiLocatorType4.TAG, "h1"), "basic"}
         };
     }
 
@@ -123,6 +122,11 @@ public class UiElement4Tests {
         Assert.assertEquals(actual, expected);
     }
 
+    @Test
+    public void getInstance_ordinal_parent() {
+
+    }
+
     @Test(dataProvider = "scenarios_isDisplayed")
     public void isDisplayed(String page, UiElement4 element, boolean expected) {
         UiHost4.getInstance().load(getPageUrl(page));
@@ -146,6 +150,9 @@ public class UiElement4Tests {
 
     @Test(dataProvider = "scenarios_click")
     public void click(String page, UiElement4 element, String expected) {
+        expected = expected.contains("http")
+                ? expected
+                : getPageUrl(expected).replace("file:/", "file:///");
         UiHost4.getInstance().load(getPageUrl(page));
         element.click();
         String actual = UiHost4.getInstance().getCurrentUrl();
