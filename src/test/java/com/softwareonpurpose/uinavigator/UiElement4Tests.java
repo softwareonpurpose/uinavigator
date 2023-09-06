@@ -8,22 +8,28 @@ import org.testng.annotations.Test;
 @SuppressWarnings("ConstantConditions")
 @Test
 public class UiElement4Tests {
+
+    private static final UiElement4 bodyElement = UiElement4.getInstance("'body' element'", UiLocatorType4.TAG, "body");
+    private static final UiElement4 headingElement = UiElement4.getInstance("'heading' element'", UiLocatorType4.TAG, "h1");
+    private static final UiElement4 secondParagraphElement = UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, "p", 2);
+    private static final UiElement4 anchorElement = UiElement4.getInstance("'anchor' element", UiLocatorType4.TAG, "a");
+    private static final UiElement4 unorderedListElement = UiElement4.getInstance("'unordered list", UiLocatorType4.TAG, "ul");
+    private static final UiElement4 unorderedListItemElement = UiElement4.getInstance("'list item' element", UiLocatorType4.TAG, "li", unorderedListElement);
+    private static final UiElement4 paragraphElement = UiElement4.getInstance("'p' tag", UiLocatorType4.TAG, "p");
+    private static final UiElement4 divElement = UiElement4.getInstance("'div' tag", UiLocatorType4.TAG, "div");
+
     @DataProvider
     public static Object[][] scenarios_isDisplayed() {
-        String body = "body";
-        String heading_1 = "h1";
-        String paragraph = "p";
-        String anchor = "a";
-        Integer second = 2;
         boolean isDisplayed = true;
         boolean isNotDisplayed = false;
         return new Object[][]
                 {
-                        {"basic", UiElement4.getInstance("'body' element'", UiLocatorType4.TAG, body), isDisplayed}
-                        , {"basic", UiElement4.getInstance("'heading' element'", UiLocatorType4.TAG, heading_1), isDisplayed}
-                        , {"basic", UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, "paragraph", second), isNotDisplayed}
-                        , {"paragraphs", UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, paragraph, second), isDisplayed}
-                        , {"link", UiElement4.getInstance("'anchor' element", UiLocatorType4.TAG, anchor), isDisplayed}
+                        {"basic", bodyElement, isDisplayed}
+                        , {"basic", headingElement, isDisplayed}
+                        , {"basic", secondParagraphElement, isNotDisplayed}
+                        , {"paragraphs", secondParagraphElement, isDisplayed}
+                        , {"link", anchorElement, isDisplayed}
+                        , {"list", unorderedListItemElement, isDisplayed}
                 };
     }
 
@@ -31,15 +37,17 @@ public class UiElement4Tests {
     public static Object[][] scenarios_getText() {
         String basicPage = "basic";
         String basicLink = "link";
+        String list = "list";
         String firstHeading = "My First Heading";
         String firstParagraph = "My first paragraph.";
         String fullBody = String.format("%s\n%s", firstHeading, firstParagraph);
         return new Object[][]{
-                {basicPage, "h1", firstHeading}
-                , {basicPage, "p", firstParagraph}
-                , {basicPage, "body", fullBody}
-                , {basicPage, "div", null}
-                , {basicLink, "a", "This is a link"}
+                {basicPage, headingElement, firstHeading}
+                , {basicPage, paragraphElement, firstParagraph}
+                , {basicPage, bodyElement, fullBody}
+                , {basicPage, divElement, null}
+                , {basicLink, anchorElement, "This is a link"}
+                , {list, unorderedListItemElement, "Coffee"}
         };
     }
 
@@ -56,8 +64,8 @@ public class UiElement4Tests {
     public static Object[][] scenarios_click() {
         return new Object[][]{
                 {"link", UiElement4.getInstance("'This is a link' anchor", UiLocatorType4.TAG, "a"), "https://www.w3schools.com/"}
-                , {"basic", UiElement4.getInstance("'This is a link' anchor", UiLocatorType4.TAG, "a"), "file:///D:/git/uinavigator/build/resources/test/basic.html"}
-                , {"basic", UiElement4.getInstance("'heading' element'", UiLocatorType4.TAG, "h1"), "file:///D:/git/uinavigator/build/resources/test/basic.html"}
+                , {"basic", UiElement4.getInstance("'This is a link' anchor", UiLocatorType4.TAG, "a"), "basic"}
+                , {"basic", UiElement4.getInstance("'heading' element'", UiLocatorType4.TAG, "h1"), "basic"}
         };
     }
 
@@ -105,6 +113,20 @@ public class UiElement4Tests {
         Assert.assertEquals(actual, expected);
     }
 
+    @SuppressWarnings("rawtypes")
+    @Test
+    public void getInstance_parent() {
+        Class expected = UiElement4.class;
+        UiElement4 parent = UiElement4.getInstance("'Unordered List' element", UiLocatorType4.TAG, "ul");
+        Class actual = UiElement4.getInstance("'List Item' element", UiLocatorType4.TAG, "li", parent).getClass();
+        Assert.assertEquals(actual, expected);
+    }
+
+    @Test
+    public void getInstance_ordinal_parent() {
+
+    }
+
     @Test(dataProvider = "scenarios_isDisplayed")
     public void isDisplayed(String page, UiElement4 element, boolean expected) {
         UiHost4.getInstance().load(getPageUrl(page));
@@ -113,9 +135,9 @@ public class UiElement4Tests {
     }
 
     @Test(dataProvider = "scenarios_getText")
-    public void getText(String page, String tag, String expected) {
+    public void getText(String page, UiElement4 element, String expected) {
         UiHost4.getInstance().load(getPageUrl(page));
-        String actual = UiElement4.getInstance("'" + tag + "' tag", UiLocatorType4.TAG, tag).getText();
+        String actual = element.getText();
         Assert.assertEquals(actual, expected);
     }
 
@@ -128,6 +150,9 @@ public class UiElement4Tests {
 
     @Test(dataProvider = "scenarios_click")
     public void click(String page, UiElement4 element, String expected) {
+        expected = expected.contains("http")
+                ? expected
+                : getPageUrl(expected).replace("file:/", "file:///");
         UiHost4.getInstance().load(getPageUrl(page));
         element.click();
         String actual = UiHost4.getInstance().getCurrentUrl();
