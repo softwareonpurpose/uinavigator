@@ -33,6 +33,7 @@ public class UiElement4Tests {
     private static final String stylePage = "style";
     private static final String idPage = "id";
     private static final UiElement4 headingElementById = UiElement4.getInstance("'heading' element", UiLocatorType4.ID, "myHeader");
+    private static final UiElement4 elementInvalidId = UiElement4.getInstance("invalid id", UiLocatorType4.ID, "invalid");
     
     @DataProvider
     public static Object[][] scenarios_isDisplayed() {
@@ -51,6 +52,7 @@ public class UiElement4Tests {
                         , {breakPage, breakElement, isNotDisplayed}
                         , {prePage, preElement, isDisplayed}
                         , {idPage, headingElementById, isDisplayed}
+                        , {idPage, elementInvalidId, isNotDisplayed}
                 };
     }
 
