@@ -8,7 +8,6 @@ import org.testng.annotations.Test;
 @SuppressWarnings("ConstantConditions")
 @Test
 public class UiElement4Tests {
-
     private static final TestResources resources = TestResources.getInstance();
     private static final UiElement4 bodyElement = UiElement4.getInstance("'body' element'", UiLocatorType4.TAG, "body");
     private static final UiElement4 headingElement = UiElement4.getInstance("'heading' element'", UiLocatorType4.TAG, "h1");
@@ -61,6 +60,7 @@ public class UiElement4Tests {
                 , {linkPage, anchorElement, "This is a link"}
                 , {listPage, unorderedListItemElement, "Coffee"}
                 , {listPage, nthOrderedListItemElement, "Milk"}
+                , {breakPage, paragraphElement, "This is\na paragraph\nwith line breaks."}
         };
     }
 
