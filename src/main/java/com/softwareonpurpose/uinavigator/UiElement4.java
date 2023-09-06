@@ -96,4 +96,9 @@ public class UiElement4 {
         WebElement element = getElement();
         return element == null ? null : element.getAttribute(attribute);
     }
+
+    public String getStyleProperty(String property) {
+        WebElement element = getElement();
+        return element == null ? null : element.getCssValue(property);
+    }
 }
