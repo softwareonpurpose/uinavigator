@@ -26,7 +26,7 @@ public abstract class UiView4 {
         return construct(viewClass);
     }
 
-    protected static <T extends UiView4> T construct(Class<T> viewClass) {
+    private static <T extends UiView4> T construct(Class<T> viewClass) {
         T view = null;
         Constructor<T> constructor;
         try {

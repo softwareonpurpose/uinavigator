@@ -194,4 +194,12 @@ public class UiElement4Tests {
         String actual = element.getAttribute(attribute);
         Assert.assertEquals(actual, expected);
     }
+
+    @Test
+    public void getStyleProperty(){
+        String expected = "rgba(255, 0, 0, 1)";
+        UiHost4.getInstance().load(resources.getPageUrl(stylePage));
+        String actual = paragraphElement_2.getStyleProperty("color");
+        Assert.assertEquals(actual, expected);
+    }
 }
