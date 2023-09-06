@@ -8,25 +8,28 @@ import org.testng.annotations.Test;
 @SuppressWarnings("ConstantConditions")
 @Test
 public class UiElement4Tests {
+
+    private static final UiElement4 bodyElement = UiElement4.getInstance("'body' element'", UiLocatorType4.TAG, "body");
+    private static final UiElement4 headingElement = UiElement4.getInstance("'heading' element'", UiLocatorType4.TAG, "h1");
+    private static final UiElement4 secondParagraphElement = UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, "p", 2);
+    private static final UiElement4 anchorElement = UiElement4.getInstance("'anchor' element", UiLocatorType4.TAG, "a");
+    private static final UiElement4 unorderedListElement = UiElement4.getInstance("'unordered list", UiLocatorType4.TAG, "ul");
+    private static final UiElement4 unorderedListItemElement = UiElement4.getInstance("'list item' element", UiLocatorType4.TAG, "li", unorderedListElement);
+    private static final UiElement4 paragraphElement = UiElement4.getInstance("'p' tag", UiLocatorType4.TAG, "p");
+    private static final UiElement4 divElement = UiElement4.getInstance("'div' tag", UiLocatorType4.TAG, "div");
+
     @DataProvider
     public static Object[][] scenarios_isDisplayed() {
-        String body = "body";
-        String heading_1 = "h1";
-        String paragraph = "p";
-        String anchor = "a";
-        Integer second = 2;
         boolean isDisplayed = true;
         boolean isNotDisplayed = false;
-        String listItem = "li";
-        UiElement4 unorderedList = UiElement4.getInstance("'unordered list", UiLocatorType4.TAG, "ul");
         return new Object[][]
                 {
-                        {"basic", UiElement4.getInstance("'body' element'", UiLocatorType4.TAG, body), isDisplayed}
-                        , {"basic", UiElement4.getInstance("'heading' element'", UiLocatorType4.TAG, heading_1), isDisplayed}
-                        , {"basic", UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, paragraph, second), isNotDisplayed}
-                        , {"paragraphs", UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, paragraph, second), isDisplayed}
-                        , {"link", UiElement4.getInstance("'anchor' element", UiLocatorType4.TAG, anchor), isDisplayed}
-                        , {"list", UiElement4.getInstance("'list item' element", UiLocatorType4.TAG, listItem, unorderedList), isDisplayed}
+                        {"basic", bodyElement, isDisplayed}
+                        , {"basic", headingElement, isDisplayed}
+                        , {"basic", secondParagraphElement, isNotDisplayed}
+                        , {"paragraphs", secondParagraphElement, isDisplayed}
+                        , {"link", anchorElement, isDisplayed}
+                        , {"list", unorderedListItemElement, isDisplayed}
                 };
     }
 
@@ -40,12 +43,12 @@ public class UiElement4Tests {
         String fullBody = String.format("%s\n%s", firstHeading, firstParagraph);
         UiElement4 parent = UiElement4.getInstance("'unordered list' element", UiLocatorType4.TAG, "ul");
         return new Object[][]{
-//                {basicPage, UiElement4.getInstance("'h' tag", UiLocatorType4.TAG, "h"), firstHeading}
-//                , {basicPage, UiElement4.getInstance("'p' tag", UiLocatorType4.TAG, "p"), firstParagraph}
-//                , {basicPage, UiElement4.getInstance("'body' tag", UiLocatorType4.TAG, "body"), fullBody}
-//                , {basicPage, UiElement4.getInstance("'div' tag", UiLocatorType4.TAG, "div"), null}
-//                , {basicLink, UiElement4.getInstance("'a' tag", UiLocatorType4.TAG, "a"), "This is a link"}
-                 {list, UiElement4.getInstance("'li' tag", UiLocatorType4.TAG, "li", parent), "Coffee"}
+                {basicPage, headingElement, firstHeading}
+                , {basicPage, paragraphElement, firstParagraph}
+                , {basicPage, bodyElement, fullBody}
+                , {basicPage, divElement, null}
+                , {basicLink, anchorElement, "This is a link"}
+                , {list, unorderedListItemElement, "Coffee"}
         };
     }
 
