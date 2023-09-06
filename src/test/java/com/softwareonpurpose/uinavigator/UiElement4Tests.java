@@ -71,6 +71,9 @@ public class UiElement4Tests {
                 {"image", imageElement, "src", "https://www.w3schools.com/html/w3schools.jpg"}
                 , {"image", imageElement, "bogus", null}
                 , {"image", nonExistentElement, "src", null}
+                , {"image", imageElement, "alt", "W3Schools.com"}
+                , {"image", imageElement, "width", "104"}
+                , {"image", imageElement, "height", "142"}
         };
     }
 
