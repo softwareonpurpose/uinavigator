@@ -5,7 +5,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-@SuppressWarnings("ConstantConditions")
 @Test
 public class UiElement4Tests {
     private static final TestResources resources = TestResources.getInstance();
