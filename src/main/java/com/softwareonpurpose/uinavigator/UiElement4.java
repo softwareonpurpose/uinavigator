@@ -1,12 +1,13 @@
 package com.softwareonpurpose.uinavigator;
 
 import com.google.gson.Gson;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class UiElement4 {
-    @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private final String description;
     private final String css;
     private final UiElement4 parent;
@@ -77,12 +78,17 @@ public class UiElement4 {
     }
 
     public void click() {
+        Logger logger = LogManager.getLogger();
+        logger.info(String.format("Click %s ...", description));
         WebElement element = getElement();
-        //noinspection StatementWithEmptyBody
-        if (element != null) {
-            element.click();
+        if (element == null) {
+            logger.warn(String.format("'%s' NOT FOUND using CSS selector %s", description, getCss()));
         } else {
-            //  TODO:  Log 'Warning' of inability to click the element
+            try {
+                element.click();
+            } catch (Exception e) {
+                logger.warn(String.format("UNABLE TO CLICK '%s' using CSS selector %s", description, getCss()));
+            }
         }
     }
 
