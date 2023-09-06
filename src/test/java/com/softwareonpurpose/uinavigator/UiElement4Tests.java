@@ -52,6 +52,10 @@ public class UiElement4Tests {
 
     @DataProvider
     public static Object[][] scenarios_getText() {
+        //noinspection TextBlockMigration
+        String myBonnie =
+                "   My Bonnie lies over the ocean.\n\n   My Bonnie lies over the sea.\n\n"
+                        + "   My Bonnie lies over the ocean.\n\n   Oh, bring back my Bonnie to me.";
         String firstHeading = "My First Heading";
         String firstParagraph = "My first paragraph.";
         String fullBody = String.format("%s\n%s", firstHeading, firstParagraph);
@@ -64,6 +68,7 @@ public class UiElement4Tests {
                 , {listPage, unorderedListItemElement, "Coffee"}
                 , {listPage, nthOrderedListItemElement, "Milk"}
                 , {breakPage, paragraphElement, "This is\na paragraph\nwith line breaks."}
+                , {prePage, preElement, myBonnie}
         };
     }
 
