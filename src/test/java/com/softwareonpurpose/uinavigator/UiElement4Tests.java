@@ -17,13 +17,16 @@ public class UiElement4Tests {
         Integer second = 2;
         boolean isDisplayed = true;
         boolean isNotDisplayed = false;
+        String listItem = "li";
+        UiElement4 unorderedList = UiElement4.getInstance("'unordered list", UiLocatorType4.TAG, "ul");
         return new Object[][]
                 {
                         {"basic", UiElement4.getInstance("'body' element'", UiLocatorType4.TAG, body), isDisplayed}
                         , {"basic", UiElement4.getInstance("'heading' element'", UiLocatorType4.TAG, heading_1), isDisplayed}
-                        , {"basic", UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, "paragraph", second), isNotDisplayed}
+                        , {"basic", UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, paragraph, second), isNotDisplayed}
                         , {"paragraphs", UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, paragraph, second), isDisplayed}
                         , {"link", UiElement4.getInstance("'anchor' element", UiLocatorType4.TAG, anchor), isDisplayed}
+                        , {"list", UiElement4.getInstance("'list item' element", UiLocatorType4.TAG, listItem, unorderedList), isDisplayed}
                 };
     }
 
@@ -102,6 +105,15 @@ public class UiElement4Tests {
         String locatorValue = "p";
         Integer ordinal = 2;
         Class actual = UiElement4.getInstance(description, locatorType, locatorValue, ordinal).getClass();
+        Assert.assertEquals(actual, expected);
+    }
+
+    @SuppressWarnings("rawtypes")
+    @Test
+    public void getInstance_parent() {
+        Class expected = UiElement4.class;
+        UiElement4 parent = UiElement4.getInstance("'Unordered List' element", UiLocatorType4.TAG, "ul");
+        Class actual = UiElement4.getInstance("'List Item' element", UiLocatorType4.TAG, "li", parent).getClass();
         Assert.assertEquals(actual, expected);
     }
 

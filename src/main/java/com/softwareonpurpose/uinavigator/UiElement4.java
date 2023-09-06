@@ -6,13 +6,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class UiElement4 {
-    private final By.ByCssSelector locator;
-    @SuppressWarnings("FieldCanBeLocal")
+    @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private final String description;
+    private final String css;
+    private final UiElement4 parent;
 
-    private UiElement4(String description, String locatorType, String locatorValue, Integer ordinal) {
+    private UiElement4(String description, String locatorType, String locatorValue, Integer ordinal, UiElement4 parent) {
         this.description = description;
-        locator = new By.ByCssSelector(composeCss(locatorType, locatorValue, ordinal));
+        css = composeCss(locatorType, locatorValue, ordinal);
+        this.parent = parent;
     }
 
     private static String composeCss(String locatorType, String locatorValue, Integer ordinal) {
@@ -22,11 +24,15 @@ public class UiElement4 {
     }
 
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue) {
-        return new UiElement4(description, locatorType, locatorValue, null);
+        return new UiElement4(description, locatorType, locatorValue, null, null);
     }
 
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue, Integer ordinal) {
-        return new UiElement4(description, locatorType, locatorValue, ordinal);
+        return new UiElement4(description, locatorType, locatorValue, ordinal, null);
+    }
+
+    public static UiElement4 getInstance(String description, String locatorType, String locatorValue, UiElement4 parent) {
+        return new UiElement4(description, locatorType, locatorValue, null, parent);
     }
 
     public boolean isDisplayed() {
@@ -40,6 +46,7 @@ public class UiElement4 {
     }
 
     private WebElement getElement() {
+        By locator = new By.ByCssSelector(getCss());
         ChromeDriver driver = UiNavigator.getInstance().getDriver();
         WebElement element;
         try {
@@ -49,6 +56,11 @@ public class UiElement4 {
             element = null;
         }
         return element;
+    }
+
+    private String getCss() {
+        String parentCss = parent == null ? "" : String.format("%s ", parent.getCss());
+        return String.format("%s%s", parentCss, css);
     }
 
     @Override
