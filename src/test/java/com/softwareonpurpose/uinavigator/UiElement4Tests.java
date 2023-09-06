@@ -11,7 +11,7 @@ public class UiElement4Tests {
     private static final TestResources resources = TestResources.getInstance();
     private static final UiElement4 bodyElement = UiElement4.getInstance("'body' element'", UiLocatorType4.TAG, "body");
     private static final UiElement4 headingElement = UiElement4.getInstance("'heading' element'", UiLocatorType4.TAG, "h1");
-    private static final UiElement4 secondParagraphElement = UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, "p", 2);
+    private static final UiElement4 paragraphElement_2 = UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, "p", 2);
     private static final UiElement4 anchorElement = UiElement4.getInstance("'anchor' element", UiLocatorType4.TAG, "a");
     private static final UiElement4 unorderedListElement = UiElement4.getInstance("'unordered list", UiLocatorType4.TAG, "ul");
     private static final UiElement4 unorderedListItemElement = UiElement4.getInstance("'list item' element", UiLocatorType4.TAG, "li", unorderedListElement);
@@ -21,6 +21,8 @@ public class UiElement4Tests {
     private static final UiElement4 nthOrderedListItemElement = UiElement4.getInstance("'list item' element", UiLocatorType4.TAG, "li", 3, orderedListElement);
     private static final UiElement4 metaElement = UiElement4.getInstance("'meta' element", UiLocatorType4.TAG, "meta");
     private static final UiElement4 breakElement = UiElement4.getInstance("'break' element", UiLocatorType4.TAG, "br");
+    private static final UiElement4 preElement = UiElement4.getInstance("'pre' element", UiLocatorType4.TAG, "pre");
+    private static final UiElement4 paragraphElement_4 = UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, "p", 4);
     private static final String basicPage = "basic";
     private static final String paragraphsPage = "paragraphs";
     private static final String linkPage = "link";
@@ -28,8 +30,8 @@ public class UiElement4Tests {
     private static final String imagePage = "image";
     private static final String headPage = "head";
     private static final String breakPage = "paragraph-break";
-    private static final UiElement4 preElement = UiElement4.getInstance("'pre' element", UiLocatorType4.TAG, "pre");
     private static final String prePage = "pre";
+    private static final String stylePage = "style";
 
     @DataProvider
     public static Object[][] scenarios_isDisplayed() {
@@ -39,8 +41,8 @@ public class UiElement4Tests {
                 {
                         {basicPage, bodyElement, isDisplayed}
                         , {basicPage, headingElement, isDisplayed}
-                        , {basicPage, secondParagraphElement, isNotDisplayed}
-                        , {paragraphsPage, secondParagraphElement, isDisplayed}
+                        , {basicPage, paragraphElement_2, isNotDisplayed}
+                        , {paragraphsPage, paragraphElement_2, isDisplayed}
                         , {linkPage, anchorElement, isDisplayed}
                         , {listPage, unorderedListItemElement, isDisplayed}
                         , {listPage, nthOrderedListItemElement, isDisplayed}
@@ -103,6 +105,8 @@ public class UiElement4Tests {
                 , {imagePage, imageElement, "alt", "W3Schools.com"}
                 , {imagePage, imageElement, "width", "104"}
                 , {imagePage, imageElement, "height", "142"}
+                , {stylePage, paragraphElement_2, "style", "color: red;"}
+                , {stylePage, paragraphElement_4, "style", "font-size: 50px;"}
         };
     }
 
