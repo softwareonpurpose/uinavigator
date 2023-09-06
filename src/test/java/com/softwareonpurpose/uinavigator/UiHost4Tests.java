@@ -19,4 +19,13 @@ public class UiHost4Tests {
         Boolean actual = host.getCurrentUrl().contains("https://www.w3schools.com/html/tryit.asp");
         Assert.assertEquals(actual, expected);
     }
+
+    @Test
+    public void getTitle() {
+        String expected = "My First HTML";
+        UiHost4 browser = UiHost4.getInstance();
+        browser.load(TestResources.getInstance().getPageUrl("head"));
+        String actual = browser.getTitle();
+        Assert.assertEquals(actual, expected);
+    }
 }

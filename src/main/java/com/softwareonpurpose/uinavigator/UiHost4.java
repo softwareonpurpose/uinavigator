@@ -20,4 +20,8 @@ public class UiHost4 {
     public String getCurrentUrl() {
         return driver.getCurrentUrl();
     }
+
+    public String getTitle() {
+        return driver.getTitle();
+    }
 }
