@@ -79,7 +79,7 @@ public class UiElement4 {
 
     public void click() {
         Logger logger = LogManager.getLogger();
-        logger.info(String.format("Click '%s'...", description));
+        logger.info(String.format("Click %s ...", description));
         WebElement element = getElement();
         if (element == null) {
             logger.warn(String.format("'%s' NOT FOUND using CSS selector %s", description, getCss()));
