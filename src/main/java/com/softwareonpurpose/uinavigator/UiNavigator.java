@@ -1,5 +1,6 @@
 package com.softwareonpurpose.uinavigator;
 
+import org.apache.logging.log4j.LogManager;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
@@ -15,6 +16,7 @@ public class UiNavigator {
     }
     
     public void quitDriver() {
+        LogManager.getLogger().info("Close browser...");
         if (driver != null) {
             driver.quit();
         }

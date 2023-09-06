@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 @Test
 public class UiElement4Tests {
 
+    private static final TestResources resources = TestResources.getInstance();
     private static final UiElement4 bodyElement = UiElement4.getInstance("'body' element'", UiLocatorType4.TAG, "body");
     private static final UiElement4 headingElement = UiElement4.getInstance("'heading' element'", UiLocatorType4.TAG, "h1");
     private static final UiElement4 secondParagraphElement = UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, "p", 2);
@@ -20,13 +21,14 @@ public class UiElement4Tests {
     private static final UiElement4 orderedListElement = UiElement4.getInstance("'ordered list", UiLocatorType4.TAG, "ol");
     private static final UiElement4 nthOrderedListItemElement = UiElement4.getInstance("'list item' element", UiLocatorType4.TAG, "li", 3, orderedListElement);
     private static final UiElement4 metaElement = UiElement4.getInstance("'meta' element", UiLocatorType4.TAG, "meta");
+    private static final UiElement4 breakElement = UiElement4.getInstance("'break' element", UiLocatorType4.TAG, "br");
     private static final String basicPage = "basic";
     private static final String paragraphsPage = "paragraphs";
     private static final String linkPage = "link";
     private static final String listPage = "list";
     private static final String imagePage = "image";
     private static final String headPage = "head";
-    private static final TestResources resources = TestResources.getInstance();
+    private static final String breakPage = "paragraph-break";
 
     @DataProvider
     public static Object[][] scenarios_isDisplayed() {
@@ -42,7 +44,7 @@ public class UiElement4Tests {
                         , {listPage, unorderedListItemElement, isDisplayed}
                         , {listPage, nthOrderedListItemElement, isDisplayed}
                         , {headPage, metaElement, isNotDisplayed}
-                        , {"paragraph-break", UiElement4.getInstance("'break' element", UiLocatorType4.TAG, "br"), isNotDisplayed}
+                        , {breakPage, breakElement, isNotDisplayed}
                 };
     }
 
