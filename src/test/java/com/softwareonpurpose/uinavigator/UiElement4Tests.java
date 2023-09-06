@@ -51,6 +51,7 @@ public class UiElement4Tests {
                 , {basicPage, divElement, null}
                 , {basicLink, anchorElement, "This is a link"}
                 , {list, unorderedListItemElement, "Coffee"}
+                , {list, nthOrderedListItemElement, "Milk"}
         };
     }
 
