@@ -42,6 +42,7 @@ public class UiElement4Tests {
                         , {listPage, unorderedListItemElement, isDisplayed}
                         , {listPage, nthOrderedListItemElement, isDisplayed}
                         , {headPage, metaElement, isNotDisplayed}
+                        , {"paragraph-break", UiElement4.getInstance("'break' element", UiLocatorType4.TAG, "br"), isNotDisplayed}
                 };
     }
 
