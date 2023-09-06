@@ -27,12 +27,16 @@ public class UiElement4 {
         return new UiElement4(description, locatorType, locatorValue, null, null);
     }
 
-    public static UiElement4 getInstance(String description, String locatorType, String locatorValue, Integer ordinal) {
+    public static UiElement4 getInstance(String description, String locatorType, String locatorValue, int ordinal) {
         return new UiElement4(description, locatorType, locatorValue, ordinal, null);
     }
 
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue, UiElement4 parent) {
         return new UiElement4(description, locatorType, locatorValue, null, parent);
+    }
+
+    public static UiElement4 getInstance(String description, String locatorType, String locatorValue, int ordinal, UiElement4 parent) {
+        return new UiElement4(description, locatorType, locatorValue, ordinal, parent);
     }
 
     public boolean isDisplayed() {

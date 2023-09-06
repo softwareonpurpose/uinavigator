@@ -122,9 +122,13 @@ public class UiElement4Tests {
         Assert.assertEquals(actual, expected);
     }
 
+    @SuppressWarnings("rawtypes")
     @Test
     public void getInstance_ordinal_parent() {
-
+        Class expected = UiElement4.class;
+        UiElement4 parent = UiElement4.getInstance("'Ordered List' element", UiLocatorType4.TAG, "ol");
+        Class actual = UiElement4.getInstance("'List Item' element", UiLocatorType4.TAG, "li", 2, parent).getClass();
+        Assert.assertEquals(actual, expected);
     }
 
     @Test(dataProvider = "scenarios_isDisplayed")
