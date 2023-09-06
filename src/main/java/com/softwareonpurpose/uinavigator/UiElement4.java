@@ -57,8 +57,7 @@ public class UiElement4 {
     }
 
     public String getHref() {
-        WebElement element = getElement();
-        return element == null ? null : element.getAttribute("href");
+        return getAttribute("href");
     }
 
     public void click() {
