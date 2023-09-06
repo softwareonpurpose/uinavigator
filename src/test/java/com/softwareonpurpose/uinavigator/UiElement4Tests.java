@@ -17,6 +17,8 @@ public class UiElement4Tests {
     private static final UiElement4 unorderedListItemElement = UiElement4.getInstance("'list item' element", UiLocatorType4.TAG, "li", unorderedListElement);
     private static final UiElement4 paragraphElement = UiElement4.getInstance("'p' tag", UiLocatorType4.TAG, "p");
     private static final UiElement4 divElement = UiElement4.getInstance("'div' tag", UiLocatorType4.TAG, "div");
+    private static final UiElement4 orderedListElement = UiElement4.getInstance("'ordered list", UiLocatorType4.TAG, "ol");
+    private static final UiElement4 nthOrderedListItemElement = UiElement4.getInstance("'list item' element", UiLocatorType4.TAG, "li", 3, orderedListElement);
 
     @DataProvider
     public static Object[][] scenarios_isDisplayed() {
@@ -30,6 +32,7 @@ public class UiElement4Tests {
                         , {"paragraphs", secondParagraphElement, isDisplayed}
                         , {"link", anchorElement, isDisplayed}
                         , {"list", unorderedListItemElement, isDisplayed}
+                        , {"list", nthOrderedListItemElement, isDisplayed}
                 };
     }
 
@@ -48,6 +51,7 @@ public class UiElement4Tests {
                 , {basicPage, divElement, null}
                 , {basicLink, anchorElement, "This is a link"}
                 , {list, unorderedListItemElement, "Coffee"}
+                , {list, nthOrderedListItemElement, "Milk"}
         };
     }
 
@@ -122,9 +126,13 @@ public class UiElement4Tests {
         Assert.assertEquals(actual, expected);
     }
 
+    @SuppressWarnings("rawtypes")
     @Test
     public void getInstance_ordinal_parent() {
-
+        Class expected = UiElement4.class;
+        UiElement4 parent = UiElement4.getInstance("'Ordered List' element", UiLocatorType4.TAG, "ol");
+        Class actual = UiElement4.getInstance("'List Item' element", UiLocatorType4.TAG, "li", 2, parent).getClass();
+        Assert.assertEquals(actual, expected);
     }
 
     @Test(dataProvider = "scenarios_isDisplayed")
