@@ -70,4 +70,8 @@ public class UiElement4 {
             //  TODO:  Log 'Warning' of inability to click the element
         }
     }
+
+    public String getAttribute(String attribute) {
+        return getElement().getAttribute(attribute);
+    }
 }

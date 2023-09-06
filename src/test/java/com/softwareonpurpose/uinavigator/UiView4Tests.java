@@ -1,5 +1,6 @@
 package com.softwareonpurpose.uinavigator;
 
+import com.softwareonpurpose.uinavigator.test.view.BasicView;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

@@ -118,7 +118,19 @@ public class UiElement4Tests {
         Assert.assertEquals(actual, expected);
     }
 
+    @Test
+    public void getAttribute() {
+        String expected = "https://www.w3schools.com/html/w3schools.jpg";
+        UiHost4.getInstance().load(getPageUrl("image"));
+        String actual = UiElement4.getInstance("'Image' element", UiLocatorType4.TAG, "img").getAttribute("src");
+        Assert.assertEquals(actual, expected);
+    }
+
+    private String getResourceFilename(String resourceFilename) {
+        return getClass().getResource(resourceFilename).toString();
+    }
+
     private String getPageUrl(String page) {
-        return getClass().getResource(String.format("/%s.html", page)).toString();
+        return getResourceFilename(String.format("/%s.html", page));
     }
 }
