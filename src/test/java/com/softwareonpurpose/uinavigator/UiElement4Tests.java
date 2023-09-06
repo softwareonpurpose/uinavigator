@@ -31,7 +31,9 @@ public class UiElement4Tests {
     private static final String breakPage = "paragraph-break";
     private static final String prePage = "pre";
     private static final String stylePage = "style";
-
+    private static final String idPage = "id";
+    private static final UiElement4 headingElementById = UiElement4.getInstance("'heading' element", UiLocatorType4.ID, "myHeader");
+    
     @DataProvider
     public static Object[][] scenarios_isDisplayed() {
         boolean isDisplayed = true;
@@ -48,6 +50,7 @@ public class UiElement4Tests {
                         , {headPage, metaElement, isNotDisplayed}
                         , {breakPage, breakElement, isNotDisplayed}
                         , {prePage, preElement, isDisplayed}
+                        , {idPage, headingElementById, isDisplayed}
                 };
     }
 
