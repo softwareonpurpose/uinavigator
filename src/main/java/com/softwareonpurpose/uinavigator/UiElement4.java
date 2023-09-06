@@ -57,8 +57,7 @@ public class UiElement4 {
     }
 
     public String getHref() {
-        WebElement element = getElement();
-        return element == null ? null : element.getAttribute("href");
+        return getAttribute("href");
     }
 
     public void click() {
@@ -69,5 +68,10 @@ public class UiElement4 {
         } else {
             //  TODO:  Log 'Warning' of inability to click the element
         }
+    }
+
+    public String getAttribute(String attribute) {
+        WebElement element = getElement();
+        return element == null ? null : element.getAttribute(attribute);
     }
 }

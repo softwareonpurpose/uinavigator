@@ -61,6 +61,22 @@ public class UiElement4Tests {
         };
     }
 
+    @DataProvider
+    public static Object[][] scenarios_getAttribute() {
+        UiElement4 imageElement =
+                UiElement4.getInstance("'Image' element", UiLocatorType4.TAG, "img");
+        UiElement4 nonExistentElement =
+                UiElement4.getInstance("'Bogus' element", UiLocatorType4.ID, "bogus");
+        return new Object[][]{
+                {"image", imageElement, "src", "https://www.w3schools.com/html/w3schools.jpg"}
+                , {"image", imageElement, "bogus", null}
+                , {"image", nonExistentElement, "src", null}
+                , {"image", imageElement, "alt", "W3Schools.com"}
+                , {"image", imageElement, "width", "104"}
+                , {"image", imageElement, "height", "142"}
+        };
+    }
+
     @AfterMethod
     public void terminate() {
         UiNavigator.getInstance().quitDriver();
@@ -118,7 +134,18 @@ public class UiElement4Tests {
         Assert.assertEquals(actual, expected);
     }
 
+    @Test(dataProvider = "scenarios_getAttribute")
+    public void getAttribute(String page, UiElement4 element, String attribute, String expected) {
+        UiHost4.getInstance().load(getPageUrl(page));
+        String actual = element.getAttribute(attribute);
+        Assert.assertEquals(actual, expected);
+    }
+
+    private String getResourceFilename(String resourceFilename) {
+        return getClass().getResource(resourceFilename).toString();
+    }
+
     private String getPageUrl(String page) {
-        return getClass().getResource(String.format("/%s.html", page)).toString();
+        return getResourceFilename(String.format("/%s.html", page));
     }
 }
