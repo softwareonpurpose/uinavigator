@@ -34,15 +34,18 @@ public class UiElement4Tests {
     public static Object[][] scenarios_getText() {
         String basicPage = "basic";
         String basicLink = "link";
+        String list = "list";
         String firstHeading = "My First Heading";
         String firstParagraph = "My first paragraph.";
         String fullBody = String.format("%s\n%s", firstHeading, firstParagraph);
+        UiElement4 parent = UiElement4.getInstance("'unordered list' element", UiLocatorType4.TAG, "ul");
         return new Object[][]{
-                {basicPage, "h1", firstHeading}
-                , {basicPage, "p", firstParagraph}
-                , {basicPage, "body", fullBody}
-                , {basicPage, "div", null}
-                , {basicLink, "a", "This is a link"}
+//                {basicPage, UiElement4.getInstance("'h' tag", UiLocatorType4.TAG, "h"), firstHeading}
+//                , {basicPage, UiElement4.getInstance("'p' tag", UiLocatorType4.TAG, "p"), firstParagraph}
+//                , {basicPage, UiElement4.getInstance("'body' tag", UiLocatorType4.TAG, "body"), fullBody}
+//                , {basicPage, UiElement4.getInstance("'div' tag", UiLocatorType4.TAG, "div"), null}
+//                , {basicLink, UiElement4.getInstance("'a' tag", UiLocatorType4.TAG, "a"), "This is a link"}
+                 {list, UiElement4.getInstance("'li' tag", UiLocatorType4.TAG, "li", parent), "Coffee"}
         };
     }
 
@@ -125,9 +128,9 @@ public class UiElement4Tests {
     }
 
     @Test(dataProvider = "scenarios_getText")
-    public void getText(String page, String tag, String expected) {
+    public void getText(String page, UiElement4 element, String expected) {
         UiHost4.getInstance().load(getPageUrl(page));
-        String actual = UiElement4.getInstance("'" + tag + "' tag", UiLocatorType4.TAG, tag).getText();
+        String actual = element.getText();
         Assert.assertEquals(actual, expected);
     }
 
