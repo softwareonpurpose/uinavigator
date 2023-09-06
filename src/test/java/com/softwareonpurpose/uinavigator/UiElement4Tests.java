@@ -28,6 +28,8 @@ public class UiElement4Tests {
     private static final String imagePage = "image";
     private static final String headPage = "head";
     private static final String breakPage = "paragraph-break";
+    private static final UiElement4 preElement = UiElement4.getInstance("'pre' element", UiLocatorType4.TAG, "pre");
+    private static final String prePage = "pre";
 
     @DataProvider
     public static Object[][] scenarios_isDisplayed() {
@@ -44,6 +46,7 @@ public class UiElement4Tests {
                         , {listPage, nthOrderedListItemElement, isDisplayed}
                         , {headPage, metaElement, isNotDisplayed}
                         , {breakPage, breakElement, isNotDisplayed}
+                        , {prePage, preElement, isDisplayed}
                 };
     }
 
