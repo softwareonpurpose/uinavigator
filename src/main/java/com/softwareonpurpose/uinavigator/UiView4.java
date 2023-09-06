@@ -26,20 +26,15 @@ public abstract class UiView4 {
 
     protected static <T extends UiView4> T construct(Class<T> viewClass) {
         T view = null;
+        Constructor<T> constructor;
         try {
-            Constructor<T> constructor;
-            try {
-                constructor = viewClass.getConstructor();
-                view = constructor.newInstance();
-            } catch (NoSuchMethodException | InvocationTargetException e) {
-                LogManager.getLogger(viewClass).error(ERROR_CONSTRUCTOR_SCOPE);
-                //  TODO:  Consider improved logging approach
-                e.printStackTrace();
-            }
-        } catch (InstantiationException | IllegalAccessException e) {
-            LogManager.getLogger(viewClass).error(ERROR_CONSTRUCTOR_SCOPE);
-            //  TODO:  Consider improved logging approach
-            e.printStackTrace();
+            constructor = viewClass.getConstructor();
+            view = constructor.newInstance();
+        } catch (NoSuchMethodException | InvocationTargetException | InstantiationException |
+                 IllegalAccessException e) {
+            String message = String.format("%s%n%s", ERROR_CONSTRUCTOR_SCOPE, System.err);
+            LogManager.getLogger(viewClass).error(message);
+
         }
         return view;
     }

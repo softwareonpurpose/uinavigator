@@ -5,7 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 @Test
-public class UiView4Tests {
+public class UiView4Tests extends TestResources {
     @SuppressWarnings("rawtypes")
     @Test
     public void expect() {
