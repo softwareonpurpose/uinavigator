@@ -2,6 +2,7 @@ package com.softwareonpurpose.uinavigator;
 
 import org.apache.logging.log4j.LogManager;
 
+import javax.security.auth.callback.ConfirmationCallback;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
@@ -24,7 +25,7 @@ public abstract class UiView4 {
         if (!view.isDisplayed()) {
             String messageFormat = "Unable to confirm the state of '%s'";
             String message = String.format(messageFormat, viewClassName);
-//            Logger logger = LogManager.getLogger("");
+//            Logger logger = LogManager.getLogger(viewClass);
 //            logger.info(String.format("Unexpected URL %s", currentUrl));
         }
         return construct(viewClass);

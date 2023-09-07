@@ -31,4 +31,5 @@ public class UiView4Tests extends TestResources {
         Boolean actual = ConfirmationFailureView.directNav().isDisplayed();
         Assert.assertEquals(actual, expected);
     }
+    
 }
