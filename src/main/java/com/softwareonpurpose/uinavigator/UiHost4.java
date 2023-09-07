@@ -1,5 +1,6 @@
 package com.softwareonpurpose.uinavigator;
 
+import org.apache.logging.log4j.LogManager;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class UiHost4 {
@@ -14,6 +15,7 @@ public class UiHost4 {
     }
 
     public void load(String url) {
+        LogManager.getLogger("").info(String.format("Navigate to %s", url));
         driver.get(url);
     }
 

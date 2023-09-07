@@ -5,13 +5,12 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-@SuppressWarnings("ConstantConditions")
 @Test
 public class UiElement4Tests {
-
+    private static final TestResources resources = TestResources.getInstance();
     private static final UiElement4 bodyElement = UiElement4.getInstance("'body' element'", UiLocatorType4.TAG, "body");
     private static final UiElement4 headingElement = UiElement4.getInstance("'heading' element'", UiLocatorType4.TAG, "h1");
-    private static final UiElement4 secondParagraphElement = UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, "p", 2);
+    private static final UiElement4 paragraphElement_2 = UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, "p", 2);
     private static final UiElement4 anchorElement = UiElement4.getInstance("'anchor' element", UiLocatorType4.TAG, "a");
     private static final UiElement4 unorderedListElement = UiElement4.getInstance("'unordered list", UiLocatorType4.TAG, "ul");
     private static final UiElement4 unorderedListItemElement = UiElement4.getInstance("'list item' element", UiLocatorType4.TAG, "li", unorderedListElement);
@@ -20,13 +19,18 @@ public class UiElement4Tests {
     private static final UiElement4 orderedListElement = UiElement4.getInstance("'ordered list", UiLocatorType4.TAG, "ol");
     private static final UiElement4 nthOrderedListItemElement = UiElement4.getInstance("'list item' element", UiLocatorType4.TAG, "li", 3, orderedListElement);
     private static final UiElement4 metaElement = UiElement4.getInstance("'meta' element", UiLocatorType4.TAG, "meta");
+    private static final UiElement4 breakElement = UiElement4.getInstance("'break' element", UiLocatorType4.TAG, "br");
+    private static final UiElement4 preElement = UiElement4.getInstance("'pre' element", UiLocatorType4.TAG, "pre");
+    private static final UiElement4 paragraphElement_4 = UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, "p", 4);
     private static final String basicPage = "basic";
     private static final String paragraphsPage = "paragraphs";
     private static final String linkPage = "link";
     private static final String listPage = "list";
     private static final String imagePage = "image";
     private static final String headPage = "head";
-    private static final TestResources resources = TestResources.getInstance();
+    private static final String breakPage = "paragraph-break";
+    private static final String prePage = "pre";
+    private static final String stylePage = "style";
 
     @DataProvider
     public static Object[][] scenarios_isDisplayed() {
@@ -36,18 +40,23 @@ public class UiElement4Tests {
                 {
                         {basicPage, bodyElement, isDisplayed}
                         , {basicPage, headingElement, isDisplayed}
-                        , {basicPage, secondParagraphElement, isNotDisplayed}
-                        , {paragraphsPage, secondParagraphElement, isDisplayed}
+                        , {basicPage, paragraphElement_2, isNotDisplayed}
+                        , {paragraphsPage, paragraphElement_2, isDisplayed}
                         , {linkPage, anchorElement, isDisplayed}
                         , {listPage, unorderedListItemElement, isDisplayed}
                         , {listPage, nthOrderedListItemElement, isDisplayed}
                         , {headPage, metaElement, isNotDisplayed}
-                        , {"paragraph-break", UiElement4.getInstance("'break' element", UiLocatorType4.TAG, "br"), isNotDisplayed}
+                        , {breakPage, breakElement, isNotDisplayed}
+                        , {prePage, preElement, isDisplayed}
                 };
     }
 
     @DataProvider
     public static Object[][] scenarios_getText() {
+        //noinspection TextBlockMigration
+        String myBonnie =
+                "   My Bonnie lies over the ocean.\n\n   My Bonnie lies over the sea.\n\n"
+                        + "   My Bonnie lies over the ocean.\n\n   Oh, bring back my Bonnie to me.";
         String firstHeading = "My First Heading";
         String firstParagraph = "My first paragraph.";
         String fullBody = String.format("%s\n%s", firstHeading, firstParagraph);
@@ -59,6 +68,8 @@ public class UiElement4Tests {
                 , {linkPage, anchorElement, "This is a link"}
                 , {listPage, unorderedListItemElement, "Coffee"}
                 , {listPage, nthOrderedListItemElement, "Milk"}
+                , {breakPage, paragraphElement, "This is\na paragraph\nwith line breaks."}
+                , {prePage, preElement, myBonnie}
         };
     }
 
@@ -93,6 +104,8 @@ public class UiElement4Tests {
                 , {imagePage, imageElement, "alt", "W3Schools.com"}
                 , {imagePage, imageElement, "width", "104"}
                 , {imagePage, imageElement, "height", "142"}
+                , {stylePage, paragraphElement_2, "style", "color: red;"}
+                , {stylePage, paragraphElement_4, "style", "font-size: 50px;"}
         };
     }
 
@@ -178,6 +191,14 @@ public class UiElement4Tests {
     public void getAttribute(String page, UiElement4 element, String attribute, String expected) {
         UiHost4.getInstance().load(resources.getPageUrl(page));
         String actual = element.getAttribute(attribute);
+        Assert.assertEquals(actual, expected);
+    }
+
+    @Test
+    public void getStyleProperty() {
+        String expected = "rgba(255, 0, 0, 1)";
+        UiHost4.getInstance().load(resources.getPageUrl(stylePage));
+        String actual = paragraphElement_2.getStyleProperty("color");
         Assert.assertEquals(actual, expected);
     }
 }

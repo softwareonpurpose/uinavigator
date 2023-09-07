@@ -1,6 +1,7 @@
 package com.softwareonpurpose.uinavigator;
 
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -10,21 +11,22 @@ public abstract class UiView4 {
             "Unable to access View constructor; ensure it is parameter-less and has 'public' scope";
 
     public static <T extends UiView4> T expect(Class<T> viewClass) {
+        Logger logger = LogManager.getLogger("");
         String invalidCharacters =
                 String.format("%s|%s|%s", "(?<=[A-Z])(?=[A-Z][a-z])", "(?<=[^A-Z])(?=[A-Z])", "(?<=[A-Za-z])(?=[^A-Za-z])");
         final String viewClassName = viewClass.getSimpleName().replaceAll(invalidCharacters, " ");
-        LogManager.getLogger("").info(String.format("Expect '%s'", viewClassName));
+        logger.info(String.format("Expect '%s'", viewClassName));
         T view = construct(viewClass);
         //  TODO:  Reconsider this logic
         if (!view.confirmState()) {
             String messageFormat = "Unable to confirm the state of '%s'";
             String message = String.format(messageFormat, viewClassName);
-            LogManager.getLogger("").info(message);
+            logger.info(message);
         }
         return construct(viewClass);
     }
 
-    protected static <T extends UiView4> T construct(Class<T> viewClass) {
+    private static <T extends UiView4> T construct(Class<T> viewClass) {
         T view = null;
         Constructor<T> constructor;
         try {
