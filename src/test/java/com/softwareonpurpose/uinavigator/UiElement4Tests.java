@@ -22,6 +22,10 @@ public class UiElement4Tests {
     private static final UiElement4 breakElement = UiElement4.getInstance("'break' element", UiLocatorType4.TAG, "br");
     private static final UiElement4 preElement = UiElement4.getInstance("'pre' element", UiLocatorType4.TAG, "pre");
     private static final UiElement4 paragraphElement_4 = UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, "p", 4);
+    private static final UiElement4 headingElementById = UiElement4.getInstance("'heading' element", UiLocatorType4.ID, "heading-id");
+    private static final UiElement4 elementByInvalidId = UiElement4.getInstance("invalid id", UiLocatorType4.ID, "non-existent-id");
+    private static final UiElement4 divElementById = UiElement4.getInstance("'div' element", UiLocatorType4.ID, "div-id");
+    private static final UiElement4 nestedInParentLocatedById = UiElement4.getInstance("'paragraph' element", UiLocatorType4.ID, "p-id", divElement);
     private static final String basicPage = "basic";
     private static final String paragraphsPage = "paragraphs";
     private static final String linkPage = "link";
@@ -31,7 +35,8 @@ public class UiElement4Tests {
     private static final String breakPage = "paragraph-break";
     private static final String prePage = "pre";
     private static final String stylePage = "style";
-
+    private static final String idPage = "id";
+    
     @DataProvider
     public static Object[][] scenarios_isDisplayed() {
         boolean isDisplayed = true;
@@ -48,6 +53,10 @@ public class UiElement4Tests {
                         , {headPage, metaElement, isNotDisplayed}
                         , {breakPage, breakElement, isNotDisplayed}
                         , {prePage, preElement, isDisplayed}
+                        , {idPage, headingElementById, isDisplayed}
+                        , {idPage, elementByInvalidId, isNotDisplayed}
+                        , {idPage, divElementById, isDisplayed}
+                        , {idPage, nestedInParentLocatedById, isDisplayed}
                 };
     }
 
