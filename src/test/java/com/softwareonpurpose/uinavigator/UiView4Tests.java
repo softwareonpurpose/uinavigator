@@ -1,6 +1,7 @@
 package com.softwareonpurpose.uinavigator;
 
 import com.softwareonpurpose.uinavigator.test.view.BasicView;
+import com.softwareonpurpose.uinavigator.test.view.ConfirmationFailureView;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -18,9 +19,16 @@ public class UiView4Tests extends TestResources {
     }
 
     @Test
-    public void isDisplayed(){
+    public void isDisplayed() {
         Boolean expected = true;
         Boolean actual = BasicView.directNav().isDisplayed();
+        Assert.assertEquals(actual, expected);
+    }
+
+    @Test
+    public void isDisplayed_stateConfirmationFailure() {
+        Boolean expected = false;
+        Boolean actual = ConfirmationFailureView.directNav().isDisplayed();
         Assert.assertEquals(actual, expected);
     }
 }

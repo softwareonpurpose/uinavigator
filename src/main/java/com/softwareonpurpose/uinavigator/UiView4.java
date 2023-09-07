@@ -21,12 +21,7 @@ public abstract class UiView4 {
     public static <T extends UiView4> T expect(Class<T> viewClass) {
         final String viewClassName = composeViewClassName(viewClass);
         T view = construct(viewClass);
-        String currentUrl = UiHost4.getInstance().getCurrentUrl();
-        if (!currentUrl.contains(view.VIEW_URL)) {
-//            Logger logger = LogManager.getLogger("");
-//            logger.info(String.format("Unexpected URL %s", currentUrl));
-        }
-        if (!view.confirmState()) {
+        if (!view.isDisplayed()) {
             String messageFormat = "Unable to confirm the state of '%s'";
             String message = String.format(messageFormat, viewClassName);
 //            Logger logger = LogManager.getLogger("");
@@ -50,7 +45,7 @@ public abstract class UiView4 {
         } catch (NoSuchMethodException | InvocationTargetException | InstantiationException |
                  IllegalAccessException e) {
             String message = String.format("%s%n%s", ERROR_CONSTRUCTOR_SCOPE, System.err);
-            LogManager.getLogger(viewClass).error(message);
+//            LogManager.getLogger(viewClass).error(message);
 
         }
         return view;
