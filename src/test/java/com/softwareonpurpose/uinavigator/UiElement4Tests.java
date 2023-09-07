@@ -25,7 +25,7 @@ public class UiElement4Tests {
     private static final UiElement4 headingElementById = UiElement4.getInstance("'heading' element", UiLocatorType4.ID, "heading-id");
     private static final UiElement4 elementByInvalidId = UiElement4.getInstance("invalid id", UiLocatorType4.ID, "non-existent-id");
     private static final UiElement4 divElementById = UiElement4.getInstance("'div' element", UiLocatorType4.ID, "div-id");
-    private static final UiElement4 nestedParagraphElementById = UiElement4.getInstance("'paragraph' element", UiLocatorType4.ID, "p-id", divElementById);
+    private static final UiElement4 nestedInParentLocatedById = UiElement4.getInstance("'paragraph' element", UiLocatorType4.ID, "p-id", divElement);
     private static final String basicPage = "basic";
     private static final String paragraphsPage = "paragraphs";
     private static final String linkPage = "link";
@@ -55,7 +55,8 @@ public class UiElement4Tests {
                         , {prePage, preElement, isDisplayed}
                         , {idPage, headingElementById, isDisplayed}
                         , {idPage, elementByInvalidId, isNotDisplayed}
-                        , {idPage, nestedParagraphElementById, isDisplayed}
+                        , {idPage, divElementById, isDisplayed}
+                        , {idPage, nestedInParentLocatedById, isDisplayed}
                 };
     }
 
