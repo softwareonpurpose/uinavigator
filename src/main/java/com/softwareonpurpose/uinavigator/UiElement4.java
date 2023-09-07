@@ -78,7 +78,7 @@ public class UiElement4 {
     }
 
     public void click() {
-        Logger logger = LogManager.getLogger();
+        Logger logger = LogManager.getLogger("");
         logger.info(String.format("Click %s ...", description));
         WebElement element = getElement();
         if (element == null) {

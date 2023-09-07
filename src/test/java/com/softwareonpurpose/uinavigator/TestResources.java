@@ -13,7 +13,7 @@ public class TestResources {
         return resource == null ? "RESOURCE NOT FOUND" : resource.toString();
     }
 
-    protected String getPageUrl(String page) {
+    public String getPageUrl(String page) {
         return getResourceFilename(String.format("/%s.html", page));
     }
 }

@@ -15,7 +15,7 @@ public class UiHost4 {
     }
 
     public void load(String url) {
-        LogManager.getLogger("").info(String.format("Navigate to %s", url));
+//        LogManager.getLogger("").info(String.format("Navigate to %s", url));
         driver.get(url);
     }
 

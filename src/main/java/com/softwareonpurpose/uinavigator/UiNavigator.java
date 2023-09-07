@@ -16,7 +16,7 @@ public class UiNavigator {
     }
     
     public void quitDriver() {
-        LogManager.getLogger().info("Close browser...");
+        LogManager.getRootLogger().info("Close browser...");
         if (driver != null) {
             driver.quit();
         }

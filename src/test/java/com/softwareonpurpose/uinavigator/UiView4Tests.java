@@ -16,4 +16,11 @@ public class UiView4Tests extends TestResources {
         Assert.assertEquals(actual_class, expected_class);
         Assert.assertEquals(actual_inheritance, expected_inheritance);
     }
+
+    @Test
+    public void isDisplayed(){
+        Boolean expected = true;
+        Boolean actual = BasicView.directNav().isDisplayed();
+        Assert.assertEquals(actual, expected);
+    }
 }
