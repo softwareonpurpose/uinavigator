@@ -204,7 +204,7 @@ public class UiElement4Tests {
     }
 
     @Test
-    public void getStyleProperty(){
+    public void getStyleProperty() {
         String expected = "rgba(255, 0, 0, 1)";
         UiHost4.getInstance().load(resources.getPageUrl(stylePage));
         String actual = paragraphElement_2.getStyleProperty("color");
