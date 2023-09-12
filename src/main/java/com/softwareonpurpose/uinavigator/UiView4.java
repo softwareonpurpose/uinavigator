@@ -12,13 +12,13 @@ public abstract class UiView4 {
     private static Logger logger;
     protected final String VIEW_URL;
     private final UiElement4 VIEW_ELEMENT;
-
+    
     protected UiView4(String viewUrl, UiElement4 viewElement) {
         VIEW_URL = viewUrl;
         VIEW_ELEMENT = viewElement;
     }
-
-
+    
+    
     public static <T extends UiView4> T expect(Class<T> viewClass) {
         final String viewClassName = composeViewClassName(viewClass);
         T view = construct(viewClass);
@@ -27,20 +27,20 @@ public abstract class UiView4 {
         }
         return construct(viewClass);
     }
-//
+
 //    private static Logger getLogger() {
 //        if (logger == null) {
 //            logger = LogManager.getLogger("");
 //        }
 //        return logger;
 //    }
-
+    
     private static <T extends UiView4> String composeViewClassName(Class<T> viewClass) {
         String invalidCharacters =
                 String.format("%s|%s|%s", "(?<=[A-Z])(?=[A-Z][a-z])", "(?<=[^A-Z])(?=[A-Z])", "(?<=[A-Za-z])(?=[^A-Za-z])");
         return viewClass.getSimpleName().replaceAll(invalidCharacters, " ");
     }
-
+    
     private static <T extends UiView4> T construct(Class<T> viewClass) {
         T view = null;
         Constructor<T> constructor;
@@ -50,27 +50,37 @@ public abstract class UiView4 {
         } catch (NoSuchMethodException | InvocationTargetException | InstantiationException |
                  IllegalAccessException e) {
 //            getLogger().error(String.format("%s%n%s", ERROR_CONSTRUCTOR_SCOPE, System.err));
-
+            
         }
         return view;
     }
-
+    
     private static String removeProtocol(String urlPath) {
-        int startIndex = urlPath.indexOf("/", urlPath.indexOf("/") + 1);
+        int startIndex = urlPath.contains("/") ? urlPath.indexOf("/", urlPath.indexOf("/") + 1) : 0;
         urlPath = urlPath.substring(startIndex);
         return urlPath;
     }
-
+    
     protected String getUrl() {
         return VIEW_URL;
     }
-
+    
     protected abstract boolean confirmState();
-
+    
     public boolean isDisplayed() {
         return confirmNavigationToView() && confirmState();
     }
-
+    
+    protected void load() {
+        
+        UiHost4.getInstance().load(VIEW_URL);
+        
+    }
+    
+    protected UiElement4 getElement() {
+        return VIEW_ELEMENT;
+    }
+    
     private boolean confirmNavigationToView() {
         String urlPath = removeProtocol(VIEW_URL);
         boolean isDisplayed = false;
@@ -82,14 +92,4 @@ public abstract class UiView4 {
         }
         return isDisplayed;
     }
-
-    protected void load() {
-        UiHost4.getInstance().load(VIEW_URL);
-    }
-
-    protected UiElement4 getElement() {
-        return VIEW_ELEMENT;
-    }
-
-    ;
 }
