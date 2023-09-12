@@ -9,10 +9,9 @@
     </Appenders>
     <Loggers>
         <Root level="info" additivity="false">
-            <AppenderRef ref="console"/>
-        </Root>
-        <Root level="warn" additivity="false">
-            <AppenderRef ref="console"/>
+            <AppenderRef ref="console" level="info"/>
+            <AppenderRef ref="console" level="warn"/>
+            <AppenderRef ref="console" level="error"/>
         </Root>
     </Loggers>
 </Configuration>
