@@ -13,8 +13,5 @@
             <AppenderRef ref="console" level="warn"/>
             <AppenderRef ref="console" level="error"/>
         </Root>
-        <Root level="error" additivity="false">
-            <AppenderRef ref="console"/>
-        </Root>
     </Loggers>
 </Configuration>
