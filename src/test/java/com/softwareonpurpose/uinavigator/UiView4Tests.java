@@ -2,6 +2,7 @@ package com.softwareonpurpose.uinavigator;
 
 import com.softwareonpurpose.uinavigator.test.view.BasicView;
 import com.softwareonpurpose.uinavigator.test.view.ConfirmationFailureView;
+import com.softwareonpurpose.uinavigator.test.view.NonexistentUrlView;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -30,12 +31,18 @@ public class UiView4Tests extends TestResources {
         Boolean actual = BasicView.directNav().isDisplayed();
         Assert.assertEquals(actual, expected);
     }
-    
+
     @Test
     public void isDisplayed_stateConfirmationFailure() {
         Boolean expected = false;
         Boolean actual = ConfirmationFailureView.directNav().isDisplayed();
         Assert.assertEquals(actual, expected);
     }
-    
+
+    @Test
+    public void isDisplayed_nonexistentUrl() {
+        Boolean expected = false;
+        Boolean actual = NonexistentUrlView.directNav().isDisplayed();
+        Assert.assertEquals(actual, expected);
+    }
 }

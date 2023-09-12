@@ -1,15 +1,15 @@
 package com.softwareonpurpose.uinavigator;
 
-import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import javax.security.auth.callback.ConfirmationCallback;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 public abstract class UiView4 {
+    public static final int TIMEOUT = 3000;
     private final static String ERROR_CONSTRUCTOR_SCOPE =
             "Unable to access View constructor; ensure it is parameter-less and has 'public' scope";
-    public static final int TIMEOUT = 3000;
+    private static Logger logger;
     protected final String VIEW_URL;
     private final UiElement4 VIEW_ELEMENT;
 
@@ -23,13 +23,17 @@ public abstract class UiView4 {
         final String viewClassName = composeViewClassName(viewClass);
         T view = construct(viewClass);
         if (!view.isDisplayed()) {
-            String messageFormat = "Unable to confirm the state of '%s'";
-            String message = String.format(messageFormat, viewClassName);
-//            Logger logger = LogManager.getLogger(viewClass);
-//            logger.info(String.format("Unexpected URL %s", currentUrl));
+//            getLogger().info(String.format("Unable to confirm the state of '%s'", viewClassName));
         }
         return construct(viewClass);
     }
+//
+//    private static Logger getLogger() {
+//        if (logger == null) {
+//            logger = LogManager.getLogger("");
+//        }
+//        return logger;
+//    }
 
     private static <T extends UiView4> String composeViewClassName(Class<T> viewClass) {
         String invalidCharacters =
@@ -45,11 +49,20 @@ public abstract class UiView4 {
             view = constructor.newInstance();
         } catch (NoSuchMethodException | InvocationTargetException | InstantiationException |
                  IllegalAccessException e) {
-            String message = String.format("%s%n%s", ERROR_CONSTRUCTOR_SCOPE, System.err);
-//            LogManager.getLogger(viewClass).error(message);
+//            getLogger().error(String.format("%s%n%s", ERROR_CONSTRUCTOR_SCOPE, System.err));
 
         }
         return view;
+    }
+
+    private static String removeProtocol(String urlPath) {
+        int startIndex = urlPath.indexOf("/", urlPath.indexOf("/") + 1);
+        urlPath = urlPath.substring(startIndex);
+        return urlPath;
+    }
+
+    protected String getUrl() {
+        return VIEW_URL;
     }
 
     protected abstract boolean confirmState();
@@ -68,12 +81,6 @@ public abstract class UiView4 {
             timeRemaining = System.currentTimeMillis() - start < TIMEOUT;
         }
         return isDisplayed;
-    }
-
-    private static String removeProtocol(String urlPath) {
-        int startIndex = urlPath.indexOf("/", urlPath.indexOf("/") + 1);
-        urlPath = urlPath.substring(startIndex);
-        return urlPath;
     }
 
     protected void load() {

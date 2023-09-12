@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class UiElement4 {
+//    private static Logger logger;
     private final String description;
     private final String css;
     private final UiElement4 parent;
@@ -78,19 +79,25 @@ public class UiElement4 {
     }
 
     public void click() {
-        Logger logger = LogManager.getLogger("");
-        logger.info(String.format("Click %s ...", description));
+//        getLogger().info(String.format("Click %s ...", description));
         WebElement element = getElement();
         if (element == null) {
-            logger.warn(String.format("'%s' NOT FOUND using CSS selector %s", description, getCss()));
+//            logger.warn(String.format("'%s' NOT FOUND using CSS selector %s", description, getCss()));
         } else {
             try {
                 element.click();
             } catch (Exception e) {
-                logger.warn(String.format("UNABLE TO CLICK '%s' using CSS selector %s", description, getCss()));
+//                logger.warn(String.format("UNABLE TO CLICK '%s' using CSS selector %s", description, getCss()));
             }
         }
     }
+
+//    private Logger getLogger() {
+//        if (logger == null) {
+//            logger = LogManager.getLogger("");
+//        }
+//        return logger;
+//    }
 
     public String getAttribute(String attribute) {
         WebElement element = getElement();
