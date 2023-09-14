@@ -36,7 +36,7 @@ public class UiElement4Tests {
     private static final String prePage = "pre";
     private static final String stylePage = "style";
     private static final String idPage = "id";
-    
+
     @DataProvider
     public static Object[][] scenarios_isDisplayed() {
         boolean isDisplayed = true;

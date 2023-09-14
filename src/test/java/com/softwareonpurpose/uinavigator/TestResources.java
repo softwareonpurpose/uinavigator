@@ -10,10 +10,10 @@ public class TestResources {
 
     protected String getResourceFilename(String resourceFilename) {
         URL resource = getClass().getResource(resourceFilename);
-        return resource == null ? "RESOURCE NOT FOUND" : resource.toString();
+        return resource == null ? "[RESOURCE NOT FOUND]" : resource.toString();
     }
 
-    protected String getPageUrl(String page) {
+    public String getPageUrl(String page) {
         return getResourceFilename(String.format("/%s.html", page));
     }
 }
