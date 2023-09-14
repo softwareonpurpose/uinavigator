@@ -1,5 +1,6 @@
 package com.softwareonpurpose.uinavigator;
 
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Constructor;
@@ -23,17 +24,17 @@ public abstract class UiView4 {
         final String viewClassName = composeViewClassName(viewClass);
         T view = construct(viewClass);
         if (!view.isDisplayed()) {
-//            getLogger().info(String.format("Unable to confirm the state of '%s'", viewClassName));
+            getLogger().info(String.format("Unable to confirm the state of '%s'", viewClassName));
         }
         return construct(viewClass);
     }
 
-//    private static Logger getLogger() {
-//        if (logger == null) {
-//            logger = LogManager.getLogger("");
-//        }
-//        return logger;
-//    }
+    private static Logger getLogger() {
+        if (logger == null) {
+            logger = LogManager.getLogger("");
+        }
+        return logger;
+    }
     
     private static <T extends UiView4> String composeViewClassName(Class<T> viewClass) {
         String invalidCharacters =
@@ -49,7 +50,7 @@ public abstract class UiView4 {
             view = constructor.newInstance();
         } catch (NoSuchMethodException | InvocationTargetException | InstantiationException |
                  IllegalAccessException e) {
-//            getLogger().error(String.format("%s%n%s", ERROR_CONSTRUCTOR_SCOPE, System.err));
+            getLogger().error(String.format("%s%n%s", ERROR_CONSTRUCTOR_SCOPE, System.err));
             
         }
         return view;

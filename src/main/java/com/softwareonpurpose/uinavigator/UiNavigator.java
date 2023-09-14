@@ -7,7 +7,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class UiNavigator {
     private static UiNavigator navigator;
-//    private static Logger logger;
+    private static Logger logger;
     private ChromeDriver driver;
 
     public static UiNavigator getInstance() {
@@ -18,19 +18,19 @@ public class UiNavigator {
     }
 
     public void quitDriver() {
-//        getLogger().info("Close browser...");
+        getLogger().info("Close browser...");
         if (driver != null) {
             driver.quit();
         }
         driver = null;
     }
 
-//    private Logger getLogger() {
-//        if (logger == null) {
-//            logger = LogManager.getLogger("");
-//        }
-//        return logger;
-//    }
+    private Logger getLogger() {
+        if (logger == null) {
+            logger = LogManager.getLogger("");
+        }
+        return logger;
+    }
 
     ChromeDriver getDriver() {
         if (driver == null) {
