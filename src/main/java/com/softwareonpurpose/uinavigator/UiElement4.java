@@ -8,7 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class UiElement4 {
-//    private static Logger logger;
+    private static Logger logger;
+    @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private final String description;
     private final String css;
     private final UiElement4 parent;
@@ -52,7 +53,7 @@ public class UiElement4 {
     }
 
     private WebElement getElement() {
-        By locator = new By.ByCssSelector(getCss());
+        By locator = getLocator();
         ChromeDriver driver = UiNavigator.getInstance().getDriver();
         WebElement element;
         try {
@@ -62,6 +63,10 @@ public class UiElement4 {
             element = null;
         }
         return element;
+    }
+
+    private By.ByCssSelector getLocator() {
+        return new By.ByCssSelector(getCss());
     }
 
     private String getCss() {
@@ -79,25 +84,25 @@ public class UiElement4 {
     }
 
     public void click() {
-//        getLogger().info(String.format("Click %s ...", description));
+        getLogger().info(String.format("Click %s ...", description));
         WebElement element = getElement();
         if (element == null) {
-//            logger.warn(String.format("'%s' NOT FOUND using CSS selector %s", description, getCss()));
+            getLogger().warn(String.format("%s NOT FOUND using %s", description, getLocator()));
         } else {
             try {
                 element.click();
             } catch (Exception e) {
-//                logger.warn(String.format("UNABLE TO CLICK '%s' using CSS selector %s", description, getCss()));
+                getLogger().warn(String.format("UNABLE TO CLICK %s using %s", description, getLocator()));
             }
         }
     }
 
-//    private Logger getLogger() {
-//        if (logger == null) {
-//            logger = LogManager.getLogger("");
-//        }
-//        return logger;
-//    }
+    private Logger getLogger() {
+        if (logger == null) {
+            logger = LogManager.getLogger("");
+        }
+        return logger;
+    }
 
     public String getAttribute(String attribute) {
         WebElement element = getElement();
