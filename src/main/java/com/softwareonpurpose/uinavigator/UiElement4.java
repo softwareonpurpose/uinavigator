@@ -113,4 +113,8 @@ public class UiElement4 {
         WebElement element = getElement();
         return element == null ? null : element.getCssValue(property);
     }
+
+    public String getDescription() {
+        return description;
+    }
 }
