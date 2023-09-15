@@ -26,6 +26,8 @@ public class UiElement4Tests {
     private static final UiElement4 elementByInvalidId = UiElement4.getInstance("invalid id", UiLocatorType4.ID, "non-existent-id");
     private static final UiElement4 divElementById = UiElement4.getInstance("'div' element", UiLocatorType4.ID, "div-id");
     private static final UiElement4 nestedInParentLocatedById = UiElement4.getInstance("'paragraph' element", UiLocatorType4.ID, "p-id", divElement);
+    private static final UiElement4 elementByClass = UiElement4.getInstance("paragraph by class", UiLocatorType4.CLASS, "error");
+    private static final UiElement4 elementByClassAndOrdinal = UiElement4.getInstance("paragraph by class and ordinal", UiLocatorType4.CLASS, "error", 2);
     private static final String basicPage = "basic";
     private static final String paragraphsPage = "paragraphs";
     private static final String linkPage = "link";
@@ -36,6 +38,7 @@ public class UiElement4Tests {
     private static final String prePage = "pre";
     private static final String stylePage = "style";
     private static final String idPage = "id";
+    private static final String classPage = "class";
 
     @DataProvider
     public static Object[][] scenarios_isDisplayed() {
@@ -57,6 +60,8 @@ public class UiElement4Tests {
                         , {idPage, elementByInvalidId, isNotDisplayed}
                         , {idPage, divElementById, isDisplayed}
                         , {idPage, nestedInParentLocatedById, isDisplayed}
+                        , {classPage, elementByClass, isDisplayed}
+                        , {classPage, elementByClassAndOrdinal, isDisplayed}
                 };
     }
 

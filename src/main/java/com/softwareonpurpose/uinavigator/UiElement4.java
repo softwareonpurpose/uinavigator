@@ -59,7 +59,7 @@ public class UiElement4 {
         try {
             element = driver.findElement(locator);
         } catch (Exception e) {
-            //  TODO:  Log 'Warning' here -- "Element NOT FOUND using locator [locator info]"
+            getLogger().warn(String.format("Element NOT FOUND using %s", locator));
             element = null;
         }
         return element;
