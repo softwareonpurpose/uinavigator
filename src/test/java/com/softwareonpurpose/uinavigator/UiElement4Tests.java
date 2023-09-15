@@ -28,6 +28,7 @@ public class UiElement4Tests {
     private static final UiElement4 nestedInParentLocatedById = UiElement4.getInstance("'paragraph' element", UiLocatorType4.ID, "p-id", divElement);
     private static final UiElement4 elementByClass = UiElement4.getInstance("paragraph by class", UiLocatorType4.CLASS, "error");
     private static final UiElement4 elementByClassAndOrdinal = UiElement4.getInstance("paragraph by class and ordinal", UiLocatorType4.CLASS, "error", 2);
+    private static final UiElement4 childElementByClassAndOrdinal = UiElement4.getInstance("paragraph by class and ordinal", UiLocatorType4.CLASS, "error", 2, bodyElement);
     private static final String basicPage = "basic";
     private static final String paragraphsPage = "paragraphs";
     private static final String linkPage = "link";
@@ -62,6 +63,7 @@ public class UiElement4Tests {
                         , {idPage, nestedInParentLocatedById, isDisplayed}
                         , {classPage, elementByClass, isDisplayed}
                         , {classPage, elementByClassAndOrdinal, isDisplayed}
+                        , {classPage, childElementByClassAndOrdinal, isDisplayed}
                 };
     }
 
