@@ -10,14 +10,16 @@ public class UiElement4 {
     private transient static Logger logger;
     @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private final String description;
-    private transient final GetWebElementBehavior getElementBehavior;
+    private final transient GetWebElementBehavior getElementBehavior;
 
     private UiElement4(String description, String locatorType, String locatorValue, Integer ordinal, UiElement4 parent) {
         this.description = description;
         String parentCss = parent == null ? "" : String.format("%s ", parent.getCss());
-        getElementBehavior = UiLocatorType4.CLASS.equals(locatorType) && (ordinal != null && ordinal > 0)
-                ? GetElementWithId.getInstance(locatorType, locatorValue, ordinal, parentCss)
-                : GetElementWithTag.getInstance(locatorType, locatorValue, ordinal, parentCss);
+        getElementBehavior = switch (locatorType) {
+            case UiLocatorType4.ID -> GetElementWithId.getInstance(locatorType, locatorValue, ordinal, parentCss);
+            case UiLocatorType4.TAG -> GetElementWithTag.getInstance(locatorType, locatorValue, ordinal, parentCss);
+            default -> null;
+        };
     }
 
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue) {
