@@ -1,4 +1,4 @@
-package com.softwareonpurpose.uinavigator.behavior.getelement;
+package com.softwareonpurpose.uinavigator;
 
 import org.openqa.selenium.WebElement;
 

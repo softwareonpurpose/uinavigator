@@ -1,26 +1,26 @@
 package com.softwareonpurpose.uinavigator;
 
 import com.google.gson.Gson;
-import com.softwareonpurpose.uinavigator.behavior.getelement.GetElementDirectly;
-import com.softwareonpurpose.uinavigator.behavior.getelement.GetElementFromList;
-import com.softwareonpurpose.uinavigator.behavior.getelement.GetWebElementBehavior;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public class UiElement4 {
     private static Logger logger;
     @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private final String description;
     private final String css;
-    private final GetWebElementBehavior getElementBehavior;
+    private transient final GetWebElementBehavior getElementBehavior;
+    private final By.ByCssSelector locator;
 
     private UiElement4(String description, String locatorType, String locatorValue, Integer ordinal, UiElement4 parent) {
         this.description = description;
         css = composeCss(locatorType, locatorValue, ordinal, parent);
-        getElementBehavior = UiLocatorType4.CLASS.equals(locatorType) && ordinal != null ? GetElementFromList.getInstance() : GetElementDirectly.getInstance();
+        locator = new By.ByCssSelector(css);
+        getElementBehavior = UiLocatorType4.CLASS.equals(locatorType) && (ordinal != null && ordinal > 0)
+                ? GetElementFromList.getInstance(locator)
+                : GetElementDirectly.getInstance(locator);
     }
 
     private static String composeCss(String locatorType, String locatorValue, Integer ordinal, UiElement4 parent) {
@@ -57,20 +57,11 @@ public class UiElement4 {
     }
 
     private WebElement getElement() {
-        By locator = getLocator();
-        ChromeDriver driver = UiNavigator.getInstance().getDriver();
-        WebElement element;
-        try {
-            element = driver.findElement(locator);
-        } catch (Exception e) {
-            getLogger().warn(String.format("Element NOT FOUND using %s", locator));
-            element = null;
-        }
-        return element;
+        return getElementBehavior.execute();
     }
 
     private By.ByCssSelector getLocator() {
-        return new By.ByCssSelector(css);
+        return locator;
     }
 
     private String getCss() {
