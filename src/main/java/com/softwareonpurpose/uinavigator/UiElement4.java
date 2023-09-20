@@ -1,6 +1,9 @@
 package com.softwareonpurpose.uinavigator;
 
 import com.google.gson.Gson;
+import com.softwareonpurpose.uinavigator.behavior.getelement.GetElementDirectly;
+import com.softwareonpurpose.uinavigator.behavior.getelement.GetElementFromList;
+import com.softwareonpurpose.uinavigator.behavior.getelement.GetWebElementBehavior;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -12,18 +15,19 @@ public class UiElement4 {
     @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private final String description;
     private final String css;
-    private final UiElement4 parent;
+    private final GetWebElementBehavior getElementBehavior;
 
     private UiElement4(String description, String locatorType, String locatorValue, Integer ordinal, UiElement4 parent) {
         this.description = description;
-        css = composeCss(locatorType, locatorValue, ordinal);
-        this.parent = parent;
+        css = composeCss(locatorType, locatorValue, ordinal, parent);
+        getElementBehavior = UiLocatorType4.CLASS.equals(locatorType) && ordinal != null ? GetElementFromList.getInstance() : GetElementDirectly.getInstance();
     }
 
-    private static String composeCss(String locatorType, String locatorValue, Integer ordinal) {
-        String css = String.format("%s%s", locatorType, locatorValue);
-        css += ordinal == null ? "" : String.format(":nth-of-type(%s)", ordinal);
-        return css;
+    private static String composeCss(String locatorType, String locatorValue, Integer ordinal, UiElement4 parent) {
+        String thisCss = String.format("%s%s", locatorType, locatorValue);
+        thisCss += ordinal == null ? "" : String.format(":nth-of-type(%s)", ordinal);
+        String parentCss = parent == null ? "" : String.format("%s ", parent.getCss());
+        return String.format("%s%s", parentCss, thisCss);
     }
 
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue) {
@@ -66,12 +70,11 @@ public class UiElement4 {
     }
 
     private By.ByCssSelector getLocator() {
-        return new By.ByCssSelector(getCss());
+        return new By.ByCssSelector(css);
     }
 
     private String getCss() {
-        String parentCss = parent == null ? "" : String.format("%s ", parent.getCss());
-        return String.format("%s%s", parentCss, css);
+        return css;
     }
 
     @Override
