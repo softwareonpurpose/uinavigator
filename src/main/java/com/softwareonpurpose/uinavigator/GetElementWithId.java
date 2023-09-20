@@ -22,4 +22,11 @@ public class GetElementWithId extends GetWebElementBehavior {
         }
         return null;
     }
+
+    @Override
+    protected String composeCss(String locatorType, String locatorValue, Integer ordinal, String parentCss) {
+        String thisCss = String.format("%s%s", locatorType, locatorValue);
+        thisCss += ordinal == null ? "" : String.format(":nth-of-type(%s)", ordinal);
+        return String.format("%s%s", parentCss, thisCss);
+    }
 }
