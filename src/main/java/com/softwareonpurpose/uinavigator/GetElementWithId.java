@@ -5,12 +5,13 @@ import org.openqa.selenium.WebElement;
 
 public class GetElementWithId extends GetWebElementBehavior {
 
-    public GetElementWithId(String locatorType, String locatorValue, Integer ordinal, UiElement4 parent) {
-        super(locatorType, locatorValue, ordinal, parent);
+    public GetElementWithId(String locatorType, String locatorValue, Integer ordinal, String parentCss) {
+        super(locatorType, locatorValue, ordinal, parentCss);
     }
 
     public static GetElementWithId getInstance(String locatorType, String locatorValue, Integer ordinal, UiElement4 parent) {
-        return new GetElementWithId(locatorType, locatorValue, ordinal, parent);
+        String parentCss = parent == null ? "" : String.format("%s ", parent.getCss());
+        return new GetElementWithId(locatorType, locatorValue, ordinal, parentCss);
     }
 
     @Override

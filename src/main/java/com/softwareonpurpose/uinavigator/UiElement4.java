@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class UiElement4 {
-    private static Logger logger;
+    private transient static Logger logger;
     @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private final String description;
     private transient final GetWebElementBehavior getElementBehavior;
