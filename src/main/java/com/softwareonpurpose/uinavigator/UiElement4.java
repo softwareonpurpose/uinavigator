@@ -25,7 +25,7 @@ public class UiElement4 {
 
     private static String composeCss(String locatorType, String locatorValue, Integer ordinal, UiElement4 parent) {
         String thisCss = String.format("%s%s", locatorType, locatorValue);
-        thisCss += ordinal == null ? "" : String.format(":nth-of-type(%s)", ordinal);
+        thisCss += ordinal == null || UiLocatorType4.CLASS.equals(locatorType)  ? "" : String.format(":nth-of-type(%s)", ordinal);
         String parentCss = parent == null ? "" : String.format("%s ", parent.getCss());
         return String.format("%s%s", parentCss, thisCss);
     }
