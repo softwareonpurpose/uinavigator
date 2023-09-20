@@ -10,24 +10,14 @@ public class UiElement4 {
     private static Logger logger;
     @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private final String description;
-    private final String css;
     private transient final GetWebElementBehavior getElementBehavior;
-    private final By.ByCssSelector locator;
 
     private UiElement4(String description, String locatorType, String locatorValue, Integer ordinal, UiElement4 parent) {
         this.description = description;
-        css = composeCss(locatorType, locatorValue, ordinal, parent);
-        locator = new By.ByCssSelector(css);
-        getElementBehavior = UiLocatorType4.CLASS.equals(locatorType) && (ordinal != null && ordinal > 0)
-                ? GetElementFromList.getInstance(locator)
-                : GetElementDirectly.getInstance(locator);
-    }
 
-    private static String composeCss(String locatorType, String locatorValue, Integer ordinal, UiElement4 parent) {
-        String thisCss = String.format("%s%s", locatorType, locatorValue);
-        thisCss += ordinal == null ? "" : String.format(":nth-of-type(%s)", ordinal);
-        String parentCss = parent == null ? "" : String.format("%s ", parent.getCss());
-        return String.format("%s%s", parentCss, thisCss);
+        getElementBehavior = UiLocatorType4.CLASS.equals(locatorType) && (ordinal != null && ordinal > 0)
+                ? GetElementWithId.getInstance(locatorType, locatorValue, ordinal, parent)
+                : GetElementWithTag.getInstance(locatorType, locatorValue, ordinal, parent);
     }
 
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue) {
@@ -61,11 +51,11 @@ public class UiElement4 {
     }
 
     private By.ByCssSelector getLocator() {
-        return locator;
+        return getElementBehavior.getLocator();
     }
 
-    private String getCss() {
-        return css;
+    String getCss() {
+        return getElementBehavior.getCss();
     }
 
     @Override

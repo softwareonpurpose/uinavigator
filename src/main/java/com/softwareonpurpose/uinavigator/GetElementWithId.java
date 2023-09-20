@@ -1,18 +1,16 @@
 package com.softwareonpurpose.uinavigator;
 
 import org.apache.logging.log4j.LogManager;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-public class GetElementFromList implements GetWebElementBehavior {
-    private final By.ByCssSelector locator;
+public class GetElementWithId extends GetWebElementBehavior {
 
-    public GetElementFromList(By.ByCssSelector locator) {
-        this.locator = locator;
+    public GetElementWithId(String locatorType, String locatorValue, Integer ordinal, UiElement4 parent) {
+        super(locatorType, locatorValue, ordinal, parent);
     }
 
-    public static GetElementFromList getInstance(By.ByCssSelector locator) {
-        return new GetElementFromList(locator);
+    public static GetElementWithId getInstance(String locatorType, String locatorValue, Integer ordinal, UiElement4 parent) {
+        return new GetElementWithId(locatorType, locatorValue, ordinal, parent);
     }
 
     @Override
