@@ -16,8 +16,8 @@ public class UiElement4 {
         this.description = description;
         String parentCss = parent == null ? "" : String.format("%s ", parent.getCss());
         getElementBehavior = switch (locatorType) {
-            case UiLocatorType4.ID -> GetElementWithId.getInstance(locatorType, locatorValue, ordinal, parentCss);
-            case UiLocatorType4.TAG -> GetElementWithTag.getInstance(locatorType, locatorValue, ordinal, parentCss);
+            case UiLocatorType4.ID -> GetElementWithId.getInstance(locatorValue);
+            case UiLocatorType4.TAG -> GetElementWithTag.getInstance(locatorValue, ordinal, parentCss);
             default -> null;
         };
     }

@@ -4,13 +4,13 @@ import org.apache.logging.log4j.LogManager;
 import org.openqa.selenium.WebElement;
 
 public class GetElementWithTag extends GetWebElementBehavior {
-    public GetElementWithTag(String locatorType, String locatorValue, Integer ordinal, String parentCSS) {
-        super(locatorType, locatorValue, ordinal, parentCSS);
+    public GetElementWithTag(String locatorValue, Integer ordinal, String parentCSS) {
+        super(UiLocatorType4.TAG, locatorValue, ordinal, parentCSS);
 
     }
 
-    public static GetElementWithTag getInstance(String locatorType, String locatorValue, Integer ordinal, String parentCss) {
-        return new GetElementWithTag(locatorType, locatorValue, ordinal, parentCss);
+    public static GetElementWithTag getInstance(String locatorValue, Integer ordinal, String parentCss) {
+        return new GetElementWithTag(locatorValue, ordinal, parentCss);
     }
 
     @Override
