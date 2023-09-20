@@ -9,8 +9,7 @@ public class GetElementWithId extends GetWebElementBehavior {
         super(locatorType, locatorValue, ordinal, parentCss);
     }
 
-    public static GetElementWithId getInstance(String locatorType, String locatorValue, Integer ordinal, UiElement4 parent) {
-        String parentCss = parent == null ? "" : String.format("%s ", parent.getCss());
+    public static GetElementWithId getInstance(String locatorType, String locatorValue, Integer ordinal, String parentCss) {
         return new GetElementWithId(locatorType, locatorValue, ordinal, parentCss);
     }
 

@@ -14,10 +14,10 @@ public class UiElement4 {
 
     private UiElement4(String description, String locatorType, String locatorValue, Integer ordinal, UiElement4 parent) {
         this.description = description;
-
+        String parentCss = parent == null ? "" : String.format("%s ", parent.getCss());
         getElementBehavior = UiLocatorType4.CLASS.equals(locatorType) && (ordinal != null && ordinal > 0)
-                ? GetElementWithId.getInstance(locatorType, locatorValue, ordinal, parent)
-                : GetElementWithTag.getInstance(locatorType, locatorValue, ordinal, parent);
+                ? GetElementWithId.getInstance(locatorType, locatorValue, ordinal, parentCss)
+                : GetElementWithTag.getInstance(locatorType, locatorValue, ordinal, parentCss);
     }
 
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue) {
