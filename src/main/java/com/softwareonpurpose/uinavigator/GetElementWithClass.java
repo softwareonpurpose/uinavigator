@@ -9,7 +9,7 @@ public class GetElementWithClass extends GetWebElementBehavior {
     private final int index;
 
     protected GetElementWithClass(String locatorValue, Integer ordinal, UiElement4 parent) {
-        super(UiLocatorType4.CLASS, locatorValue, ordinal, parent);
+        super(locatorValue, ordinal, parent);
         index = ordinal == null || ordinal < 2 ? 0 : ordinal - 1;
     }
 
@@ -20,17 +20,17 @@ public class GetElementWithClass extends GetWebElementBehavior {
     @Override
     WebElement execute() {
         List<WebElement> elements;
-        try {
-            elements = UiNavigator.getInstance().getDriver().findElements(locator);
-            return index < elements.size() ? elements.get(index) : null;
-        } catch (Exception e) {
+        elements = UiNavigator.getInstance().getDriver().findElements(locator);
+        if (index < elements.size()) {
+            return elements.get(index);
+        } else {
             LogManager.getLogger("").warn(String.format("Element NOT FOUND using %s index: %d", locator, index));
             return null;
         }
     }
 
     @Override
-    protected String composeCss(String locatorType, String locatorValue, Integer ordinal) {
+    protected String composeCss(String locatorValue, Integer ordinal) {
         return String.format("%s%s", UiLocatorType4.CLASS, locatorValue);
     }
 }

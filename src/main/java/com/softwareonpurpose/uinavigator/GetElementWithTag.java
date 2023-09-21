@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 public class GetElementWithTag extends GetWebElementBehavior {
 
     public GetElementWithTag(String locatorValue, Integer ordinal, UiElement4 parent) {
-        super(UiLocatorType4.TAG, locatorValue, ordinal, parent);
+        super(locatorValue, ordinal, parent);
 
     }
 
@@ -17,7 +17,7 @@ public class GetElementWithTag extends GetWebElementBehavior {
     @Override
     public WebElement execute() {
         try {
-            return isParentLocatedByClass() ? getParent().findElement(locator) : UiNavigator.getInstance().getDriver().findElement(locator);
+            return hasParent() && isParentLocatedByClass() ? getParent().findElement(locator) : UiNavigator.getInstance().getDriver().findElement(locator);
         } catch (Exception e) {
             LogManager.getLogger("").warn(String.format("Element NOT FOUND using %s", locator));
         }
@@ -25,7 +25,7 @@ public class GetElementWithTag extends GetWebElementBehavior {
     }
 
     @Override
-    protected String composeCss(String locatorType, String locatorValue, Integer ordinal) {
+    protected String composeCss(String locatorValue, Integer ordinal) {
         String thisCss = String.format("%s", locatorValue);
         thisCss += ordinal == null ? "" : String.format(":nth-of-type(%s)", ordinal);
         String parentCss = isParentLocatedByClass() ? "" : String.format("%s ", getParentCss());

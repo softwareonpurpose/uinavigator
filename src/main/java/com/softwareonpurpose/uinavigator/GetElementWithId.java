@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 
 public class GetElementWithId extends GetWebElementBehavior {
     public GetElementWithId(String locatorValue) {
-        super(UiLocatorType4.ID, locatorValue, null, null);
+        super(locatorValue, null, null);
     }
 
     public static GetElementWithId getInstance(String locatorValue) {
@@ -23,7 +23,7 @@ public class GetElementWithId extends GetWebElementBehavior {
     }
 
     @Override
-    protected String composeCss(String locatorType, String locatorValue, Integer ordinal) {
+    protected String composeCss(String locatorValue, Integer ordinal) {
         return String.format("%s%s", UiLocatorType4.ID, locatorValue);
     }
 }

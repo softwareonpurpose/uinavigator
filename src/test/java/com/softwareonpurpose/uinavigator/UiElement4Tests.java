@@ -31,7 +31,7 @@ public class UiElement4Tests {
     private static final UiElement4 childElementByClassErrorAndOrdinal = UiElement4.getInstance("paragraph by class and ordinal", UiLocatorType4.CLASS, "error", 2, bodyElement);
     private static final UiElement4 elementByClassNames = UiElement4.getInstance("class 'names'", UiLocatorType4.CLASS, "names");
     private static final UiElement4 childOfParentByClassNames = UiElement4.getInstance("'th' element", UiLocatorType4.TAG, "th", elementByClassNames);
-    private static final UiElement4 childByOrdinalOfParentByClassNames = UiElement4.getInstance("nth 'th' element", UiLocatorType4.TAG, "th", 3);
+    private static final UiElement4 childByOrdinalOfParentByClassNames = UiElement4.getInstance("nth 'th' element", UiLocatorType4.TAG, "th", 3, elementByClassNames);
     private static final String basicPage = "basic";
     private static final String paragraphsPage = "paragraphs";
     private static final String linkPage = "link";

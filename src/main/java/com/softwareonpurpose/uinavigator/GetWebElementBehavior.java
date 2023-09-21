@@ -8,8 +8,8 @@ public abstract class GetWebElementBehavior {
     protected final UiElement4 parent;
     private final String css;
 
-    protected GetWebElementBehavior(String locatorType, String locatorValue, Integer ordinal, UiElement4 parent) {
-        this.css = composeCss(locatorType, locatorValue, ordinal);
+    protected GetWebElementBehavior(String locatorValue, Integer ordinal, UiElement4 parent) {
+        this.css = composeCss(locatorValue, ordinal);
         locator = new By.ByCssSelector(css);
         this.parent = parent;
     }
@@ -25,7 +25,7 @@ public abstract class GetWebElementBehavior {
     }
 
     protected boolean isParentLocatedByClass() {
-        return parent == null || parent.isLocatedByClass();
+        return parent != null && parent.isLocatedByClass();
     }
 
     protected WebElement getParent() {
@@ -36,9 +36,9 @@ public abstract class GetWebElementBehavior {
         return parent != null;
     }
 
-    protected abstract String composeCss(String locatorType, String locatorValue, Integer ordinal);
+    protected abstract String composeCss(String locatorValue, Integer ordinal);
 
     protected String getParentCss() {
-        return parent.getCss();
+        return parent == null ? "" : parent.getCss();
     }
 }
