@@ -76,6 +76,8 @@ public class UiElement4Tests {
         String firstHeading = "My First Heading";
         String firstParagraph = "My first paragraph.";
         String fullBody = String.format("%s\n%s", firstHeading, firstParagraph);
+        String different = "I am different.";
+        String differentToo = "I am different too.";
         return new Object[][]{
                 {basicPage, headingElement, firstHeading}
                 , {basicPage, paragraphElement, firstParagraph}
@@ -86,6 +88,9 @@ public class UiElement4Tests {
                 , {listPage, nthOrderedListItemElement, "Milk"}
                 , {breakPage, paragraphElement, "This is\na paragraph\nwith line breaks."}
                 , {prePage, preElement, myBonnie}
+                , {classPage, elementByClass, different}
+                , {classPage, elementByClassAndOrdinal, differentToo}
+                , {classPage, childElementByClassAndOrdinal, differentToo}
         };
     }
 

@@ -24,6 +24,6 @@ public class GetElementWithId extends GetWebElementBehavior {
 
     @Override
     protected String composeCss(String locatorType, String locatorValue, Integer ordinal, String parentCss) {
-        return String.format("#%s", locatorValue);
+        return String.format("%s%s", UiLocatorType4.ID, locatorValue);
     }
 }
