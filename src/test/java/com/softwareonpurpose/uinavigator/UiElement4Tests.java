@@ -26,9 +26,12 @@ public class UiElement4Tests {
     private static final UiElement4 elementByInvalidId = UiElement4.getInstance("invalid id", UiLocatorType4.ID, "non-existent-id");
     private static final UiElement4 divElementById = UiElement4.getInstance("'div' element", UiLocatorType4.ID, "div-id");
     private static final UiElement4 nestedInParentLocatedById = UiElement4.getInstance("'paragraph' element", UiLocatorType4.ID, "p-id", divElement);
-    private static final UiElement4 elementByClass = UiElement4.getInstance("paragraph by class", UiLocatorType4.CLASS, "error");
-    private static final UiElement4 elementByClassAndOrdinal = UiElement4.getInstance("paragraph by class and ordinal", UiLocatorType4.CLASS, "error", 2);
-    private static final UiElement4 childElementByClassAndOrdinal = UiElement4.getInstance("paragraph by class and ordinal", UiLocatorType4.CLASS, "error", 2, bodyElement);
+    private static final UiElement4 elementByClassError = UiElement4.getInstance("paragraph by class", UiLocatorType4.CLASS, "error");
+    private static final UiElement4 elementByClassErrorAndOrdinal = UiElement4.getInstance("paragraph by class and ordinal", UiLocatorType4.CLASS, "error", 2);
+    private static final UiElement4 childElementByClassErrorAndOrdinal = UiElement4.getInstance("paragraph by class and ordinal", UiLocatorType4.CLASS, "error", 2, bodyElement);
+    private static final UiElement4 elementByClassNames = UiElement4.getInstance("class 'names'", UiLocatorType4.CLASS, "names");
+    private static final UiElement4 childOfParentByClassNames = UiElement4.getInstance("'th' element", UiLocatorType4.TAG, "th", elementByClassNames);
+    private static final UiElement4 childByOrdinalOfParentByClassNames = UiElement4.getInstance("nth 'th' element", UiLocatorType4.TAG, "th", 3);
     private static final String basicPage = "basic";
     private static final String paragraphsPage = "paragraphs";
     private static final String linkPage = "link";
@@ -40,6 +43,8 @@ public class UiElement4Tests {
     private static final String stylePage = "style";
     private static final String idPage = "id";
     private static final String classPage = "class";
+    private static final String red = "rgba(255, 0, 0, 1)";
+    private static final String tableClass1Page = "tableClass1";
 
     @DataProvider
     public static Object[][] scenarios_isDisplayed() {
@@ -61,9 +66,11 @@ public class UiElement4Tests {
                         , {idPage, elementByInvalidId, isNotDisplayed}
                         , {idPage, divElementById, isDisplayed}
                         , {idPage, nestedInParentLocatedById, isDisplayed}
-                        , {classPage, elementByClass, isDisplayed}
-                        , {classPage, elementByClassAndOrdinal, isDisplayed}
-                        , {classPage, childElementByClassAndOrdinal, isDisplayed}
+                        , {classPage, elementByClassError, isDisplayed}
+                        , {classPage, elementByClassErrorAndOrdinal, isDisplayed}
+                        , {classPage, childElementByClassErrorAndOrdinal, isDisplayed}
+                        , {tableClass1Page, childOfParentByClassNames, isDisplayed}
+                        , {tableClass1Page, childByOrdinalOfParentByClassNames, isDisplayed}
                 };
     }
 
@@ -88,9 +95,11 @@ public class UiElement4Tests {
                 , {listPage, nthOrderedListItemElement, "Milk"}
                 , {breakPage, paragraphElement, "This is\na paragraph\nwith line breaks."}
                 , {prePage, preElement, myBonnie}
-                , {classPage, elementByClass, different}
-                , {classPage, elementByClassAndOrdinal, differentToo}
-                , {classPage, childElementByClassAndOrdinal, differentToo}
+                , {classPage, elementByClassError, different}
+                , {classPage, elementByClassErrorAndOrdinal, differentToo}
+                , {classPage, childElementByClassErrorAndOrdinal, differentToo}
+                , {classPage, childOfParentByClassNames, "Table 2 Firstname"}
+                , {classPage, childByOrdinalOfParentByClassNames, "Table 2 Age"}
         };
     }
 
@@ -217,7 +226,8 @@ public class UiElement4Tests {
 
     @Test
     public void getStyleProperty() {
-        String expected = "rgba(255, 0, 0, 1)";
+        //noinspection UnnecessaryLocalVariable
+        String expected = red;
         UiHost4.getInstance().load(resources.getPageUrl(stylePage));
         String actual = paragraphElement_2.getStyleProperty("color");
         Assert.assertEquals(actual, expected);

@@ -14,11 +14,11 @@ public class UiElement4 {
 
     private UiElement4(String description, String locatorType, String locatorValue, Integer ordinal, UiElement4 parent) {
         this.description = description;
-        String parentCss = parent == null ? "" : String.format("%s ", parent.getCss());
         getElementBehavior = switch (locatorType) {
             case UiLocatorType4.ID -> GetElementWithId.getInstance(locatorValue);
-            case UiLocatorType4.CLASS -> GetElementWithClass.getInstance(locatorValue, ordinal, parentCss);
-            default -> GetElementWithTag.getInstance(locatorValue, ordinal, parentCss);
+            case UiLocatorType4.CLASS -> GetElementWithClass.getInstance(locatorValue, ordinal, parent);
+            case UiLocatorType4.TAG -> GetElementWithTag.getInstance(locatorValue, ordinal, parent);
+            default -> null;
         };
     }
 
@@ -48,7 +48,7 @@ public class UiElement4 {
         return element == null ? null : element.getText();
     }
 
-    private WebElement getElement() {
+    protected WebElement getElement() {
         return getElementBehavior.execute();
     }
 
@@ -102,5 +102,9 @@ public class UiElement4 {
 
     public String getDescription() {
         return description;
+    }
+
+    public boolean isLocatedByClass() {
+        return GetElementWithClass.class.equals(getElementBehavior.getClass());
     }
 }

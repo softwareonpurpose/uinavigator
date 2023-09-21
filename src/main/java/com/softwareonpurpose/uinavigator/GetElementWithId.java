@@ -23,7 +23,7 @@ public class GetElementWithId extends GetWebElementBehavior {
     }
 
     @Override
-    protected String composeCss(String locatorType, String locatorValue, Integer ordinal, String parentCss) {
+    protected String composeCss(String locatorType, String locatorValue, Integer ordinal) {
         return String.format("%s%s", UiLocatorType4.ID, locatorValue);
     }
 }
