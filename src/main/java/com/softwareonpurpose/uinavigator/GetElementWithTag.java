@@ -25,9 +25,9 @@ public class GetElementWithTag extends GetWebElementBehavior {
     }
 
     @Override
-    protected String composeCss(String locatorValue, Integer ordinal) {
+    protected String composeCss(String locatorValue) {
         String thisCss = String.format("%s", locatorValue);
-        thisCss += ordinal == null ? "" : String.format(":nth-of-type(%s)", ordinal);
+        thisCss += String.format(":nth-of-type(%s)", ordinal);
         String parentCss = isParentLocatedByClass() ? "" : String.format("%s ", getParentCss());
         return String.format("%s%s", parentCss, thisCss);
     }

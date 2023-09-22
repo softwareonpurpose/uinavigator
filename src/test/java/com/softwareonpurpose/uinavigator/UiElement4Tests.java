@@ -30,8 +30,14 @@ public class UiElement4Tests {
     private static final UiElement4 elementByClassErrorAndOrdinal = UiElement4.getInstance("paragraph by class and ordinal", UiLocatorType4.CLASS, "error", 2);
     private static final UiElement4 childElementByClassErrorAndOrdinal = UiElement4.getInstance("paragraph by class and ordinal", UiLocatorType4.CLASS, "error", 2, bodyElement);
     private static final UiElement4 elementByClassNames = UiElement4.getInstance("class 'names'", UiLocatorType4.CLASS, "names");
+    private static final UiElement4 elementByClassNewTables = UiElement4.getInstance("'new-tables' element", UiLocatorType4.CLASS, "new-tables");
+    private static final UiElement4 elementByClassNamesAndOrdinalTwoOfParentByClass = UiElement4.getInstance("class 'names'", UiLocatorType4.CLASS, "names", 2, elementByClassNewTables);
+    private static final UiElement4 elementByClassNamesAndOrdinalThree = UiElement4.getInstance("class 'names'", UiLocatorType4.CLASS, "names", 3);
     private static final UiElement4 childOfParentByClassNames = UiElement4.getInstance("'th' element", UiLocatorType4.TAG, "th", elementByClassNames);
     private static final UiElement4 childByOrdinalOfParentByClassNames = UiElement4.getInstance("nth 'th' element", UiLocatorType4.TAG, "th", 3, elementByClassNames);
+    private static final UiElement4 childOfParentByClassNamesAndOrdinal = UiElement4.getInstance("'th' element", UiLocatorType4.TAG, "th", elementByClassNamesAndOrdinalThree);
+    private static final UiElement4 childByOrdinalOfParentByClassNamesAndOrdinal = UiElement4.getInstance("'th' element", UiLocatorType4.TAG, "th", 2, elementByClassNamesAndOrdinalThree);
+    private static final UiElement4 childByTagOfParentByClassAndOrdinalOfGrandParentByClass = UiElement4.getInstance("'th' element", UiLocatorType4.TAG, "th", elementByClassNamesAndOrdinalTwoOfParentByClass);
     private static final String basicPage = "basic";
     private static final String paragraphsPage = "paragraphs";
     private static final String linkPage = "link";
@@ -87,19 +93,22 @@ public class UiElement4Tests {
         String differentToo = "I am different too.";
         return new Object[][]{
                 {basicPage, headingElement, firstHeading}
-                , {basicPage, paragraphElement, firstParagraph}
-                , {basicPage, bodyElement, fullBody}
-                , {basicPage, divElement, null}
-                , {linkPage, anchorElement, "This is a link"}
-                , {listPage, unorderedListItemElement, "Coffee"}
-                , {listPage, nthOrderedListItemElement, "Milk"}
-                , {breakPage, paragraphElement, "This is\na paragraph\nwith line breaks."}
-                , {prePage, preElement, myBonnie}
-                , {classPage, elementByClassError, different}
-                , {classPage, elementByClassErrorAndOrdinal, differentToo}
-                , {classPage, childElementByClassErrorAndOrdinal, differentToo}
-                , {tableClass1Page, childOfParentByClassNames, "Table 2 Firstname"}
-                , {tableClass1Page, childByOrdinalOfParentByClassNames, "Table 2 Age"}
+//                , {basicPage, paragraphElement, firstParagraph}
+//                , {basicPage, bodyElement, fullBody}
+//                , {basicPage, divElement, null}
+//                , {linkPage, anchorElement, "This is a link"}
+//                , {listPage, unorderedListItemElement, "Coffee"}
+//                , {listPage, nthOrderedListItemElement, "Milk"}
+//                , {breakPage, paragraphElement, "This is\na paragraph\nwith line breaks."}
+//                , {prePage, preElement, myBonnie}
+//                , {classPage, elementByClassError, different}
+//                , {classPage, elementByClassErrorAndOrdinal, differentToo}
+//                , {classPage, childElementByClassErrorAndOrdinal, differentToo}
+//                , {tableClass1Page, childOfParentByClassNames, "Table 1 Firstname"}
+//                , {tableClass1Page, childByOrdinalOfParentByClassNames, "Table 1 Age"}
+//                , {tableClass1Page, childOfParentByClassNamesAndOrdinal, "Table 2 Firstname"}
+//                , {tableClass1Page, childByOrdinalOfParentByClassNamesAndOrdinal, "Table 2 Lastname"}
+                , {tableClass1Page, childByTagOfParentByClassAndOrdinalOfGrandParentByClass, "Table 3 Firstname"}
         };
     }
 

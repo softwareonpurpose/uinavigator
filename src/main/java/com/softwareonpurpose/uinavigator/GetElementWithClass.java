@@ -6,11 +6,11 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 public class GetElementWithClass extends GetWebElementBehavior {
-    private final int index;
+    private final int ordinal;
 
     protected GetElementWithClass(String locatorValue, Integer ordinal, UiElement4 parent) {
         super(locatorValue, ordinal, parent);
-        index = ordinal == null || ordinal < 2 ? 0 : ordinal - 1;
+        this.ordinal = ordinal == null || ordinal < 1 ? 1 : ordinal;
     }
 
     public static GetWebElementBehavior getInstance(String locatorValue, Integer ordinal, UiElement4 parent) {
@@ -21,6 +21,7 @@ public class GetElementWithClass extends GetWebElementBehavior {
     WebElement execute() {
         List<WebElement> elements;
         elements = UiNavigator.getInstance().getDriver().findElements(locator);
+        int index = ordinal - 1;
         if (index < elements.size()) {
             return elements.get(index);
         } else {
@@ -30,7 +31,7 @@ public class GetElementWithClass extends GetWebElementBehavior {
     }
 
     @Override
-    protected String composeCss(String locatorValue, Integer ordinal) {
+    protected String composeCss(String locatorValue) {
         return String.format("%s%s", UiLocatorType4.CLASS, locatorValue);
     }
 }

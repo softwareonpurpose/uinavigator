@@ -6,10 +6,12 @@
             border: 1px solid black;
             border-collapse: collapse;
         }
+
         th, td {
             padding: 5px;
             text-align: left;
         }
+
         table.names {
             width: 100%;
             background-color: #f1f1c1;
@@ -19,7 +21,7 @@
 </head>
 <body>
 
-<table style="width:100%">
+<table class="names" style="width:100%">
     <tr>
         <th>Table 1 Firstname</th>
         <th>Table 1 Lastname</th>
@@ -41,31 +43,54 @@
         <td>Table 1 80</td>
     </tr>
 </table>
-
+<span class="names">Text labeling second table</span>
 <br>
-
-<table class="names">
-    <tr class="names">
-        <th class="names">Table 2 Firstname</th>
-        <th>Table 2 Lastname</th>
-        <th>Table 2 Age</th>
-    </tr>
-    <tr>
-        <td>Table 2 Jill</td>
-        <td>Table 2 Smith</td>
-        <td>Table 2 50</td>
-    </tr>
-    <tr>
-        <td>Table 2 Eve</td>
-        <td>Table 2 Jackson</td>
-        <td>Table 2 94</td>
-    </tr>
-    <tr>
-        <td>Table 2 ohn</td>
-        <td>Table 2 Doe</td>
-        <td>Table 2 80</td>
-    </tr>
-</table>
+<div class="new-tables">
+    <table class="names">
+        <tr>
+            <th>Table 2 Firstname</th>
+            <th>Table 2 Lastname</th>
+            <th>Table 2 Age</th>
+        </tr>
+        <tr>
+            <td>Table 2 Jill</td>
+            <td>Table 2 Smith</td>
+            <td>Table 2 50</td>
+        </tr>
+        <tr>
+            <td>Table 2 Eve</td>
+            <td>Table 2 Jackson</td>
+            <td>Table 2 94</td>
+        </tr>
+        <tr>
+            <td>Table 2 ohn</td>
+            <td>Table 2 Doe</td>
+            <td>Table 2 80</td>
+        </tr>
+    </table>
+    <table class="names">
+        <tr>
+            <th>Table 3 Firstname</th>
+            <th>Table 3 Lastname</th>
+            <th>Table 3 Age</th>
+        </tr>
+        <tr>
+            <td>Table 3 Jill</td>
+            <td>Table 3 Smith</td>
+            <td>Table 3 50</td>
+        </tr>
+        <tr>
+            <td>Table 3 Eve</td>
+            <td>Table 3 Jackson</td>
+            <td>Table 3 94</td>
+        </tr>
+        <tr>
+            <td>Table 3 ohn</td>
+            <td>Table 3 Doe</td>
+            <td>Table 3 80</td>
+        </tr>
+    </table>
+</div>
 
 </body>
 </html>
