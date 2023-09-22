@@ -20,7 +20,7 @@ public class GetElementWithClass extends GetWebElementBehavior {
     @Override
     WebElement execute() {
         List<WebElement> elements;
-        elements = UiNavigator.getInstance().getDriver().findElements(locator);
+        elements = hasParent() && isParentLocatedByClass() ? getParent().findElements(locator) : UiNavigator.getInstance().getDriver().findElements(locator);
         int index = ordinal - 1;
         if (index < elements.size()) {
             return elements.get(index);
