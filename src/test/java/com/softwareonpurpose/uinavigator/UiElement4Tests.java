@@ -98,8 +98,8 @@ public class UiElement4Tests {
                 , {classPage, elementByClassError, different}
                 , {classPage, elementByClassErrorAndOrdinal, differentToo}
                 , {classPage, childElementByClassErrorAndOrdinal, differentToo}
-                , {classPage, childOfParentByClassNames, "Table 2 Firstname"}
-                , {classPage, childByOrdinalOfParentByClassNames, "Table 2 Age"}
+                , {tableClass1Page, childOfParentByClassNames, "Table 2 Firstname"}
+                , {tableClass1Page, childByOrdinalOfParentByClassNames, "Table 2 Age"}
         };
     }
 
