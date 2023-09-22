@@ -93,21 +93,21 @@ public class UiElement4Tests {
         String differentToo = "I am different too.";
         return new Object[][]{
                 {basicPage, headingElement, firstHeading}
-//                , {basicPage, paragraphElement, firstParagraph}
-//                , {basicPage, bodyElement, fullBody}
-//                , {basicPage, divElement, null}
-//                , {linkPage, anchorElement, "This is a link"}
-//                , {listPage, unorderedListItemElement, "Coffee"}
-//                , {listPage, nthOrderedListItemElement, "Milk"}
-//                , {breakPage, paragraphElement, "This is\na paragraph\nwith line breaks."}
-//                , {prePage, preElement, myBonnie}
-//                , {classPage, elementByClassError, different}
-//                , {classPage, elementByClassErrorAndOrdinal, differentToo}
-//                , {classPage, childElementByClassErrorAndOrdinal, differentToo}
-//                , {tableClass1Page, childOfParentByClassNames, "Table 1 Firstname"}
-//                , {tableClass1Page, childByOrdinalOfParentByClassNames, "Table 1 Age"}
-//                , {tableClass1Page, childOfParentByClassNamesAndOrdinal, "Table 2 Firstname"}
-//                , {tableClass1Page, childByOrdinalOfParentByClassNamesAndOrdinal, "Table 2 Lastname"}
+                , {basicPage, paragraphElement, firstParagraph}
+                , {basicPage, bodyElement, fullBody}
+                , {basicPage, divElement, null}
+                , {linkPage, anchorElement, "This is a link"}
+                , {listPage, unorderedListItemElement, "Coffee"}
+                , {listPage, nthOrderedListItemElement, "Milk"}
+                , {breakPage, paragraphElement, "This is\na paragraph\nwith line breaks."}
+                , {prePage, preElement, myBonnie}
+                , {classPage, elementByClassError, different}
+                , {classPage, elementByClassErrorAndOrdinal, differentToo}
+                , {classPage, childElementByClassErrorAndOrdinal, differentToo}
+                , {tableClass1Page, childOfParentByClassNames, "Table 1 Firstname"}
+                , {tableClass1Page, childByOrdinalOfParentByClassNames, "Table 1 Age"}
+                , {tableClass1Page, childOfParentByClassNamesAndOrdinal, "Table 2 Firstname"}
+                , {tableClass1Page, childByOrdinalOfParentByClassNamesAndOrdinal, "Table 2 Lastname"}
                 , {tableClass1Page, childByTagOfParentByClassAndOrdinalOfGrandParentByClass, "Table 3 Firstname"}
         };
     }
