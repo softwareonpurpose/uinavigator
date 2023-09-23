@@ -8,11 +8,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class UiElement4 {
-    private transient static Logger logger;
-    @SuppressWarnings({"FieldCanBeLocal", "unused"})
+    private static Logger logger;
     private final String description;
     private final transient GetWebElementBehavior getElementBehavior;
-
+    
     private UiElement4(String description, String locatorType, String locatorValue, Integer ordinal, UiElement4 parent) {
         this.description = description;
         getElementBehavior = switch (locatorType) {
@@ -22,55 +21,47 @@ public class UiElement4 {
             default -> null;
         };
     }
-
+    
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue) {
         return new UiElement4(description, locatorType, locatorValue, null, null);
     }
-
+    
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue, int ordinal) {
         return new UiElement4(description, locatorType, locatorValue, ordinal, null);
     }
-
+    
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue, UiElement4 parent) {
         return new UiElement4(description, locatorType, locatorValue, null, parent);
     }
-
+    
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue, int ordinal, UiElement4 parent) {
         return new UiElement4(description, locatorType, locatorValue, ordinal, parent);
     }
-
+    
     public boolean isDisplayed() {
         WebElement element = getElement();
         return element != null && element.isDisplayed();
     }
-
+    
     public String getText() {
         WebElement element = getElement();
         return element == null ? null : element.getText();
     }
-
-    protected WebElement getElement() {
-        return getElementBehavior.execute();
-    }
-
-    private By.ByCssSelector getLocator() {
-        return getElementBehavior.getLocator();
-    }
-
-    String getCss() {
-        return getElementBehavior.getCss();
-    }
-
-    @Override
-    public String toString() {
-        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
-        return String.format("UiElement: %s", gson.toJson(this));
-    }
-
+    
     public String getHref() {
         return getAttribute("href");
     }
-
+    
+    public String getAttribute(String attribute) {
+        WebElement element = getElement();
+        return element == null ? null : element.getAttribute(attribute);
+    }
+    
+    public String getStyleProperty(String property) {
+        WebElement element = getElement();
+        return element == null ? null : element.getCssValue(property);
+    }
+    
     public void click() {
         getLogger().info(String.format("Click %s ...", description));
         WebElement element = getElement();
@@ -84,29 +75,37 @@ public class UiElement4 {
             }
         }
     }
-
+    
+    public String getDescription() {
+        return description;
+    }
+    
+    public boolean isLocatedByClass() {
+        return GetElementWithClass.class.equals(getElementBehavior.getClass());
+    }
+    
+    protected WebElement getElement() {
+        return getElementBehavior.execute();
+    }
+    
+    String getCss() {
+        return getElementBehavior.getCss();
+    }
+    
+    private By.ByCssSelector getLocator() {
+        return getElementBehavior.getLocator();
+    }
+    
     private Logger getLogger() {
         if (logger == null) {
             logger = LogManager.getLogger("");
         }
         return logger;
     }
-
-    public String getAttribute(String attribute) {
-        WebElement element = getElement();
-        return element == null ? null : element.getAttribute(attribute);
-    }
-
-    public String getStyleProperty(String property) {
-        WebElement element = getElement();
-        return element == null ? null : element.getCssValue(property);
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public boolean isLocatedByClass() {
-        return GetElementWithClass.class.equals(getElementBehavior.getClass());
+    
+    @Override
+    public String toString() {
+        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+        return String.format("UiElement: %s", gson.toJson(this));
     }
 }
