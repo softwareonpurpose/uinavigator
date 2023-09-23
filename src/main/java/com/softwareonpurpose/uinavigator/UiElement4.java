@@ -1,6 +1,7 @@
 package com.softwareonpurpose.uinavigator;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -62,7 +63,8 @@ public class UiElement4 {
 
     @Override
     public String toString() {
-        return String.format("UiElement: %s", new Gson().toJson(this));
+        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+        return String.format("UiElement: %s", gson.toJson(this));
     }
 
     public String getHref() {
