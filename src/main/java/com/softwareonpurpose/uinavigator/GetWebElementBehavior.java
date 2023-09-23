@@ -10,10 +10,10 @@ public abstract class GetWebElementBehavior {
     private final String css;
 
     protected GetWebElementBehavior(String locatorValue, Integer ordinal, UiElement4 parent) {
+        this.parent = parent;
         this.ordinal = ordinal == null || ordinal < 1 ? 1 : ordinal;
         this.css = composeCss(locatorValue);
         locator = new By.ByCssSelector(css);
-        this.parent = parent;
     }
 
     abstract WebElement execute();
