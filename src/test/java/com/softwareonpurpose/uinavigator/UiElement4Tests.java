@@ -28,7 +28,7 @@ public class UiElement4Tests {
     private static final UiElement4 byClassOrdinal2 = UiElement4.getInstance("paragraph by class and ordinal", UiLocatorType4.CLASS, "error", 2);
     private static final UiElement4 byIdAncestorByTag = UiElement4.getInstance("'paragraph' element", UiLocatorType4.ID, "p-id", byTagDiv);
 
-    //  TODO: byTagAncestorById
+    private static final UiElement4 byTagAncestorById = UiElement4.getInstance("'p' tag", UiLocatorType4.TAG, "p", byIdDiv);
     private static final UiElement4 byTagAncestorByTag = UiElement4.getInstance("'list item' element", UiLocatorType4.TAG, "li", byTagUl);
     //  TODO: byClassAncestorByTag
     private static final UiElement4 byTagAncestorByClass = UiElement4.getInstance("'th' element", UiLocatorType4.TAG, "th", byClassNames);
@@ -75,6 +75,7 @@ public class UiElement4Tests {
                         , {idPage, byIdNonexistent, isNotDisplayed}
                         , {idPage, byIdDiv, isDisplayed}
                         , {idPage, byIdAncestorByTag, isDisplayed}
+                        , {idPage, byTagAncestorById, isDisplayed}
                         , {classPage, byClassError, isDisplayed}
                         , {classPage, byClassOrdinal2, isDisplayed}
                         , {classPage, byClassOrdinal2AncestorByTag, isDisplayed}
