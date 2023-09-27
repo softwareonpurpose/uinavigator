@@ -8,36 +8,39 @@ import org.testng.annotations.Test;
 @Test
 public class UiElement4Tests {
     private static final TestResources resources = TestResources.getInstance();
-    private static final UiElement4 bodyElement = UiElement4.getInstance("'body' element'", UiLocatorType4.TAG, "body");
-    private static final UiElement4 headingElement = UiElement4.getInstance("'heading' element'", UiLocatorType4.TAG, "h1");
-    private static final UiElement4 paragraphElement_2 = UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, "p", 2);
-    private static final UiElement4 anchorElement = UiElement4.getInstance("'anchor' element", UiLocatorType4.TAG, "a");
-    private static final UiElement4 unorderedListElement = UiElement4.getInstance("'unordered list", UiLocatorType4.TAG, "ul");
-    private static final UiElement4 unorderedListItemElement = UiElement4.getInstance("'list item' element", UiLocatorType4.TAG, "li", unorderedListElement);
-    private static final UiElement4 paragraphElement = UiElement4.getInstance("'p' tag", UiLocatorType4.TAG, "p");
-    private static final UiElement4 divElement = UiElement4.getInstance("'div' tag", UiLocatorType4.TAG, "div");
-    private static final UiElement4 orderedListElement = UiElement4.getInstance("'ordered list", UiLocatorType4.TAG, "ol");
-    private static final UiElement4 nthOrderedListItemElement = UiElement4.getInstance("'list item' element", UiLocatorType4.TAG, "li", 3, orderedListElement);
-    private static final UiElement4 metaElement = UiElement4.getInstance("'meta' element", UiLocatorType4.TAG, "meta");
-    private static final UiElement4 breakElement = UiElement4.getInstance("'break' element", UiLocatorType4.TAG, "br");
-    private static final UiElement4 preElement = UiElement4.getInstance("'pre' element", UiLocatorType4.TAG, "pre");
-    private static final UiElement4 paragraphElement_4 = UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, "p", 4);
-    private static final UiElement4 headingElementById = UiElement4.getInstance("'heading' element", UiLocatorType4.ID, "heading-id");
-    private static final UiElement4 elementByInvalidId = UiElement4.getInstance("invalid id", UiLocatorType4.ID, "non-existent-id");
-    private static final UiElement4 divElementById = UiElement4.getInstance("'div' element", UiLocatorType4.ID, "div-id");
-    private static final UiElement4 nestedInParentLocatedById = UiElement4.getInstance("'paragraph' element", UiLocatorType4.ID, "p-id", divElement);
-    private static final UiElement4 elementByClassError = UiElement4.getInstance("paragraph by class", UiLocatorType4.CLASS, "error");
-    private static final UiElement4 elementByClassErrorAndOrdinal = UiElement4.getInstance("paragraph by class and ordinal", UiLocatorType4.CLASS, "error", 2);
-    private static final UiElement4 childElementByClassErrorAndOrdinal = UiElement4.getInstance("paragraph by class and ordinal", UiLocatorType4.CLASS, "error", 2, bodyElement);
-    private static final UiElement4 elementByClassNames = UiElement4.getInstance("class 'names'", UiLocatorType4.CLASS, "names");
-    private static final UiElement4 elementByClassNewTables = UiElement4.getInstance("'new-tables' element", UiLocatorType4.CLASS, "new-tables");
-    private static final UiElement4 elementByClassNamesAndOrdinalTwoOfParentByClass = UiElement4.getInstance("class 'names'", UiLocatorType4.CLASS, "names", 2, elementByClassNewTables);
-    private static final UiElement4 elementByClassNamesAndOrdinalThree = UiElement4.getInstance("class 'names'", UiLocatorType4.CLASS, "names", 3);
-    private static final UiElement4 childOfParentByClassNames = UiElement4.getInstance("'th' element", UiLocatorType4.TAG, "th", elementByClassNames);
-    private static final UiElement4 childByOrdinalOfParentByClassNames = UiElement4.getInstance("nth 'th' element", UiLocatorType4.TAG, "th", 3, elementByClassNames);
-    private static final UiElement4 childOfParentByClassNamesAndOrdinal = UiElement4.getInstance("'th' element", UiLocatorType4.TAG, "th", elementByClassNamesAndOrdinalThree);
-    private static final UiElement4 childByOrdinalOfParentByClassNamesAndOrdinal = UiElement4.getInstance("'th' element", UiLocatorType4.TAG, "th", 2, elementByClassNamesAndOrdinalThree);
-    private static final UiElement4 childByTagOfParentByClassAndOrdinalOfGrandParentByClass = UiElement4.getInstance("'th' element", UiLocatorType4.TAG, "th", elementByClassNamesAndOrdinalTwoOfParentByClass);
+    private static final UiElement4 byIdNonexistent = UiElement4.getInstance("invalid id", UiLocatorType4.ID, "non-existent-id");
+    private static final UiElement4 byIdHeading = UiElement4.getInstance("'heading' element", UiLocatorType4.ID, "heading-id");
+    private static final UiElement4 byIdDiv = UiElement4.getInstance("'div' element", UiLocatorType4.ID, "div-id");
+    private static final UiElement4 byTagBody = UiElement4.getInstance("'body' element'", UiLocatorType4.TAG, "body");
+    private static final UiElement4 byTagH1 = UiElement4.getInstance("'heading' element'", UiLocatorType4.TAG, "h1");
+    private static final UiElement4 byTagA = UiElement4.getInstance("'anchor' element", UiLocatorType4.TAG, "a");
+    private static final UiElement4 byTagUl = UiElement4.getInstance("'unordered list", UiLocatorType4.TAG, "ul");
+    private static final UiElement4 byTagP = UiElement4.getInstance("'p' tag", UiLocatorType4.TAG, "p");
+    private static final UiElement4 byTagDiv = UiElement4.getInstance("'div' tag", UiLocatorType4.TAG, "div");
+    private static final UiElement4 byTagOl = UiElement4.getInstance("'ordered list", UiLocatorType4.TAG, "ol");
+    private static final UiElement4 byTagMeta = UiElement4.getInstance("'meta' element", UiLocatorType4.TAG, "meta");
+    private static final UiElement4 byTagBr = UiElement4.getInstance("'break' element", UiLocatorType4.TAG, "br");
+    private static final UiElement4 byTagPre = UiElement4.getInstance("'pre' element", UiLocatorType4.TAG, "pre");
+    private static final UiElement4 byClassError = UiElement4.getInstance("paragraph by class", UiLocatorType4.CLASS, "error");
+    private static final UiElement4 byClassNames = UiElement4.getInstance("class 'names'", UiLocatorType4.CLASS, "names");
+    private static final UiElement4 byTagOrdinal2 = UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, "p", 2);
+    private static final UiElement4 byTagOrdinal4 = UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, "p", 4);
+    private static final UiElement4 byClassOrdinal2 = UiElement4.getInstance("paragraph by class and ordinal", UiLocatorType4.CLASS, "error", 2);
+    private static final UiElement4 byIdAncestorByTag = UiElement4.getInstance("'paragraph' element", UiLocatorType4.ID, "p-id", byTagDiv);
+
+    //  TODO: byTagAncestorById
+    private static final UiElement4 byTagAncestorByTag = UiElement4.getInstance("'list item' element", UiLocatorType4.TAG, "li", byTagUl);
+    //  TODO: byClassAncestorByTag
+    private static final UiElement4 byTagAncestorByClass = UiElement4.getInstance("'th' element", UiLocatorType4.TAG, "th", byClassNames);
+    private static final UiElement4 byTagOrdinal3AncestorByTag = UiElement4.getInstance("'list item' element", UiLocatorType4.TAG, "li", 3, byTagOl);
+    private static final UiElement4 byClassOrdinal2AncestorByTag = UiElement4.getInstance("paragraph by class and ordinal", UiLocatorType4.CLASS, "error", 2, byTagBody);
+    private static final UiElement4 byClassNewTables = UiElement4.getInstance("'new-tables' element", UiLocatorType4.CLASS, "new-tables");
+    private static final UiElement4 byClassOrdinal2AncestorByClass = UiElement4.getInstance("class 'names'", UiLocatorType4.CLASS, "names", 2, byClassNewTables);
+    private static final UiElement4 byClassOrdinal3 = UiElement4.getInstance("class 'names'", UiLocatorType4.CLASS, "names", 3);
+    private static final UiElement4 byTagOrdinal3AncestorByClass = UiElement4.getInstance("nth 'th' element", UiLocatorType4.TAG, "th", 3, byClassNames);
+    private static final UiElement4 byTagAncestorByClassOrdinal3 = UiElement4.getInstance("'th' element", UiLocatorType4.TAG, "th", byClassOrdinal3);
+    private static final UiElement4 byTagOrdinal2AncestorByClassOrdinal3 = UiElement4.getInstance("'th' element", UiLocatorType4.TAG, "th", 2, byClassOrdinal3);
+    private static final UiElement4 byTagAncestorByClassOrdinal2AncestorByClass = UiElement4.getInstance("'th' element", UiLocatorType4.TAG, "th", byClassOrdinal2AncestorByClass);
     private static final String basicPage = "basic";
     private static final String paragraphsPage = "paragraphs";
     private static final String linkPage = "link";
@@ -58,25 +61,25 @@ public class UiElement4Tests {
         boolean isNotDisplayed = false;
         return new Object[][]
                 {
-                        {basicPage, bodyElement, isDisplayed}
-                        , {basicPage, headingElement, isDisplayed}
-                        , {basicPage, paragraphElement_2, isNotDisplayed}
-                        , {paragraphsPage, paragraphElement_2, isDisplayed}
-                        , {linkPage, anchorElement, isDisplayed}
-                        , {listPage, unorderedListItemElement, isDisplayed}
-                        , {listPage, nthOrderedListItemElement, isDisplayed}
-                        , {headPage, metaElement, isNotDisplayed}
-                        , {breakPage, breakElement, isNotDisplayed}
-                        , {prePage, preElement, isDisplayed}
-                        , {idPage, headingElementById, isDisplayed}
-                        , {idPage, elementByInvalidId, isNotDisplayed}
-                        , {idPage, divElementById, isDisplayed}
-                        , {idPage, nestedInParentLocatedById, isDisplayed}
-                        , {classPage, elementByClassError, isDisplayed}
-                        , {classPage, elementByClassErrorAndOrdinal, isDisplayed}
-                        , {classPage, childElementByClassErrorAndOrdinal, isDisplayed}
-                        , {tableClass1Page, childOfParentByClassNames, isDisplayed}
-                        , {tableClass1Page, childByOrdinalOfParentByClassNames, isDisplayed}
+                        {basicPage, byTagBody, isDisplayed}
+                        , {basicPage, byTagH1, isDisplayed}
+                        , {basicPage, byTagOrdinal2, isNotDisplayed}
+                        , {paragraphsPage, byTagOrdinal2, isDisplayed}
+                        , {linkPage, byTagA, isDisplayed}
+                        , {listPage, byTagAncestorByTag, isDisplayed}
+                        , {listPage, byTagOrdinal3AncestorByTag, isDisplayed}
+                        , {headPage, byTagMeta, isNotDisplayed}
+                        , {breakPage, byTagBr, isNotDisplayed}
+                        , {prePage, byTagPre, isDisplayed}
+                        , {idPage, byIdHeading, isDisplayed}
+                        , {idPage, byIdNonexistent, isNotDisplayed}
+                        , {idPage, byIdDiv, isDisplayed}
+                        , {idPage, byIdAncestorByTag, isDisplayed}
+                        , {classPage, byClassError, isDisplayed}
+                        , {classPage, byClassOrdinal2, isDisplayed}
+                        , {classPage, byClassOrdinal2AncestorByTag, isDisplayed}
+                        , {tableClass1Page, byTagAncestorByClass, isDisplayed}
+                        , {tableClass1Page, byTagOrdinal3AncestorByClass, isDisplayed}
                 };
     }
 
@@ -92,23 +95,23 @@ public class UiElement4Tests {
         String different = "I am different.";
         String differentToo = "I am different too.";
         return new Object[][]{
-                {basicPage, headingElement, firstHeading}
-                , {basicPage, paragraphElement, firstParagraph}
-                , {basicPage, bodyElement, fullBody}
-                , {basicPage, divElement, null}
-                , {linkPage, anchorElement, "This is a link"}
-                , {listPage, unorderedListItemElement, "Coffee"}
-                , {listPage, nthOrderedListItemElement, "Milk"}
-                , {breakPage, paragraphElement, "This is\na paragraph\nwith line breaks."}
-                , {prePage, preElement, myBonnie}
-                , {classPage, elementByClassError, different}
-                , {classPage, elementByClassErrorAndOrdinal, differentToo}
-                , {classPage, childElementByClassErrorAndOrdinal, differentToo}
-                , {tableClass1Page, childOfParentByClassNames, "Table 1 Firstname"}
-                , {tableClass1Page, childByOrdinalOfParentByClassNames, "Table 1 Age"}
-                , {tableClass1Page, childOfParentByClassNamesAndOrdinal, "Table 2 Firstname"}
-                , {tableClass1Page, childByOrdinalOfParentByClassNamesAndOrdinal, "Table 2 Lastname"}
-                , {tableClass1Page, childByTagOfParentByClassAndOrdinalOfGrandParentByClass, "Table 3 Firstname"}
+                {basicPage, byTagH1, firstHeading}
+                , {basicPage, byTagP, firstParagraph}
+                , {basicPage, byTagBody, fullBody}
+                , {basicPage, byTagDiv, null}
+                , {linkPage, byTagA, "This is a link"}
+                , {listPage, byTagAncestorByTag, "Coffee"}
+                , {listPage, byTagOrdinal3AncestorByTag, "Milk"}
+                , {breakPage, byTagP, "This is\na paragraph\nwith line breaks."}
+                , {prePage, byTagPre, myBonnie}
+                , {classPage, byClassError, different}
+                , {classPage, byClassOrdinal2, differentToo}
+                , {classPage, byClassOrdinal2AncestorByTag, differentToo}
+                , {tableClass1Page, byTagAncestorByClass, "Table 1 Firstname"}
+                , {tableClass1Page, byTagOrdinal3AncestorByClass, "Table 1 Age"}
+                , {tableClass1Page, byTagAncestorByClassOrdinal3, "Table 2 Firstname"}
+                , {tableClass1Page, byTagOrdinal2AncestorByClassOrdinal3, "Table 2 Lastname"}
+                , {tableClass1Page, byTagAncestorByClassOrdinal2AncestorByClass, "Table 3 Firstname"}
         };
     }
 
@@ -143,8 +146,8 @@ public class UiElement4Tests {
                 , {imagePage, imageElement, "alt", "W3Schools.com"}
                 , {imagePage, imageElement, "width", "104"}
                 , {imagePage, imageElement, "height", "142"}
-                , {stylePage, paragraphElement_2, "style", "color: red;"}
-                , {stylePage, paragraphElement_4, "style", "font-size: 50px;"}
+                , {stylePage, byTagOrdinal2, "style", "color: red;"}
+                , {stylePage, byTagOrdinal4, "style", "font-size: 50px;"}
         };
     }
 
@@ -203,7 +206,7 @@ public class UiElement4Tests {
 
     @Test(dataProvider = "scenarios_getText")
     public void getText(String page, UiElement4 element, String expected) {
-        UiHost4.getInstance().load(resources.getPageUrl(page));
+          UiHost4.getInstance().load(resources.getPageUrl(page));
         String actual = element.getText();
         Assert.assertEquals(actual, expected);
     }
@@ -238,7 +241,7 @@ public class UiElement4Tests {
         //noinspection UnnecessaryLocalVariable
         String expected = red;
         UiHost4.getInstance().load(resources.getPageUrl(stylePage));
-        String actual = paragraphElement_2.getStyleProperty("color");
+        String actual = byTagOrdinal2.getStyleProperty("color");
         Assert.assertEquals(actual, expected);
     }
 }
