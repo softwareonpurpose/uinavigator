@@ -84,7 +84,7 @@ public class UiElement4Tests {
                         , {basicPage, byClassNonexistent, isNotDisplayed}
                         , {tableClass1Page, byClassNames, isDisplayed}
                         , {basicPage, byTagOrdinalNonexistent, isNotDisplayed}
-                        , {basicPage, byTagOrdinal2, isNotDisplayed}
+                        , {paragraphsPage, byTagOrdinal2, isDisplayed}
                         , {classPage, byClassOrdinalNonexistent, isNotDisplayed}
                         , {classPage, byClassOrdinal2, isDisplayed}
                         , {idPage, byTagNonexistentAncestorById, isNotDisplayed}
@@ -93,7 +93,6 @@ public class UiElement4Tests {
                         , {basicPage, byTagNonexistentAncestorByTag, isNotDisplayed}
                         , {basicPage, byTagAncestorByTagNonexistent, isNotDisplayed}
                         , {listPage, byTagAncestorByTag, isDisplayed}
-                        , {paragraphsPage, byTagOrdinal2, isDisplayed}
                         , {listPage, byTagOrdinal3AncestorByTag, isDisplayed}
                         , {headPage, byTagMeta, isNotDisplayed}
                         , {breakPage, byTagBr, isNotDisplayed}
