@@ -8,6 +8,37 @@ import org.testng.annotations.Test;
 @Test
 public class UiElement4Tests {
     private static final TestResources resources = TestResources.getInstance();
+
+    /*  TYPE    ORDINAL     ANCESTOR TYPE   ORDINAL
+
+        id
+        tag
+        class
+        tag     #
+        class   #
+        id                          id
+        tag                         id
+        tag                         tag
+        tag                         tag     #
+        tag                         class
+        tag                         class   #
+        tag     #                   id
+        tag     #                   tag
+        tag     #                   tag     #
+        tag     #                   class
+        tag     #                   class   #
+        class                       id
+        class                       tag
+        class                       tag     #
+        class                       class
+        class                       class   #
+        class   #                   id
+        class   #                   tag
+        class   #                   tag     #
+        class   #                   class
+        class   #                   class   #
+     */
+
     private static final UiElement4 byIdNonexistent = UiElement4.getInstance("invalid id", UiLocatorType4.ID, "non-existent-id");
     private static final UiElement4 byIdHeading = UiElement4.getInstance("'heading' element", UiLocatorType4.ID, "heading-id");
     private static final UiElement4 byIdDiv = UiElement4.getInstance("'div' element", UiLocatorType4.ID, "div-id");
@@ -27,11 +58,15 @@ public class UiElement4Tests {
     private static final UiElement4 byTagOrdinal4 = UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, "p", 4);
     private static final UiElement4 byClassOrdinal2 = UiElement4.getInstance("paragraph by class and ordinal", UiLocatorType4.CLASS, "error", 2);
     private static final UiElement4 byIdAncestorByTag = UiElement4.getInstance("'paragraph' element", UiLocatorType4.ID, "p-id", byTagDiv);
-    
+
     private static final UiElement4 byTagAncestorById = UiElement4.getInstance("'p' tag", UiLocatorType4.TAG, "p", byIdDiv);
     private static final UiElement4 byTagAncestorByTag = UiElement4.getInstance("'list item' element", UiLocatorType4.TAG, "li", byTagUl);
     private static final UiElement4 byClassAncestorByTag = UiElement4.getInstance("'paragraph' element", UiLocatorType4.CLASS, "error", byTagDiv);
+
+    //  TODO: byIdAncestorByClass
+    //  TODO: byTagAncestorById
     private static final UiElement4 byTagAncestorByClass = UiElement4.getInstance("'th' element", UiLocatorType4.TAG, "th", byClassNames);
+
     private static final UiElement4 byTagOrdinal3AncestorByTag = UiElement4.getInstance("'list item' element", UiLocatorType4.TAG, "li", 3, byTagOl);
     private static final UiElement4 byClassOrdinal2AncestorByTag = UiElement4.getInstance("paragraph by class and ordinal", UiLocatorType4.CLASS, "error", 2, byTagBody);
     private static final UiElement4 byClassNewTables = UiElement4.getInstance("'new-tables' element", UiLocatorType4.CLASS, "new-tables");
@@ -54,7 +89,7 @@ public class UiElement4Tests {
     private static final String classPage = "class";
     private static final String red = "rgba(255, 0, 0, 1)";
     private static final String tableClass1Page = "tableClass1";
-    
+
     @DataProvider
     public static Object[][] scenarios_isDisplayed() {
         boolean isDisplayed = true;
@@ -83,7 +118,7 @@ public class UiElement4Tests {
                         , {tableClass1Page, byTagOrdinal3AncestorByClass, isDisplayed}
                 };
     }
-    
+
     @DataProvider
     public static Object[][] scenarios_getText() {
         //noinspection TextBlockMigration
@@ -116,7 +151,7 @@ public class UiElement4Tests {
                 , {tableClass1Page, byTagAncestorByClassOrdinal2AncestorByClass, "Table 3 Firstname"}
         };
     }
-    
+
     @DataProvider
     public static Object[][] scenarios_getHref() {
         return new Object[][]{
@@ -125,7 +160,7 @@ public class UiElement4Tests {
                 , {linkPage, UiElement4.getInstance("'Paragraph' tag", UiLocatorType4.TAG, "p"), null}
         };
     }
-    
+
     @DataProvider
     public static Object[][] scenarios_click() {
         return new Object[][]{
@@ -134,7 +169,7 @@ public class UiElement4Tests {
                 , {basicPage, UiElement4.getInstance("'heading' element'", UiLocatorType4.TAG, "h1"), "basic"}
         };
     }
-    
+
     @DataProvider
     public static Object[][] scenarios_getAttribute() {
         UiElement4 imageElement =
@@ -152,12 +187,12 @@ public class UiElement4Tests {
                 , {stylePage, byTagOrdinal4, "style", "font-size: 50px;"}
         };
     }
-    
+
     @AfterMethod
     public void terminate() {
         UiNavigator.getInstance().quitDriver();
     }
-    
+
     @SuppressWarnings("rawtypes")
     @Test
     public void getInstance() {
@@ -168,7 +203,7 @@ public class UiElement4Tests {
         Class actual = UiElement4.getInstance(description, locatorType, locatorValue).getClass();
         Assert.assertEquals(actual, expected);
     }
-    
+
     @SuppressWarnings("rawtypes")
     @Test
     public void getInstance_ordinal() {
@@ -180,7 +215,7 @@ public class UiElement4Tests {
         Class actual = UiElement4.getInstance(description, locatorType, locatorValue, ordinal).getClass();
         Assert.assertEquals(actual, expected);
     }
-    
+
     @SuppressWarnings("rawtypes")
     @Test
     public void getInstance_parent() {
@@ -189,7 +224,7 @@ public class UiElement4Tests {
         Class actual = UiElement4.getInstance("'List Item' element", UiLocatorType4.TAG, "li", parent).getClass();
         Assert.assertEquals(actual, expected);
     }
-    
+
     @SuppressWarnings("rawtypes")
     @Test
     public void getInstance_ordinal_parent() {
@@ -198,28 +233,28 @@ public class UiElement4Tests {
         Class actual = UiElement4.getInstance("'List Item' element", UiLocatorType4.TAG, "li", 2, parent).getClass();
         Assert.assertEquals(actual, expected);
     }
-    
+
     @Test(dataProvider = "scenarios_isDisplayed")
     public void isDisplayed(String page, UiElement4 element, boolean expected) {
         UiHost4.getInstance().load(resources.getPageUrl(page));
         boolean actual = element.isDisplayed();
         Assert.assertEquals(actual, expected);
     }
-    
+
     @Test(dataProvider = "scenarios_getText")
     public void getText(String page, UiElement4 element, String expected) {
         UiHost4.getInstance().load(resources.getPageUrl(page));
         String actual = element.getText();
         Assert.assertEquals(actual, expected);
     }
-    
+
     @Test(dataProvider = "scenarios_getHref")
     public void getHref(String page, UiElement4 element, String expected) {
         UiHost4.getInstance().load(resources.getPageUrl(page));
         String actual = element.getHref();
         Assert.assertEquals(actual, expected);
     }
-    
+
     @Test(dataProvider = "scenarios_click")
     public void click(String page, UiElement4 element, String expected) {
         expected = expected.contains("http")
@@ -230,14 +265,14 @@ public class UiElement4Tests {
         String actual = UiHost4.getInstance().getCurrentUrl();
         Assert.assertEquals(actual, expected);
     }
-    
+
     @Test(dataProvider = "scenarios_getAttribute")
     public void getAttribute(String page, UiElement4 element, String attribute, String expected) {
         UiHost4.getInstance().load(resources.getPageUrl(page));
         String actual = element.getAttribute(attribute);
         Assert.assertEquals(actual, expected);
     }
-    
+
     @Test
     public void getStyleProperty() {
         //noinspection UnnecessaryLocalVariable
