@@ -8,37 +8,6 @@ import org.testng.annotations.Test;
 @Test
 public class UiElement4Tests {
     private static final TestResources resources = TestResources.getInstance();
-
-    /*  TYPE    ORDINAL     ANCESTOR TYPE   ORDINAL
-
-        id
-        tag
-        class
-        tag     #
-        class   #
-        id                          id
-        tag                         id
-        tag                         tag
-        tag                         tag     #
-        tag                         class
-        tag                         class   #
-        tag     #                   id
-        tag     #                   tag
-        tag     #                   tag     #
-        tag     #                   class
-        tag     #                   class   #
-        class                       id
-        class                       tag
-        class                       tag     #
-        class                       class
-        class                       class   #
-        class   #                   id
-        class   #                   tag
-        class   #                   tag     #
-        class   #                   class
-        class   #                   class   #
-     */
-
     private static final UiElement4 byIdNonexistent = UiElement4.getInstance("invalid id", UiLocatorType4.ID, "non-existent-id");
     private static final UiElement4 byIdHeading = UiElement4.getInstance("'heading' element", UiLocatorType4.ID, "heading-id");
     private static final UiElement4 byIdDiv = UiElement4.getInstance("'div' element", UiLocatorType4.ID, "div-id");
@@ -57,25 +26,32 @@ public class UiElement4Tests {
     private static final UiElement4 byTagOrdinal2 = UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, "p", 2);
     private static final UiElement4 byTagOrdinal4 = UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, "p", 4);
     private static final UiElement4 byClassOrdinal2 = UiElement4.getInstance("paragraph by class and ordinal", UiLocatorType4.CLASS, "error", 2);
+    //  TODO:  byIdAncestorById
     private static final UiElement4 byIdAncestorByTag = UiElement4.getInstance("'paragraph' element", UiLocatorType4.ID, "p-id", byTagDiv);
-
     private static final UiElement4 byTagAncestorById = UiElement4.getInstance("'p' tag", UiLocatorType4.TAG, "p", byIdDiv);
     private static final UiElement4 byTagAncestorByTag = UiElement4.getInstance("'list item' element", UiLocatorType4.TAG, "li", byTagUl);
-    private static final UiElement4 byClassAncestorByTag = UiElement4.getInstance("'paragraph' element", UiLocatorType4.CLASS, "error", byTagDiv);
-
-    //  TODO: byIdAncestorByClass
-    //  TODO: byTagAncestorById
+    //  TODO:   byTagAncestorByTagOrdinal
     private static final UiElement4 byTagAncestorByClass = UiElement4.getInstance("'th' element", UiLocatorType4.TAG, "th", byClassNames);
+    //  TODO:   Rework this line to use previously defined fields
+    //   private static final UiElement4 byTagAncestorByClassOrdinal3 = UiElement4.getInstance("'th' element", UiLocatorType4.TAG, "th", byClassOrdinal3);
 
+    //  TODO:   byTagOrdinalAncestorById
     private static final UiElement4 byTagOrdinal3AncestorByTag = UiElement4.getInstance("'list item' element", UiLocatorType4.TAG, "li", 3, byTagOl);
-    private static final UiElement4 byClassOrdinal2AncestorByTag = UiElement4.getInstance("paragraph by class and ordinal", UiLocatorType4.CLASS, "error", 2, byTagBody);
-    private static final UiElement4 byClassNewTables = UiElement4.getInstance("'new-tables' element", UiLocatorType4.CLASS, "new-tables");
-    private static final UiElement4 byClassOrdinal2AncestorByClass = UiElement4.getInstance("class 'names'", UiLocatorType4.CLASS, "names", 2, byClassNewTables);
-    private static final UiElement4 byTagAncestorByClassOrdinal2AncestorByClass = UiElement4.getInstance("'th' element", UiLocatorType4.TAG, "th", byClassOrdinal2AncestorByClass);
-    private static final UiElement4 byClassOrdinal3 = UiElement4.getInstance("class 'names'", UiLocatorType4.CLASS, "names", 3);
+    //  TODO:   byTagOrdinalAncestorByTagOrdinal
     private static final UiElement4 byTagOrdinal3AncestorByClass = UiElement4.getInstance("nth 'th' element", UiLocatorType4.TAG, "th", 3, byClassNames);
-    private static final UiElement4 byTagAncestorByClassOrdinal3 = UiElement4.getInstance("'th' element", UiLocatorType4.TAG, "th", byClassOrdinal3);
-    private static final UiElement4 byTagOrdinal2AncestorByClassOrdinal3 = UiElement4.getInstance("'th' element", UiLocatorType4.TAG, "th", 2, byClassOrdinal3);
+    //  TODO:   Rework this line to use previously defined fields
+    //  private static final UiElement4 byTagOrdinal2AncestorByClassOrdinal3 = UiElement4.getInstance("'th' element", UiLocatorType4.TAG, "th", 2, byClassOrdinal3);
+    //  TODO:   byClassAncestorById
+    private static final UiElement4 byClassAncestorByTag = UiElement4.getInstance("'paragraph' element", UiLocatorType4.CLASS, "error", byTagDiv);
+    //  TODO:   byClassAncestorByTagOrdinal
+    //  TODO:   byClassAncestorByClass
+    //  TODO:   byClassAncestorByClassOrdinal
+    //  TODO:   byClassOrdinalAncestorById
+    private static final UiElement4 byClassOrdinal2AncestorByTag = UiElement4.getInstance("paragraph by class and ordinal", UiLocatorType4.CLASS, "error", 2, byTagBody);
+    //  TODO:   byClassOrdinalAncestorByTagOrdinal
+    //  TODO:   Rework this line to use previously defined fields
+    //  private static final UiElement4 byClassOrdinal2AncestorByClass = UiElement4.getInstance("class 'names'", UiLocatorType4.CLASS, "names", 2, byClassNewTables);
+    //  TODO:   byClassOrdinalAncestorByClassOrdinal
     private static final String basicPage = "basic";
     private static final String paragraphsPage = "paragraphs";
     private static final String linkPage = "link";
@@ -146,9 +122,9 @@ public class UiElement4Tests {
                 , {classPage, byClassAncestorByTag, differentToo}
                 , {tableClass1Page, byTagAncestorByClass, "Table 1 Firstname"}
                 , {tableClass1Page, byTagOrdinal3AncestorByClass, "Table 1 Age"}
-                , {tableClass1Page, byTagAncestorByClassOrdinal3, "Table 2 Firstname"}
-                , {tableClass1Page, byTagOrdinal2AncestorByClassOrdinal3, "Table 2 Lastname"}
-                , {tableClass1Page, byTagAncestorByClassOrdinal2AncestorByClass, "Table 3 Firstname"}
+                , {tableClass1Page, null, "Table 2 Firstname"}
+                , {tableClass1Page, null, "Table 2 Lastname"}
+                , {tableClass1Page, null, "Table 3 Firstname"}
         };
     }
 
