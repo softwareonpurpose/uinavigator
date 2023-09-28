@@ -19,14 +19,12 @@ public class GetElementWithClass extends GetWebElementBehavior {
 
     @Override
     WebElement execute() {
-        List<WebElement> elements;
-        elements = hasParent() ? getParent().findElements(locator) : UiNavigator.getInstance().getDriver().findElements(locator);
+        List<WebElement> elements = UiNavigator.getInstance().getDriver().findElements(locator);
         if (index < elements.size()) {
             return elements.get(index);
-        } else {
-            LogManager.getLogger("").warn(String.format("Element NOT FOUND using %s index: %d", locator, index));
-            return null;
         }
+        LogManager.getLogger("").warn(String.format("Element NOT FOUND using %s", locator));
+        return null;
     }
 
     @Override

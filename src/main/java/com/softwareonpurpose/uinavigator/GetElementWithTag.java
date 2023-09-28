@@ -3,11 +3,15 @@ package com.softwareonpurpose.uinavigator;
 import org.apache.logging.log4j.LogManager;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 public class GetElementWithTag extends GetWebElementBehavior {
+
+    private final transient int index;
 
     public GetElementWithTag(String locatorValue, Integer ordinal, UiElement4 parent) {
         super(locatorValue, ordinal, parent);
-
+        index = ordinal == null || ordinal < 0 ? 0 : ordinal - 1;
     }
 
     public static GetElementWithTag getInstance(String locatorValue, Integer ordinal, UiElement4 parent) {
@@ -16,19 +20,17 @@ public class GetElementWithTag extends GetWebElementBehavior {
 
     @Override
     public WebElement execute() {
-        try {
-            return hasParent() && isParentLocatedByClass() ? getParent().findElement(locator) : UiNavigator.getInstance().getDriver().findElement(locator);
-        } catch (Exception e) {
-            LogManager.getLogger("").warn(String.format("Element NOT FOUND using %s", locator));
+        List<WebElement> elements = UiNavigator.getInstance().getDriver().findElements(locator);
+        if (index < elements.size()) {
+            return elements.get(index);
         }
+        LogManager.getLogger("").warn(String.format("Element NOT FOUND using %s", locator));
         return null;
     }
 
     @Override
     protected String composeCss(String locatorValue) {
-        String thisCss = String.format("%s", locatorValue);
-        thisCss += String.format(":nth-of-type(%s)", ordinal);
-        String parentCss = isParentLocatedByClass() ? "" : String.format("%s ", getParentCss());
-        return String.format("%s%s", parentCss, thisCss);
+        String parentCss = hasParent() ? parent.getCss() : "";
+        return String.format("%s %s", parentCss, locatorValue);
     }
 }

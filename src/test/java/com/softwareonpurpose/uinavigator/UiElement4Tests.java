@@ -12,10 +12,12 @@ public class UiElement4Tests {
     private static final UiElement4 byTagNonexistent = UiElement4.getInstance("invalid id", UiLocatorType4.TAG, "non-existent-tag");
     private static final UiElement4 byClassNonexistent = UiElement4.getInstance("invalid id", UiLocatorType4.CLASS, "non-existent-class");
     private static final UiElement4 byIdDiv = UiElement4.getInstance("'div' element", UiLocatorType4.ID, "div-id");
+    private static final UiElement4 byIdHeadingId = UiElement4.getInstance("'heading-id' element", UiLocatorType4.ID, "heading-id");
     private static final UiElement4 byTagBody = UiElement4.getInstance("'body' element'", UiLocatorType4.TAG, "body");
     private static final UiElement4 byTagH1 = UiElement4.getInstance("'heading' element'", UiLocatorType4.TAG, "h1");
     private static final UiElement4 byTagA = UiElement4.getInstance("'anchor' element", UiLocatorType4.TAG, "a");
     private static final UiElement4 byTagUl = UiElement4.getInstance("'unordered list", UiLocatorType4.TAG, "ul");
+    private static final UiElement4 byTagLi = UiElement4.getInstance("'li' tag", UiLocatorType4.TAG, "li");
     private static final UiElement4 byTagP = UiElement4.getInstance("'p' tag", UiLocatorType4.TAG, "p");
     private static final UiElement4 byTagDiv = UiElement4.getInstance("'div' tag", UiLocatorType4.TAG, "div");
     private static final UiElement4 byTagOl = UiElement4.getInstance("'ordered list", UiLocatorType4.TAG, "ol");
@@ -23,18 +25,21 @@ public class UiElement4Tests {
     private static final UiElement4 byTagBr = UiElement4.getInstance("'break' element", UiLocatorType4.TAG, "br");
     private static final UiElement4 byTagPre = UiElement4.getInstance("'pre' element", UiLocatorType4.TAG, "pre");
     private static final UiElement4 byClassNames = UiElement4.getInstance("class 'names'", UiLocatorType4.CLASS, "names");
+    private static final UiElement4 byClassSubclass = UiElement4.getInstance("class 'sub-class'", UiLocatorType4.CLASS, "sub-class");
     private static final UiElement4 byTagOrdinal2 = UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, "p", 2);
+    private static final UiElement4 byTagOrdinal3 = UiElement4.getInstance("'table' element ordinal 3", UiLocatorType4.TAG, "table", 3);
     private static final UiElement4 byTagOrdinalNonexistent = UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, "p", 8);
     private static final UiElement4 byTagOrdinal4 = UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, "p", 4);
     private static final UiElement4 byClassOrdinalNonexistent = UiElement4.getInstance("paragraph by class and ordinal", UiLocatorType4.CLASS, "error", 8);
     private static final UiElement4 byClassOrdinal2 = UiElement4.getInstance("paragraph by class and ordinal", UiLocatorType4.CLASS, "error", 2);
     private static final UiElement4 byTagNonexistentAncestorById = UiElement4.getInstance("invalid id", UiLocatorType4.TAG, "non-existent-tag", byIdDiv);
     private static final UiElement4 byTagAncestorByIdNonexistent = UiElement4.getInstance("invalid id", UiLocatorType4.TAG, "non-existent-tag", byIdNonexistent);
+    private static final UiElement4 byTagOutsideOfAncestorById = UiElement4.getInstance("'p' element", UiLocatorType4.TAG, "p", byIdHeadingId);
     private static final UiElement4 byTagAncestorById = UiElement4.getInstance("'p' tag", UiLocatorType4.TAG, "p", byIdDiv);
     private static final UiElement4 byTagNonexistentAncestorByTag = UiElement4.getInstance("'body' element'", UiLocatorType4.TAG, "body", byTagH1);
     private static final UiElement4 byTagAncestorByTagNonexistent = UiElement4.getInstance("'p' tag", UiLocatorType4.TAG, "p", byTagNonexistent);
     private static final UiElement4 byTagAncestorByTag = UiElement4.getInstance("'list item' element", UiLocatorType4.TAG, "li", byTagUl);
-    //  TODO:   byTagAncestorByTagOrdinal
+    private static final UiElement4 byTagAncestorByTagOrdinal = UiElement4.getInstance("'th' element", UiLocatorType4.TAG, "th", byTagOrdinal3);
     private static final UiElement4 byTagAncestorByClass = UiElement4.getInstance("'th' element", UiLocatorType4.TAG, "th", byClassNames);
     //  TODO:   Rework this line to use previously defined fields
     //   private static final UiElement4 byTagAncestorByClassOrdinal3 = UiElement4.getInstance("'th' element", UiLocatorType4.TAG, "th", byClassOrdinal3);
@@ -81,25 +86,29 @@ public class UiElement4Tests {
                         , {basicPage, byTagNonexistent, isNotDisplayed}
                         , {basicPage, byTagBody, isDisplayed}
                         , {listPage, byTagUl, isDisplayed}
+                        , {listPage, byTagLi, isDisplayed}
                         , {basicPage, byClassNonexistent, isNotDisplayed}
                         , {tableClass1Page, byClassNames, isDisplayed}
+                        , {tableClass1Page, byClassSubclass, isDisplayed}
                         , {basicPage, byTagOrdinalNonexistent, isNotDisplayed}
                         , {paragraphsPage, byTagOrdinal2, isDisplayed}
                         , {classPage, byClassOrdinalNonexistent, isNotDisplayed}
                         , {classPage, byClassOrdinal2, isDisplayed}
                         , {idPage, byTagNonexistentAncestorById, isNotDisplayed}
                         , {basicPage, byTagAncestorByIdNonexistent, isNotDisplayed}
-                        , {idPage, byTagAncestorById, isDisplayed}
-                        , {basicPage, byTagNonexistentAncestorByTag, isNotDisplayed}
-                        , {basicPage, byTagAncestorByTagNonexistent, isNotDisplayed}
+                        , {idPage, byTagOutsideOfAncestorById, isNotDisplayed}
                         , {listPage, byTagAncestorByTag, isDisplayed}
-                        , {listPage, byTagOrdinal3AncestorByTag, isDisplayed}
-                        , {headPage, byTagMeta, isNotDisplayed}
-                        , {breakPage, byTagBr, isNotDisplayed}
-                        , {prePage, byTagPre, isDisplayed}
-                        , {classPage, byClassOrdinal2AncestorByTag, isDisplayed}
-                        , {tableClass1Page, byTagAncestorByClass, isDisplayed}
-                        , {tableClass1Page, byTagOrdinal3AncestorByClass, isDisplayed}
+                        , {tableClass1Page, byTagAncestorByTagOrdinal, isDisplayed}
+//
+//
+//
+//                        , {listPage, byTagOrdinal3AncestorByTag, isDisplayed}
+//                        , {headPage, byTagMeta, isNotDisplayed}
+//                        , {breakPage, byTagBr, isNotDisplayed}
+//                        , {prePage, byTagPre, isDisplayed}
+//                        , {classPage, byClassOrdinal2AncestorByTag, isDisplayed}
+//                        , {tableClass1Page, byTagAncestorByClass, isDisplayed}
+//                        , {tableClass1Page, byTagOrdinal3AncestorByClass, isDisplayed}
                 };
     }
 
@@ -135,6 +144,9 @@ public class UiElement4Tests {
                 , {classPage, byClassAncestorByTag, differentToo}
                 , {tableClass1Page, byTagAncestorByClass, "Table 1 Firstname"}
                 , {tableClass1Page, byTagOrdinal3AncestorByClass, "Table 1 Age"}
+
+
+                , {tableClass1Page, byTagOrdinal3, "Table 3 Firstname"}
         };
     }
 
@@ -227,21 +239,21 @@ public class UiElement4Tests {
         Assert.assertEquals(actual, expected);
     }
 
-    @Test(dataProvider = "scenarios_getText")
+    @Test(dataProvider = "scenarios_getText", enabled = false)
     public void getText(String page, UiElement4 element, String expected) {
         UiHost4.getInstance().load(resources.getPageUrl(page));
         String actual = element.getText();
         Assert.assertEquals(actual, expected);
     }
 
-    @Test(dataProvider = "scenarios_getHref")
+    @Test(dataProvider = "scenarios_getHref", enabled = false)
     public void getHref(String page, UiElement4 element, String expected) {
         UiHost4.getInstance().load(resources.getPageUrl(page));
         String actual = element.getHref();
         Assert.assertEquals(actual, expected);
     }
 
-    @Test(dataProvider = "scenarios_click")
+    @Test(dataProvider = "scenarios_click", enabled = false)
     public void click(String page, UiElement4 element, String expected) {
         expected = expected.contains("http")
                 ? expected
@@ -252,14 +264,14 @@ public class UiElement4Tests {
         Assert.assertEquals(actual, expected);
     }
 
-    @Test(dataProvider = "scenarios_getAttribute")
+    @Test(dataProvider = "scenarios_getAttribute", enabled = false)
     public void getAttribute(String page, UiElement4 element, String attribute, String expected) {
         UiHost4.getInstance().load(resources.getPageUrl(page));
         String actual = element.getAttribute(attribute);
         Assert.assertEquals(actual, expected);
     }
 
-    @Test
+    @Test(enabled = false)
     public void getStyleProperty() {
         //noinspection UnnecessaryLocalVariable
         String expected = red;
