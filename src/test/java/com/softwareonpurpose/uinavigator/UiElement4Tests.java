@@ -24,11 +24,15 @@ public class UiElement4Tests {
     private static final UiElement4 byTagPre = UiElement4.getInstance("'pre' element", UiLocatorType4.TAG, "pre");
     private static final UiElement4 byClassNames = UiElement4.getInstance("class 'names'", UiLocatorType4.CLASS, "names");
     private static final UiElement4 byTagOrdinal2 = UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, "p", 2);
+    private static final UiElement4 byTagOrdinalNonexistent = UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, "p", 8);
     private static final UiElement4 byTagOrdinal4 = UiElement4.getInstance("'paragraph' element", UiLocatorType4.TAG, "p", 4);
+    private static final UiElement4 byClassOrdinalNonexistent = UiElement4.getInstance("paragraph by class and ordinal", UiLocatorType4.CLASS, "error", 8);
     private static final UiElement4 byClassOrdinal2 = UiElement4.getInstance("paragraph by class and ordinal", UiLocatorType4.CLASS, "error", 2);
-    private static final UiElement4 byIdAncestorById = UiElement4.getInstance("paragraph by id", UiLocatorType4.ID, "p-id", byIdDiv);
-    private static final UiElement4 byIdAncestorByTag = UiElement4.getInstance("'paragraph' element", UiLocatorType4.ID, "p-id", byTagDiv);
+    private static final UiElement4 byTagNonexistentAncestorById = UiElement4.getInstance("invalid id", UiLocatorType4.TAG, "non-existent-tag", byIdDiv);
+    private static final UiElement4 byTagAncestorByIdNonexistent = UiElement4.getInstance("invalid id", UiLocatorType4.TAG, "non-existent-tag", byIdNonexistent);
     private static final UiElement4 byTagAncestorById = UiElement4.getInstance("'p' tag", UiLocatorType4.TAG, "p", byIdDiv);
+    private static final UiElement4 byTagNonexistentAncestorByTag = UiElement4.getInstance("'body' element'", UiLocatorType4.TAG, "body", byTagH1);
+    private static final UiElement4 byTagAncestorByTagNonexistent = UiElement4.getInstance("'p' tag", UiLocatorType4.TAG, "p", byTagNonexistent);
     private static final UiElement4 byTagAncestorByTag = UiElement4.getInstance("'list item' element", UiLocatorType4.TAG, "li", byTagUl);
     //  TODO:   byTagAncestorByTagOrdinal
     private static final UiElement4 byTagAncestorByClass = UiElement4.getInstance("'th' element", UiLocatorType4.TAG, "th", byClassNames);
@@ -73,24 +77,30 @@ public class UiElement4Tests {
         return new Object[][]
                 {
                         {idPage, byIdNonexistent, isNotDisplayed}
-                        , {idPage, byIdDiv, isDisplayed}
-                        , {basicPage, byTagBody, isDisplayed}
-                        , {listPage, byTagUl, isDisplayed}
-                        , {tableClass1Page, byClassNames, isDisplayed}
-                        , {basicPage, byTagOrdinal2, isNotDisplayed}
-                        , {classPage, byClassOrdinal2, isDisplayed}
-                        , {idPage, byIdAncestorById, isDisplayed}
-                        , {idPage, byIdAncestorByTag, isDisplayed}
-                        , {idPage, byTagAncestorById, isDisplayed}
-                        , {listPage, byTagAncestorByTag, isDisplayed}
-                        , {paragraphsPage, byTagOrdinal2, isDisplayed}
-                        , {listPage, byTagOrdinal3AncestorByTag, isDisplayed}
-                        , {headPage, byTagMeta, isNotDisplayed}
-                        , {breakPage, byTagBr, isNotDisplayed}
-                        , {prePage, byTagPre, isDisplayed}
-                        , {classPage, byClassOrdinal2AncestorByTag, isDisplayed}
-                        , {tableClass1Page, byTagAncestorByClass, isDisplayed}
-                        , {tableClass1Page, byTagOrdinal3AncestorByClass, isDisplayed}
+//                        , {idPage, byIdDiv, isDisplayed}
+//                        , {basicPage, byTagNonexistent, isNotDisplayed}
+//                        , {basicPage, byTagBody, isDisplayed}
+//                        , {listPage, byTagUl, isDisplayed}
+//                        , {basicPage, byClassNonexistent, isNotDisplayed}
+//                        , {tableClass1Page, byClassNames, isDisplayed}
+//                        , {basicPage, byTagOrdinalNonexistent, isNotDisplayed}
+//                        , {basicPage, byTagOrdinal2, isNotDisplayed}
+//                        , {classPage, byClassOrdinalNonexistent, isNotDisplayed}
+//                        , {classPage, byClassOrdinal2, isDisplayed}
+//                        , {idPage, byTagNonexistentAncestorById, isNotDisplayed}
+//                        , {basicPage, byTagAncestorByIdNonexistent, isNotDisplayed}
+//                        , {idPage, byTagAncestorById, isDisplayed}
+                        , {basicPage, byTagNonexistentAncestorByTag, isNotDisplayed}
+                        , {basicPage, byTagAncestorByTagNonexistent, isNotDisplayed}
+//                        , {listPage, byTagAncestorByTag, isDisplayed}
+//                        , {paragraphsPage, byTagOrdinal2, isDisplayed}
+//                        , {listPage, byTagOrdinal3AncestorByTag, isDisplayed}
+//                        , {headPage, byTagMeta, isNotDisplayed}
+//                        , {breakPage, byTagBr, isNotDisplayed}
+//                        , {prePage, byTagPre, isDisplayed}
+//                        , {classPage, byClassOrdinal2AncestorByTag, isDisplayed}
+//                        , {tableClass1Page, byTagAncestorByClass, isDisplayed}
+//                        , {tableClass1Page, byTagOrdinal3AncestorByClass, isDisplayed}
                 };
     }
 

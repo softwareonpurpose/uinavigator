@@ -10,7 +10,7 @@ import org.openqa.selenium.WebElement;
 public class UiElement4 {
     private static Logger logger;
     private final String description;
-    private final transient GetWebElementBehavior getElementBehavior;
+    private final GetWebElementBehavior getElementBehavior;
     
     private UiElement4(String description, String locatorType, String locatorValue, Integer ordinal, UiElement4 parent) {
         this.description = description;
