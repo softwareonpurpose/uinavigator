@@ -77,30 +77,30 @@ public class UiElement4Tests {
         return new Object[][]
                 {
                         {idPage, byIdNonexistent, isNotDisplayed}
-//                        , {idPage, byIdDiv, isDisplayed}
-//                        , {basicPage, byTagNonexistent, isNotDisplayed}
-//                        , {basicPage, byTagBody, isDisplayed}
-//                        , {listPage, byTagUl, isDisplayed}
-//                        , {basicPage, byClassNonexistent, isNotDisplayed}
-//                        , {tableClass1Page, byClassNames, isDisplayed}
-//                        , {basicPage, byTagOrdinalNonexistent, isNotDisplayed}
-//                        , {basicPage, byTagOrdinal2, isNotDisplayed}
-//                        , {classPage, byClassOrdinalNonexistent, isNotDisplayed}
-//                        , {classPage, byClassOrdinal2, isDisplayed}
-//                        , {idPage, byTagNonexistentAncestorById, isNotDisplayed}
-//                        , {basicPage, byTagAncestorByIdNonexistent, isNotDisplayed}
-//                        , {idPage, byTagAncestorById, isDisplayed}
+                        , {idPage, byIdDiv, isDisplayed}
+                        , {basicPage, byTagNonexistent, isNotDisplayed}
+                        , {basicPage, byTagBody, isDisplayed}
+                        , {listPage, byTagUl, isDisplayed}
+                        , {basicPage, byClassNonexistent, isNotDisplayed}
+                        , {tableClass1Page, byClassNames, isDisplayed}
+                        , {basicPage, byTagOrdinalNonexistent, isNotDisplayed}
+                        , {basicPage, byTagOrdinal2, isNotDisplayed}
+                        , {classPage, byClassOrdinalNonexistent, isNotDisplayed}
+                        , {classPage, byClassOrdinal2, isDisplayed}
+                        , {idPage, byTagNonexistentAncestorById, isNotDisplayed}
+                        , {basicPage, byTagAncestorByIdNonexistent, isNotDisplayed}
+                        , {idPage, byTagAncestorById, isDisplayed}
                         , {basicPage, byTagNonexistentAncestorByTag, isNotDisplayed}
                         , {basicPage, byTagAncestorByTagNonexistent, isNotDisplayed}
-//                        , {listPage, byTagAncestorByTag, isDisplayed}
-//                        , {paragraphsPage, byTagOrdinal2, isDisplayed}
-//                        , {listPage, byTagOrdinal3AncestorByTag, isDisplayed}
-//                        , {headPage, byTagMeta, isNotDisplayed}
-//                        , {breakPage, byTagBr, isNotDisplayed}
-//                        , {prePage, byTagPre, isDisplayed}
-//                        , {classPage, byClassOrdinal2AncestorByTag, isDisplayed}
-//                        , {tableClass1Page, byTagAncestorByClass, isDisplayed}
-//                        , {tableClass1Page, byTagOrdinal3AncestorByClass, isDisplayed}
+                        , {listPage, byTagAncestorByTag, isDisplayed}
+                        , {paragraphsPage, byTagOrdinal2, isDisplayed}
+                        , {listPage, byTagOrdinal3AncestorByTag, isDisplayed}
+                        , {headPage, byTagMeta, isNotDisplayed}
+                        , {breakPage, byTagBr, isNotDisplayed}
+                        , {prePage, byTagPre, isDisplayed}
+                        , {classPage, byClassOrdinal2AncestorByTag, isDisplayed}
+                        , {tableClass1Page, byTagAncestorByClass, isDisplayed}
+                        , {tableClass1Page, byTagOrdinal3AncestorByClass, isDisplayed}
                 };
     }
 
@@ -136,9 +136,6 @@ public class UiElement4Tests {
                 , {classPage, byClassAncestorByTag, differentToo}
                 , {tableClass1Page, byTagAncestorByClass, "Table 1 Firstname"}
                 , {tableClass1Page, byTagOrdinal3AncestorByClass, "Table 1 Age"}
-                , {tableClass1Page, null, "Table 2 Firstname"}
-                , {tableClass1Page, null, "Table 2 Lastname"}
-                , {tableClass1Page, null, "Table 3 Firstname"}
         };
     }
 
