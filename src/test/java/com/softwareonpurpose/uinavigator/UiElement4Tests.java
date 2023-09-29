@@ -16,6 +16,8 @@ public class UiElement4Tests {
     private static final UiElement4 byTagBody = UiElement4.getInstance("tag 'body'", UiLocatorType4.TAG, "body");
     private static final UiElement4 byTagP = UiElement4.getInstance("tag 'p'", UiLocatorType4.TAG, "p");
     private static final UiElement4 byTagLi = UiElement4.getInstance("tag 'li'", UiLocatorType4.TAG, "li");
+    private static final UiElement4 byClassNonexistent = UiElement4.getInstance("class nonexistent", UiLocatorType4.CLASS, "nonexistent");
+    private static final UiElement4 byClassRootElement = UiElement4.getInstance("class 'root-element'", UiLocatorType4.CLASS, "root-element");
 
 
 
@@ -46,6 +48,12 @@ public class UiElement4Tests {
                         , {basicPage, byTagBody, isDisplayed}
                         , {basicPage, byTagP, isDisplayed}
                         , {listPage, byTagLi, isDisplayed}
+
+
+                        , {basicPage, byClassNonexistent, isNotDisplayed}
+                        , {classPage, byClassRootElement, isDisplayed}
+//                        , {basicPage, byClassError, isDisplayed}
+//                        , {listPage, byClassNames, isDisplayed}
                 };
     }
 

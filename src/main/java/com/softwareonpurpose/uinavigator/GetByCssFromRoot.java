@@ -12,12 +12,18 @@ public class GetByCssFromRoot extends GetWebElementBehavior {
         locator = new By.ByCssSelector(String.format("%s%s", locatorType, locatorValue));
     }
 
+    private static String getMessage(NoSuchElementException e) {
+        String message = e.getMessage();
+        int endIndex = message.indexOf("\n");
+        return message.substring(0, endIndex);
+    }
+
     @Override
     public WebElement execute() {
         try {
             return UiNavigator.getInstance().getDriver().findElement(locator);
         } catch (NoSuchElementException e) {
-            LogManager.getLogger("").warn(e.getMessage());
+            LogManager.getLogger("").warn(getMessage(e));
             return null;
         }
     }
