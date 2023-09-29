@@ -30,7 +30,7 @@ public class GetElementWithTag extends GetWebElementBehavior {
 
     @Override
     protected String composeCss(String locatorValue) {
-        String parentCss = hasParent() ? parent.getCss() : "";
-        return String.format("%s %s", parentCss, locatorValue);
+        String parentCss = parent == null ? "" : parent.getCss();
+        return String.format("%s %s%s", parentCss, UiLocatorType4.TAG, locatorValue);
     }
 }
