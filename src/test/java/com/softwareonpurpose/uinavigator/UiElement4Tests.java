@@ -18,6 +18,8 @@ public class UiElement4Tests {
     private static final UiElement4 byTagLi = UiElement4.getInstance("tag 'li'", UiLocatorType4.TAG, "li");
     private static final UiElement4 byClassNonexistent = UiElement4.getInstance("class nonexistent", UiLocatorType4.CLASS, "nonexistent");
     private static final UiElement4 byClassRootElement = UiElement4.getInstance("class 'root-element'", UiLocatorType4.CLASS, "root-element");
+    private static final UiElement4 byClassError = UiElement4.getInstance("class 'error'", UiLocatorType4.CLASS, "error");
+    private static final UiElement4 byClassNames = UiElement4.getInstance("class 'names'", UiLocatorType4.CLASS, "names");
 
 
 
@@ -33,6 +35,7 @@ public class UiElement4Tests {
     private static final String stylePage = "style";
     private static final String idPage = "id";
     private static final String classPage = "class";
+    private static final String tablesPage = "tables";
 
     @DataProvider
     public static Object[][] scenarios_isDisplayed() {
@@ -48,12 +51,10 @@ public class UiElement4Tests {
                         , {basicPage, byTagBody, isDisplayed}
                         , {basicPage, byTagP, isDisplayed}
                         , {listPage, byTagLi, isDisplayed}
-
-
                         , {basicPage, byClassNonexistent, isNotDisplayed}
                         , {classPage, byClassRootElement, isDisplayed}
-//                        , {basicPage, byClassError, isDisplayed}
-//                        , {listPage, byClassNames, isDisplayed}
+                        , {classPage, byClassError, isDisplayed}
+                        , {tablesPage, byClassNames, isDisplayed}
                 };
     }
 
