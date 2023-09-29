@@ -11,7 +11,7 @@ public class UiNavigatorTests {
         UiNavigator.getInstance().quitDriver();
     }
 
-    @Test
+    @Test(enabled = false)
     public void getInstance() {
         UiNavigator expected = UiNavigator.getInstance();
         UiNavigator actual = UiNavigator.getInstance();

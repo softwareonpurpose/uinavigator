@@ -1,6 +1,5 @@
 package com.softwareonpurpose.uinavigator;
 
-import com.google.gson.Gson;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -32,7 +31,7 @@ public abstract class GetWebElementBehavior {
     }
 
     protected WebElement getParent() {
-        return parent.getElement();
+        return parent == null ? null : parent.getElement();
     }
 
     protected boolean hasParent() {

@@ -18,8 +18,8 @@ public class GetElementWithId extends GetWebElementBehavior {
             return UiNavigator.getInstance().getDriver().findElement(locator);
         } catch (Exception e) {
             LogManager.getLogger("").warn(String.format("Element NOT FOUND using %s", locator));
+            return null;
         }
-        return null;
     }
 
     @Override

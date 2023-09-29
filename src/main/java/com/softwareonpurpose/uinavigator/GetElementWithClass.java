@@ -29,6 +29,7 @@ public class GetElementWithClass extends GetWebElementBehavior {
 
     @Override
     protected String composeCss(String locatorValue) {
-        return String.format("%s%s", UiLocatorType4.CLASS, locatorValue);
+        String parentCss = parent == null ? "" : parent.getCss();
+        return String.format("%s %s%s", parentCss, UiLocatorType4.CLASS, locatorValue);
     }
 }

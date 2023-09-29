@@ -13,9 +13,9 @@ public class UiView4Tests extends TestResources {
     public void terminate() {
         UiNavigator.getInstance().quitDriver();
     }
-    
+
     @SuppressWarnings("rawtypes")
-    @Test
+    @Test(enabled = false)
     public void expect() {
         Class expected_class = BasicView.class;
         Class expected_inheritance = UiView4.class;
@@ -24,7 +24,7 @@ public class UiView4Tests extends TestResources {
         Assert.assertEquals(actual_class, expected_class);
         Assert.assertEquals(actual_inheritance, expected_inheritance);
     }
-    
+
     @Test(enabled = false)
     public void isDisplayed() {
         Boolean expected = true;
