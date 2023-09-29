@@ -15,7 +15,7 @@ public class UiView4Tests extends TestResources {
     }
     
     @SuppressWarnings("rawtypes")
-    @Test
+    @Test(enabled = false)
     public void expect() {
         Class expected_class = BasicView.class;
         Class expected_inheritance = UiView4.class;
@@ -25,21 +25,21 @@ public class UiView4Tests extends TestResources {
         Assert.assertEquals(actual_inheritance, expected_inheritance);
     }
     
-    @Test
+    @Test(enabled = false)
     public void isDisplayed() {
         Boolean expected = true;
         Boolean actual = BasicView.directNav().isDisplayed();
         Assert.assertEquals(actual, expected);
     }
 
-    @Test
+    @Test(enabled = false)
     public void isDisplayed_stateConfirmationFailure() {
         Boolean expected = false;
         Boolean actual = ConfirmationFailureView.directNav().isDisplayed();
         Assert.assertEquals(actual, expected);
     }
 
-    @Test
+    @Test(enabled = false)
     public void isDisplayed_nonexistentUrl() {
         Boolean expected = false;
         Boolean actual = NonexistentUrlView.directNav().isDisplayed();

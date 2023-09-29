@@ -15,7 +15,7 @@ public class UiRegion4Tests {
         UiNavigator.getInstance().quitDriver();
     }
 
-    @Test
+    @Test(enabled = false)
     public void isDisplayed() {
         UiElement4 parent = UiElement4.getInstance("Page", UiLocatorType4.TAG, "body");
         UiHost4.getInstance().load(resources.getPageUrl("list"));

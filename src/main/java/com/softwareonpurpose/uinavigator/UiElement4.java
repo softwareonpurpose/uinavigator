@@ -10,40 +10,34 @@ public class UiElement4 {
     private static Logger logger;
     @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private final String description;
-    private final String css;
-    private transient final GetWebElementBehavior getElementBehavior;
-    private final By.ByCssSelector locator;
+    private final GetWebElementBehavior getElementBehavior;
 
-    private UiElement4(String description, String locatorType, String locatorValue, Integer ordinal, UiElement4 parent) {
+    private UiElement4(String description, String locatorType, String locatorValue) {
         this.description = description;
-        css = composeCss(locatorType, locatorValue, ordinal, parent);
-        locator = new By.ByCssSelector(css);
-        getElementBehavior = UiLocatorType4.CLASS.equals(locatorType) && (ordinal != null && ordinal > 0)
-                ? GetElementFromList.getInstance(locator)
-                : GetElementDirectly.getInstance(locator);
+        getElementBehavior = GetWebElementBehavior.getInstance(locatorType, locatorValue);
     }
 
     private static String composeCss(String locatorType, String locatorValue, Integer ordinal, UiElement4 parent) {
         String thisCss = String.format("%s%s", locatorType, locatorValue);
-        thisCss += ordinal == null || UiLocatorType4.CLASS.equals(locatorType)  ? "" : String.format(":nth-of-type(%s)", ordinal);
+        thisCss += ordinal == null || UiLocatorType4.CLASS.equals(locatorType) ? "" : String.format(":nth-of-type(%s)", ordinal);
         String parentCss = parent == null ? "" : String.format("%s ", parent.getCss());
         return String.format("%s%s", parentCss, thisCss);
     }
 
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue) {
-        return new UiElement4(description, locatorType, locatorValue, null, null);
+        return new UiElement4(description, locatorType, locatorValue);
     }
 
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue, int ordinal) {
-        return new UiElement4(description, locatorType, locatorValue, ordinal, null);
+        return new UiElement4(description, locatorType, locatorValue);
     }
 
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue, UiElement4 parent) {
-        return new UiElement4(description, locatorType, locatorValue, null, parent);
+        return new UiElement4(description, locatorType, locatorValue);
     }
 
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue, int ordinal, UiElement4 parent) {
-        return new UiElement4(description, locatorType, locatorValue, ordinal, parent);
+        return new UiElement4(description, locatorType, locatorValue);
     }
 
     public boolean isDisplayed() {
@@ -61,11 +55,11 @@ public class UiElement4 {
     }
 
     private By.ByCssSelector getLocator() {
-        return locator;
+        return null;
     }
 
     private String getCss() {
-        return css;
+        return null;
     }
 
     @Override

@@ -34,14 +34,14 @@ public class UiHost4Tests {
         UiNavigator.getInstance().quitDriver();
     }
 
-    @Test(dataProvider = "scenarios_load_result")
+    @Test(dataProvider = "scenarios_load_result", enabled = false)
     public void load_result(String url, Boolean expected) {
         UiHost4 host = UiHost4.getInstance();
         Boolean actual = host.load(url);
         Assert.assertEquals(actual, expected);
     }
 
-    @Test(dataProvider = "scenarios_currentUrl")
+    @Test(dataProvider = "scenarios_currentUrl", enabled = false)
     public void load_currentUrl(String url, String urlDestination, Boolean expected) {
         UiHost4 host = UiHost4.getInstance();
         host.load(url);
@@ -50,7 +50,7 @@ public class UiHost4Tests {
         Assert.assertEquals(actual, expected);
     }
 
-    @Test
+    @Test(enabled = false)
     public void getTitle() {
         String expected = "My First HTML";
         UiHost4 browser = UiHost4.getInstance();

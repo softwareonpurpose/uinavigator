@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-public class GetElementFromList implements GetWebElementBehavior {
+public class GetElementFromList extends GetWebElementBehavior {
     private final By.ByCssSelector locator;
 
     public GetElementFromList(By.ByCssSelector locator) {
