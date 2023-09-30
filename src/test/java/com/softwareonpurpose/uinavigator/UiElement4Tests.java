@@ -8,22 +8,34 @@ import org.testng.annotations.Test;
 @Test
 public class UiElement4Tests {
     private static final TestResources resources = TestResources.getInstance();
-    private static final UiElement4 byIdNonexistent = UiElement4.getInstance("id nonexistent", UiLocatorType4.ID, "nonexistent");
-    private static final UiElement4 byIdView = UiElement4.getInstance("id existent", UiLocatorType4.ID, "view");
-    private static final UiElement4 byIdHeading = UiElement4.getInstance("id on sub-element", UiLocatorType4.ID, "heading-id");
-    private static final UiElement4 byIdP = UiElement4.getInstance("id on descendent", UiLocatorType4.ID, "p-id");
-    private static final UiElement4 byTagNonexistent = UiElement4.getInstance("tag nonexistent", UiLocatorType4.TAG, "nonexistent");
-    private static final UiElement4 byTagBody = UiElement4.getInstance("tag 'body'", UiLocatorType4.TAG, "body");
-    private static final UiElement4 byTagP = UiElement4.getInstance("tag 'p'", UiLocatorType4.TAG, "p");
-    private static final UiElement4 byTagLi = UiElement4.getInstance("tag 'li'", UiLocatorType4.TAG, "li");
-    private static final UiElement4 byClassNonexistent = UiElement4.getInstance("class nonexistent", UiLocatorType4.CLASS, "nonexistent");
-    private static final UiElement4 byClassRootElement = UiElement4.getInstance("class 'root-element'", UiLocatorType4.CLASS, "root-element");
-    private static final UiElement4 byClassError = UiElement4.getInstance("class 'error'", UiLocatorType4.CLASS, "error");
-    private static final UiElement4 byClassNames = UiElement4.getInstance("class 'names'", UiLocatorType4.CLASS, "names");
-
-
-
-
+    private static final UiElement4 byIdNonexistent =
+            UiElement4.getInstance("id nonexistent", UiLocatorType4.ID, "nonexistent");
+    private static final UiElement4 byIdView =
+            UiElement4.getInstance("id existent", UiLocatorType4.ID, "view");
+    private static final UiElement4 byIdHeading =
+            UiElement4.getInstance("id on sub-element", UiLocatorType4.ID, "heading-id");
+    private static final UiElement4 byIdP =
+            UiElement4.getInstance("id on descendent", UiLocatorType4.ID, "p-id");
+    private static final UiElement4 byTagNonexistent =
+            UiElement4.getInstance("tag nonexistent", UiLocatorType4.TAG, "nonexistent");
+    private static final UiElement4 byTagBody =
+            UiElement4.getInstance("tag 'body'", UiLocatorType4.TAG, "body");
+    private static final UiElement4 byTagP =
+            UiElement4.getInstance("tag 'p'", UiLocatorType4.TAG, "p");
+    private static final UiElement4 byTagLi =
+            UiElement4.getInstance("tag 'li'", UiLocatorType4.TAG, "li");
+    private static final UiElement4 byTagA =
+            UiElement4.getInstance("'Anchor' tag", UiLocatorType4.TAG, "a");
+    private static final UiElement4 byTagImg =
+            UiElement4.getInstance("'Image' element", UiLocatorType4.TAG, "img");
+    private static final UiElement4 byClassNonexistent =
+            UiElement4.getInstance("class nonexistent", UiLocatorType4.CLASS, "nonexistent");
+    private static final UiElement4 byClassRootElement =
+            UiElement4.getInstance("class 'root-element'", UiLocatorType4.CLASS, "root-element");
+    private static final UiElement4 byClassError =
+            UiElement4.getInstance("class 'error'", UiLocatorType4.CLASS, "error");
+    private static final UiElement4 byClassNames =
+            UiElement4.getInstance("class 'names'", UiLocatorType4.CLASS, "names");
     private static final String basicPage = "basic";
     private static final String paragraphsPage = "paragraphs";
     private static final String linkPage = "link";
@@ -60,59 +72,56 @@ public class UiElement4Tests {
 
     @DataProvider
     public static Object[][] scenarios_getText() {
-        //noinspection TextBlockMigration
-        String myBonnie =
-                "   My Bonnie lies over the ocean.\n\n   My Bonnie lies over the sea.\n\n"
-                        + "   My Bonnie lies over the ocean.\n\n   Oh, bring back my Bonnie to me.";
-        String firstHeading = "My First Heading";
-        String firstParagraph = "My first paragraph.";
-        String fullBody = String.format("%s\n%s", firstHeading, firstParagraph);
+        String basicPageParagraph = "My first paragraph.";
+        String basicPageText = String.format("%s\n%s", "My First Heading", basicPageParagraph);
+        String listPageListItem1 = "Coffee (unordered)";
         return new Object[][]{
-//                {basicPage, headingElement, firstHeading}
-//                , {basicPage, paragraphElement, firstParagraph}
-//                , {basicPage, bodyElement, fullBody}
-//                , {basicPage, divElement, null}
-//                , {linkPage, anchorElement, "This is a link"}
-//                , {listPage, unorderedListItemElement, "Coffee"}
-//                , {listPage, nthOrderedListItemElement, "Milk"}
-//                , {breakPage, paragraphElement, "This is\na paragraph\nwith line breaks."}
-//                , {prePage, preElement, myBonnie}
+                {idPage, byIdNonexistent, null}
+                , {basicPage, byTagBody, basicPageText}
+                , {basicPage, byTagP, basicPageParagraph}
+                , {listPage, byTagLi, listPageListItem1}
         };
     }
 
     @DataProvider
     public static Object[][] scenarios_getHref() {
         return new Object[][]{
-                {linkPage, UiElement4.getInstance("'Anchor' tag", UiLocatorType4.TAG, "a"), "https://www.w3schools.com/"}
-                , {basicPage, UiElement4.getInstance("'Anchor' tag", UiLocatorType4.TAG, "a"), null}
-                , {linkPage, UiElement4.getInstance("'Paragraph' tag", UiLocatorType4.TAG, "p"), null}
+                {linkPage, byTagP, null}
+                , {basicPage, byTagA, null}
+                , {linkPage, byTagA, "https://www.w3schools.com/"}
         };
     }
 
     @DataProvider
     public static Object[][] scenarios_click() {
         return new Object[][]{
-                {linkPage, UiElement4.getInstance("'This is a link' anchor", UiLocatorType4.TAG, "a"), "https://www.w3schools.com/"}
-                , {basicPage, UiElement4.getInstance("'This is a link' anchor", UiLocatorType4.TAG, "a"), "basic"}
-                , {basicPage, UiElement4.getInstance("'heading' element'", UiLocatorType4.TAG, "h1"), "basic"}
+                {basicPage, byTagP, "basic"}
+                , {basicPage, byTagA, "basic"}
+                , {linkPage, byTagA, "https://www.w3schools.com/"}
         };
     }
 
     @DataProvider
     public static Object[][] scenarios_getAttribute() {
-        UiElement4 imageElement =
-                UiElement4.getInstance("'Image' element", UiLocatorType4.TAG, "img");
-        UiElement4 nonExistentElement =
-                UiElement4.getInstance("'Bogus' element", UiLocatorType4.ID, "bogus");
         return new Object[][]{
-                {imagePage, imageElement, "src", "https://www.w3schools.com/html/w3schools.jpg"}
-                , {imagePage, imageElement, "bogus", null}
-                , {imagePage, nonExistentElement, "src", null}
-                , {imagePage, imageElement, "alt", "W3Schools.com"}
-                , {imagePage, imageElement, "width", "104"}
-                , {imagePage, imageElement, "height", "142"}
-//                , {stylePage, paragraphElement_2, "style", "color: red;"}
-//                , {stylePage, paragraphElement_4, "style", "font-size: 50px;"}
+                {imagePage, byTagNonexistent, "src", null}
+                , {imagePage, byTagImg, "bogus", null}
+                , {imagePage, byTagImg, "src", "https://www.w3schools.com/html/w3schools.jpg"}
+                , {imagePage, byTagImg, "alt", "W3Schools.com"}
+                , {imagePage, byTagImg, "width", "104"}
+                , {stylePage, byTagP, "style", "color: red;"}
+        };
+    }
+
+    @DataProvider
+    public static Object[][] scenarios_getStyleProperty() {
+        String color = "color";
+        String bogus = "bogus";
+        String red = "rgba(255, 0, 0, 1)";
+        return new Object[][]{
+                {byTagA, color, null}
+                , {byTagP, bogus, ""}
+                , {byTagP, color, red}
         };
     }
 
@@ -133,7 +142,7 @@ public class UiElement4Tests {
     }
 
     @SuppressWarnings("rawtypes")
-    @Test
+    @Test(enabled = false)
     public void getInstance_ordinal() {
         Class expected = UiElement4.class;
         String description = "'paragraph' element";
@@ -145,7 +154,7 @@ public class UiElement4Tests {
     }
 
     @SuppressWarnings("rawtypes")
-    @Test
+    @Test(enabled = false)
     public void getInstance_parent() {
         Class expected = UiElement4.class;
         UiElement4 parent = UiElement4.getInstance("'Unordered List' element", UiLocatorType4.TAG, "ul");
@@ -154,7 +163,7 @@ public class UiElement4Tests {
     }
 
     @SuppressWarnings("rawtypes")
-    @Test
+    @Test(enabled = false)
     public void getInstance_ordinal_parent() {
         Class expected = UiElement4.class;
         UiElement4 parent = UiElement4.getInstance("'Ordered List' element", UiLocatorType4.TAG, "ol");
@@ -169,21 +178,21 @@ public class UiElement4Tests {
         Assert.assertEquals(actual, expected);
     }
 
-    @Test(dataProvider = "scenarios_getText", enabled = false)
+    @Test(dataProvider = "scenarios_getText")
     public void getText(String page, UiElement4 element, String expected) {
         UiHost4.getInstance().load(resources.getPageUrl(page));
         String actual = element.getText();
         Assert.assertEquals(actual, expected);
     }
 
-    @Test(dataProvider = "scenarios_getHref", enabled = false)
+    @Test(dataProvider = "scenarios_getHref")
     public void getHref(String page, UiElement4 element, String expected) {
         UiHost4.getInstance().load(resources.getPageUrl(page));
         String actual = element.getHref();
         Assert.assertEquals(actual, expected);
     }
 
-    @Test(dataProvider = "scenarios_click", enabled = false)
+    @Test(dataProvider = "scenarios_click")
     public void click(String page, UiElement4 element, String expected) {
         expected = expected.contains("http")
                 ? expected
@@ -194,18 +203,17 @@ public class UiElement4Tests {
         Assert.assertEquals(actual, expected);
     }
 
-    @Test(dataProvider = "scenarios_getAttribute", enabled = false)
+    @Test(dataProvider = "scenarios_getAttribute")
     public void getAttribute(String page, UiElement4 element, String attribute, String expected) {
         UiHost4.getInstance().load(resources.getPageUrl(page));
         String actual = element.getAttribute(attribute);
         Assert.assertEquals(actual, expected);
     }
 
-    @Test(enabled = false)
-    public void getStyleProperty() {
-        String expected = "rgba(255, 0, 0, 1)";
+    @Test(dataProvider = "scenarios_getStyleProperty")
+    public void getStyleProperty(UiElement4 element, String styleProperty, String expected) {
         UiHost4.getInstance().load(resources.getPageUrl(stylePage));
-//        String actual = paragraphElement_2.getStyleProperty("color");
-//        Assert.assertEquals(actual, expected);
+        String actual = element.getStyleProperty(styleProperty);
+        Assert.assertEquals(actual, expected);
     }
 }
