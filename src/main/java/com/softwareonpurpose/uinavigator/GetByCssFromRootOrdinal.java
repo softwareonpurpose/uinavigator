@@ -15,6 +15,10 @@ public class GetByCssFromRootOrdinal extends GetWebElementBehavior {
         locator = new By.ByCssSelector(String.format("%s%s", locatorType, locatorValue));
     }
 
+    public static GetWebElementBehavior getInstance(String locatorType, String locatorValue, Integer ordinal) {
+        return new GetByCssFromRootOrdinal(locatorType, locatorValue, ordinal);
+    }
+
     @Override
     WebElement execute() {
         int index = ordinal - 1;

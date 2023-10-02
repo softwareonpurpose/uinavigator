@@ -18,6 +18,10 @@ public class GetByCssFromRoot extends GetWebElementBehavior {
         return message.substring(0, endIndex);
     }
 
+    public static GetWebElementBehavior getInstance(String locatorType, String locatorValue) {
+        return new GetByCssFromRoot(locatorType, locatorValue);
+    }
+
     @Override
     public WebElement execute() {
         try {
