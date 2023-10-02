@@ -7,5 +7,9 @@ public abstract class GetWebElementBehavior {
         return new GetByCssFromRoot(locatorType, locatorValue);
     }
 
+    public static GetWebElementBehavior getInstance(String locatorType, String locatorValue, Integer ordinal) {
+        return new GetByCssFromRootOrdinal(locatorType, locatorValue, ordinal);
+    }
+
     abstract WebElement execute();
 }
