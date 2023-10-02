@@ -12,7 +12,7 @@ public class UiHost4Tests {
     @DataProvider
     public static Object[][] scenarios_load_result() {
         return new Object[][]{
-                {"https://www.w3schools.com/html/tryit.asp?filename=tryhtml_basic_document", true}
+                {"https://www.google.com/search", true}
                 , {resources.getPageUrl("nonexistent"), false}
         };
     }
@@ -21,8 +21,8 @@ public class UiHost4Tests {
     public static Object[][] scenarios_currentUrl() {
         String url_localHtml = resources.getPageUrl("redirected");
         String url_localHtmlExpected = url_localHtml.replace("file:/", "file:///");
-        String url_withQueryString = "https://www.w3schools.com/html/tryit.asp?filename=tryhtml_basic_document";
-        String url_withQueryStringExpected = "https://www.w3schools.com/html/tryit.asp";
+        String url_withQueryString = "https://www.google.com/search?q=html";
+        String url_withQueryStringExpected = "https://www.google.com/search";
         return new Object[][]{
                 {url_withQueryString, url_withQueryStringExpected, true}
                 , {url_localHtml, url_localHtmlExpected, false}
