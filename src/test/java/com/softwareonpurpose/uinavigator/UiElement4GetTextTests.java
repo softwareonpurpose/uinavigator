@@ -8,35 +8,6 @@ import org.testng.annotations.Test;
 @Test
 public class UiElement4GetTextTests {
     private static final TestResources resources = TestResources.getInstance();
-    private static final UiElement4 byIdNonexistent =
-            UiElement4.getInstance("id nonexistent", UiLocatorType4.ID, "nonexistent");
-    private static final UiElement4 byIdView =
-            UiElement4.getInstance("id existent", UiLocatorType4.ID, "view");
-    private static final UiElement4 byIdHeading =
-            UiElement4.getInstance("id on sub-element", UiLocatorType4.ID, "heading-id");
-    private static final UiElement4 byIdP =
-            UiElement4.getInstance("id on descendent", UiLocatorType4.ID, "p-id");
-    private static final UiElement4 byTagNonexistent =
-            UiElement4.getInstance("tag nonexistent", UiLocatorType4.TAG, "nonexistent");
-    private static final UiElement4 byTagBody =
-            UiElement4.getInstance("tag 'body'", UiLocatorType4.TAG, "body");
-    private static final UiElement4 byTagP =
-            UiElement4.getInstance("tag 'p'", UiLocatorType4.TAG, "p");
-    private static final UiElement4 byTagLi =
-            UiElement4.getInstance("tag 'li'", UiLocatorType4.TAG, "li");
-    private static final UiElement4 byClassNonexistent =
-            UiElement4.getInstance("class nonexistent", UiLocatorType4.CLASS, "nonexistent");
-    private static final UiElement4 byClassRootElement =
-            UiElement4.getInstance("class 'root-element'", UiLocatorType4.CLASS, "root-element");
-    private static final UiElement4 byClassError =
-            UiElement4.getInstance("class 'error'", UiLocatorType4.CLASS, "error");
-    private static final UiElement4 byClassNames =
-            UiElement4.getInstance("class 'names'", UiLocatorType4.CLASS, "names");
-    private static final String basicPage = "basic";
-    private static final String listPage = "list";
-    private static final String idPage = "id";
-    private static final String classPage = "class";
-    private static final String tablesPage = "tables";
 
     @DataProvider
     public static Object[][] scenarios_getText() {
@@ -56,6 +27,35 @@ public class UiElement4GetTextTests {
         String jill = "Jill Smith 50";
         String eve = "Eve Jackson 94";
         String joe = "John Doe 80";
+        final UiElement4 byIdNonexistent =
+                UiElement4.getInstance("id nonexistent", UiLocatorType4.ID, "nonexistent");
+        final UiElement4 byIdView =
+                UiElement4.getInstance("id existent", UiLocatorType4.ID, "view");
+        final UiElement4 byIdHeading =
+                UiElement4.getInstance("id on sub-element", UiLocatorType4.ID, "heading-id");
+        final UiElement4 byIdP =
+                UiElement4.getInstance("id on descendent", UiLocatorType4.ID, "p-id");
+        final UiElement4 byTagNonexistent =
+                UiElement4.getInstance("tag nonexistent", UiLocatorType4.TAG, "nonexistent");
+        final UiElement4 byTagBody =
+                UiElement4.getInstance("tag 'body'", UiLocatorType4.TAG, "body");
+        final UiElement4 byTagP =
+                UiElement4.getInstance("tag 'p'", UiLocatorType4.TAG, "p");
+        final UiElement4 byTagLi =
+                UiElement4.getInstance("tag 'li'", UiLocatorType4.TAG, "li");
+        final UiElement4 byClassNonexistent =
+                UiElement4.getInstance("class nonexistent", UiLocatorType4.CLASS, "nonexistent");
+        final UiElement4 byClassRootElement =
+                UiElement4.getInstance("class 'root-element'", UiLocatorType4.CLASS, "root-element");
+        final UiElement4 byClassError =
+                UiElement4.getInstance("class 'error'", UiLocatorType4.CLASS, "error");
+        final UiElement4 byClassNames =
+                UiElement4.getInstance("class 'names'", UiLocatorType4.CLASS, "names");
+        final String basicPage = "basic";
+        final String listPage = "list";
+        final String idPage = "id";
+        final String classPage = "class";
+        final String tablesPage = "tables";
         return new Object[][]{
                 {idPage, byIdNonexistent, null}
                 , {idPage, byIdView, idPageContent}
