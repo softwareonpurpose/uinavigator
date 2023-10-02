@@ -7,16 +7,16 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 public class GetByCssFromRootOrdinal extends GetWebElementBehavior {
-    private final By.ByCssSelector locator;
     private final int ordinal;
 
-    public GetByCssFromRootOrdinal(String locatorType, String locatorValue, Integer ordinal) {
+    public GetByCssFromRootOrdinal(By.ByCssSelector locator, Integer ordinal) {
+        super(locator);
         this.ordinal = ordinal;
-        locator = new By.ByCssSelector(String.format("%s%s", locatorType, locatorValue));
     }
 
     public static GetWebElementBehavior getInstance(String locatorType, String locatorValue, Integer ordinal) {
-        return new GetByCssFromRootOrdinal(locatorType, locatorValue, ordinal);
+        By.ByCssSelector locator = composeCss(locatorType, locatorValue);
+        return new GetByCssFromRootOrdinal(locator, ordinal);
     }
 
     @Override
