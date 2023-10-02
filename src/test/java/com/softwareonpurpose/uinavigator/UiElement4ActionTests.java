@@ -20,7 +20,7 @@ public class UiElement4ActionTests {
         return new Object[][]{
                 {basicPage, byTagP, "basic"}
                 , {basicPage, byTagA, "basic"}
-                , {linkPage, byTagA, "https://www.w3schools.com/"}
+                , {linkPage, byTagA, "https://www.google.com/"}
         };
     }
 
