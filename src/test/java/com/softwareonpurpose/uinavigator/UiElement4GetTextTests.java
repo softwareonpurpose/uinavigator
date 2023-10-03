@@ -54,7 +54,7 @@ public class UiElement4GetTextTests {
                 UiElement4.getInstance("id existent", UiLocatorType4.ID, "view");
         final UiElement4 byIdChild =
                 UiElement4.getInstance("id on sub-element", UiLocatorType4.ID, "heading-id");
-        final UiElement4 byIdAncestor =
+        final UiElement4 byIdDescendent =
                 UiElement4.getInstance("id on descendent", UiLocatorType4.ID, "p-id");
         final UiElement4 byTagNonexistent =
                 UiElement4.getInstance("tag nonexistent", UiLocatorType4.TAG, "nonexistent");
@@ -62,7 +62,7 @@ public class UiElement4GetTextTests {
                 UiElement4.getInstance("tag 'body'", UiLocatorType4.TAG, "body");
         final UiElement4 byTagChild =
                 UiElement4.getInstance("tag 'p'", UiLocatorType4.TAG, "p");
-        final UiElement4 byTagAncestor =
+        final UiElement4 byTagDescendent =
                 UiElement4.getInstance("tag 'li'", UiLocatorType4.TAG, "li");
         final UiElement4 byClassNonexistent =
                 UiElement4.getInstance("class nonexistent", UiLocatorType4.CLASS, "nonexistent");
@@ -70,24 +70,24 @@ public class UiElement4GetTextTests {
                 UiElement4.getInstance("class 'root-element'", UiLocatorType4.CLASS, "root-element");
         final UiElement4 byClassChild =
                 UiElement4.getInstance("class 'error'", UiLocatorType4.CLASS, "error");
-        final UiElement4 byClassAncestor =
+        final UiElement4 byClassDescendent =
                 UiElement4.getInstance("class 'names'", UiLocatorType4.CLASS, "names");
         final UiElement4 byTagOrdinalNonexistent =
                 UiElement4.getInstance("tag ordinal nonexistent", UiLocatorType4.TAG, "h1", 2);
         final UiElement4 byTagOrdinalChild =
                 UiElement4.getInstance("child tag ordinal", UiLocatorType4.TAG, "p", 3);
-        final UiElement4 byTagOrdinalAncestor =
-                UiElement4.getInstance("ancestor tag ordinal", UiLocatorType4.TAG, "li", 4);
-        final UiElement4 byTagOrdinalChildAncestor =
-                UiElement4.getInstance("child/ancestor tag ordinal", UiLocatorType4.TAG, "table", 2);
+        final UiElement4 byTagOrdinalDescendent =
+                UiElement4.getInstance("descendent tag ordinal", UiLocatorType4.TAG, "li", 4);
+        final UiElement4 byTagOrdinalChildDescendent =
+                UiElement4.getInstance("child/descendent tag ordinal", UiLocatorType4.TAG, "table", 2);
         final UiElement4 byClassOrdinalNonexistent =
                 UiElement4.getInstance("class ordinal nonexistent", UiLocatorType4.CLASS, "error", 3);
         final UiElement4 byClassOrdinalChild =
                 UiElement4.getInstance("child class ordinal", UiLocatorType4.CLASS, "error", 2);
-        final UiElement4 byClassOrdinalAncestor =
-                UiElement4.getInstance("ancestor class ordinal", UiLocatorType4.CLASS, "sub-table", 2);
-        final UiElement4 byClassChildAncestor =
-                UiElement4.getInstance("child/ancestor class ordinal", UiLocatorType4.CLASS, "names", 2);
+        final UiElement4 byClassOrdinalDescendent =
+                UiElement4.getInstance("descendent class ordinal", UiLocatorType4.CLASS, "sub-table", 2);
+        final UiElement4 byClassChildDescendent =
+                UiElement4.getInstance("child/descendent class ordinal", UiLocatorType4.CLASS, "names", 2);
         final String basicPage = "basic";
         final String listPage = "list";
         final String idPage = "id";
@@ -97,24 +97,24 @@ public class UiElement4GetTextTests {
                 {idPage, byIdNonexistent, null}
                 , {idPage, byIdRoot, idPageContent}
                 , {idPage, byIdChild, myHeader}
-                , {idPage, byIdAncestor, nestedParagraph}
+                , {idPage, byIdDescendent, nestedParagraph}
                 , {basicPage, byTagNonexistent, null}
                 , {basicPage, byTagRoot, firstHeading + "\n" + firstParagraph}
                 , {basicPage, byTagChild, firstParagraph}
-                , {listPage, byTagAncestor, coffeeUnordered}
+                , {listPage, byTagDescendent, coffeeUnordered}
                 , {basicPage, byClassNonexistent, null}
                 , {classPage, byClassRootElement,
                 aParagraph + "\n" + aParagraph + "\n" + different + "\n" + aParagraph + "\n" + differentToo}
                 , {classPage, byClassChild, different}
-                , {tablesPage, byClassAncestor, table2}
+                , {tablesPage, byClassDescendent, table2}
                 , {basicPage, byTagOrdinalNonexistent, null}
                 , {classPage, byTagOrdinalChild, different}
-                , {listPage, byTagOrdinalAncestor, coffeeOrdered}
-                , {tablesPage, byTagOrdinalChildAncestor, table2}
+                , {listPage, byTagOrdinalDescendent, coffeeOrdered}
+                , {tablesPage, byTagOrdinalChildDescendent, table2}
                 , {basicPage, byClassOrdinalNonexistent, null}
                 , {classPage, byClassOrdinalChild, differentToo}
-                , {tablesPage, byClassOrdinalAncestor, table3}
-                , {tablesPage, byClassChildAncestor, table4}
+                , {tablesPage, byClassOrdinalDescendent, table3}
+                , {tablesPage, byClassChildDescendent, table4}
         };
     }
 
