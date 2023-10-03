@@ -6,7 +6,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 public class GetByCssFromRoot extends GetWebElementBehavior {
-    GetByCssFromRoot(By.ByCssSelector locator) {
+    private GetByCssFromRoot(By.ByCssSelector locator) {
         super(locator);
     }
 

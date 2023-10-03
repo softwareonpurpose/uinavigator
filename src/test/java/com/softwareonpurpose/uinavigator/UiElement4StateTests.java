@@ -58,6 +58,7 @@ public class UiElement4StateTests {
                 UiElement4.getInstance("descendent class ordinal", UiLocatorType4.CLASS, "sub-table", 2);
         final UiElement4 byClassChildDescendent =
                 UiElement4.getInstance("child/descendent class ordinal", UiLocatorType4.CLASS, "names", 2);
+        final UiElement4 byTagNonexistentInParent = UiElement4.getInstance("nonexistent in parent", UiLocatorType4.TAG, "h1", byIdNonexistent);
         return new Object[][]
                 {
                         //  element by id
@@ -85,6 +86,8 @@ public class UiElement4StateTests {
                         , {classPage, byClassOrdinalChild, isDisplayed}
                         , {tablesPage, byClassOrdinalDescendent, isDisplayed}
                         , {tablesPage, byClassChildDescendent, isDisplayed}
+                        //  element as direct child
+                        , {basicPage, byTagNonexistentInParent, isNotDisplayed}
                 };
     }
 

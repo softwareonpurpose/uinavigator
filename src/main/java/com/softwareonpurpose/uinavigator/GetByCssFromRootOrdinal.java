@@ -9,7 +9,7 @@ import java.util.List;
 public class GetByCssFromRootOrdinal extends GetWebElementBehavior {
     private final int ordinal;
 
-    public GetByCssFromRootOrdinal(By.ByCssSelector locator, Integer ordinal) {
+    private GetByCssFromRootOrdinal(By.ByCssSelector locator, Integer ordinal) {
         super(locator);
         this.ordinal = ordinal;
     }
