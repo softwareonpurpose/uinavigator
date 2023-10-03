@@ -6,16 +6,19 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 public class GetByCssFromRoot extends GetWebElementBehavior {
-    private final By.ByCssSelector locator;
-
-    GetByCssFromRoot(String locatorType, String locatorValue) {
-        locator = new By.ByCssSelector(String.format("%s%s", locatorType, locatorValue));
+    GetByCssFromRoot(By.ByCssSelector locator) {
+        super(locator);
     }
 
     private static String getMessage(NoSuchElementException e) {
         String message = e.getMessage();
         int endIndex = message.indexOf("\n");
         return message.substring(0, endIndex);
+    }
+
+    public static GetByCssFromRoot getInstance(String locatorType, String locatorValue) {
+        By.ByCssSelector locator = composeCss(locatorType, locatorValue);
+        return new GetByCssFromRoot(locator);
     }
 
     @Override

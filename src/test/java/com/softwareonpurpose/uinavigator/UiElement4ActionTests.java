@@ -11,16 +11,19 @@ public class UiElement4ActionTests {
 
     @DataProvider
     public static Object[][] scenarios_click() {
-        final UiElement4 byTagP =
+        final UiElement4 byTagPNotClickable =
                 UiElement4.getInstance("tag 'p'", UiLocatorType4.TAG, "p");
         final UiElement4 byTagA =
                 UiElement4.getInstance("'Anchor' tag", UiLocatorType4.TAG, "a");
+        final UiElement4 byTagAOrdinal2 =
+                UiElement4.getInstance("'Anchor' tag #2", UiLocatorType4.TAG, "a", 2);
         final String basicPage = "basic";
         final String linkPage = "link";
         return new Object[][]{
-                {basicPage, byTagP, "basic"}
+                {basicPage, byTagPNotClickable, "basic"}
                 , {basicPage, byTagA, "basic"}
                 , {linkPage, byTagA, "https://www.google.com/"}
+                , {linkPage, byTagAOrdinal2, "https://www.youtube.com/"}
         };
     }
 

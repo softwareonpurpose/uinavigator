@@ -12,9 +12,9 @@ public class UiElement4 {
     private final String description;
     private final GetWebElementBehavior getElementBehavior;
 
-    private UiElement4(String description, String locatorType, String locatorValue) {
+    private UiElement4(String description, GetWebElementBehavior getElementBehavior) {
         this.description = description;
-        getElementBehavior = GetWebElementBehavior.getInstance(locatorType, locatorValue);
+        this.getElementBehavior = getElementBehavior;
     }
 
     private static String composeCss(String locatorType, String locatorValue, Integer ordinal, UiElement4 parent) {
@@ -25,19 +25,23 @@ public class UiElement4 {
     }
 
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue) {
-        return new UiElement4(description, locatorType, locatorValue);
+        GetWebElementBehavior getElementBehavior = GetByCssFromRoot.getInstance(locatorType, locatorValue);
+        return new UiElement4(description, getElementBehavior);
     }
 
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue, int ordinal) {
-        return new UiElement4(description, locatorType, locatorValue);
+        GetWebElementBehavior getElementBehavior = GetByCssFromRootOrdinal.getInstance(locatorType, locatorValue, ordinal);
+        return new UiElement4(description, getElementBehavior);
     }
 
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue, UiElement4 parent) {
-        return new UiElement4(description, locatorType, locatorValue);
+        GetWebElementBehavior getElementBehavior = GetByCssFromRoot.getInstance(locatorType, locatorValue);
+        return new UiElement4(description, getElementBehavior);
     }
 
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue, int ordinal, UiElement4 parent) {
-        return new UiElement4(description, locatorType, locatorValue);
+        GetWebElementBehavior getElementBehavior = GetByCssFromRoot.getInstance(locatorType, locatorValue);
+        return new UiElement4(description, getElementBehavior);
     }
 
     public boolean isDisplayed() {
