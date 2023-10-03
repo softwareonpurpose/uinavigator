@@ -28,7 +28,7 @@ public class UiElement4 {
     }
 
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue, UiElement4 ancestor) {
-        GetWebElementBehavior getElementBehavior = GetByCssFromAncestor.getInstance(locatorType, locatorValue, ancestor);
+        GetWebElementBehavior getElementBehavior = GetByCssFromRoot.getInstance(locatorType, locatorValue);
         return new UiElement4(description, getElementBehavior);
     }
 
@@ -48,7 +48,7 @@ public class UiElement4 {
     }
 
     private WebElement getElement() {
-        return getElementBehavior.execute();
+        return getElementBehavior == null ? null : getElementBehavior.execute();
     }
 
     private By.ByCssSelector getLocator() {

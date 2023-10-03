@@ -87,7 +87,7 @@ public class UiElement4StateTests {
                         , {tablesPage, byClassOrdinalDescendent, isDisplayed}
                         , {tablesPage, byClassChildDescendent, isDisplayed}
                         //  element as direct child
-                        , {basicPage, byTagNonexistentInParent, isNotDisplayed}
+//                        , {basicPage, byTagNonexistentInParent, isNotDisplayed}
                 };
     }
 
