@@ -24,6 +24,7 @@ public class UiElement4StateTests {
                 UiElement4.getInstance("id existent", UiLocatorType4.ID, "view");
         final UiElement4 byIdChild =
                 UiElement4.getInstance("id on sub-element", UiLocatorType4.ID, "heading-id");
+        final UiElement4 byIdDiv = UiElement4.getInstance("id on ancestor element", UiLocatorType4.ID, "div-id");
         final UiElement4 byIdDescendent =
                 UiElement4.getInstance("id on descendent", UiLocatorType4.ID, "p-id");
         final UiElement4 byTagNonexistent =
@@ -58,7 +59,14 @@ public class UiElement4StateTests {
                 UiElement4.getInstance("descendent class ordinal", UiLocatorType4.CLASS, "sub-table", 2);
         final UiElement4 byClassChildDescendent =
                 UiElement4.getInstance("child/descendent class ordinal", UiLocatorType4.CLASS, "names", 2);
-        final UiElement4 byTagNonexistentInParent = UiElement4.getInstance("nonexistent in parent", UiLocatorType4.TAG, "h1", byIdNonexistent);
+        final UiElement4 byTagNonexistentInRoot =
+                UiElement4.getInstance("id nonexistent", UiLocatorType4.ID, "nonexistent", byIdRoot);
+        final UiElement4 byTagNonexistentInParent =
+                UiElement4.getInstance("tag nonexistent in parent", UiLocatorType4.TAG, "h1", byIdDiv);
+        final UiElement4 byTagInParentNonexistent =
+                UiElement4.getInstance("tag in parent nonexistent", UiLocatorType4.TAG, "h1", byIdNonexistent);
+        final UiElement4 byTagInParent =
+                UiElement4.getInstance("tag in parent", UiLocatorType4.TAG, "p", byIdDiv);
         return new Object[][]
                 {
                         //  element by id
@@ -87,7 +95,10 @@ public class UiElement4StateTests {
                         , {tablesPage, byClassOrdinalDescendent, isDisplayed}
                         , {tablesPage, byClassChildDescendent, isDisplayed}
                         //  element as direct child
-//                        , {basicPage, byTagNonexistentInParent, isNotDisplayed}
+                        , {basicPage, byTagNonexistentInRoot, isNotDisplayed}
+                        , {basicPage, byTagNonexistentInParent, isNotDisplayed}
+                        , {basicPage, byTagInParentNonexistent, isNotDisplayed}
+                        , {idPage, byTagInParent, isDisplayed}
                 };
     }
 

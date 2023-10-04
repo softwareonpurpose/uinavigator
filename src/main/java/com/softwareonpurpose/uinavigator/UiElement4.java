@@ -3,7 +3,6 @@ package com.softwareonpurpose.uinavigator;
 import com.google.gson.Gson;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class UiElement4 {
@@ -35,79 +34,75 @@ public class UiElement4 {
     }
 
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue, UiElement4 ancestor) {
-        GetWebElementBehavior getElementBehavior = GetByCssFromRoot.getInstance(locatorType, locatorValue);
+        GetWebElementBehavior getElementBehavior = GetByCssFromAncestor.getInstance(locatorType, locatorValue, ancestor);
         return new UiElement4(description, getElementBehavior);
     }
 
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue,
                                          int ordinal, UiElement4 ancestor) {
-            GetWebElementBehavior getElementBehavior = GetByCssFromRoot.getInstance(locatorType, locatorValue);
-            return new UiElement4(description, getElementBehavior);
-        }
+        GetWebElementBehavior getElementBehavior = GetByCssFromRoot.getInstance(locatorType, locatorValue);
+        return new UiElement4(description, getElementBehavior);
+    }
 
-        public boolean isDisplayed () {
-            WebElement element = getElement();
-            return element != null && element.isDisplayed();
-        }
+    public boolean isDisplayed() {
+        WebElement element = getElement();
+        return element != null && element.isDisplayed();
+    }
 
-        public String getText () {
-            WebElement element = getElement();
-            return element == null ? null : element.getText();
-        }
+    public String getText() {
+        WebElement element = getElement();
+        return element == null ? null : element.getText();
+    }
 
-        private WebElement getElement () {
-            return getElementBehavior == null ? null : getElementBehavior.execute();
-        }
+    private WebElement getElement() {
+        return getElementBehavior == null ? null : getElementBehavior.execute();
+    }
 
-        private By.ByCssSelector getLocator () {
-            return null;
-        }
+    String getCss() {
+        return getElementBehavior.getCss();
+    }
 
-        private String getCss () {
-            return null;
-        }
+    @Override
+    public String toString() {
+        return String.format("UiElement: %s", new Gson().toJson(this));
+    }
 
-        @Override
-        public String toString () {
-            return String.format("UiElement: %s", new Gson().toJson(this));
-        }
+    public String getHref() {
+        return getAttribute("href");
+    }
 
-        public String getHref () {
-            return getAttribute("href");
-        }
-
-        public void click () {
-            getLogger().info(String.format("Click %s ...", description));
-            WebElement element = getElement();
-            if (element == null) {
-                getLogger().warn(String.format("%s NOT FOUND using %s", description, getLocator()));
-            } else {
-                try {
-                    element.click();
-                } catch (Exception e) {
-                    getLogger().warn(String.format("UNABLE TO CLICK %s using %s", description, getLocator()));
-                }
+    public void click() {
+        getLogger().info(String.format("Click %s ...", description));
+        WebElement element = getElement();
+        if (element == null) {
+            getLogger().warn(String.format("%s NOT FOUND using %s", description, getElementBehavior.getLocatorDescription()));
+        } else {
+            try {
+                element.click();
+            } catch (Exception e) {
+                getLogger().warn(String.format("UNABLE TO CLICK %s using %s", description, getElementBehavior.getLocatorDescription()));
             }
-        }
-
-        private Logger getLogger () {
-            if (logger == null) {
-                logger = LogManager.getLogger("");
-            }
-            return logger;
-        }
-
-        public String getAttribute (String attribute){
-            WebElement element = getElement();
-            return element == null ? null : element.getAttribute(attribute);
-        }
-
-        public String getStyleProperty (String property){
-            WebElement element = getElement();
-            return element == null ? null : element.getCssValue(property);
-        }
-
-        public String getDescription () {
-            return description;
         }
     }
+
+    private Logger getLogger() {
+        if (logger == null) {
+            logger = LogManager.getLogger("");
+        }
+        return logger;
+    }
+
+    public String getAttribute(String attribute) {
+        WebElement element = getElement();
+        return element == null ? null : element.getAttribute(attribute);
+    }
+
+    public String getStyleProperty(String property) {
+        WebElement element = getElement();
+        return element == null ? null : element.getCssValue(property);
+    }
+
+    public String getDescription() {
+        return description;
+    }
+}
