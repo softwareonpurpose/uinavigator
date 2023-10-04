@@ -24,7 +24,8 @@ public class UiElement4StateTests {
                 UiElement4.getInstance("id existent", UiLocatorType4.ID, "view");
         final UiElement4 byIdChild =
                 UiElement4.getInstance("id on sub-element", UiLocatorType4.ID, "heading-id");
-        final UiElement4 byIdDiv = UiElement4.getInstance("id on ancestor element", UiLocatorType4.ID, "div-id");
+        final UiElement4 byIdDiv =
+                UiElement4.getInstance("id on ancestor element", UiLocatorType4.ID, "div-id");
         final UiElement4 byIdDescendent =
                 UiElement4.getInstance("id on descendent", UiLocatorType4.ID, "p-id");
         final UiElement4 byTagNonexistent =
@@ -67,6 +68,10 @@ public class UiElement4StateTests {
                 UiElement4.getInstance("tag in parent nonexistent", UiLocatorType4.TAG, "h1", byIdNonexistent);
         final UiElement4 byTagInParent =
                 UiElement4.getInstance("tag in parent", UiLocatorType4.TAG, "p", byIdDiv);
+        final UiElement4 byClassTableContainer =
+                UiElement4.getInstance("class 'table-container'", UiLocatorType4.CLASS, "table-container");
+        final UiElement4 byTagInAncestor =
+                UiElement4.getInstance("tag in ancestor", UiLocatorType4.TAG, "td", byClassTableContainer);
         return new Object[][]
                 {
                         //  element by id
@@ -94,11 +99,12 @@ public class UiElement4StateTests {
                         , {classPage, byClassOrdinalChild, isDisplayed}
                         , {tablesPage, byClassOrdinalDescendent, isDisplayed}
                         , {tablesPage, byClassChildDescendent, isDisplayed}
-                        //  element as direct child
+                        //  element as descendent
                         , {basicPage, byTagNonexistentInRoot, isNotDisplayed}
                         , {basicPage, byTagNonexistentInParent, isNotDisplayed}
                         , {basicPage, byTagInParentNonexistent, isNotDisplayed}
                         , {idPage, byTagInParent, isDisplayed}
+                        , {tablesPage, byTagInAncestor, isDisplayed}
                 };
     }
 

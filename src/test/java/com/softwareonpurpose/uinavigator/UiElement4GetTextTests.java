@@ -35,6 +35,7 @@ public class UiElement4GetTextTests {
         final String jackson = "Jackson";
         final String john = "John";
         final String doe = "Doe";
+        final String jill2FirstName = String.format("%s2", jill);
         final String jill2 = String.format("%s%d %s%d %d", jill, 2, smith, 2, 50);
         final String jill3 = String.format("%s%d %s%d %d", jill, 3, smith, 3, 50);
         final String jill4 = String.format("%s%d %s%d %d", jill, 4, smith, 4, 50);
@@ -56,6 +57,8 @@ public class UiElement4GetTextTests {
                 UiElement4.getInstance("id on sub-element", UiLocatorType4.ID, "heading-id");
         final UiElement4 byIdDescendent =
                 UiElement4.getInstance("id on descendent", UiLocatorType4.ID, "p-id");
+        final UiElement4 byIdDiv =
+                UiElement4.getInstance("id on ancestor element", UiLocatorType4.ID, "div-id");
         final UiElement4 byTagNonexistent =
                 UiElement4.getInstance("tag nonexistent", UiLocatorType4.TAG, "nonexistent");
         final UiElement4 byTagRoot =
@@ -88,33 +91,56 @@ public class UiElement4GetTextTests {
                 UiElement4.getInstance("descendent class ordinal", UiLocatorType4.CLASS, "sub-table", 2);
         final UiElement4 byClassChildDescendent =
                 UiElement4.getInstance("child/descendent class ordinal", UiLocatorType4.CLASS, "names", 2);
+        final UiElement4 byTagNonexistentInRoot =
+                UiElement4.getInstance("id nonexistent", UiLocatorType4.ID, "nonexistent", byIdRoot);
+        final UiElement4 byTagNonexistentInParent =
+                UiElement4.getInstance("tag nonexistent in parent", UiLocatorType4.TAG, "h1", byIdDiv);
+        final UiElement4 byTagInParentNonexistent =
+                UiElement4.getInstance("tag in parent nonexistent", UiLocatorType4.TAG, "h1", byIdNonexistent);
+        final UiElement4 byTagInParent =
+                UiElement4.getInstance("tag in parent", UiLocatorType4.TAG, "p", byIdDiv);
+        final UiElement4 byClassTableContainer =
+                UiElement4.getInstance("class 'table-container'", UiLocatorType4.CLASS, "table-container");
+        final UiElement4 byTagInAncestor =
+                UiElement4.getInstance("tag in ancestor", UiLocatorType4.TAG, "td", byClassTableContainer);
         final String basicPage = "basic";
         final String listPage = "list";
         final String idPage = "id";
         final String classPage = "class";
         final String tablesPage = "tables";
         return new Object[][]{
+                //  element by id
                 {idPage, byIdNonexistent, null}
                 , {idPage, byIdRoot, idPageContent}
                 , {idPage, byIdChild, myHeader}
                 , {idPage, byIdDescendent, nestedParagraph}
+                //  element by tag
                 , {basicPage, byTagNonexistent, null}
                 , {basicPage, byTagRoot, firstHeading + "\n" + firstParagraph}
                 , {basicPage, byTagChild, firstParagraph}
                 , {listPage, byTagDescendent, coffeeUnordered}
+                //  element by class
                 , {basicPage, byClassNonexistent, null}
                 , {classPage, byClassRootElement,
                 aParagraph + "\n" + aParagraph + "\n" + different + "\n" + aParagraph + "\n" + differentToo}
                 , {classPage, byClassChild, different}
                 , {tablesPage, byClassDescendent, table2}
+                //  element by tag and ordinal
                 , {basicPage, byTagOrdinalNonexistent, null}
                 , {classPage, byTagOrdinalChild, different}
                 , {listPage, byTagOrdinalDescendent, coffeeOrdered}
                 , {tablesPage, byTagOrdinalChildDescendent, table2}
+                //  element by class and ordinal
                 , {basicPage, byClassOrdinalNonexistent, null}
                 , {classPage, byClassOrdinalChild, differentToo}
                 , {tablesPage, byClassOrdinalDescendent, table3}
                 , {tablesPage, byClassChildDescendent, table4}
+                //  element as descendent
+                , {basicPage, byTagNonexistentInRoot, null}
+                , {basicPage, byTagNonexistentInParent, null}
+                , {basicPage, byTagInParentNonexistent, null}
+                , {idPage, byTagInParent, nestedParagraph}
+                , {tablesPage, byTagInAncestor, jill2FirstName}
         };
     }
 
