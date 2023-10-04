@@ -17,6 +17,13 @@ public class UiElement4 {
         this.getElementBehavior = getElementBehavior;
     }
 
+    private static String composeCss(String locatorType, String locatorValue, Integer ordinal, UiElement4 parent) {
+        String thisCss = String.format("%s%s", locatorType, locatorValue);
+        thisCss += ordinal == null || UiLocatorType4.CLASS.equals(locatorType) ? "" : String.format(":nth-of-type(%s)", ordinal);
+        String parentCss = parent == null ? "" : String.format("%s ", parent.getCss());
+        return String.format("%s%s", parentCss, thisCss);
+    }
+
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue) {
         GetWebElementBehavior getElementBehavior = GetByCssFromRoot.getInstance(locatorType, locatorValue);
         return new UiElement4(description, getElementBehavior);
@@ -32,74 +39,75 @@ public class UiElement4 {
         return new UiElement4(description, getElementBehavior);
     }
 
-    public static UiElement4 getInstance(String description, String locatorType, String locatorValue, int ordinal, UiElement4 ancestor) {
-        GetWebElementBehavior getElementBehavior = GetByCssFromRoot.getInstance(locatorType, locatorValue);
-        return new UiElement4(description, getElementBehavior);
-    }
+    public static UiElement4 getInstance(String description, String locatorType, String locatorValue,
+                                         int ordinal, UiElement4 ancestor) {
+            GetWebElementBehavior getElementBehavior = GetByCssFromRoot.getInstance(locatorType, locatorValue);
+            return new UiElement4(description, getElementBehavior);
+        }
 
-    public boolean isDisplayed() {
-        WebElement element = getElement();
-        return element != null && element.isDisplayed();
-    }
+        public boolean isDisplayed () {
+            WebElement element = getElement();
+            return element != null && element.isDisplayed();
+        }
 
-    public String getText() {
-        WebElement element = getElement();
-        return element == null ? null : element.getText();
-    }
+        public String getText () {
+            WebElement element = getElement();
+            return element == null ? null : element.getText();
+        }
 
-    private WebElement getElement() {
-        return getElementBehavior == null ? null : getElementBehavior.execute();
-    }
+        private WebElement getElement () {
+            return getElementBehavior == null ? null : getElementBehavior.execute();
+        }
 
-    private By.ByCssSelector getLocator() {
-        return null;
-    }
+        private By.ByCssSelector getLocator () {
+            return null;
+        }
 
-    private String getCss() {
-        return null;
-    }
+        private String getCss () {
+            return null;
+        }
 
-    @Override
-    public String toString() {
-        return String.format("UiElement: %s", new Gson().toJson(this));
-    }
+        @Override
+        public String toString () {
+            return String.format("UiElement: %s", new Gson().toJson(this));
+        }
 
-    public String getHref() {
-        return getAttribute("href");
-    }
+        public String getHref () {
+            return getAttribute("href");
+        }
 
-    public void click() {
-        getLogger().info(String.format("Click %s ...", description));
-        WebElement element = getElement();
-        if (element == null) {
-            getLogger().warn(String.format("%s NOT FOUND using %s", description, getLocator()));
-        } else {
-            try {
-                element.click();
-            } catch (Exception e) {
-                getLogger().warn(String.format("UNABLE TO CLICK %s using %s", description, getLocator()));
+        public void click () {
+            getLogger().info(String.format("Click %s ...", description));
+            WebElement element = getElement();
+            if (element == null) {
+                getLogger().warn(String.format("%s NOT FOUND using %s", description, getLocator()));
+            } else {
+                try {
+                    element.click();
+                } catch (Exception e) {
+                    getLogger().warn(String.format("UNABLE TO CLICK %s using %s", description, getLocator()));
+                }
             }
         }
-    }
 
-    private Logger getLogger() {
-        if (logger == null) {
-            logger = LogManager.getLogger("");
+        private Logger getLogger () {
+            if (logger == null) {
+                logger = LogManager.getLogger("");
+            }
+            return logger;
         }
-        return logger;
-    }
 
-    public String getAttribute(String attribute) {
-        WebElement element = getElement();
-        return element == null ? null : element.getAttribute(attribute);
-    }
+        public String getAttribute (String attribute){
+            WebElement element = getElement();
+            return element == null ? null : element.getAttribute(attribute);
+        }
 
-    public String getStyleProperty(String property) {
-        WebElement element = getElement();
-        return element == null ? null : element.getCssValue(property);
-    }
+        public String getStyleProperty (String property){
+            WebElement element = getElement();
+            return element == null ? null : element.getCssValue(property);
+        }
 
-    public String getDescription() {
-        return description;
+        public String getDescription () {
+            return description;
+        }
     }
-}
