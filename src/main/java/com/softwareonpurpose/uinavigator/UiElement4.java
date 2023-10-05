@@ -3,7 +3,6 @@ package com.softwareonpurpose.uinavigator;
 import com.google.gson.Gson;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class UiElement4 {
@@ -34,12 +33,13 @@ public class UiElement4 {
         return new UiElement4(description, getElementBehavior);
     }
 
-    public static UiElement4 getInstance(String description, String locatorType, String locatorValue, UiElement4 parent) {
-        GetWebElementBehavior getElementBehavior = GetByCssFromRoot.getInstance(locatorType, locatorValue);
+    public static UiElement4 getInstance(String description, String locatorType, String locatorValue, UiElement4 ancestor) {
+        GetWebElementBehavior getElementBehavior = GetByCssFromAncestor.getInstance(locatorType, locatorValue, ancestor);
         return new UiElement4(description, getElementBehavior);
     }
 
-    public static UiElement4 getInstance(String description, String locatorType, String locatorValue, int ordinal, UiElement4 parent) {
+    public static UiElement4 getInstance(String description, String locatorType, String locatorValue,
+                                         int ordinal, UiElement4 ancestor) {
         GetWebElementBehavior getElementBehavior = GetByCssFromRoot.getInstance(locatorType, locatorValue);
         return new UiElement4(description, getElementBehavior);
     }
@@ -55,15 +55,11 @@ public class UiElement4 {
     }
 
     private WebElement getElement() {
-        return getElementBehavior.execute();
+        return getElementBehavior == null ? null : getElementBehavior.execute();
     }
 
-    private By.ByCssSelector getLocator() {
-        return null;
-    }
-
-    private String getCss() {
-        return null;
+    String getCss() {
+        return getElementBehavior.getCss();
     }
 
     @Override
@@ -79,12 +75,12 @@ public class UiElement4 {
         getLogger().info(String.format("Click %s ...", description));
         WebElement element = getElement();
         if (element == null) {
-            getLogger().warn(String.format("%s NOT FOUND using %s", description, getLocator()));
+            getLogger().warn(String.format("%s NOT FOUND using %s", description, getElementBehavior.getLocatorDescription()));
         } else {
             try {
                 element.click();
             } catch (Exception e) {
-                getLogger().warn(String.format("UNABLE TO CLICK %s using %s", description, getLocator()));
+                getLogger().warn(String.format("UNABLE TO CLICK %s using %s", description, getElementBehavior.getLocatorDescription()));
             }
         }
     }

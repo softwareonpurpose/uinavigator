@@ -6,7 +6,7 @@ import org.apache.logging.log4j.LogManager;
 public abstract class UiRegion4 {
     private final UiElement4 regionElement;
 
-    public UiRegion4(UiElement4 regionElement) {
+    protected UiRegion4(UiElement4 regionElement) {
         LogManager.getLogger("").info(String.format("In '%s' region ...", regionElement.getDescription()));
         this.regionElement = regionElement;
     }

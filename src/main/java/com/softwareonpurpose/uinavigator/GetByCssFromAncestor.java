@@ -5,17 +5,17 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
-public class GetByCssFromRoot extends GetWebElementBehavior {
-    private GetByCssFromRoot(String css) {
+public class GetByCssFromAncestor extends GetWebElementBehavior {
+    private GetByCssFromAncestor(String css) {
         super(css);
     }
 
-    public static GetByCssFromRoot getInstance(String locatorType, String locatorValue) {
-        return new GetByCssFromRoot(composeCss(locatorType, locatorValue));
+    public static GetByCssFromAncestor getInstance(String locatorType, String locatorValue, UiElement4 ancestor) {
+        return new GetByCssFromAncestor(composeCss(locatorType, locatorValue, ancestor));
     }
 
     @Override
-    public WebElement execute() {
+    WebElement execute() {
         try {
             return UiNavigator.getInstance().getDriver().findElement(locator);
         } catch (NoSuchElementException e) {

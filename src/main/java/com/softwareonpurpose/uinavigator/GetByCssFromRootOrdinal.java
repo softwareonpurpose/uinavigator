@@ -9,14 +9,13 @@ import java.util.List;
 public class GetByCssFromRootOrdinal extends GetWebElementBehavior {
     private final int ordinal;
 
-    public GetByCssFromRootOrdinal(By.ByCssSelector locator, Integer ordinal) {
-        super(locator);
+    private GetByCssFromRootOrdinal(String css, Integer ordinal) {
+        super(css);
         this.ordinal = ordinal;
     }
 
     public static GetWebElementBehavior getInstance(String locatorType, String locatorValue, Integer ordinal) {
-        By.ByCssSelector locator = composeCss(locatorType, locatorValue);
-        return new GetByCssFromRootOrdinal(locator, ordinal);
+        return new GetByCssFromRootOrdinal(composeCss(locatorType, locatorValue), ordinal);
     }
 
     @Override
