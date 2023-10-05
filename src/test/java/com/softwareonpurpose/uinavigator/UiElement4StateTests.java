@@ -73,7 +73,8 @@ public class UiElement4StateTests {
                 UiElement4.getInstance("class in parent", UiLocatorType4.CLASS, "sub-table", byClassTableContainer);
         final UiElement4 byTagInAncestor =
                 UiElement4.getInstance("tag in ancestor", UiLocatorType4.TAG, "td", byClassTableContainer);
-        UiElement4 byTagUl = UiElement4.getInstance("'ul' tag", UiLocatorType4.TAG, "ul");
+        final UiElement4 byTagUl =
+                UiElement4.getInstance("'ul' tag", UiLocatorType4.TAG, "ul");
         final UiElement4 byTagOrdinalNonexistentInAncestor =
                 UiElement4.getInstance("'li' tag", UiLocatorType4.TAG, "li", 4, byTagUl);
         final UiElement4 byClassOrdinalInParent =

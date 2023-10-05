@@ -34,13 +34,21 @@ public class UiElement4 {
     }
 
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue, UiElement4 ancestor) {
-        GetWebElementBehavior getElementBehavior = GetByCssFromAncestor.getInstance(locatorType, locatorValue, ancestor);
+        GetWebElementBehavior getElementBehavior = ancestor.isByOrdinal()
+                ? GetByCssFromAncestorOrdinal.getInstance(locatorType, locatorValue, ancestor)
+                : GetByCssFromAncestor.getInstance(locatorType, locatorValue, ancestor);
         return new UiElement4(description, getElementBehavior);
     }
 
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue, int ordinal, UiElement4 ancestor) {
-        GetWebElementBehavior getElementBehavior = GetByCssOrdinalFromAncestor.getInstance(locatorType, locatorValue, ordinal, ancestor);
+        GetWebElementBehavior getElementBehavior = ancestor.isByOrdinal()
+                ? GetByCssOrdinalFromAncestorOrdinal.getInstance(locatorType, locatorValue, ordinal, ancestor)
+                : GetByCssOrdinalFromAncestor.getInstance(locatorType, locatorValue, ordinal, ancestor);
         return new UiElement4(description, getElementBehavior);
+    }
+
+    private boolean isByOrdinal() {
+        return getElementBehavior.isByOrdinal();
     }
 
     public boolean isDisplayed() {
@@ -53,7 +61,7 @@ public class UiElement4 {
         return element == null ? null : element.getText();
     }
 
-    private WebElement getElement() {
+    protected WebElement getElement() {
         return getElementBehavior == null ? null : getElementBehavior.execute();
     }
 

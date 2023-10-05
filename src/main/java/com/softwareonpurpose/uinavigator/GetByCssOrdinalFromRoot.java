@@ -6,11 +6,8 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 public class GetByCssOrdinalFromRoot extends GetWebElementBehavior {
-    private final int ordinal;
-
     private GetByCssOrdinalFromRoot(String css, Integer ordinal) {
-        super(css);
-        this.ordinal = ordinal;
+        super(css, ordinal);
     }
 
     public static GetWebElementBehavior getInstance(String locatorType, String locatorValue, Integer ordinal) {

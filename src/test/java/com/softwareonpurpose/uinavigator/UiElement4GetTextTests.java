@@ -25,6 +25,7 @@ public class UiElement4GetTextTests {
         final String differentToo = "I am different too.";
         final String firstname = "Firstname";
         final String lastname = "Lastname";
+        final String firstname3 = String.format("%s%d", firstname, 3);
         final String age = "Age";
         final String tableHeading2 = String.format("%s%d %s%d %s%d", firstname, 2, lastname, 2, age, 2);
         final String tableHeading3 = String.format("%s%d %s%d %s%d", firstname, 3, lastname, 3, age, 3);
@@ -103,6 +104,18 @@ public class UiElement4GetTextTests {
                 UiElement4.getInstance("class 'table-container'", UiLocatorType4.CLASS, "table-container");
         final UiElement4 byTagInAncestor =
                 UiElement4.getInstance("tag in ancestor", UiLocatorType4.TAG, "td", byClassTableContainer);
+        final UiElement4 byTagUl =
+                UiElement4.getInstance("'ul' tag", UiLocatorType4.TAG, "ul");
+        final UiElement4 byTagOrdinalNonexistentInAncestor =
+                UiElement4.getInstance("'li' tag", UiLocatorType4.TAG, "li", 4, byTagUl);
+        final UiElement4 byClassOrdinalInParent =
+                UiElement4.getInstance("'sub-table' class", UiLocatorType4.CLASS, "sub-table", 2, byClassTableContainer);
+        final UiElement4 byTagInParentOrdinal =
+                UiElement4.getInstance("'th' tag in ancestor by ordinal", UiLocatorType4.TAG, "th", byClassOrdinalDescendent);
+        UiElement4 byTagOrdinal =
+                UiElement4.getInstance("by 'div' tag and ordinal", UiLocatorType4.TAG, "div", 2);
+        final UiElement4 byClassOrdinalInParentOrdinal =
+                UiElement4.getInstance("class 'row-style'", UiLocatorType4.CLASS, "row-style", 3, byTagOrdinal);
         final String basicPage = "basic";
         final String listPage = "list";
         final String idPage = "id";
@@ -141,6 +154,11 @@ public class UiElement4GetTextTests {
                 , {basicPage, byTagInParentNonexistent, null}
                 , {idPage, byTagInParent, nestedParagraph}
                 , {tablesPage, byTagInAncestor, jill2FirstName}
+                //  element as nth descendent of ancestor
+                , {listPage, byTagOrdinalNonexistentInAncestor, null}
+                , {tablesPage, byClassOrdinalInParent, table3}
+                , {tablesPage, byTagInParentOrdinal, firstname3}
+                , {tablesPage, byClassOrdinalInParentOrdinal, joe4}
         };
     }
 

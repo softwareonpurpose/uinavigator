@@ -1,13 +1,12 @@
 package com.softwareonpurpose.uinavigator;
 
 import org.apache.logging.log4j.LogManager;
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 public class GetByCssFromAncestor extends GetWebElementBehavior {
     private GetByCssFromAncestor(String css) {
-        super(css);
+        super(css, null);
     }
 
     public static GetByCssFromAncestor getInstance(String locatorType, String locatorValue, UiElement4 ancestor) {

@@ -7,9 +7,11 @@ import org.openqa.selenium.WebElement;
 public abstract class GetWebElementBehavior {
     protected final By.ByCssSelector locator;
     private final String css;
+    protected final int ordinal;
 
-    protected GetWebElementBehavior(String css) {
+    protected GetWebElementBehavior(String css, Integer ordinal) {
         this.css = css;
+        this.ordinal = ordinal == null || ordinal < 0 ? 0 : ordinal;
         this.locator = new By.ByCssSelector(this.css);
     }
 
@@ -36,5 +38,9 @@ public abstract class GetWebElementBehavior {
 
     public String getCss() {
         return css;
+    }
+
+    public boolean isByOrdinal() {
+        return ordinal > 0;
     }
 }

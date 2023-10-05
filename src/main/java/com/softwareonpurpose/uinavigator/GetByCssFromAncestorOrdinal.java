@@ -1,0 +1,28 @@
+package com.softwareonpurpose.uinavigator;
+
+import org.apache.logging.log4j.LogManager;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
+
+public class GetByCssFromAncestorOrdinal extends GetWebElementBehavior {
+    private final UiElement4 ancestor;
+
+    protected GetByCssFromAncestorOrdinal(String css, UiElement4 ancestor) {
+        super(css, null);
+        this.ancestor = ancestor;
+    }
+
+    public static GetByCssFromAncestorOrdinal getInstance(String locatorType, String locatorValue, UiElement4 ancestor) {
+        return new GetByCssFromAncestorOrdinal(composeCss(locatorType, locatorValue), ancestor);
+    }
+
+    @Override
+    WebElement execute() {
+        try {
+            return ancestor.getElement().findElement(locator);
+        } catch (NoSuchElementException e) {
+            LogManager.getLogger("").warn(extractExceptionMessage(e));
+            return null;
+        }
+    }
+}

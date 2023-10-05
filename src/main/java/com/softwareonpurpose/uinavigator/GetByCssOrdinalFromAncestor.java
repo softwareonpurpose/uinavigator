@@ -6,11 +6,8 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 public class GetByCssOrdinalFromAncestor extends GetWebElementBehavior {
-    private final int ordinal;
-
     private GetByCssOrdinalFromAncestor(String css, Integer ordinal) {
-        super(css);
-        this.ordinal = ordinal == null || ordinal < 1 ? 0 : ordinal;
+        super(css, ordinal);
     }
 
     public static GetByCssOrdinalFromAncestor getInstance(String locatorType, String locatorValue, Integer ordinal, UiElement4 ancestor) {
