@@ -85,6 +85,7 @@ public class UiElement4StateTests {
                 UiElement4.getInstance("by 'div' tag and ordinal", UiLocatorType4.TAG, "div", 2);
         final UiElement4 byClassOrdinalInParentOrdinal =
                 UiElement4.getInstance("class 'row-style'", UiLocatorType4.CLASS, "row-style", 3, byTagOrdinal);
+        final UiElement4 byFrameNonexistentInRoot = UiElement4.getInstance("'iframe' element", UiLocatorType4.FRAME, "");
         return new Object[][]
                 {
                         //  element by id
@@ -123,6 +124,8 @@ public class UiElement4StateTests {
                         , {tablesPage, byClassOrdinalInParent, isDisplayed}
                         , {tablesPage, byTagInParentOrdinal, isDisplayed}
                         , {tablesPage, byClassOrdinalInParentOrdinal, isDisplayed}
+                        //  iframe element
+                        , {basicPage, byFrameNonexistentInRoot, isNotDisplayed}
                 };
     }
 
