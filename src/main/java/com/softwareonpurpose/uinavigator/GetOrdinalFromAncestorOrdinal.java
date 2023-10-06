@@ -5,16 +5,16 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class GetByCssOrdinalFromAncestorOrdinal extends GetWebElementBehavior {
+public class GetOrdinalFromAncestorOrdinal extends GetWebElementBehavior {
     private final UiElement4 ancestor;
 
-    protected GetByCssOrdinalFromAncestorOrdinal(String locatorType, String locatorValue, Integer ordinal, UiElement4 ancestor) {
+    protected GetOrdinalFromAncestorOrdinal(String locatorType, String locatorValue, Integer ordinal, UiElement4 ancestor) {
         super(locatorType, locatorValue, ordinal, ancestor);
         this.ancestor = ancestor;
     }
 
-    public static GetByCssOrdinalFromAncestorOrdinal getInstance(String locatorType, String locatorValue, Integer ordinal, UiElement4 ancestor) {
-        return new GetByCssOrdinalFromAncestorOrdinal(locatorType, locatorValue, ordinal, ancestor);
+    public static GetOrdinalFromAncestorOrdinal getInstance(String locatorType, String locatorValue, Integer ordinal, UiElement4 ancestor) {
+        return new GetOrdinalFromAncestorOrdinal(locatorType, locatorValue, ordinal, ancestor);
     }
 
     @Override

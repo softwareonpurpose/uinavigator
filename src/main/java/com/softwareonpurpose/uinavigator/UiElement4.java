@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 
 public class UiElement4 {
     private static Logger logger;
-    @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private final String description;
     private final GetWebElementBehavior getElementBehavior;
 
@@ -17,26 +16,26 @@ public class UiElement4 {
     }
 
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue) {
-        GetWebElementBehavior getElementBehavior = GetByCssFromRoot.getInstance(locatorType, locatorValue);
+        GetWebElementBehavior getElementBehavior = GetFromRoot.getInstance(locatorType, locatorValue);
         return new UiElement4(description, getElementBehavior);
     }
 
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue, int ordinal) {
-        GetWebElementBehavior getElementBehavior = GetByOrdinal.getInstance(locatorType, locatorValue, ordinal);
+        GetWebElementBehavior getElementBehavior = GetOrdinalFromRoot.getInstance(locatorType, locatorValue, ordinal);
         return new UiElement4(description, getElementBehavior);
     }
 
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue, UiElement4 ancestor) {
         GetWebElementBehavior getElementBehavior = ancestor.isByOrdinal()
-                ? GetByCssFromAncestorOrdinal.getInstance(locatorType, locatorValue, ancestor)
-                : GetByCssFromAncestor.getInstance(locatorType, locatorValue, ancestor);
+                ? GetFromAncestorOrdinal.getInstance(locatorType, locatorValue, ancestor)
+                : GetFromAncestor.getInstance(locatorType, locatorValue, ancestor);
         return new UiElement4(description, getElementBehavior);
     }
 
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue, int ordinal, UiElement4 ancestor) {
         GetWebElementBehavior getElementBehavior = ancestor.isByOrdinal()
-                ? GetByCssOrdinalFromAncestorOrdinal.getInstance(locatorType, locatorValue, ordinal, ancestor)
-                : GetByOrdinal.getInstance(locatorType, locatorValue, ordinal, ancestor);
+                ? GetOrdinalFromAncestorOrdinal.getInstance(locatorType, locatorValue, ordinal, ancestor)
+                : GetOrdinalFromRoot.getInstance(locatorType, locatorValue, ordinal, ancestor);
         return new UiElement4(description, getElementBehavior);
     }
 

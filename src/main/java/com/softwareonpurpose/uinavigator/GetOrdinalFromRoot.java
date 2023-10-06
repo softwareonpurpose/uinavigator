@@ -5,17 +5,17 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class GetByOrdinal extends GetWebElementBehavior {
-    private GetByOrdinal(String locatorType, String locatorValue, Integer ordinal, UiElement4 ancestor) {
+public class GetOrdinalFromRoot extends GetWebElementBehavior {
+    private GetOrdinalFromRoot(String locatorType, String locatorValue, Integer ordinal, UiElement4 ancestor) {
         super(locatorType, locatorValue, ordinal, ancestor);
     }
 
-    public static GetByOrdinal getInstance(String locatorType, String locatorValue, Integer ordinal, UiElement4 ancestor) {
-        return new GetByOrdinal(locatorType, locatorValue, ordinal, ancestor);
+    public static GetOrdinalFromRoot getInstance(String locatorType, String locatorValue, Integer ordinal, UiElement4 ancestor) {
+        return new GetOrdinalFromRoot(locatorType, locatorValue, ordinal, ancestor);
     }
 
-    public static GetByOrdinal getInstance(String locatorType, String locatorValue, Integer ordinal) {
-        return new GetByOrdinal(locatorType, locatorValue, ordinal, null);
+    public static GetOrdinalFromRoot getInstance(String locatorType, String locatorValue, Integer ordinal) {
+        return new GetOrdinalFromRoot(locatorType, locatorValue, ordinal, null);
     }
 
     @Override

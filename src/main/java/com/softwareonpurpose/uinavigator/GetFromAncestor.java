@@ -13,6 +13,10 @@ public class GetFromAncestor extends GetWebElementBehavior {
         return new GetFromAncestor(locatorType, locatorValue, ordinal, ancestor);
     }
 
+    public static GetFromAncestor getInstance(String locatorType, String locatorValue, UiElement4 ancestor) {
+        return new GetFromAncestor(locatorType, locatorValue, null, ancestor);
+    }
+
     @Override
     WebElement execute() {
         try {
