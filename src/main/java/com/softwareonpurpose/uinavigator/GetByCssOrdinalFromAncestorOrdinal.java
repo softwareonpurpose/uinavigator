@@ -8,14 +8,13 @@ import java.util.List;
 public class GetByCssOrdinalFromAncestorOrdinal extends GetWebElementBehavior {
     private final UiElement4 ancestor;
 
-    protected GetByCssOrdinalFromAncestorOrdinal(String css, Integer ordinal, UiElement4 ancestor) {
-        super(css, ordinal);
+    protected GetByCssOrdinalFromAncestorOrdinal(String locatorType, String locatorValue, Integer ordinal, UiElement4 ancestor) {
+        super(locatorType, locatorValue, ordinal, ancestor);
         this.ancestor = ancestor;
     }
 
     public static GetByCssOrdinalFromAncestorOrdinal getInstance(String locatorType, String locatorValue, Integer ordinal, UiElement4 ancestor) {
-        String css = composeCss(locatorType, locatorValue);
-        return new GetByCssOrdinalFromAncestorOrdinal(css, ordinal, ancestor);
+        return new GetByCssOrdinalFromAncestorOrdinal(locatorType, locatorValue, ordinal, ancestor);
     }
 
     @Override

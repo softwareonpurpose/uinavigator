@@ -6,16 +6,16 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 public class GetByOrdinal extends GetWebElementBehavior {
-    private GetByOrdinal(String css, Integer ordinal) {
-        super(css, ordinal);
+    private GetByOrdinal(String locatorType, String locatorValue, Integer ordinal, UiElement4 ancestor) {
+        super(locatorType, locatorValue, ordinal, ancestor);
     }
 
     public static GetByOrdinal getInstance(String locatorType, String locatorValue, Integer ordinal, UiElement4 ancestor) {
-        return new GetByOrdinal(composeCss(locatorType, locatorValue, ancestor), ordinal);
+        return new GetByOrdinal(locatorType, locatorValue, ordinal, ancestor);
     }
 
     public static GetByOrdinal getInstance(String locatorType, String locatorValue, Integer ordinal) {
-        return new GetByOrdinal(composeCss(locatorType, locatorValue), ordinal);
+        return new GetByOrdinal(locatorType, locatorValue, ordinal, null);
     }
 
     @Override

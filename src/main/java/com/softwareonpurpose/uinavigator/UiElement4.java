@@ -16,13 +16,6 @@ public class UiElement4 {
         this.getElementBehavior = getElementBehavior;
     }
 
-    private static String composeCss(String locatorType, String locatorValue, Integer ordinal, UiElement4 parent) {
-        String thisCss = String.format("%s%s", locatorType, locatorValue);
-        thisCss += ordinal == null || UiLocatorType4.CLASS.equals(locatorType) ? "" : String.format(":nth-of-type(%s)", ordinal);
-        String parentCss = parent == null ? "" : String.format("%s ", parent.getCss());
-        return String.format("%s%s", parentCss, thisCss);
-    }
-
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue) {
         GetWebElementBehavior getElementBehavior = GetByCssFromRoot.getInstance(locatorType, locatorValue);
         return new UiElement4(description, getElementBehavior);

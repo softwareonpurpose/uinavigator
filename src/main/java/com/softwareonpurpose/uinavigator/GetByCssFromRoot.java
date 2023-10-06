@@ -5,12 +5,12 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 public class GetByCssFromRoot extends GetWebElementBehavior {
-    private GetByCssFromRoot(String css) {
-        super(css, null);
+    private GetByCssFromRoot(String locatorType, String locatorValue) {
+        super(locatorType, locatorValue, null, null);
     }
 
     public static GetByCssFromRoot getInstance(String locatorType, String locatorValue) {
-        return new GetByCssFromRoot(composeCss(locatorType, locatorValue));
+        return new GetByCssFromRoot(locatorType, locatorValue);
     }
 
     @Override

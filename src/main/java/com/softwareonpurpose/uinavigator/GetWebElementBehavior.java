@@ -9,19 +9,15 @@ public abstract class GetWebElementBehavior {
     private final String css;
     protected final int ordinal;
 
-    protected GetWebElementBehavior(String css, Integer ordinal) {
-        this.css = css;
+    protected GetWebElementBehavior(String locatorType, String locatorValue, Integer ordinal, UiElement4 ancestor) {
+        this.css = composeCss(locatorType, locatorValue, ancestor);
         this.ordinal = ordinal == null || ordinal < 0 ? 0 : ordinal;
         this.locator = new By.ByCssSelector(this.css);
     }
 
-    protected static String composeCss(String locatorType, String locatorValue) {
-        return String.format("%s%s", locatorType, locatorValue);
-    }
-
-    protected static String composeCss(String locatorType, String locatorValue, UiElement4 ancestor) {
+    private static String composeCss(String locatorType, String locatorValue, UiElement4 ancestor) {
         String ancestorCss = ancestor == null ? "" : ancestor.getCss();
-        return String.format("%s %s", ancestorCss, composeCss(locatorType, locatorValue));
+        return String.format("%s %s", ancestorCss, String.format("%s%s", locatorType, locatorValue));
     }
 
     protected static String extractExceptionMessage(NoSuchElementException e) {
