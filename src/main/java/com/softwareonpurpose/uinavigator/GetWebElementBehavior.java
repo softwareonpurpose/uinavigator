@@ -28,15 +28,15 @@ public abstract class GetWebElementBehavior {
 
     abstract WebElement execute();
 
-    public String getLocatorDescription() {
+    String getLocatorDescription() {
         return locator.toString();
     }
 
-    public String getCss() {
+    String getCss() {
         return css;
     }
 
-    public boolean isByOrdinal() {
+    boolean isByOrdinal() {
         return ordinal > 0;
     }
 }

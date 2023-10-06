@@ -5,12 +5,12 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 public class GetByCssFromAncestor extends GetWebElementBehavior {
-    private GetByCssFromAncestor(String locatorType, String locatorValue, Integer ordinal, UiElement4 ancestor) {
+    private GetByCssFromAncestor(String locatorType, String locatorValue, UiElement4 ancestor) {
         super(locatorType, locatorValue, null, ancestor);
     }
 
     public static GetByCssFromAncestor getInstance(String locatorType, String locatorValue, UiElement4 ancestor) {
-        return new GetByCssFromAncestor(locatorType, locatorValue, null, ancestor);
+        return new GetByCssFromAncestor(locatorType, locatorValue, ancestor);
     }
 
     @Override
