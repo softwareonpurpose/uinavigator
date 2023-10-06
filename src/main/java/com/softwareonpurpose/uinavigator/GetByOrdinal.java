@@ -5,14 +5,17 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class GetByCssOrdinalFromAncestor extends GetWebElementBehavior {
-    private GetByCssOrdinalFromAncestor(String css, Integer ordinal) {
+public class GetByOrdinal extends GetWebElementBehavior {
+    private GetByOrdinal(String css, Integer ordinal) {
         super(css, ordinal);
     }
 
-    public static GetByCssOrdinalFromAncestor getInstance(String locatorType, String locatorValue, Integer ordinal, UiElement4 ancestor) {
-        String css = composeCss(locatorType, locatorValue, ancestor);
-        return new GetByCssOrdinalFromAncestor(css, ordinal);
+    public static GetByOrdinal getInstance(String locatorType, String locatorValue, Integer ordinal, UiElement4 ancestor) {
+        return new GetByOrdinal(composeCss(locatorType, locatorValue, ancestor), ordinal);
+    }
+
+    public static GetByOrdinal getInstance(String locatorType, String locatorValue, Integer ordinal) {
+        return new GetByOrdinal(composeCss(locatorType, locatorValue), ordinal);
     }
 
     @Override

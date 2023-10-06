@@ -29,7 +29,7 @@ public class UiElement4 {
     }
 
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue, int ordinal) {
-        GetWebElementBehavior getElementBehavior = GetByCssOrdinalFromRoot.getInstance(locatorType, locatorValue, ordinal);
+        GetWebElementBehavior getElementBehavior = GetByOrdinal.getInstance(locatorType, locatorValue, ordinal);
         return new UiElement4(description, getElementBehavior);
     }
 
@@ -43,7 +43,7 @@ public class UiElement4 {
     public static UiElement4 getInstance(String description, String locatorType, String locatorValue, int ordinal, UiElement4 ancestor) {
         GetWebElementBehavior getElementBehavior = ancestor.isByOrdinal()
                 ? GetByCssOrdinalFromAncestorOrdinal.getInstance(locatorType, locatorValue, ordinal, ancestor)
-                : GetByCssOrdinalFromAncestor.getInstance(locatorType, locatorValue, ordinal, ancestor);
+                : GetByOrdinal.getInstance(locatorType, locatorValue, ordinal, ancestor);
         return new UiElement4(description, getElementBehavior);
     }
 
