@@ -18,15 +18,12 @@ public class UiElement4StateTests {
         final String idPage = "id";
         final String classPage = "class";
         final String tablesPage = "tables";
-        final String iframePage = "iframe";
         final UiElement4 byIdNonexistent =
                 UiElement4.getInstance("id nonexistent", UiLocatorType4.ID, "nonexistent");
         final UiElement4 byIdRoot =
                 UiElement4.getInstance("id existent", UiLocatorType4.ID, "view");
         final UiElement4 byIdChild =
                 UiElement4.getInstance("id on sub-element", UiLocatorType4.ID, "heading-id");
-        final UiElement4 byIdDiv =
-                UiElement4.getInstance("id on ancestor element", UiLocatorType4.ID, "div-id");
         final UiElement4 byIdDescendent =
                 UiElement4.getInstance("id on descendent", UiLocatorType4.ID, "p-id");
         final UiElement4 byTagNonexistent =
