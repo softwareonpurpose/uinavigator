@@ -1,21 +1,21 @@
 package com.softwareonpurpose.uinavigator;
 
 import org.apache.logging.log4j.LogManager;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class GetByCssFromRootOrdinal extends GetWebElementBehavior {
-    private final int ordinal;
-
-    private GetByCssFromRootOrdinal(String css, Integer ordinal) {
-        super(css);
-        this.ordinal = ordinal;
+public class GetByOrdinal extends GetWebElementBehavior {
+    private GetByOrdinal(String locatorType, String locatorValue, Integer ordinal, UiElement4 ancestor) {
+        super(locatorType, locatorValue, ordinal, ancestor);
     }
 
-    public static GetWebElementBehavior getInstance(String locatorType, String locatorValue, Integer ordinal) {
-        return new GetByCssFromRootOrdinal(composeCss(locatorType, locatorValue), ordinal);
+    public static GetByOrdinal getInstance(String locatorType, String locatorValue, Integer ordinal, UiElement4 ancestor) {
+        return new GetByOrdinal(locatorType, locatorValue, ordinal, ancestor);
+    }
+
+    public static GetByOrdinal getInstance(String locatorType, String locatorValue, Integer ordinal) {
+        return new GetByOrdinal(locatorType, locatorValue, ordinal, null);
     }
 
     @Override

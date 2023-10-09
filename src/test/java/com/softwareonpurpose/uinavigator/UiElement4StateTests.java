@@ -36,6 +36,7 @@ public class UiElement4StateTests {
                 UiElement4.getInstance("tag 'p'", UiLocatorType4.TAG, "p");
         final UiElement4 byTagDescendent =
                 UiElement4.getInstance("tag 'li'", UiLocatorType4.TAG, "li");
+        final UiElement4 byTagTable = UiElement4.getInstance("tag 'table'", UiLocatorType4.TAG, "table");
         final UiElement4 byClassNonexistent =
                 UiElement4.getInstance("class nonexistent", UiLocatorType4.CLASS, "nonexistent");
         final UiElement4 byClassRoot =
@@ -62,16 +63,28 @@ public class UiElement4StateTests {
                 UiElement4.getInstance("child/descendent class ordinal", UiLocatorType4.CLASS, "names", 2);
         final UiElement4 byTagNonexistentInRoot =
                 UiElement4.getInstance("id nonexistent", UiLocatorType4.ID, "nonexistent", byIdRoot);
-        final UiElement4 byTagNonexistentInParent =
-                UiElement4.getInstance("tag nonexistent in parent", UiLocatorType4.TAG, "h1", byIdDiv);
+        final UiElement4 byClassNonexistentInParent =
+                UiElement4.getInstance("class nonexistent in parent", UiLocatorType4.CLASS, "h1", byTagTable);
         final UiElement4 byTagInParentNonexistent =
                 UiElement4.getInstance("tag in parent nonexistent", UiLocatorType4.TAG, "h1", byIdNonexistent);
-        final UiElement4 byTagInParent =
-                UiElement4.getInstance("tag in parent", UiLocatorType4.TAG, "p", byIdDiv);
         final UiElement4 byClassTableContainer =
                 UiElement4.getInstance("class 'table-container'", UiLocatorType4.CLASS, "table-container");
+        final UiElement4 byClassInParent =
+                UiElement4.getInstance("class in parent", UiLocatorType4.CLASS, "sub-table", byClassTableContainer);
         final UiElement4 byTagInAncestor =
                 UiElement4.getInstance("tag in ancestor", UiLocatorType4.TAG, "td", byClassTableContainer);
+        final UiElement4 byTagUl =
+                UiElement4.getInstance("'ul' tag", UiLocatorType4.TAG, "ul");
+        final UiElement4 byTagOrdinalNonexistentInAncestor =
+                UiElement4.getInstance("'li' tag", UiLocatorType4.TAG, "li", 4, byTagUl);
+        final UiElement4 byClassOrdinalInParent =
+                UiElement4.getInstance("'sub-table' class", UiLocatorType4.CLASS, "sub-table", 2, byClassTableContainer);
+        final UiElement4 byTagInParentOrdinal =
+                UiElement4.getInstance("'th' tag in ancestor by ordinal", UiLocatorType4.TAG, "th", byClassOrdinalDescendent);
+        UiElement4 byTagOrdinal =
+                UiElement4.getInstance("by 'div' tag and ordinal", UiLocatorType4.TAG, "div", 2);
+        final UiElement4 byClassOrdinalInParentOrdinal =
+                UiElement4.getInstance("class 'row-style'", UiLocatorType4.CLASS, "row-style", 3, byTagOrdinal);
         return new Object[][]
                 {
                         //  element by id
@@ -101,10 +114,15 @@ public class UiElement4StateTests {
                         , {tablesPage, byClassChildDescendent, isDisplayed}
                         //  element as descendent
                         , {basicPage, byTagNonexistentInRoot, isNotDisplayed}
-                        , {basicPage, byTagNonexistentInParent, isNotDisplayed}
+                        , {basicPage, byClassNonexistentInParent, isNotDisplayed}
                         , {basicPage, byTagInParentNonexistent, isNotDisplayed}
-                        , {idPage, byTagInParent, isDisplayed}
+                        , {tablesPage, byClassInParent, isDisplayed}
                         , {tablesPage, byTagInAncestor, isDisplayed}
+                        //  element as nth descendent of ancestor
+                        , {listPage, byTagOrdinalNonexistentInAncestor, isNotDisplayed}
+                        , {tablesPage, byClassOrdinalInParent, isDisplayed}
+                        , {tablesPage, byTagInParentOrdinal, isDisplayed}
+                        , {tablesPage, byClassOrdinalInParentOrdinal, isDisplayed}
                 };
     }
 

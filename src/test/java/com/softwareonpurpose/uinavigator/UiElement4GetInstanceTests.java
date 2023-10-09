@@ -17,7 +17,7 @@ public class UiElement4GetInstanceTests {
     }
 
     @SuppressWarnings("rawtypes")
-    @Test(enabled = false)
+    @Test
     public void getInstance_ordinal() {
         Class expected = UiElement4.class;
         String description = "'paragraph' element";
@@ -29,7 +29,7 @@ public class UiElement4GetInstanceTests {
     }
 
     @SuppressWarnings("rawtypes")
-    @Test(enabled = false)
+    @Test
     public void getInstance_parent() {
         Class expected = UiElement4.class;
         UiElement4 parent = UiElement4.getInstance("'Unordered List' element", UiLocatorType4.TAG, "ul");
@@ -38,7 +38,7 @@ public class UiElement4GetInstanceTests {
     }
 
     @SuppressWarnings("rawtypes")
-    @Test(enabled = false)
+    @Test
     public void getInstance_ordinal_parent() {
         Class expected = UiElement4.class;
         UiElement4 parent = UiElement4.getInstance("'Ordered List' element", UiLocatorType4.TAG, "ol");
