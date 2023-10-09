@@ -11,12 +11,14 @@ public class UiFrameTests {
     @DataProvider
     public static Object[][] scenarios_isDisplayed() {
         return new Object[][]{
-                {UiFrame.getInstance(), false}
+                {"basic", UiFrame.getInstance(), false}
+                , {"iframe", UiFrame.getInstance(), true}
         };
     }
 
     @Test(dataProvider = "scenarios_isDisplayed")
-    public void isDisplayed(UiFrame frame, boolean expected) {
+    public void isDisplayed(String page, UiFrame frame, boolean expected) {
+        UiHost4.getInstance().load(resources.getPageUrl(page));
         boolean actual = frame.isDisplayed();
         Assert.assertEquals(actual, expected);
     }
