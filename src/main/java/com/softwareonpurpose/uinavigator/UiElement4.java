@@ -39,6 +39,11 @@ public class UiElement4 {
         return new UiElement4(description, getElementBehavior);
     }
 
+    public static UiElement4 getFrameInstance(String description) {
+        GetWebElementBehavior getBehavior = GetFromRoot.getInstance(UiLocatorType4.TAG, "iframe");
+        return new UiElement4(description, getBehavior);
+    }
+
     private boolean isByOrdinal() {
         return getElementBehavior.isByOrdinal();
     }

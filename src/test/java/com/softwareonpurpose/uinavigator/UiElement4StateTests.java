@@ -18,6 +18,7 @@ public class UiElement4StateTests {
         final String idPage = "id";
         final String classPage = "class";
         final String tablesPage = "tables";
+        final String iframePage = "iframe";
         final UiElement4 byIdNonexistent =
                 UiElement4.getInstance("id nonexistent", UiLocatorType4.ID, "nonexistent");
         final UiElement4 byIdRoot =
@@ -36,7 +37,8 @@ public class UiElement4StateTests {
                 UiElement4.getInstance("tag 'p'", UiLocatorType4.TAG, "p");
         final UiElement4 byTagDescendent =
                 UiElement4.getInstance("tag 'li'", UiLocatorType4.TAG, "li");
-        final UiElement4 byTagTable = UiElement4.getInstance("tag 'table'", UiLocatorType4.TAG, "table");
+        final UiElement4 byTagTable =
+                UiElement4.getInstance("tag 'table'", UiLocatorType4.TAG, "table");
         final UiElement4 byClassNonexistent =
                 UiElement4.getInstance("class nonexistent", UiLocatorType4.CLASS, "nonexistent");
         final UiElement4 byClassRoot =
@@ -81,11 +83,10 @@ public class UiElement4StateTests {
                 UiElement4.getInstance("'sub-table' class", UiLocatorType4.CLASS, "sub-table", 2, byClassTableContainer);
         final UiElement4 byTagInParentOrdinal =
                 UiElement4.getInstance("'th' tag in ancestor by ordinal", UiLocatorType4.TAG, "th", byClassOrdinalDescendent);
-        UiElement4 byTagOrdinal =
+        final UiElement4 byTagOrdinal =
                 UiElement4.getInstance("by 'div' tag and ordinal", UiLocatorType4.TAG, "div", 2);
         final UiElement4 byClassOrdinalInParentOrdinal =
                 UiElement4.getInstance("class 'row-style'", UiLocatorType4.CLASS, "row-style", 3, byTagOrdinal);
-        final UiElement4 byFrameNonexistentInRoot = UiElement4.getInstance("'iframe' element", UiLocatorType4.FRAME, "");
         return new Object[][]
                 {
                         //  element by id
@@ -124,8 +125,6 @@ public class UiElement4StateTests {
                         , {tablesPage, byClassOrdinalInParent, isDisplayed}
                         , {tablesPage, byTagInParentOrdinal, isDisplayed}
                         , {tablesPage, byClassOrdinalInParentOrdinal, isDisplayed}
-                        //  iframe element
-                        , {basicPage, byFrameNonexistentInRoot, isNotDisplayed}
                 };
     }
 

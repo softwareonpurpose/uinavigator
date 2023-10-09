@@ -10,7 +10,7 @@ public class GetOrdinalFromRoot extends GetWebElementBehavior {
         super(locatorType, locatorValue, ordinal, ancestor);
     }
 
-    public static GetOrdinalFromRoot getInstance(String locatorType, String locatorValue, Integer ordinal, UiElement4 ancestor) {
+    public static GetOrdinalFromRoot  getInstance(String locatorType, String locatorValue, Integer ordinal, UiElement4 ancestor) {
         return new GetOrdinalFromRoot(locatorType, locatorValue, ordinal, ancestor);
     }
 
